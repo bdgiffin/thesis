@@ -1,0 +1,126 @@
+%\documentclass[12pt,draftcls]{ucdavisthesis}
+\documentclass[12pt]{ucdavisthesis}
+
+% PLEASE READ THE MANUAL - ucdavisthesis.pdf (in the package installation directory)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                      %
+%               LATEX COMMANDS FOR DOCUMENT SETUP                      %
+%                                                                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\usepackage{bookmark}
+\usepackage[us,nodayofweek,12hr]{datetime}
+\usepackage{graphicx}
+%\usepackage[square,comma,numbers,sort&compress]{natbib}
+%\usepackage{hypernat}
+% Other useful packages to try
+%\usepackage{amsmath}
+%\usepackage{amssymb}
+%
+% Different fonts to try (uncomment only fontenc and one font at a time)
+% (you may need to install these first)
+%\usepackage[T1]{fontenc} %enable fontenc package if using one of the fonts below
+%\usepackage[adobe-utopia]{mathdesign}
+%\usepackage{tgschola}
+%\usepackage{tgbonum}
+%\usepackage{tgpagella}
+%\usepackage{tgtermes}
+%\usepackage{fourier}
+%\usepackage{fouriernc}
+%\usepackage{kmath,kerkis}
+%\usepackage{kpfonts}
+%\usepackage[urw-garamond]{mathdesign}
+%\usepackage[bitstream-charter]{mathdesign}
+%\usepackage[sc]{mathpazo}
+%\usepackage{mathptmx}
+%\usepackage[varg]{txfonts}
+
+\hyphenation{dis-ser-ta-tion blue-print man-u-script pre-par-ing} %add hyphenation rules for words TeX doesn't know
+
+
+%\renewcommand{\rightmark}{\scriptsize A University of California Davis\ldots \hfill Rev.~\#1.0 \quad Compiled: \currenttime, \today}
+% a fancier running header that can be used with draftcls options
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                      %
+%        DOCUMENT SETUP AND INFORMATION FOR PRELIMINARY PAGES          %
+%                                                                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title          {Thesis\\
+                 Title}
+%Exact title of your thesis. Indicate italics where necessary by underlining or using italics. Please capitalize the first letter of each word that would normally be capitalized in a title.
+
+\author         {Brian Doran Giffin}
+%Your full name as it appears on University records. Do not use initials.
+
+\authordegrees  {B.S. (University of California, Davis) 2013 \\
+                 M.S. (University of California, Davis) 2014}
+%Indicate your previous degrees conferred.
+
+\officialmajor  {\textsc{Civil and Environmental Engineering}}
+%This is your official major as it appears on your University records.
+
+\graduateprogram{Civil and Environmental Engineering}
+%This is your official graduate program name. Used for UMI abstract.
+
+\degreeyear     {2017}
+% Indicate the year in which your degree will be officially conferred.
+
+\degreemonth    {December}
+% Indicate the month in which your degree will be officially conferred. Used for UMI abstract.
+
+\committee{\textsc{Mark M. Rashid, Chair}}{\textsc{N. Sukumar}}{\textsc{Boris Jeremi\'{c}}}{}{}
+% These are your committee members. The command accepts up to five committee members so be sure to have five sets of braces, even if there are empties.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\copyrightyear{2020}
+%\nocopyright
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\dedication{\textsl{To someone very important \ldots \\
+            a nice dedication.}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\abstract{The abstract submitted as part of your dissertation, in the introductory pages, does not have a word limit. It should follow the same format as the rest of your dissertation (1.5 inch left margin, double-spaced, consecutive page numbering, etc.).}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\acknowledgments{Acknowledgements to those who helped you get to this point. They should be listed by chapter when appropriate.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Each chapter can be in its own file for easier editing and brought in with the \include command.
+% Then use the \includeonly command to speed compilation when working on a particular chapter.
+%%% \includeonly{ucdavisthesis_example_Chap1}
+
+\begin{document}
+
+\newcommand{\bibfont}{\singlespacing}
+% need this command to keep single spacing in the bibliography when using natbib
+
+\bibliographystyle{plain}
+%many other bibliography styles are available (IEEEtran, mla, etc.). Use one appropriate for your field.
+
+\makeintropages %Processes/produces the preliminary pages
+
+\include{thesis_Chap1}
+\include{thesis_Chap2}
+\include{thesis_Chap3}
+
+\bibliography{thesis_bibliography}
+
+% The UMI abstract uses square brackets!
+\UMIabstract[The abstract that is submitted to UMI must be formatted as shown in the example here. The body of the abstract cannot exceed 350 words. It should be in typewritten form, double-spaced, and on bond paper. It is important to write an abstract that gives a clear description of the content and major divisions of the dissertation, since UMI will publish the abstract exactly as submitted. Students completing their requirements under Plan A should provide extra copies of the typed summary for use by the dissertation committee during the examination.
+
+The abstract that is submitted to UMI must be formatted as shown in the example here. The body of the abstract cannot exceed 350 words. It should be in typewritten form, double-spaced, and on bond paper. It is important to write an abstract that gives a clear description of the content and major divisions of the dissertation, since UMI will publish the abstract exactly as submitted. Students completing their requirements under Plan A should provide extra copies of the typed summary for use by the dissertation committee during the examination.
+
+The abstract that is submitted to UMI must be formatted as shown in the example here. The body of the abstract cannot exceed 350 words. It should be in typewritten form, double-spaced, and on bond paper. It is important to write an abstract that gives a clear description of the content and major divisions of the dissertation, since UMI will publish the abstract exactly as submitted. Students completing their requirements under Plan A should provide extra copies of the typed summary for use by the dissertation committee during the examination.
+
+The abstract that is submitted to UMI must be formatted as shown in the example here. The body of the abstract cannot exceed 350 words. It should be in typewritten form, double-spaced, and on bond paper. It is important to write an abstract that gives a clear description of the content and major divisions of the dissertation, since UMI will publish the abstract exactly as submitted. Students completing their requirements under Plan A should provide extra copies of the typed summary for use by the dissertation committee during the examination.]
+
+\end{document} 
