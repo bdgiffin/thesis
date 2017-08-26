@@ -1,12 +1,14 @@
 \chapter{Introduction}
 %
+(An introductory description of the problem that is being addressed, which the presented research intends to resolve. The problem need not be described in explicit detail (i.e. we need not explain the mathematical aspects of solid mechanics in its totality), but it should address the locking problem to a sufficient extent, making it clear to the reader what the fundamental problem is, and why it is so difficult to address. Do not repeat the abstract; rather, build upon what was already said, but in more explicit terms.)
+%
 For every physical model, there exist discrepancies to be found with it; in the infamous words of Box: ``All models are wrong...but some are useful,'' a statement which certainly holds true in the context of modern computational solid mechanics. The field has evolved substantially since its early beginnings in the 1950s, developing into a mature area of research which encompasses more traditional engineering practices, as well as aspects of data and computer science, along with newly developed areas of mathematics.
 
 Today, the early techniques have been extended for applications in modeling complex physical processes and engineered systems, but as a consequence, there has been a proliferation of different modeling techniques to accomodate these particular applications. To a large extent, these developments have succeeded in solving a few very specific problems relevant to the engineering community, but the accompanying explosion in model complexity has placed an undue burden upon traditional analysts, who are unhappily faced with the prospect of first: selecting a modeling method from the vast number that currently exist, and second: negotiating the many nuances and difficulties inherrent to the chosen methodology.
 
 But despite the many recent advancements in techniques for modeling difficult problems such as contact, pervasive fracture, fluid-structure interaction, and so forth, seemingly limited progress has been made in the arenas of model discretization, and ``robustness'' in the face of arbitrary discretizations. These issues account for much of the disuse and distrust of more complex numerical models by the engineering community at large, for two primary reasons: model generation is stymied by rather severe restrictions on the discretization approaches in common usage, owing to the fact that the accuracy of the associated numerical models depends strongly upon the ``quality'' of the resulting discretization. In other words, model accuracy is too often the product of the chosen discretization.
 
-This fact was identified fairly early on in the development of the traditional finite element method, giving rise to the notion of ``locking'' as a general phenomenon which is characterized by a loss of solution accuracy and/or convergence for some limiting value of a problem parameter. One of the most commonly discussed and addressed forms of locking in computational solid mechanics is the issue of ``volumetric locking,'' wherein a model attempting to represent a nearly incompressible material will suffer a from marked loss of accuracy. For an elastic material model, the parameter dependency in question relates to the Poisson's ratio. Other forms of locking may include ``shear locking,'' ``membrane locking,'' or ``trapezoidal locking,'' nearly all of which are a consequence of a poor choice of model discretization, particularly with regard to relatively thin beam- or plate-like geometries.
+This fact was identified fairly early on in the development of the traditional finite element method, giving rise to the notion of ``locking'' as a general phenomenon which is characterized by a loss of solution accuracy and/or convergence for some limiting value of a problem parameter. One of the most commonly discussed and addressed forms of locking in computational solid mechanics is the issue of ``volumetric locking,'' wherein a model attempting to represent a nearly incompressible material will suffer from a marked loss of accuracy. For an elastic material model, the parameter dependency in question relates to the Poisson's ratio. Other forms of locking may include ``shear locking,'' ``membrane locking,'' or ``trapezoidal locking,'' nearly all of which are a consequence of a poor choice of model discretization, particularly with regard to relatively thin beam- or plate-like geometries.
 
 In response to these problems, various approaches were proposed as a means of handling different forms of locking, but they were altogether encumbered by still severe restrictions on element geometry. Consequently, traditional beam and shell element models are still commonly used by analysts in an effort to avoid these issues, though even structural elements are not immune to the effects of locking, and suffer from a host of their own (albeit related) problems.
 
@@ -14,11 +16,26 @@ Over the past few decades, there has been somewhat slow progress in the pursuit 
 
 As a consequence, Discontinuous Galerkin methods have attracted the attention of researchers in the field of numerical methods development for this very reason. However, the DG approaches have not overcome the canonical FEM and related methodologies for a number of reasons. One commonly cited reason relates to the fact that DG methods can become sensitive to the selection of certain penalty parameters used to weakly enforce inter-element continuity and boundary conditions, thereby imposing a rather arbitrary choice upon engineering analysts.
 
-A survey of various approaches and methods to combat the inherrent issue of locking, told in chronological order.
+\section{Mathematical Characterization of Solution Accuracy and Robustness}
 
-\section{Historical Perspectives}
+\section{An Assessment of Various Approximation Methods}
+%
+A detailed discussion of various approximation schemes in common usage, and an evaluation of their performance in the context of non-linear solid mechanics.
+\subsection{Continuous Galerkin Methods and the FEM}
+\subsubsection{Structural Finite Elements}
 
-\section{Discretizations}
+\subsection{Discontinuous Galerkin Methods}
+
+\subsection{Mesh Free Methods}
+
+\subsection{Isogeometric Methods}
+
+\subsection{Polytopal Element Methods}
+\subsubsection{The Weak Galerkin Method}
+\subsubsection{The Virtual Element Method}
+\subsubsection{The Partitioned Element Method}
+
+\section{Recent Advances in Domain Discretization}
 %
 An overview of various approaches to the problem of discretizing a solid domain for the purposes of obtaining a computational mesh amenable to a particular approximation scheme.
 \subsection{Discretizations Using Regular Shapes}
@@ -27,18 +44,10 @@ An overview of various approaches to the problem of discretizing a solid domain 
 \subsubsection{Voronoi Diagrams}
 \subsubsection{Cut Cell Methods}
 
-\subsection{Mesh Quality Metrics}
+\subsection{Assessments of Mesh Quality}
 
-\section{Approximation Schemes}
-%
-A detailed discussion of various approximation schemes in common usage, and an evaluation of their performance in the context of non-linear solid mechanics.
-\subsection{Continuous Galerkin Methods}
-\subsubsection{Structural Finite Elements}
+\section{The Proposed Polytopal Element Framework}
 
-\subsection{Discontinuous Galerkin Methods}
+(Explain the scope of your work, how this serves as a novel and innovative contribution that addresses the problem, what will and will not be addressed by this approach, and where the introductory material ("old stuff") ends and your contribution ("new stuff") begins.)
 
-\subsection{Mesh Free Methods}
-
-\subsection{Weak Galerkin Method}
-
-\subsection{Virtual Element Method}
+(Provide a coarse outline, guiding the reader to what lies ahead.)
