@@ -2,11 +2,80 @@
 %
 Justify a methodology that suitably addresses all of the issues discussed herein. A method which could solve all of these problems effectively likely does not exist, but may be ideal for a particular application.
 
-Stipulate the essential requirements for that an approximation method must satisfy, setting up the subsequent discussion 
+Stipulate the essential requirements for that an approximation method must satisfy, setting up the subsequent discussion
 
-\section{Strong Formulation of the Solid Mechanics Model Boundary Value Problem}
+\section{The Lagrangian Description of Motion}
 
-\section{The Equivalent Weak (Variational) Formulation of the BVP}
+Consider a body $\mathcal{B}$ consisting of a set of material points whose positions in some reference configuration at time $t = 0$ are denoted by $\mathbf{X} \in \mathbb{R}^d$. The motion of individual material points in the body will yield new spatial positions $\mathbf{x}$ at time $t > 0$ defined by the bijection $\mathcal{X} \colon \mathbf{X} \mapsto \mathbf{x}$, i.e.
+\begin{equation}
+  \mathbf{x} = \mathcal{X} (\mathbf{X}, t).
+\end{equation}
+The displacement $\mathbf{u}$ of a given material point may be expressed as $\mathbf{u} = \mathbf{x} - \mathbf{X}$, and it's corresponding velocity may be written $\mathbf{v} = \dot{\mathbf{x}}$.
+
+At a given time $t$, the Jacobian of the deformation mapping $\mathcal{X}$ yields the deformation gradient $\mathbf{F}$ (a rank-2 tensor), defined as
+\begin{equation}
+  \mathbf{F} = \frac{\partial \mathbf{x}}{\partial \mathbf{X}} = \mathbf{1} + \nabla_X \mathbf{u},
+\end{equation}
+where $\nabla_X$ denotes the gradient with respect to $\mathbf{X}$. The deformation gradient may be used to map differential line segments $d \mathbf{X}$, surface areas $d \mathbf{A}$, and volumes $d V$ defined in the reference configuration into their corresponding transformed quantities ($d \mathbf{x}$, $d \mathbf{a}$, $dv$) defined in the current configuration at time $t$:
+\begin{equation}
+  d \mathbf{x} = \mathbf{F} \cdot d \mathbf{X}
+\end{equation}
+\begin{equation}
+  d \mathbf{a} = J \mathbf{F}^{-T} \cdot d \mathbf{A}
+\end{equation}
+\begin{equation}
+  d v = J d V
+\end{equation}
+where $J \equiv \det{\mathbf{F}}$.
+
+In a similar fashion, the spatial velocity gradient $\mathbf{L} = \nabla_x \mathbf{v}$ (where $\nabla_x$ denotes the gradient with respect to $\mathbf{x}$) may be expressed as
+\begin{equation}
+  \mathbf{L} = \frac{\partial \mathbf{v}}{\partial \mathbf{x}} = \frac{\partial \dot{\mathbf{x}}}{\partial \mathbf{X}} \frac{\partial \dot{\mathbf{X}}}{\partial \mathbf{x}} = \dot{\mathbf{F}} \mathbf{F}^{-1},
+\end{equation}
+which may be further decomposed into a symmetric part $\mathbf{D}$ (the rate of deformation tensor),
+\begin{equation}
+  \mathbf{D} = \frac{1}{2} (\mathbf{L} + \mathbf{L}^T),
+\end{equation}
+and an anti-symmetric part $\mathbf{W}$ (the spin tensor),
+\begin{equation}
+  \mathbf{W} = \frac{1}{2} (\mathbf{L} - \mathbf{L}^T).
+\end{equation}
+
+
+\section{Strong Formulation of the Model Solid Mechanics Boundary Value Problem}
+
+The study of solid mechanics principally deals with the conservation of linear and angular momentum, such that a given body with appropriately defined boundary conditions is rendered to be in force equilibrium. A fundamental assertion to that end is that for a given body $\mathcal{B}$ in equilibrium, any open subset $\Omega \subset \mathcal{B}$ is likewise in equilibrium, such that the net force which acts upon $\Omega$ is equal to zero (according to Newton's first law), i.e.
+\begin{equation}
+  \int_{\Omega} \rho (\mathbf{b} - \dot{\mathbf{v}}) \, dv + \int_{\partial \Omega} \mathbf{t} \, da = \mathbf{0} \quad \forall \Omega \subset \mathcal{B},
+\end{equation}
+where $\rho$ is the specific mass density of the matertial, $\mathbf{b}$ is an applied body force per unit of mass, $\dot{\mathbf{v}}$ is the linear acceleration field (a function of position, $\mathbf{x}$), and $\mathbf{t}$ is the traction vector (force per unit of area) which acts on $\partial \Omega$. Via the Cauchy tetrahedron argument, it is possible to express the traction vector $\mathbf{t} (\mathbf{n})$ as a linear function of the surface normal $\mathbf{n}$ upon which the traction acts:
+\begin{equation}
+  \mathbf{t} = \mathbf{n} \cdot \mathbf{T},
+\end{equation}
+where $\mathbf{T}$ is referred to as the Cauchy stress tensor. Invoking the divergence theorem, we may utilize the above relation to convert the traction boundary integral into a volume integral over $\Omega$:
+\begin{equation}
+  \int_{\partial \Omega} \mathbf{t} \, da = \int_{\partial \Omega} \mathbf{n} \cdot \mathbf{T} \, da = \int_{\Omega} \nabla \cdot \mathbf{T} \, dv,
+\end{equation}
+which yields
+\begin{equation}
+  \int_{\Omega} \left[ \rho (\mathbf{b} - \dot{\mathbf{v}}) + \nabla \cdot \mathbf{T} \right] \, dv = \mathbf{0} \quad \forall \Omega \subset \mathcal{B}.
+\end{equation}
+Since we have imposed no limitations on the choice of subset $\Omega$, we may invoke the localization theorem to determine a point-wise statement of equilibrium in the body $\mathcal{B}$:
+\begin{equation}
+  \rho (\mathbf{b} - \dot{\mathbf{v}}) + \nabla \cdot \mathbf{T} = \mathbf{0} \quad \forall \mathbf{x} \in \mathcal{B}.
+\end{equation}
+Formulating an expression for the conservation of angular momentum and following a similar procedure, we obtain an additional point-wise requirement:
+\begin{equation}
+  \mathbf{T} = \mathbf{T}^T \quad \forall \mathbf{x} \in \mathcal{B}.
+\end{equation}
+
+For the model problem in question, the body itself is assumed to satisfy compatibility, such that the displacement field $\mathbf{u}$ is a $C^0$ continuous field (i.e. the topology of the body is fixed). The evolution of the stress field shall be related to the motion of the body, such that:
+\begin{equation}
+  \accentset{\circ}{\mathbf{T}} = f (\mathbf{T}, \mathbf{D}, q_*),
+\end{equation}
+where $\mathbf{D}$ specifies the rate of deformation of a given material point, $q_*$ comprise a set of material state variables which fully define the current state of the material, and $\accentset{\circ}{\mathbf{T}}$ denotes an appropriately defined corotational rate of the Cauchy stress (e.g. the Jaumann rate of stress).
+
+\section{The Equivalent Weak (Variational) Formulation of the Model BVP}
 
 \section{Galerkin Approximations to the Weak Form}
 \subsection{Symmetric (Bubnov-) Galerkin Methods}
