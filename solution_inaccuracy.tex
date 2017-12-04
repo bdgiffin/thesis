@@ -18,9 +18,175 @@
 \subsubsection{Selective $p$-Refinement}
 
 \subsection{Strain Projection Methods}
-\subsubsection{Selective/Reduced Integration}
-\subsubsection{B-Bar Method for Linear Problems}
-\subsubsection{F-Bar Method for Nonlinear Kinematics}
+\subsubsection{Selective Reduced Integration}
+\subsubsection{The B-Bar Method for Linear Problems}
+
+Consider a displacement interpolant on an element with $N$ nodes:
+\begin{equation}
+  u_i (\mathbf{x}) = \sum_{a = 1}^N \varphi_a (\mathbf{x}) u_{ai},
+\end{equation}
+\begin{equation}
+  u_{i,j} (\mathbf{x}) = \sum_{a = 1}^N \varphi_{a,j} (\mathbf{x}) u_{ai}.
+\end{equation}
+In the context of small deformations, we may write the linearized strain tensor $\boldsymbol{\varepsilon}$ as
+\begin{equation}
+  \varepsilon_{ij} (\mathbf{x}) = \frac{1}{2} (u_{i,j} + u_{j,i}) = \sum_{a = 1}^N \frac{1}{2} (\varphi_{a,j} \delta_{ik} + \varphi_{a,i} \delta_{jk}) u_{ak} = \sum_{a = 1}^N B_{ijak} u_{ak},
+\end{equation}
+and the trace -- or dilatation, $\epsilon$ -- of the small strain tensor as
+\begin{equation}
+  \epsilon (\mathbf{x}) = \frac{1}{3} \varepsilon_{ii} = \sum_{a = 1}^N \frac{1}{3} (\varphi_{a,i} \delta_{ik}) u_{ak} = \sum_{a = 1}^N B^\epsilon_{ak} u_{ak}.
+\end{equation}
+The deviatoric part of the strain $\mathbf{e}$ is then
+\begin{equation}
+  e_{ij} = \varepsilon_{ij} - \epsilon \delta_{ij} = \sum_{a = 1}^N \frac{1}{6} \left[ 3(\varphi_{a,j} \delta_{ik} + \varphi_{a,i} \delta_{jk}) - 2 \delta_{ij} (\varphi_{a,l} \delta_{lk}) \right] u_{ak} = \sum_{a = 1}^N B^e_{ijak} u_{ak},
+\end{equation}
+and we may consider an additive decomposition of the strain into volumetric and deviatoric parts:
+\begin{equation}
+  \varepsilon_{ij} = e_{ij} + \epsilon \delta_{ij} = \sum_{a = 1}^N \left[ B^e_{ijak} + B^\epsilon_{ak} \delta_{ij} \right] u_{ak}.
+\end{equation}
+
+The B-bar approach essentially considers a projection of the volumetric strain operator $B^\epsilon_{ak} (\mathbf{x})$ onto a carefully selected sub-space $S$ of functions defined over the element. In general, this sub-space is spanned by an orthonormal basis $\left\{ \xi_k \right\}_{k = 1}^{M}$ with respect to the norm induced by the $L^2 (\Omega_e)$ inner-product, i.e.
+\begin{equation}
+  || \xi_k ||_{\Omega_e} = \sqrt{\langle \xi_k, \xi_k \rangle_{\Omega_e}} = \left[ \int_{\Omega_e} \xi_k \cdot \xi_k \, d \Omega \right]^{1/2} = 1 \quad \forall k,
+\end{equation}
+and $\langle \xi_k, \xi_l \rangle_{\Omega_e} = 0 \, \forall k \neq l$. The $L^2$ projection of an arbitrary field $\epsilon (\mathbf{x})$ onto the chosen sub-space $S$ is obtained via
+\begin{equation}
+  \bar{\epsilon} (\mathbf{x}) = \sum_{k=1}^{M} \langle \epsilon, \xi_k \rangle_{\Omega_e} \xi_k (\mathbf{x}),
+\end{equation}
+and if numerical quadrature is utilized, then
+\begin{equation}
+  \langle f, g \rangle_{\Omega_e} \approx \langle f, g \rangle^q_{\Omega_e} = \sum_{q=1}^{P} w_q f (\mathbf{x}_q) \cdot g (\mathbf{x}_q),
+\end{equation}
+\begin{equation}
+  \bar{\epsilon} (\mathbf{x}) = \sum_{k=1}^{M} \langle \epsilon, \xi_k \rangle^q_{\Omega_e} \xi_k (\mathbf{x}).
+\end{equation}
+Consequently, we may consider a projection of the operator $B^\epsilon_{ak} (\mathbf{x})$ onto $S$, resulting in
+\begin{equation}
+  \bar{B}^\epsilon_{ak} (\mathbf{x}) = \sum_{k=1}^{M} \langle B^\epsilon_{ak}, \xi_k \rangle^q_{\Omega_e} \xi_k (\mathbf{x}),
+\end{equation}
+which is ultimately used in the final B-bar expression for the projected strain $\tilde{\boldsymbol{\varepsilon}}$:
+\begin{equation}
+  \tilde{\varepsilon}_{ij} (\mathbf{x}) = e_{ij} + \bar{\epsilon} \delta_{ij} = \sum_{a = 1}^N \left[ B^e_{ijak} + \bar{B}^\epsilon_{ak} \delta_{ij} \right] u_{ak} = \sum_{a = 1}^N \tilde{B}_{ijak} u_{ak}.
+\end{equation}
+
+The modified strain-displacement operator $\tilde{B}_{ijak}$ may be computed and stored ahead of time, if so desired. Moreover, if we now suppose that the strain field has been replaced by $\tilde{\boldsymbol{\varepsilon}} = \frac{1}{2} (\tilde{\nabla} \mathbf{u} + (\tilde{\nabla} \mathbf{u})^T)$ which arises from a modified gradient operator $\tilde{\nabla}$, then we may additionally define a correspondingly modified divergence operator $\tilde{\nabla} \cdot$, such that the resulting (symmetric) element stiffness matrix $K_{aibj}$ may be written
+\begin{equation}
+  K_{aibj} = \int_{\Omega_e} \tilde{B}_{mnai} C_{mnpq} \tilde{B}_{pqbj} \, d \Omega,
+\end{equation}
+where $C_{mnpq}$ is the rank-4 modulus tensor of linear elasticity.
+
+The question now turns to whether there exists an interpolating basis $\left\{ \varphi_a \right\}_{a=1}^N$ whose gradients $\nabla \varphi_a$ yield the modified strain-displacement operator $\tilde{B}_{ijak}$ directly. The answer is a most definitive no, as easily seen by the sparsity of $B_{ijak}$:
+\begin{equation}
+  \left\{ \begin{array}{c} \varepsilon_{11} \\ \varepsilon_{22} \\ \varepsilon_{33} \\ \varepsilon_{23} \\ \varepsilon_{13} \\ \varepsilon_{12} \end{array} \right\} = \sum_{a = 1}^{N} \left[ \begin{array}{ccc} B_{11a1} & 0 & 0 \\ 0 & B_{22a2} & 0 \\ 0 & 0 & B_{33a3} \\ 0 & B_{23a2} & B_{23a3} \\ B_{13a1} & 0 & B_{13a3} \\ B_{12a1} & B_{12a2} & 0 \end{array} \right] \left\{ \begin{array}{c} u_{a1} \\ u_{a2} \\ u_{a3} \end{array} \right\},
+\end{equation}
+as compared to $\tilde{B}_{ijak}$:
+\begin{equation}
+  \left\{ \begin{array}{c} \tilde{\varepsilon}_{11} \\ \tilde{\varepsilon}_{22} \\ \tilde{\varepsilon}_{33} \\ \tilde{\varepsilon}_{23} \\ \tilde{\varepsilon}_{13} \\ \tilde{\varepsilon}_{12} \end{array} \right\} = \sum_{a = 1}^{N} \left[ \begin{array}{ccc} \tilde{B}_{11a1} & \tilde{B}_{11a2} & \tilde{B}_{11a3} \\ \tilde{B}_{22a1} & \tilde{B}_{22a2} & \tilde{B}_{22a3} \\ \tilde{B}_{33a1} & \tilde{B}_{33a2} & \tilde{B}_{33a3} \\ 0 & \tilde{B}_{23a2} & \tilde{B}_{23a3} \\ \tilde{B}_{13a1} & 0 & \tilde{B}_{13a3} \\ \tilde{B}_{12a1} & \tilde{B}_{12a2} & 0 \end{array} \right] \left\{ \begin{array}{c} u_{a1} \\ u_{a2} \\ u_{a3} \end{array} \right\}.
+\end{equation}
+The only way that this would be possible is if a collection of enhanced strain functions $\left\{ G_{\alpha ij} \right\}_{\alpha = 1}^A$ were introduced:
+\begin{equation}
+  \tilde{u}_{i,j} (\mathbf{x}) = \sum_{a = 1}^N \varphi_{a,j} (\mathbf{x}) u_{ai} + \sum_{\alpha=1}^A G_{\alpha ij} d_{\alpha},
+\end{equation}
+\begin{equation}
+  \tilde{\varepsilon}_{ij} (\mathbf{x}) = \sum_{a = 1}^N B_{ijak} u_{ak} + \sum_{\alpha=1}^A G^s_{\alpha ij} d_{\alpha},
+\end{equation}
+where the unknown parameters $d_{\alpha}$ are selected to minimize the strain functional:
+\begin{equation}
+  \min_{d_{\alpha}} E,
+\end{equation}
+\begin{equation}
+  E = \frac{1}{2} || \tilde{\boldsymbol{\varepsilon}} ||^2_{\Omega_e} = \frac{1}{2} \int_{\Omega_e} \tilde{\boldsymbol{\varepsilon}} \colon \tilde{\boldsymbol{\varepsilon}} \, d \Omega.
+\end{equation}
+Consequently,
+\begin{equation}
+  \frac{\partial E}{\partial d_{\beta}} = \langle \tilde{\boldsymbol{\varepsilon}}, \frac{\partial \tilde{\boldsymbol{\varepsilon}}}{\partial d_{\beta}} \rangle_{\Omega_e} = \langle \tilde{\boldsymbol{\varepsilon}}, \mathbf{G}^s_{\beta} \rangle_{\Omega_e} = 0 \quad \forall \beta,
+\end{equation}
+yielding the system of equations:
+\begin{equation}
+  \sum_{\alpha=1}^A \langle \mathbf{G}^s_{\alpha}, \mathbf{G}^s_{\beta} \rangle_{\Omega_e} d_{\alpha} = - \sum_{a = 1}^N \langle \mathbf{B}_{ak}, \mathbf{G}^s_{\beta} \rangle_{\Omega_e} u_{ak} \quad \forall \beta.
+\end{equation}
+If we were judicious in selecting a set of orthonormal enhancement functions such that $\langle \mathbf{G}^s_{\alpha}, \mathbf{G}^s_{\beta} \rangle_{\Omega_e} = \delta_{\alpha \beta}$, then we may express the enhanced strain field only in terms of the nodal displacements:
+\begin{equation}
+  \tilde{\varepsilon}_{ij} (\mathbf{x}) = \sum_{a = 1}^N \left[ B_{ijak} - \sum_{\alpha=1}^A \langle \mathbf{B}_{ak}, \mathbf{G}^s_{\alpha} \rangle_{\Omega_e} G^s_{\alpha ij} \right] u_{ak}.
+\end{equation}
+
+It is not difficult to see that this approach is identical in nature to the strain projection method presented earlier (specifically, if the enhancement functions are chosen such that $G_{\alpha ij} = \frac{1}{\sqrt{3}} \delta_{ij} \eta_{\alpha}$). In this case, the sub-space $S = \left\{ \xi_k \right\}_{k=1}^M$ onto which the strains are projected is defined through the complementary sub-space $\left\{ \eta_{\alpha} \right\}_{\alpha = 1}^A$.
+
+\subsubsection{The F-Bar Method for Nonlinear Kinematics}
+
+In likeness to the B-bar method for linear problems, the F-bar approach may be thought of as an extension of the method to non-linear problems involving finite deformations. Rather than strain, however, the primary quantity of interest is the deformation gradient $\mathbf{F}$, which must be appropriately modified so as to yield (in most applications) constant Jacobian $J = \det (\mathbf{F})$ throughout the element.
+
+Proceeding along these lines, we may consider a multiplicative decomposition of the deformation gradient:
+\begin{equation}
+  F_{ij} (\mathbf{x}) = \delta_{ij} + u_{i,j} = \delta_{ij} + \sum_{a=1}^N \varphi_{a,j} u_{ai} = J H_{ij}
+\end{equation}
+where $J = \det (\mathbf{F})$, and
+\begin{equation}
+  H_{ij} (\mathbf{x}) = J^{-1} F_{ij}.
+\end{equation}
+Ultimately, we seek an expression for the enhanced deformation gradient $\tilde{\mathbf{F}}$ of the form
+\begin{equation}
+  \tilde{\mathbf{F}} (\mathbf{x}) = \bar{J} \mathbf{H},
+\end{equation}
+with $\bar{J}$ denoting the projection of the Jacobian onto a carefully selected subspace $S$ spanned by the orthonormal basis $\left\{ \xi_k \right\}_{k = 1}^M$, such that
+\begin{equation}
+  \bar{J} (\mathbf{x}) = \sum_{k=1}^M \langle J, \xi_k \rangle_{\Omega_e} \xi_k (\mathbf{x}).
+\end{equation}
+The final expression for the modified $\tilde{\mathbf{F}}$ is
+\begin{equation}
+  \tilde{\mathbf{F}} (\mathbf{x}) = \sum_{k=1}^M \langle J, \xi_k \rangle_{\Omega_e} \xi_k \mathbf{H}.
+\end{equation}
+
+In analog to the B-bar approach, we may also alternatively consider the inclusion of a number of enhancement functions $\left\{ G_{\alpha ij} \right\}_{\alpha = 1}^A$, such that
+\begin{equation}
+  \bar{F}_{ij} (\mathbf{x}) = \exp \bigg( \sum_{\alpha = 1}^A G_{\alpha ij} d_{\alpha} \bigg),
+\end{equation}
+which subsequently yields the enhanced deformation gradient:
+\begin{equation}
+  \tilde{F}_{ij} (\mathbf{x}) = \bar{F}_{ik} F_{kj}.
+\end{equation}
+If we constrain the enhancement functions to lie only within the sub-space of spherical tensors, i.e. $G_{\alpha ij} = \delta_{ij} \eta_{\alpha} \, \forall \alpha$, then we observe that $\mathbf{F}$ and $\bar{\mathbf{F}}$ commute, and we may write
+\begin{equation}
+  \bar{J} (\mathbf{x}) = \exp \bigg( 3 \sum_{\alpha = 1}^A \eta_{\alpha} d_{\alpha} \bigg),
+\end{equation}
+\begin{equation}
+  \tilde{F}_{ij} (\mathbf{x}) = \sqrt[3]{\bar{J}} F_{ij}.
+\end{equation}
+Our goal now is to minimize $E$ with respect to $d_\alpha$, where
+\begin{equation}
+  E = \frac{1}{2} || \log \tilde{\mathbf{V}} ||^2_{\Omega_e} = \frac{1}{2} || \log \tilde{\mathbf{U}} ||^2_{\Omega_e} = \frac{1}{2} \int_{\Omega_e} \log \tilde{\mathbf{U}} \colon \log \tilde{\mathbf{U}} \, d \Omega,
+\end{equation}
+and
+\begin{equation}
+  \log \tilde{\mathbf{U}} = \frac{1}{2} \log \tilde{\mathbf{F}}^T \tilde{\mathbf{F}} = \left[ \sum_{\alpha = 1}^A \eta_{\alpha} d_{\alpha} \right] \mathbf{I} + \log \mathbf{U}.
+\end{equation}
+Consequently,
+\begin{equation}
+  \frac{\partial E}{\partial d_{\beta}} = \langle \log \tilde{\mathbf{U}}, \frac{\partial \log \tilde{\mathbf{U}}}{\partial d_{\beta}} \rangle_{\Omega_e} = \langle \log \tilde{\mathbf{U}}, \mathbf{I} \eta_{\beta} \rangle_{\Omega_e} = 0 \quad \forall \beta,
+\end{equation}
+yielding the system of equations:
+\begin{equation}
+  \sum_{\alpha=1}^A \langle \eta_{\alpha}, \eta_{\beta} \rangle_{\Omega_e} d_{\alpha} = - \langle \text{tr} (\log \mathbf{U}), \eta_{\beta} \rangle_{\Omega_e} \quad \forall \beta.
+\end{equation}
+Once again, if we are judicious in selecting a set of orthonormal enhancement functions such that $\langle \eta_{\alpha}, \eta_{\beta} \rangle_{\Omega_e} = \delta_{\alpha \beta}$, then we may express the enhanced deformation gradient (implicitly) in terms of the nodal displacements:
+\begin{equation}
+  \tilde{\mathbf{F}} (\mathbf{x}) = \exp \bigg( - \sum_{\alpha = 1}^A \langle \text{tr} (\log \mathbf{U}), \eta_{\alpha} \rangle_{\Omega_e} \eta_{\alpha} \bigg) \mathbf{F} = \sum_{\alpha = 1}^A \langle J^{-1}, e^{\eta_{\alpha}} \rangle_{\Omega_e} e^{\eta_{\alpha}} \mathbf{F}.
+\end{equation}
+
+Recall that the sub-space spanned by the enhancement functions $\left\{ \eta_{\alpha} \right\}_{\alpha = 1}^A$ is complementary to the sub-space $S = \left\{ \xi_k \right\}_{k = 1}^M$ onto which the Jacobian will ultimately be projected. In some cases, it may prove to be more convenient/effective to work in terms of the sub-space $S$. For example, if our goal is to constrain $J$ to remain constant over the element, then we should specify $S$ such that it contains a single basis function which defines a constant variation of $J$ throughout the element.
+
+In other situations, it may be relevant to try to construct an ``optimal'' set of enhancement functions which preserve crucial variations in $J$, but which otherwise attempt to address spurious variations which contribute to locking. Such enhancements may be obtained via the construction of so-called ``bubble'' functions, satisfying certain continuity and smoothness requirements, but which are otherwise selected on the basis of minimizing some measure of the ``average'' volumetric dilatation. In words: from among all possible enhancement functions (which are not strictly orthogonal to the original approximation space), we should like to find the augmenting function which optimally minimizes the stored dilatational energy in the material, i.e.
+\begin{equation}
+  \min_{|| \eta ||_{\Omega_e} = 1} || \text{tr} (\log \tilde{\mathbf{U}}) ||_{\Omega_e}
+\end{equation}
+The key here is that the space of suitable enhancement functions must be strictly orthogonal to certain sub-spaces whose properties must be preserved, i.e. any sub-spaces in which (polynomial) completeness is necessary. Otherwise, the enhancement functions should be designed to minimize the above objective over the range of all possible $\mathbf{U}$'s, taken together with a competing objective: minimize the difference between the enhancement function and the existing space of interpolants.
+
+Suppose that $U$ denotes the vector space of functions which span all possible variations in $\log J$ over an element $\Omega_e$. A useful relation arises in considering an alternative representation for $\log J$ when one invokes the definition of the matrix logarithm:
+\begin{equation}
+  \log J = \log (\det (\mathbf{F})) = \log (\det (\mathbf{U})) = \frac{1}{2} \text{tr} (\log (\mathbf{C})) = \frac{1}{2} \text{tr} (\log (\mathbf{F}^T \mathbf{F}))
+\end{equation}
+
+Given some $\mathbf{D}$ and $\mathbf{W}$, it is possible to construct a corresponding stretch $\mathbf{U} = \exp (\mathbf{D})$ and rotation $\mathbf{R} = \exp (\mathbf{W})$ which together may be composed to form $\mathbf{F} = \mathbf{R} \mathbf{U} = \exp (\mathbf{W} \mathbf{D})$
 
 \subsection{Ad Hoc Stabilization Techniques}
 \subsubsection{Hourglass Control}

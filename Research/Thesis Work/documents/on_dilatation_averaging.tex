@@ -1,0 +1,42 @@
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage{graphicx} % support the \includegraphics command and options
+\usepackage[margin=1.0in]{geometry}
+\usepackage{amssymb}
+
+\title{\textbf{On Dilatation Averaging}}
+\author{Giffin, B.}
+
+\begin{document}
+\maketitle
+
+\section{Mean Dilatation Formulation}
+
+Consider the mean dilatation element formulation:
+\begin{equation}
+	\tilde{\mathbf{F}} = \alpha \hat{\mathbf{F}}, \quad \alpha = \bigg( \frac{j}{\hat{J}} \bigg)^{1/n}, \quad \hat{J} = \det \hat{\mathbf{F}}, \quad j = \det \mathbf{f}, \quad \mathbf{f} = \frac{\int_{\Omega_e} \hat{\mathbf{F}} dv}{\int_{\Omega_e} dv},
+\end{equation}
+where $\hat{\mathbf{F}}$ is the ``unmodified'' incremental deformation gradient given by
+\begin{equation}
+	\hat{F}_{ij} = \frac{\partial \hat{x}_i}{\partial \bar{x}_j} = \frac{\partial \bar{x}_i}{\partial \bar{x}_j} + \frac{\partial \hat{u}_i}{\partial \bar{x}_j} = \delta_{ij} + \sum_a \frac{\varphi_{a}}{\partial \bar{x}_j} \hat{u}_{ia},
+\end{equation}
+and $\tilde{\mathbf{F}}$ is its corresponding \textit{replacement}, which is obtained by isotropically scaling $\hat{\mathbf{F}}$ by the parameter $\alpha (\hat{u}_{ia})$ (a function of the incremental displacements). Here, $\mathbf{f}$ is the volume-averaged incremental deformation gradient in the element $\Omega_e$. Consequently, we may write the modified incremental deformation gradient $\tilde{\mathbf{F}}$ as
+\begin{equation}
+	\tilde{F}_{ij} = \alpha \delta_{ij} + \alpha \sum_a \frac{\varphi_{a}}{\partial \bar{x}_j} \hat{u}_{ia} = \delta_{ij} + \left[ (\alpha - 1) \delta_{ij} + \alpha \sum_a \frac{\varphi_{a}}{\partial \bar{x}_j} \hat{u}_{ia} \right].
+\end{equation}
+Note that previously, the gradient operator was purely linear in the incremental displacements such that
+\begin{equation}
+	\frac{\partial \hat{F}_{ij}}{\partial \hat{u}_{kb}} = \frac{\varphi_{b}}{\partial \bar{x}_j} \delta_{ik}.
+\end{equation}
+However, following our kinematic enhancement to the incremental deformation gradient, the gradient operator becomes non-linear in the displacements, such that
+\begin{equation}
+	\frac{\partial \tilde{F}_{ij}}{\partial \hat{u}_{kb}} = \frac{\partial \alpha}{\partial \hat{u}_{kb}} \bigg(\delta_{ij} + \sum_a \frac{\varphi_{a}}{\partial \bar{x}_j} \hat{u}_{ia} \bigg) + \alpha \bigg( \frac{\varphi_{b}}{\partial \bar{x}_j} \delta_{ik} \bigg).
+\end{equation}
+
+Now consider a linear operator $\mathbf{M} : \mathbb{R}^{3n} \mapsto V$ which maps the incremental nodal displacements $\mathbf{u} \in \mathbb{R}^{3n}$ to gradients of the displacement at the quadrature points of the element $\mathbf{g} \in V \subset \mathbb{R}^{9m}$. If $\hat{\mathbf{F}}$ is left unmodified, then this mapping is truly linear, in the sense that $\mathbf{M}$ will not depend at all upon $\mathbf{u}$. As such, we may consider an additive decomposition of $\mathbf{u}$ into affine $\mathbf{u}^{(a)}$ and non-affine $\mathbf{u}^{(n)}$ deformation patterns: $\mathbf{u} = \mathbf{u}^{(a)} + \mathbf{u}^{(n)}$, where $\mathbf{u}^{(a)} \in U^{(a)}$, $\mathbf{u}^{(n)} \in U^{(n)}$, and $U^{(a)} \oplus U^{(n)} = \mathbb{R}^{3n}$. We then have $\mathbf{g} = \mathbf{g}^{(a)} + \mathbf{g}^{(n)} = \mathbf{M} \mathbf{u}^{(a)} + \mathbf{M} \mathbf{u}^{(n)} = \mathbf{M} \mathbf{u}$, where $\mathbf{g}^{(a)} \in V^{(a)}$, $\mathbf{g}^{(n)} \in V^{(n)}$, $V^{(a)} \oplus V^{(n)} = V$. If $\mathbf{M}$ is a linear operator, it may also be additively decomposed: $\mathbf{M} = \mathbf{M}^{(a)} + \mathbf{M}^{(n)}$, such that $\mathbf{M}^{(a)} : U^{(a)} \mapsto V^{(a)}$, $\mathbf{M}^{(n)} : U^{(n)} \mapsto V^{(n)}$. To preserve linear completeness in this context, any modifications to $\mathbf{M}$ would need to leave $\mathbf{M}^{(a)}$ untouched. One could then concoct a number of possible modifications to $\mathbf{M}^{(n)}$ in an attempt to abate element locking of various kinds.
+
+However, the mean dilatation formulation previously described does not take the form of a linear operator; it is non-linear by construction. As such, it is not appropriate to additively decompose the deformation into affine and non-affine parts, since the modified mapping depends implicitly upon the total deformation $\mathbf{u}$. Even so, we still require the mapping to reduce to $\mathbf{M} = \mathbf{M}^{(a)}$ when $\mathbf{u} = \mathbf{u}^{(a)}$.
+
+One option would be to consider $\mathbf{M} (\mathbf{u}) = \mathbf{M}^{(a)} + \mathbf{M}^{(n)} (\mathbf{u})$, where the mapping (now a function of $\mathbf{u}$) consists of an (affine) linear part, and a non-linear part such that $\mathbf{M}^{(n)} (\mathbf{u}) = \mathbf{0}$ when $\mathbf{u} = \mathbf{u}^{(a)}$. The behavior of this mapping would in some ways resemble an elastoplastic constitutive law, in that the effective elastoplastic modulus may be written as the sum of the original (linear elastic) modulus, and a non-linear modulus which depends implicitly on the strain increment. But perhaps a more appropriate analogy would be to consider the resemblance of such a mapping to a non-linear elastic (hyperelastic) constitutive law, which derives from a scalar potential function. Technically speaking, the displacement gradient operator should also derive from a continuous vector field, namely the incremental displacement field defined over the element.
+
+\end{document}

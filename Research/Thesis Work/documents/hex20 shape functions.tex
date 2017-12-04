@@ -1,0 +1,44 @@
+\title{Construction of Hex20 shape functions}
+\author{B. Giffin}
+\date{\today}
+
+\documentclass[12pt]{article}
+
+\usepackage{graphicx} % support the \includegraphics command and options
+\usepackage[margin=1.0in]{geometry}
+\usepackage{amssymb}
+
+\begin{document}
+\maketitle
+
+Shape functions:
+\begin{equation}
+	\varphi_{a} = \frac{1}{8} (1 + \xi \xi_a) (1 + \eta \eta_a) (1 + \zeta \zeta_a) ( -2 + \xi \xi_a + \eta \eta_a + \zeta \zeta_a ) \quad \forall \, a \in \left[ 1, \, \ldots , \, 8 \right]
+\end{equation}
+\begin{equation}
+	\varphi_{a} = \frac{1}{4} (1 + \xi \xi_a - (\xi \eta_a \zeta_a)^2) (1 + \eta \eta_a - (\xi_a \eta \zeta_a)^2) (1 + \zeta \zeta_a - (\xi_a \eta_a \zeta)^2) \quad \forall \, a \in \left[ 9, \, \ldots , \, 20 \right]
+\end{equation}
+
+Derivatives:
+\begin{equation}
+	\varphi_{a,\xi} = \frac{1}{8} \xi_a (1 + \eta \eta_a) (1 + \zeta \zeta_a) ( 2 \xi \xi_a + \eta \eta_a + \zeta \zeta_a - 1 ) \quad \forall \, a \in \left[ 1, \, \ldots , \, 8 \right]
+\end{equation}
+\begin{equation}
+	\varphi_{a,\eta} = \frac{1}{8} (1 + \xi \xi_a) \eta_a (1 + \zeta \zeta_a) ( 2 \eta \eta_a + \zeta \zeta_a + \xi \xi_a - 1 ) \quad \forall \, a \in \left[ 1, \, \ldots , \, 8 \right]
+\end{equation}
+\begin{equation}
+	\varphi_{a,\zeta} = \frac{1}{8} (1 + \xi \xi_a) (1 + \eta \eta_a) \zeta_a ( 2 \zeta \zeta_a + \xi \xi_a + \eta \eta_a - 1 ) \quad \forall \, a \in \left[ 1, \, \ldots , \, 8 \right]
+\end{equation}
+
+
+\begin{equation}
+	\varphi_{a,\xi} = \frac{1}{4} (\xi_a - 2 \xi \eta_a^2 \zeta_a^2) (1 + \eta \eta_a - (\xi_a \eta \zeta_a)^2) (1 + \zeta \zeta_a - (\xi_a \eta_a \zeta)^2) \quad \forall \, a \in \left[ 9, \, \ldots , \, 20 \right]
+\end{equation}
+\begin{equation}
+	\varphi_{a,\eta} = \frac{1}{4} (1 + \xi \xi_a - (\xi \eta_a \zeta_a)^2) (\eta_a - 2 \xi_a^2 \eta \zeta_a^2) (1 + \zeta \zeta_a - (\xi_a \eta_a \zeta)^2) \quad \forall \, a \in \left[ 9, \, \ldots , \, 20 \right]
+\end{equation}
+\begin{equation}
+	\varphi_{a,\zeta} = \frac{1}{4} (1 + \xi \xi_a - (\xi \eta_a \zeta_a)^2) (1 + \eta \eta_a - (\xi_a \eta \zeta_a)^2) (\zeta_a - 2 \xi_a^2 \eta_a^2 \zeta) \quad \forall \, a \in \left[ 9, \, \ldots , \, 20 \right]
+\end{equation}
+
+\end{document}

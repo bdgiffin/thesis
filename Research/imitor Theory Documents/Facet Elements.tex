@@ -1,0 +1,172 @@
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\title{\textbf{Facet Elements and the Application of Traction Boundary Conditions in the Context of Finite Deformations}}
+\author{Giffin, B.; Hafez, O.; Wopschall, S.}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Abstract}
+
+Summary of issues, brief description of approach.
+
+\section{Introduction}
+
+Description of ``facet elements,'' and their intended purpose.
+
+Summary of finite deformations, and the necessary computed quantities for traction boundary conditions ($\alpha$, $\frac{\partial \alpha}{\partial \hat{u}_{kb}}$, $\mathbf{n}$, and  $\frac{\partial \mathbf{n}}{\partial \hat{u}_{kb}}$).
+
+Issues related to constructing in-plane shape function gradients $\varphi_{a,j}$.
+
+Deficiencies of the deformation gradient $\mathbf{F}$ for facet elements.
+
+Approaches for constructing in-plane gradients, and computing desired quantities.
+
+\section{Finite Deformations}
+
+Overview of equations and quantities:
+\begin{equation}
+	R_{ia} = \int_{\kappa_0} P_{ij} \varphi_{a,j} dv - \int_{\kappa_0} \rho_0 b_i dv - \int_{\partial_t \kappa_0} \bar{p}_i \varphi_a da = 0
+\end{equation}
+
+\begin{equation}
+	\frac{\partial R_{ia}}{\partial \hat{u}_{kb}} = \int_{\kappa_0} \frac{\partial P_{ij}}{\partial \hat{u}_{kb}} \varphi_{a,j} dv - \int_{\partial_t \kappa_0} \frac{\partial \bar{p}_i}{\partial \hat{u}_{kb}} \varphi_{a} da
+\end{equation}
+
+For traction boundary conditions, we will need $\bar{p}_i$ (the Piola traction vector) and $\frac{\partial \bar{p}_i}{\partial \hat{u}_{kb}}$ (derivatives with respect to incremental nodal displacements).
+
+The Piola traction vector can take on several different representations, depending on the type of traction being applied:
+\begin{itemize}
+	\item[(a)] Piola traction
+	\begin{equation}
+		\bar{p}_i \mbox{ (specified directly)}
+	\end{equation}
+	\item[(b)] Cauchy traction
+	\begin{equation}
+		\bar{p}_i = \alpha \bar{t}_i \quad (\bar{t}_i \mbox{ specified})
+	\end{equation}
+	Computed quantities: $\alpha$, and $\frac{\partial \alpha}{\partial \hat{u}_{kb}}$.
+	\item[(c)] Piola pressure
+	\begin{equation}
+		\bar{p}_i = \bar{p}^p n_i \quad (\bar{p}^p \mbox{ specified})
+	\end{equation}
+	Computed quantities: $n_i$, and $\frac{\partial n_i}{\partial \hat{u}_{kb}}$.
+	\item[(d)] Cauchy pressure
+	\begin{equation}
+		\bar{p}_i = \alpha \bar{p}^t n_i \quad (\bar{p}^t \mbox{ specified})
+	\end{equation}
+	Computed quantities: $(\alpha n_i)$, and $\frac{\partial (\alpha n_i)}{\partial \hat{u}_{kb}}$.
+\end{itemize}
+
+Additional traction types for consideration:
+\begin{itemize}
+	\item[(e)] ``Follower'' Piola traction
+	\begin{equation}
+		\bar{p}_i = \bar{p}^p n_i + \bar{\tau}^p s_i \quad (\bar{p}^p \mbox{ and } \bar{\tau}^p \mbox{ specified})
+	\end{equation}
+	Computed quantities: $n_i$, $\frac{\partial n_i}{\partial \hat{u}_{kb}}$, $s_i$, and $\frac{\partial s_i}{\partial \hat{u}_{kb}}$.
+	\item[(f)] ``Follower'' Cauchy traction
+	\begin{equation}
+		\bar{p}_i = \alpha(\bar{p}^t n_i + \bar{\tau}^t s_i) \quad (\bar{p}^t \mbox{ and } \bar{\tau}^t \mbox{ specified})
+	\end{equation}
+	Computed quantities: $(\alpha n_i)$, $\frac{\partial (\alpha n_i)}{\partial \hat{u}_{kb}}$, $(\alpha s_i)$, and $\frac{\partial (\alpha s_i)}{\partial \hat{u}_{kb}}$.
+\end{itemize}
+Where $s_i s_i = 1$, $n_i s_i = 0$.
+
+\section{Isoparametric Transformations for Facet Elements}
+
+We require two things from the isoparametric mapping:
+\begin{itemize}
+	\item[1.] Integration weights at quadrature points (ratio of areas in the physical space to areas in the parent space)
+	\item[2.] Shape function gradients with respect to physical coordinates (in-plane gradients defined on the surface of the facet)
+\end{itemize}
+
+The fundamental issue: mapping between an $n-1$ dimensional parent space and an $n$ dimensional physical space.
+
+Consider the isoparametric mapping for a facet element in three dimensions:
+\begin{equation}
+	X_i = \sum_a \varphi_a (\xi, \, \eta) X_{ia}
+\end{equation}
+We can construct the Jacobian mapping $\mathbf{J}$ which relates material vectors $d \xi_{\alpha}$ in parent space to material vectors $d X_i$ in physical space ($d X_i = J_{i \alpha} d \xi_{\alpha}$):
+\begin{equation}
+	\mathbf{J} = \left[ \begin{array}{cc} X_{1,\xi} & X_{1,\eta} \\ X_{2,\xi} & X_{2,\eta} \\ X_{3,\xi} & X_{3,\eta} \end{array} \right]
+\end{equation}
+For continuum elements, shape function gradients are computed as
+\begin{equation}
+	\varphi_{a,j} = J^{-1}_{j \alpha} \varphi_{a,\alpha}
+\end{equation}
+but for facet elements, $\mathbf{J}$ is not invertible.
+
+We can supplement the Jacobian mapping with an additional column corresponding to $\mathbf{X}_{,\zeta}$, even though the isoparametric mapping for facets is parameterized by only $\xi$ and $\eta$. Consider the following augmented mapping for a facet element:
+\begin{equation}
+	X_i = \sum_a \varphi_a (\xi, \, \eta) X_{ia} + \zeta N_i (\xi, \, \eta)
+\end{equation}
+where $\mathbf{N}$ is the unit normal of the surface in physical space, defined as
+\begin{equation}
+	\mathbf{N} = \frac{\mathbf{X}_{,\xi} \times \mathbf{X}_{,\eta}}{\left| \mathbf{X}_{,\xi} \times \mathbf{X}_{,\eta} \right|}
+\end{equation}
+It follows that $\mathbf{X}_{,\zeta}$ is simply $\mathbf{N}$, and the Jacobian mapping becomes
+\begin{equation}
+	\mathbf{J} = \left[ \begin{array}{ccc} X_{1,\xi} & X_{1,\eta} & N_1 \\ X_{2,\xi} & X_{2,\eta} & N_2 \\ X_{3,\xi} & X_{3,\eta} & N_3 \end{array} \right]
+\end{equation}
+Qualitatively, we can interpret this agumentation to our original mapping as simply an extrusion of our two-dimensional facet, so that it now has bi-unit thickness in the normal direction.
+
+We may now invert $\mathbf{J}$ in the usual fashion to obtain \textit{in-plane} shape function gradients. Since $\varphi_{a,\zeta} = 0$, the resulting gradients with respect to physical coordinates will lie only in the plane of the facet, such that $\varphi_{a,j} N_j = 0 \, \, \forall a$. Therefore, the shape function gradients $\varphi_{a,j}$ constitute a collection of \textit{covariant derivatives} on the 2-manifold defined by the facet.
+
+To compute quadrature weights, the usual approach for continuum elements involves computing $J = \mbox{det} (\mathbf{J})$ (the Jacobian determinant) at corresponding quadrature points. $J$ may be thought of as a ratio of differential volumes between physical and parent space, such that we may write $dV = J d\xi d\eta d\zeta$. However, since we have insisted that our facet retain bi-unit thickness in both parent space and physical space, the Jacobian determinant equivalently represents the ratio of differential surface areas between physical and parent space, such that $dA = J d\xi d\eta$.
+
+\section{Deficiencies of the Deformation Gradient for Facet Elements}
+
+The deformation gradient $\mathbf{F}$ as defined for continuum elements may be expressed as
+\begin{equation}
+	F_{ij} = \delta_{ij} + \sum_a \varphi_{a,j} u_{ia}
+	\label{eq:Findex}
+\end{equation}
+Alternatively,
+\begin{equation}
+	\mathbf{F} = \mathbf{I} + \sum_a \mathbf{u}_a \otimes \frac{\partial \varphi_a}{\partial \mathbf{X}}
+	\label{eq:Fdirect}
+\end{equation}
+In essence, $\mathbf{F}$ maps material vectors $d \mathbf{X}$ in the reference configuration to material vectors $d \mathbf{x}$ in the current configuration ($d \mathbf{x} = \mathbf{F} d \mathbf{X}$). One can cocieve of $d \mathbf{X}$ as a small spherical material region surrounding a given point in space which is both stretched and rotated (under the action of $\mathbf{F}$) into an ellipsoidal material region corresponding to $d \mathbf{x}$. Put another way, $\mathbf{F}$ should map vectors $d \mathbf{X} \in \rm I\!R^3$ to vectors $d \mathbf{x} \in \rm I\!R^3$.
+
+For facet elements, it is no longer appropriate to consider a mapping between material vectors which exist in $\rm I\!R^3$, as the material region surrounding a point on a facet should correspond to $d \mathbf{X} \in \mathcal{S}_r$, where $\mathcal{S}_r \subset \rm I\!R^3$ is the two-dimensional subspace defining the surface of the facet in the reference configuration. $\mathbf{F}$ should therefore map material vectors $d \mathbf{X} \in \mathcal{S}_r$ to material vectors $d \mathbf{x} \in \mathcal{S}_c$, where $\mathcal{S}_c \subset \rm I\!R^3$ is a \textit{different} two-dimensional subspace for the facet in the current configuration.
+
+As we have currently written $\mathbf{F}$ in equations (\ref{eq:Findex}) and (\ref{eq:Fdirect}), the appropriate mapping of in-plane material vectors is indeed obtained, but the action of $\mathbf{F}$ upon out-of-plane vectors that exist in $\rm I\!R^3$ is ill-defined. In truth, the mapping of such out-of-plane vectors is irrelevant for our purposes, but it does result in one important consequence: $\mathbf{F}$ (for facet elements) may not be invertible in all cases. In particular, if the deformation includes a 90 degree rotation about any axis that lies in the plane of the reference configuration, then all vectors $d \mathbf{X} \in \rm I\!R^3$ will be mapped to $d \mathbf{x} \in \mathcal{S}_c$. Since $\mathbf{F}$ in this case will not be a one-to-one mapping, we cannot obtain its inverse.
+
+This deficiency is relevant because we might have otherwise been able to use Namson's equation to relate differential areas $d \mathbf{A}$ in the reference configuration to areas $d \mathbf{a}$ in the current configuration via
+\begin{equation}
+	d \mathbf{a} = J \mathbf{F}^{-T} d \mathbf{A}
+\end{equation}
+If $d \mathbf{A} = \mathbf{N} dA$ and $d \mathbf{a} = \mathbf{n} da$, then we may write
+\begin{equation}
+	\alpha \mathbf{n} = J \mathbf{F}^{-T} \mathbf{N}
+\end{equation}
+where $\alpha = \frac{da}{dA}$. This would provide us with a means of computing the necessary quantities $\alpha$, $\mathbf{n}$, $\frac{\partial \alpha}{\partial \hat{u}_{kb}}$, and $\frac{\partial \mathbf{n}}{\partial \hat{u}_{kb}}$. Feasibly, this method could still be used when $\mathbf{F}$ is invertible ($J > 0$), with an alternative strategy employed when $J$ is close to $0$.
+
+In the following section, we propose such an alternative scheme for computing the desired deformation quantities in the presence of a singular $\mathbf{F}$.
+
+\section{A Method for Computing $\alpha$, $\mathbf{n}$, $\frac{\partial \alpha}{\partial \hat{u}_{kb}}$, $\frac{\partial \mathbf{n}}{\partial \hat{u}_{kb}}$}
+
+Fundamentally, we seek an expression for $d \mathbf{a} = \mathbf{n} da$. Based on the foregoing arguments, this may be obtained via Namson's relation if $\mathbf{F}$ is non-singular. For the special case when $\mathbf{F}$ is not invertible, we may consider the following approach:
+
+Suppose we have identified two arbitrary material vectors $d \mathbf{X}_1 \in S_r$ and $d \mathbf{X}_2 \in S_r$, such that
+\begin{equation}
+	d \mathbf{A} = d \mathbf{X}_1 \times d \mathbf{X}_2 = \mathbf{N} dA
+\end{equation}
+If we prescribe $d \mathbf{X}_1$ and $d \mathbf{X}_2$ to be an orthonormal basis of $\mathcal{S}_r$, then $dA = 1$, and we may write
+\begin{equation}
+	d \mathbf{a} = d \mathbf{x}_1 \times d \mathbf{x}_2 = \mathbf{F} d \mathbf{X}_1 \times \mathbf{F} d \mathbf{X}_2 = \mathbf{n} da = \alpha \mathbf{n}
+\end{equation}
+Cleary,
+\begin{equation}
+	\alpha = \left| \mathbf{F} d \mathbf{X}_1 \times \mathbf{F} d \mathbf{X}_2 \right|
+\end{equation}
+and
+\begin{equation}
+	\mathbf{n} = \frac{1}{\alpha} (\mathbf{F} d \mathbf{X}_1 \times \mathbf{F} d \mathbf{X}_2)
+\end{equation}
+
+\end{document}

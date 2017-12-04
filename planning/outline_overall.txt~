@@ -1,0 +1,173 @@
+Central Thesis: improving solution accuracy and robustness for nonlinear solid mechanics problems
+
+!TOWARD COMPUTATIONAL ACCURACY AND ROBUSTNESS FOR NONLINEAR SOLID MECHANICS
+	%INTRODUCTION: (could write a rough draft for this in a day, albeit a long one...)
+		#PRIMARY purpose of the introduction is to establish what YOU did to the uninitiated
+		#DO NOT use any equations in the introduction, just say things in words
+		#DO NOT go into excessive technical detail
+		@ASSUME the reader is familiar with the general topic of finite element/nonlinearities
+		#DO NOT belabour the existence of the problem to begin with -- the reader knows this
+		@FOCUS  on your own contributions
+		#DO NOT turn the introduction into a literature review?
+		*describe the setting and needs:
+			-computational solid mechanics problems
+			-want efficiency and accuracy (usually mutually exclusive)
+		*scope the problem(s):
+			-accuracy and robustness (generally) for solid mechanics problems
+			-accuracy and robustness in handling (nonlinear) finite deformations
+			-accuracy and robustness in handling (nonlinear) material behavior
+			-accuracy and robustness of the discretizations themselves (primary topic)
+		*briefly address some historical efforts to resolve these problems and limitations:
+			-other methods (meshfree, polytopal, etc.)
+			-meshfree have issues with integration and what happens on boundary
+				*otherwise very good at handling severe deformations/topology change
+			-polytopal methods limited by element geometric restrictions
+				*what constitutes a `good' element is still restrictive
+				*geometric degeneracies lead to very poor behavior (not robust)
+			-VEM and other methods require stabilization (fail inf-sup)
+				*methods do the bare minimum for convergence, but are they robust?
+		*talk about our proposed solution(s):
+			-highly accurate finite deformations for rate-based constitutive laws
+			-abstract framework to overcome geometric restrictions on elements (PEM)
+				*make element level machinery more complex
+				*an acceptable expense if the cost is amortized (done once, initially)
+				*accomodate arbitrary geometry and toplogy
+				*scales well in HPC setting (fork off many small problems to procs)
+				*possibly extensible to multi-level approaches
+	%SOLID MECHANICS (background chapter)
+		@PRIMARY purpose of this chapter is to contextualize choice of notation for later on!
+		@SECONDARY purpose is to explain the structure of SM problems:
+			displacements -> strains/F (possibly nonlinear kinematics, due to Lagrangian)
+			strains/F -> stresses (possibly nonlinear constitutive behavior)
+			stresses -> forces (current configuration equilibrium)
+		@TERTIARY purpose is to present the weak form for solid mechanics: THE model problem
+		@EMPHASIZE that the problems we would like to solve are nonlinear; not amenable to
+                           VEM stabilization, or fancy boundary integrals (i.e. Suku's work)
+		@ASSUME that the reader is familiar with solid mechanics; just explain your notation
+		#DO NOT go into excessive/repetitious detail
+		#DO NOT derive anything, just state the equations and define the notation
+		*provide a description of Lagrangian kinematics
+		*very brief overview of the field equations of finite deformation solid mechanics
+			-just state the equations, don't need to derive these from first principles
+			-present the governing differential equations (we are solving a MATH problem)
+		*discuss considerations for non-linear kinematics and material behavior
+		*introduce strong and weak form model problem statements
+			-just state these; define terminology
+	%COMPUTATIONAL METHODS (background chapter)
+		@PRIMARY purpose is to classify finite element-like methods; essential requirements
+		@SECONDARY purpose is to discuss accuracy/robustness (locking) issues, and solutions
+			-mixed/three-field methods, incompatible modes, SRI methods, strain projection
+			-locking is a pathology of the problem, prevades all numerical methods
+		#DO NOT go into detail about other methods? (this should be left for the introduction)
+		$At this point, we should have already addressed 
+		@FOLLOW-UP from the previous chapter, lead directly into approximation techniques
+		*set up the computational approximation problem (weak form, weighted residual methods)
+		*consider high-level computational approximation methods
+			-Galerkin methods (symmetric PG methods) strengths & weaknessnes
+			-PG methods (weighted residual methods) strengths & weaknesses
+	%CONSIDERATIONS FOR NONLINEAR KINEMATICS AND MATERIALS (optional, time permitting)
+		@PRIMAY reason for including this would be to explain how a nonlinear kinematic
+		 update procedure fits into the broader context of enhancement techniques, and
+		 how it places constraints on these techniques
+		*framework for finite deformations (paper-related developments)
+		*demonstration of accuracy for a selection of different problems
+		*if this section is to be included, make sure to express the 
+	%PARTITIONED ELEMENT METHODS
+		@EMPHASIZE the idea that the VEM approach to decomposing the bi-linear form into
+		 polynomial and nonpolynomial parts only works because it is bi-LINEAR; this does
+		 NOT have an obvious extension to nonlinear problems (as in solid mechanics), where
+		 we cannot rely upon the orthogonality property due to nonlinear kinematics and
+		 material behavior (not linear operators); however, we can lay the foundation for
+		 a 3-field method which effectively translates to a PG approach, accomplishing the
+		 primary goal of ensuring consistency with the approximate weak form integration.
+		 Moreover, if we have nonlinear material behavior with state variables at int pts,
+		 we need to carry out domain integration anyways, there's no way around this for
+		 nonlinear SM problems. VEM is a great mathematical idea, but 
+		*lay out PEM sufficient conditions for convergence
+		*Petrov-Galerkin formulation with gradient correction (overcome consistency issue)
+			-this does not solve problem of stability (hard to show that this is stable)
+			-attempts to resolve same consistency issue that VEM sets out to do
+		*extension to high-order shape functions
+		*analysis of accuracy in computing shape function values/derivatives
+		*2D and 3D formulations, demonstrations of PEM
+		$PEM GOVERNING EQUATIONS
+			*Always need consistency with the weak form equations (informed by physics)
+				-lay out consistency equations as essential requirement
+			*Laplace shape functions
+				-solve laplace's equation on the element partition
+				-get reproducing conditions automatically
+				-optimally smooth functions
+				-runs into problems with sharp gradients - not robust? not sure...
+			*Maximum entropy shape functions
+				-guarantee nice properties (positivity)
+				-must enforce reproducing conditions as constraints
+			*Nothing
+				-only use bare minimum continuity penalty conditions to define SFs
+				-this conforms with Mark's current formulations (not based on a PDE)
+		$REQUIREMENTS FOR CONVERGENCE
+			*describe how everything ties together, imposes constraints on equations
+			*continuity of functions
+		$PEM APPROXIMATION METHODS
+			*give an overview of different local approximation methods that one may use
+			*Whole domain approaches (Galerkin methods)
+				-liken to VEM and VETFEM approaches
+				-point out issues related to 
+			*FE-like discretization
+				-liken to Joe Bishop's approach
+				-relatively few dofs
+				-easy to implement, follows standard FE format/storage/code entities
+				-directly extensible to high-order shape functions (at a cost)
+				-places limits on choices for the partitioned geometry (tris, tets)
+			*WG-like discretization
+				-liken this to the original PEM (2012)
+				-satisfy continuity properties in a weak sense
+				-enforces the compatibility conditions in a strong sense
+				-can wind up with many local dofs
+				-works for arbitrary discretizations
+			*DG-like discretization
+				-satisfy continuity properties via penalty terms
+				-works naturally without any generating PDE to solve (just penalties)
+				-does not satisfy the sufficient condition for compatibility
+				-possibly sensitive to choice of penalty parameters
+				-works for arbitrary discretizations
+				-relatively fewer local dofs than WG approach
+		$NUMERICAL QUADRATURE
+			*discuss options for numerical quadrature
+			*give literature review of different techniques
+			*discuss composite quadrature rules (mid-point, Gauss/Dunavant)
+		*accomodations for elastic-plastic (non-linear) material behavior
+		*accomodations for finite deformation (non-linear) kinematic behavior
+		*accomodations for implicit dynamic behavior
+	%PEM IMPLEMENTATIONAL FRAMEWORK 
+		*(effectively a mini-FE mesher & solver)
+		*deterministic partitioning scheme for star-convex shapes
+		*lay out assembly and solution process (or at least mention similarities with FEM)
+	%NUMERICAL INVESTIGATIONS OF PEM
+		$PATCH TESTS
+			*demonstrate Galerkin exactness for various patch tests
+			*2d + 3d
+			*linear, quadratic, etc.
+			*this verifies importance of consistency
+		$SENSITIVITY ANALYSES
+			*examine sensitivity to mesh distortions
+			*sensitivity to internal (penalty) parameters
+			*assess whether optimal values exist, whether formulation too sensitive
+		$CONVERGENCE STUDIES
+		*demonstrate convergence for high-order shape functions
+		*exploration of accuracy/convergence behavior in the limit (limited by SF errors)
+		*exploration of effects of numerical accuracy & system conditioning
+		*thin plate problem
+		*plate with hole problem
+	%CONCLUSIONS & FUTURE WORK
+		*discuss relative efficacy of the different approaches considered
+		*cite advantages/disadvantages of each
+
+Discarded:
+	-mathematical preliminaries (NOT NEEDED)
+		*definition of mathematical/functional analysis terminology
+			-put into context; must explain that this will be relevant later
+			-consider putting this in a glossary, or removing this entirely
+		*notational preliminaries
+			-simply metion use of vector/matrix notation with boldface conventions
+			-address use of index notation
+

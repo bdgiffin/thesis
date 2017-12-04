@@ -1,0 +1,39 @@
+Baldwin - Simply jumps straight into "Fracture Mechanics," provides continuum mechanics equations here
+Emerson - Well organized:
+		Introduction
+			Opening: The general context of fracture mechanics (why it exists)
+			Historical Development: 
+			Previous Work
+			Scope of the Present Work: Justify current work (purpose)
+Gullet - Similar topic:
+		Introduction
+			(Opening): Off the bat, says what the text is about, provides outline of intro
+			The finite element method: Description of advantages/disadvantages
+			Meshless methods: Overview/history of methods, only gives context at very end
+			The VETFEM: a high-level description of VETFEM
+			Outline: Briefly describes content of each chapter
+Selimotic - Similar topic:
+		Introduction
+			(Opening): Provides context
+			The conventional FEM:
+			Toward geometrically flexible finite elements:
+			Meshless (Particle) Methods:
+			The Natural Element Method (NEM):
+			Meshless Finite Element Method:
+			The Generalized Finite Element Method (GFEM):
+			The Extended Finite Element Method (XFEM):
+			Enforcement of the Incompressibility Condition:
+			Proposed Alternative Computational Approaches:
+				VETFEM
+				DDPFEM
+			Dissertation organization:
+Settgast - Follows Emerson's presentation:
+		Introduction
+			(Opening): high level concepts of fracture mechanics
+			Conventional Fracture Mechanics: 
+				LEFM
+				EPFM
+			Cohesive Zone Methods
+			Motivation for the Cohesive Continuum Framework: brief summary of chapters
+Wopschall - Very brief
+		Overview: Define contact problem, problems, current work, summary of chapters

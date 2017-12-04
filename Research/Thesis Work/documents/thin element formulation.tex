@@ -1,0 +1,549 @@
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage{graphicx} % support the \includegraphics command and options
+\usepackage[margin=1.0in]{geometry}
+\usepackage{amssymb}
+
+\title{\textbf{Locking-free, thin continuum finite elements}}
+\author{Giffin, B.}
+
+\begin{document}
+\maketitle
+
+\section{An Enhanced-Displacement Isoparametric Element Formulation}
+
+Consider the 8-node hexahedral element with corresponding shape functions $N_a (\xi,\eta,\zeta)$:
+\begin{equation}
+	N_a (\xi,\eta,\zeta) = \frac{1}{8} (1 + \xi_a \xi) (1 + \eta_a \eta) (1 + \zeta_a \zeta)
+\end{equation}
+where
+\begin{center}
+\begin{tabular}{ cccc }
+	$a$ & $\xi_a$ & $\eta_a$ & $\zeta_a$ \\
+	\hline
+	1 & 1 & 1 & 1 \\
+	2 & -1 & 1 & 1 \\
+	3 & -1 & -1 & 1 \\
+	4 & 1 & -1 & 1 \\
+	5 & 1 & 1 & -1 \\
+	6 & -1 & 1 & -1 \\
+	7 & -1 & -1 & -1 \\
+	8 & 1 & -1 & -1
+\end{tabular}
+\end{center}
+such that the spatial coordinates within the element are interpolated via
+\begin{equation}
+	\mathbf{X}(\xi,\eta,\zeta) = \sum_{a = 1}^8 N_a (\xi,\eta,\zeta) \mathbf{X}_a
+\end{equation}
+
+This element is able to reproduce a linear field exactly, but no more than this. We will prove later on that such elements are unsuitable in thin configurations; quadratic completeness is required. In this effort, we will consider the following enchancement: suppose we now supplement the element with additional degrees of freedom at each mid-edge of the hexahedron. Such a configuration will strongly resemble the standard 20-node hexahedron, but with an important exception: we will choose to specify the shape functions within the element such that the original shape functions associated with nodes 1 through 8 (the verticies) will remain unchanged from our earlier specification, and with the shape functions for nodes 9 through 20 satisfying
+\begin{equation}
+	N_a (\xi, \eta, \zeta) = 4 N_{a_1} (\xi, \eta, \zeta) N_{a_2} (\xi, \eta, \zeta)
+\end{equation}
+or
+\begin{equation}
+	N_a (\xi, \eta, \zeta) = \frac{1}{16} \bigg( 1 + (\xi_{a_1} + \xi_{a_2}) \xi + \xi_{a_1} \xi_{a_2} \xi^2 \bigg) \bigg( 1 + (\eta_{a_1} + \eta_{a_2}) \eta + \eta_{a_1} \eta_{a_2} \eta^2 \bigg) \bigg( 1 + (\zeta_{a_1} + \zeta_{a_2}) \zeta + \zeta_{a_1} \zeta_{a_2} \zeta^2 \bigg)
+\end{equation}
+where
+\begin{center}
+\begin{tabular}{ ccc }
+	$a$ & $a_1$ & $a_2$ \\
+	\hline
+	9 & 1 & 2 \\
+	10 & 2 & 3 \\
+	11 & 3 & 4 \\
+	12 & 4 & 1 \\
+	13 & 5 & 6 \\
+	14 & 6 & 7 \\
+	15 & 7 & 8 \\
+	16 & 8 & 1 \\
+	17 & 1 & 5 \\
+	18 & 2 & 6 \\
+	19 & 3 & 7 \\
+	20 & 4 & 8
+\end{tabular}
+\end{center}
+Notice,
+\begin{equation}
+	N_a \bigg( \frac{\xi_{a_1}+\xi_{a_2}}{2}, \frac{\eta_{a_1}+\eta_{a_2}}{2}, \frac{\zeta_{a_1}+\zeta_{a_2}}{2} \bigg) = \frac{1}{16} \prod_{i=1}^3 \bigg( 1 + (2 + \xi_{ia_1} \xi_{ia_2}) (\xi_{ia_1} + \xi_{ia_2})^2/4  \bigg) = 1.
+\end{equation}
+The element displacement interpolant is therefore defined as
+\begin{equation}
+	\mathbf{u}(\xi,\eta,\zeta) = \sum_{a = 1}^{20} N_a (\xi,\eta,\zeta) \mathbf{u}_a
+\end{equation}
+For the sake of convenience, let us define the following sets of node indicies: $\beta_n = \{ a | a \in [1,\ldots,8] \}$, $\beta_e = \{ a | a \in [9,\ldots,20] \}$, $\beta = \beta_n \cup \beta_e$.
+
+It should be emphasized that the element's reference configuration vertex nodal coordinates are the \textit{only} nodal coordinates to speak of. That is to say, in the reference configuration, the element cannot have ``warped'' edges. The following expression for the element's \textit{deformed} coordinates may help to illustrate this point more clearly:
+\begin{equation}
+	\mathbf{x} (\xi, \eta, \zeta) = \sum_{a \in \beta_n} N_a (\xi, \eta, \zeta) \mathbf{X}_a + \sum_{a \in \beta} N_a (\xi, \eta, \zeta) \mathbf{u}_a
+\end{equation}
+In the element's reference (undeformed) configuration ($\mathbf{u}_a = \mathbf{0} \, \forall a \in \beta$), the interpolant used to describe the spatial position inside the element will be identical to that of an 8-node hexahedron. In other words, the original element geometry cannot admit ``curved'' edges. However, the deformed element geometry permits curved edges. Certainly, this would need to be the case for the element to be able to exactly reproduce a quadratic displacement field.
+
+As a supplementary note, it should also be observed that $\mathbf{u} (\xi_a, \eta_a, \zeta_a) \neq \mathbf{u}_a \, \forall a \in \beta_e$, meaning that the mid-edge nodes do not satisfy the Kronecker-delta property when interpolating the displacement field (i.e. $\mathbf{u}_a$ does not correspond to the displacement of node $a \in \beta_e$.)
+
+Though the element formulation will make use of an isoparametric mapping, our choice of quadrature will deviate from the typical $3 \times 3 \times 3$ Gaussian integration rule used for the canonical 20-node hexahedron. Instead, we will consider a partitioning of the element in its parent space into 12 quadrature cells, having each cell be associated with a single edge of the element. It is not difficult to see that this arrangement is sufficient to fully integrate the element.
+
+Ultimately, what we want--need--out of our quadrature rule are: weights at the integration points, and evaluations of both $N_a$ and $\partial N_a / \partial \mathbf{X}$ at these same locations. For isoparametric elements, we typically speak of quadrature \textit{points}, but for our purposes, it may be more appropriate to consider each cell as a whole, thus necessitating a discussion of cell-averaged quantities.
+
+If we seek to integrate a particular function $f(\mathbf{X})$ over the element with our quadrature rule, then this would take the form:
+\begin{equation}
+	\sum_q \int_{\Omega_q} f(\mathbf{X}) dv = \sum_q |\Omega_q| \bar{f}_q
+\end{equation}
+where
+\begin{equation}
+	\bar{f}_q = \frac{\int_{\Omega_q} f(\mathbf{X}) dv}{\int_{\Omega_q} dv}
+\end{equation}
+If $f(\mathbf{X})$ happens to be some scalar-valued polynomial function of order $p$, i.e.
+\begin{equation}
+	f(\mathbf{X}) = \sum_{k = 0}^{p} a_k \mathbf{X}^k = a_0 + \mathbf{a}_1 \cdot \mathbf{X}_q + \mathbf{A}_2 \colon (\mathbf{X}_q \otimes \mathbf{X}_q) + \ldots
+\end{equation}
+then we may write
+\begin{equation}
+	\int_{\Omega_q} f(\mathbf{X}) dv = \sum_{k = 0}^{p} a_k \int_{\Omega_q} \mathbf{X}^k dv
+\end{equation}
+In other words: in order to be able to exactly integrate polynomial functions of order $p$ using our quadrature rule, we need to be able to exactly integrate $p$-th order moments.
+
+Dividing our previous expression through by $| \Omega_q |$,
+\begin{equation}
+	\bar{f}_q = \sum_{k = 0}^{p} a_k \overline{\mathbf{X}^k_q}
+\end{equation}
+where
+\begin{equation}
+	\overline{\mathbf{X}^k_q} = \frac{\int_{\Omega_q} \mathbf{X}^k dv}{\int_{\Omega_q} dv}
+\end{equation}
+For a first-order polynomial:
+\begin{equation}
+	\bar{f}_q = a_0 + \mathbf{a}_1 \cdot \bar{\mathbf{X}}_q = f(\bar{\mathbf{X}}_q)
+\end{equation}
+Therefore, we can exactly integrate affine functions with our quadrature rule via
+\begin{equation}
+	\sum_q \int_{\Omega_q} f(\mathbf{X}) dv = \sum_q |\Omega_q| f(\bar{\mathbf{X}}_q)
+\end{equation}
+
+If we call a particular quadrature cell in the parent space $\omega_q$ which maps to a corresponding cell in the physical element $\Omega_q$, then we seek integrals over the \textit{parent} cells, such that
+\begin{equation}
+	| \Omega_q | = \int_{\omega_q} J( \xi, \eta, \zeta ) d \xi d \eta d \zeta,
+\end{equation}
+\begin{equation}
+	| \Omega_q | \bar{N}_{a}^{(q)} = \int_{\omega_q} N_a ( \xi, \eta, \zeta ) J( \xi, \eta, \zeta ) d \xi d \eta d \zeta \quad \forall a \in \beta,
+\end{equation}
+\begin{equation}
+	| \Omega_q | \bar{N}_{a,i}^{(q)} = \int_{\omega_q} N_{a,i} ( \xi, \eta, \zeta ) J( \xi, \eta, \zeta ) d \xi d \eta d \zeta \quad \forall a \in \beta,
+\end{equation}
+and
+\begin{equation}
+	\bar{\mathbf{X}}_q = \sum_{a \in \beta_n} \bar{N}_{a}^{(q)} \mathbf{X}_a
+\end{equation}
+Recall the form of the Jacobian transformation:
+\begin{equation}
+	J_{ij} = \sum_{a \in \beta_n} X_{ia} N_{a,\xi_j}
+\end{equation}
+where
+\begin{equation}
+	\xi_1 = \xi, \quad \xi_2 = \eta, \quad \xi_3 = \zeta
+\end{equation}
+Its determinant is then
+\begin{equation}
+	J = \varepsilon_{ijk} J_{i 1} J_{j 2} J_{k 3} = \sum_{a,b,c \in \beta_n} (\varepsilon_{ijk} X_{ia} X_{jb} X_{kc}) N_{a,\xi_1} N_{b,\xi_2} N_{c,\xi_3}
+\end{equation}
+For convenience, we will choose to define $\mathcal{J}_{abc}$ as
+\begin{equation}
+	\mathcal{J}_{abc} = \varepsilon_{ijk} X_{ia} X_{jb} X_{kc}.
+\end{equation}
+As an added note, $\mathcal{J}_{abc} = \mathcal{J}_{bca} = \mathcal{J}_{cab}$, and $\mathcal{J}_{abc} \neq 0$ only when $a \neq b \neq c \neq a$.
+
+Considering
+\begin{equation}
+	N_a = \frac{1}{8} \prod_{i=1}^3 (1 + \xi_{ia} \xi_i) \quad \forall a \in \beta_n,
+\end{equation}
+then,
+\begin{equation}
+	N_{a,\xi_j} = \frac{1}{8} \xi_{ja} \prod_{i \neq j} (1 + \xi_{ia} \xi_i) \quad \forall a \in \beta_n
+\end{equation}
+so
+\begin{equation}
+	J = \frac{1}{512} \sum_{a,b,c \in \beta_n} \mathcal{J}_{abc} \, \xi_{1a} \xi_{2b} \xi_{3c} \left[ \prod_{l \neq 1} (1 + \xi_{la} \xi_l) \right] \left[ \prod_{m \neq 2} (1 + \xi_{mb} \xi_m) \right] \left[ \prod_{n \neq 3} (1 + \xi_{nc} \xi_n)\right]
+\end{equation}
+\begin{equation}
+	J = \frac{1}{512} \sum_{a,b,c \in \beta_n} \mathcal{J}_{abc} \, \xi_{1a} \xi_{2b} \xi_{3c} (1 + \xi_{1b} \xi_1) (1 + \xi_{1c} \xi_1) (1 + \xi_{2a} \xi_2) (1 + \xi_{2c} \xi_2)  (1 + \xi_{3a} \xi_3) (1 + \xi_{3b} \xi_3)  
+\end{equation}
+If we call $P^{(n)}_{abc} (\xi_i)$ the polynomial in $\xi_i$, i.e.
+\begin{equation}
+	P^{(n)}_{abc} (\xi_i) = \xi_{ia} \left[1 + (\xi_{ib} + \xi_{ic}) \xi_i + \xi_{ib} \xi_{ic} \xi_i^2 \right],
+\end{equation}
+then we may write
+\begin{equation}
+	J (\xi, \eta, \zeta) = \frac{1}{512} \sum_{a,b,c \in \beta_n} \mathcal{J}_{abc} P^{(n)}_{abc} (\xi) P^{(n)}_{bca} (\eta) P^{(n)}_{cab} (\zeta).
+\end{equation}
+
+Revisiting the Jacobian transformation $J_{ij}$, it's inverse may be written as
+\begin{equation}
+	J^{-1}_{ij} = \frac{1}{2 J} \varepsilon_{jmn} \varepsilon_{ipq} J_{mp} J_{nq}
+\end{equation}
+Note that
+\begin{equation}
+	N_{a,i} = N_{a,\xi_j} J^{-1}_{ji} \quad \forall a \in \beta
+\end{equation}
+or
+\begin{equation}
+	N_{a,i} = N_{a,\xi_j} \frac{1}{2 J} \varepsilon_{imn} \varepsilon_{jpq} J_{mp} J_{nq} = \frac{1}{2 J} \sum_{b, c \in \beta_n} \varepsilon_{imn} X_{mb} X_{nc} \varepsilon_{jpq} N_{a,\xi_j} N_{b,\xi_p} N_{c,\xi_q} \quad \forall a \in \beta,
+\end{equation}
+such that--conveniently--the Jacobian determinant $J$ cancels in the expression for $N_{a,i} J$:
+\begin{equation}
+	N_{a,i} J = \frac{1}{2} \sum_{b, c \in \beta_n} \varepsilon_{imn} X_{mb} X_{nc} \varepsilon_{jpq} N_{a,\xi_j} N_{b,\xi_p} N_{c,\xi_q} \quad \forall a \in \beta
+\end{equation}
+Once more, for convenience, let us define $\mathcal{X}_{ibc}$ as
+\begin{equation}
+	\mathcal{X}_{ibc} = \varepsilon_{imn} X_{mb} X_{nc}
+\end{equation}
+Therefore,
+\begin{equation}
+	N_{a,i} J = \frac{1}{2} \sum_{b, c \in \beta_n} \mathcal{X}_{ibc} \varepsilon_{jpq} N_{a,\xi_j} N_{b,\xi_p} N_{c,\xi_q} \quad \forall a \in \beta.
+\end{equation}
+As an added note, $\mathcal{X}_{ibc} = -\mathcal{X}_{icb}$.
+
+Viewing only the vertex interpolants ($a \in \beta_n$), if we call $\hat{P}^{(n)}_{abcd} (\xi_i)$ the polynomial in $\xi_i$:
+\begin{equation}
+	\hat{P}^{(n)}_{abcd} (\xi_i) = \xi_{ia} \left[1 + (\xi_{ib} + \xi_{ic} + \xi_{id}) \xi_i + (\xi_{ib} \xi_{ic} + \xi_{ic} \xi_{id} + \xi_{id} \xi_{ib}) \xi_i^2 + \xi_{ib} \xi_{ic} \xi_{id} \xi_i^3\right],
+\end{equation}
+and if we consider $N_d ( \xi, \eta, \zeta ) J( \xi, \eta, \zeta )$  for $d \in \beta_n$, then
+\begin{equation}
+	N_d ( \xi, \eta, \zeta ) J (\xi, \eta, \zeta) = \frac{1}{4096} \sum_{a,b,c \in \beta_n} \mathcal{J}_{abc} \hat{P}^{(n)}_{abcd} (\xi) \hat{P}^{(n)}_{bcad} (\eta) \hat{P}^{(n)}_{cabd} (\zeta) \quad \forall d \in \beta_n.
+\end{equation}
+Furthermore, consider
+\begin{equation}
+	N_{a,i} J = \frac{1}{1024} \sum_{b, c \in \beta_n} \mathcal{X}_{ibc} \varepsilon_{jpq} \xi_{ja} \xi_{pb} \xi_{qc} \prod_{l \neq j} (1 + \xi_{la} \xi_l) \prod_{m \neq p} (1 + \xi_{mb} \xi_m) \prod_{n \neq q} (1 + \xi_{nc} \xi_n) \quad \forall a \in \beta_n.
+\end{equation}
+Careful observation reveals that
+\begin{equation}
+	\prod_{l \neq j} (1 + \xi_{la} \xi_l) \prod_{m \neq p} (1 + \xi_{mb} \xi_m) \prod_{n \neq q} (1 + \xi_{nc} \xi_n) = (1 + \xi_{jb} \xi_j)(1 + \xi_{jc} \xi_j) (1 + \xi_{pc} \xi_p)(1 + \xi_{pa} \xi_p) (1 + \xi_{qa} \xi_q)(1 + \xi_{qb} \xi_q)
+\end{equation}
+and therefore,
+\begin{equation}
+	\xi_{ja} \xi_{pb} \xi_{qc} \prod_{l \neq j} (1 + \xi_{la} \xi_l) \prod_{m \neq p} (1 + \xi_{mb} \xi_m) \prod_{n \neq q} (1 + \xi_{nc} \xi_n) = P^{(n)}_{abc} (\xi_j) P^{(n)}_{bca} (\xi_p) P^{(n)}_{cab} (\xi_q).
+\end{equation}
+Thus,
+\begin{equation}
+	N_{a,i} ( \xi, \eta, \zeta ) J ( \xi, \eta, \zeta ) = \frac{1}{1024} \sum_{b, c \in \beta_n} \mathcal{X}_{ibc} \varepsilon_{jpq} P^{(n)}_{abc} (\xi_j) P^{(n)}_{bca} (\xi_p) P^{(n)}_{cab} (\xi_q) \quad \forall a \in \beta_n.
+\end{equation}
+
+Now, viewing the ``enhanced'' (mid-edge) interpolants ($a \in \beta_e$):
+\begin{equation}
+	N_a = \frac{1}{16} \prod_{i=1}^3 \bigg( 1 + (\xi_{ia_1} + \xi_{ia_2}) \xi_i + \xi_{ia_1} \xi_{ia_2} \xi_{i}^2 \bigg) \quad \forall a \in \beta_e,
+\end{equation}
+and,
+\begin{equation}
+	N_{a,\xi_j} = \frac{1}{16} \bigg((\xi_{ja_1} + \xi_{ja_2}) + 2 \xi_{ja_1} \xi_{ja_2} \xi_{j} \bigg) \prod_{i \neq j} \bigg( 1 + (\xi_{ia_1} + \xi_{ia_2}) \xi_i + \xi_{ia_1} \xi_{ia_2} \xi_{i}^2 \bigg) \quad \forall a \in \beta_e.
+\end{equation}
+If we call $\hat{P}^{(e)}_{abcd} (\xi_i)$ the polynomial in $\xi_i$:
+\begin{equation}
+	\hat{P}^{(e)}_{abcd} (\xi_i) = P^{(n)}_{abc} \bigg( 1 + (\xi_{id_1} + \xi_{id_2}) \xi_i + \xi_{id_1} \xi_{id_2} \xi_{i}^2 \bigg).
+\end{equation}
+Expanded out,
+\begin{eqnarray}
+	\hat{P}^{(e)}_{abcd} (\xi_i) = \xi_{ia} \left[\bigg( 1 + (\xi_{id_1} + \xi_{id_2}) \xi_i + \xi_{id_1} \xi_{id_2} \xi_{i}^2 \bigg) \right. \nonumber \\ \left. + (\xi_{ib} + \xi_{ic}) \xi_i \bigg( 1 + (\xi_{id_1} + \xi_{id_2}) \xi_i + \xi_{id_1} \xi_{id_2} \xi_{i}^2 \bigg) \right. \nonumber \\ \left. + \xi_{ib} \xi_{ic} \xi_i^2 \bigg( 1 + (\xi_{id_1} + \xi_{id_2}) \xi_i + \xi_{id_1} \xi_{id_2} \xi_{i}^2 \bigg) \right],
+\end{eqnarray}
+and grouping terms,
+\begin{eqnarray}
+	\hat{P}^{(e)}_{abcd} (\xi_i) = \xi_{ia} \left[ 1 + \bigg( \xi_{ib} + \xi_{ic} + \xi_{id_1} + \xi_{id_2} \bigg) \xi_i + \bigg( \xi_{ib} \xi_{ic} + (\xi_{id_1} + \xi_{id_2}) (\xi_{ib} + \xi_{ic}) + \xi_{id_1} \xi_{id_2} \bigg) \xi_{i}^2 \right. \nonumber \\ \left. + \bigg( \xi_{id_1} \xi_{id_2} (\xi_{ib} + \xi_{ic}) + (\xi_{id_1} + \xi_{id_2}) \xi_{ib} \xi_{ic} \bigg) \xi_i^3 + \bigg( \xi_{id_1} \xi_{id_2} \xi_{ib} \xi_{ic} \bigg) \xi_i^4 \right].
+\end{eqnarray}
+Considering $N_d ( \xi, \eta, \zeta ) J( \xi, \eta, \zeta )$ for $d \in \beta_e$,
+\begin{equation}
+	N_d ( \xi, \eta, \zeta ) J (\xi, \eta, \zeta) = \frac{1}{8192} \sum_{a,b,c \in \beta_n} \mathcal{J}_{abc} \hat{P}^{(e)}_{abcd} (\xi) \hat{P}^{(e)}_{bcad} (\eta) \hat{P}^{(e)}_{cabd} (\zeta) \quad \forall d \in \beta_e.
+\end{equation}
+Furthermore, consider
+\begin{eqnarray}
+	N_{a,i} J = \frac{1}{2084} \sum_{b, c \in \beta_n} \mathcal{X}_{ibc} \varepsilon_{jpq} \bigg((\xi_{ja_1} + \xi_{ja_2}) + 2 \xi_{ja_1} \xi_{ja_2} \xi_{j} \bigg) \xi_{pb} \xi_{qc} \nonumber \\ \times \prod_{l \neq j} \bigg( 1 + (\xi_{la_1} + \xi_{la_2}) \xi_l + \xi_{la_1} \xi_{la_2} \xi_l^2 \bigg) \prod_{m \neq p} (1 + \xi_{mb} \xi_m) \prod_{n \neq q} (1 + \xi_{nc} \xi_n) \quad \forall a \in \beta_e.
+\end{eqnarray}
+Writing out the products explicitly:
+\begin{eqnarray}
+	\bigg((\xi_{ja_1} + \xi_{ja_2}) + 2 \xi_{ja_1} \xi_{ja_2} \xi_{j} \bigg) (1 + \xi_{jb} \xi_j) (1 + \xi_{jc} \xi_j) \nonumber \\
+	\times \xi_{pb} \bigg( 1 + (\xi_{pa_1} + \xi_{pa_2}) \xi_p + \xi_{pa_1} \xi_{pa_2} \xi_p^2 \bigg) (1 + \xi_{pc} \xi_p) \nonumber \\
+	\times \xi_{qc} \bigg( 1 + (\xi_{qa_1} + \xi_{qa_2}) \xi_q + \xi_{qa_1} \xi_{qa_2} \xi_q^2 \bigg) (1 + \xi_{qb} \xi_q) \nonumber \\
+	= \left[(\xi_{ja_1} + \xi_{ja_2}) + \bigg( (\xi_{ja_1} + \xi_{ja_2}) (\xi_{jb} + \xi_{jc}) + 2 \xi_{ja_1} \xi_{ja_2} \bigg) \xi_j \right. \nonumber \\ \left. + \bigg( 2 \xi_{ja_1} \xi_{ja_2} (\xi_{jb} + \xi_{jc}) + (\xi_{ja_1} + \xi_{ja_2}) \xi_{jb} \xi_{jc} \bigg) \xi_j^2 + 2 \xi_{ja_1} \xi_{ja_2} \xi_{jb} \xi_{jc} \xi_j^3 \right] \nonumber \\
+	\times \xi_{pb} \bigg( 1 + (\xi_{pa_1} + \xi_{pa_2} + \xi_{pc}) \xi_p + ( \xi_{pa_1} \xi_{pa_2} + \xi_{pa_2} \xi_{pc} + \xi_{pc} \xi_{pa_1} ) \xi_p^2 + \xi_{pa_1} \xi_{pa_2} \xi_{pc} \xi_p^3 \bigg) \nonumber \\
+	\times \xi_{qc} \bigg( 1 + (\xi_{qa_1} + \xi_{qa_2} + \xi_{qb}) \xi_q + ( \xi_{qa_1} \xi_{qa_2} + \xi_{qa_2} \xi_{qb} + \xi_{qb} \xi_{qa_1} ) \xi_q^2 + \xi_{qa_1} \xi_{qa_2} \xi_{qb} \xi_q^3 \bigg) \nonumber \\
+	= \tilde{P}^{(e)}_{a_1a_2bc} (\xi_j) \hat{P}^{(n)}_{bca_1a_2} (\xi_p) \hat{P}^{(n)}_{ca_1a_2b} (\xi_q)
+\end{eqnarray}
+where we have defined $\tilde{P}^{(e)}_{abcd} (\xi_i)$ as
+\begin{eqnarray}
+	\tilde{P}^{(e)}_{abcd} (\xi_i) = (\xi_{ia} + \xi_{ib}) + \bigg( 2 \xi_{ia} \xi_{ib} + (\xi_{ia} + \xi_{ib}) (\xi_{ic} + \xi_{id}) \bigg) \xi_i \nonumber \\ + \bigg( 2 \xi_{ia} \xi_{ib} (\xi_{ic} + \xi_{id}) + (\xi_{ia} + \xi_{ib}) \xi_{ic} \xi_{id} \bigg) \xi_i^2 + 2 \xi_{ia} \xi_{ib} \xi_{ic} \xi_{id} \xi_i^3.
+\end{eqnarray}
+Thus,
+\begin{eqnarray}
+	N_{a,i} J = \frac{1}{2084} \sum_{b, c \in \beta_n} \mathcal{X}_{ibc} \varepsilon_{jpq} \tilde{P}^{(e)}_{a_1a_2bc} (\xi_j) \hat{P}^{(n)}_{bca_1a_2} (\xi_p) \hat{P}^{(n)}_{ca_1a_2b} (\xi_q) \quad \forall a \in \beta_e.
+\end{eqnarray}
+
+Suppose we were to subdivide the parent element in a Cartesian fashion. To integrate cell volumes, we would need to evaluate
+\begin{equation}
+	| \Omega_q | = \int_{\xi^{(q)}_{l}}^{\xi^{(q)}_{u}} \int_{\eta^{(q)}_{l}}^{\eta^{(q)}_{u}} \int_{\zeta^{(q)}_{l}}^{\zeta^{(q)}_{u}} J (\xi, \eta, \zeta) d \zeta d \eta d \xi,
+\end{equation}
+assuming we have specified $\xi^{(q)}_l$ and $\xi^{(q)}_u$ to be the lower and upper bounds, respectively, for the limits of integration in the variable $\xi$ (and similarly for $\eta$, $\zeta$) over a given cell $q$. This leads to
+\begin{equation}
+	| \Omega_q | = \frac{1}{512} \sum_{a,b,c \in \beta_n} \mathcal{J}_{abc} \int_{\xi^{(q)}_{l}}^{\xi^{(q)}_{u}} P^{(n)}_{abc} (\xi) d \xi \int_{\eta^{(q)}_{l}}^{\eta^{(q)}_{u}} P^{(n)}_{bca} (\eta) d \eta \int_{\zeta^{(q)}_{l}}^{\zeta^{(q)}_{u}} P^{(n)}_{cab} (\zeta) d \zeta
+\end{equation}
+If we define
+\begin{equation}
+	\mathcal{I}^{(n)}_{abc} (\xi_i) = \int P^{(n)}_{abc} (\xi_i) d \xi_i = \xi_{ia} \left[\xi_i + \frac{(\xi_{ib} + \xi_{ic})}{2} \xi_i^2 + \frac{\xi_{ib} \xi_{ic}}{3} \xi_i^3 \right]
+\end{equation}
+then we may write
+\begin{equation}
+	| \Omega_q | = \frac{1}{512} \sum_{a,b,c \in \beta_n} \mathcal{J}_{abc} \bigg( \left. \mathcal{I}^{(n)}_{abc} (\xi) \right|^{\xi^{(q)}_{u}}_{\xi^{(q)}_{l}} \bigg) \bigg( \left. \mathcal{I}^{(n)}_{bca} (\eta) \right|^{\eta^{(q)}_{u}}_{\eta^{(q)}_{l}} \bigg) \bigg( \left. \mathcal{I}^{(n)}_{cab} (\zeta) \right|^{\zeta^{(q)}_{u}}_{\zeta^{(q)}_{l}} \bigg)
+\end{equation}
+
+Likewise, to evaluate
+\begin{equation}
+	| \Omega_q | \bar{N}_{a}^{(q)} = \int_{\xi^{(q)}_{l}}^{\xi^{(q)}_{u}} \int_{\eta^{(q)}_{l}}^{\eta^{(q)}_{u}} \int_{\zeta^{(q)}_{l}}^{\zeta^{(q)}_{u}} N_a ( \xi, \eta, \zeta ) J( \xi, \eta, \zeta ) d \xi d \eta d \zeta \quad \forall a \in \beta,
+\end{equation}
+we may further define
+\begin{equation}
+	\hat{\mathcal{I}}^{(n)}_{abcd} (\xi_i) = \int \hat{P}^{(n)}_{abcd} (\xi_i) d \xi_i
+\end{equation}
+\begin{equation}
+	\hat{\mathcal{I}}^{(e)}_{abcd} (\xi_i) = \int \hat{P}^{(e)}_{abcd} (\xi_i) d \xi_i
+\end{equation}
+or
+\begin{equation}
+	\hat{\mathcal{I}}^{(n)}_{abcd} (\xi_i) = \xi_{ia} \left[\xi_i + (\xi_{ib} + \xi_{ic} + \xi_{id}) \frac{\xi_i^2}{2} + (\xi_{ib} \xi_{ic} + \xi_{ic} \xi_{id} + \xi_{id} \xi_{ib}) \frac{\xi_i^3}{3} + \xi_{ib} \xi_{ic} \xi_{id} \frac{\xi_i^4}{4} \right],
+\end{equation}
+\begin{eqnarray}
+	\hat{\mathcal{I}}^{(e)}_{abcd} (\xi_i) = \xi_{ia} \left[ \xi_i + \bigg( \xi_{ib} + \xi_{ic} + \xi_{id_1} + \xi_{id_2} \bigg) \frac{\xi_i^2}{2} + \bigg( \xi_{ib} \xi_{ic} + (\xi_{id_1} + \xi_{id_2}) (\xi_{ib} + \xi_{ic}) + \xi_{id_1} \xi_{id_2} \bigg) \frac{\xi_{i}^3}{3} \right. \nonumber \\ \left. + \bigg( \xi_{id_1} \xi_{id_2} (\xi_{ib} + \xi_{ic}) + (\xi_{id_1} + \xi_{id_2}) \xi_{ib} \xi_{ic} \bigg) \frac{\xi_i^4}{4} + \bigg( \xi_{id_1} \xi_{id_2} \xi_{ib} \xi_{ic} \bigg) \frac{\xi_i^5}{5} \right],
+\end{eqnarray}
+and similarly, we find
+\begin{equation}
+	| \Omega_q | \bar{N}_{d}^{(q)} = \frac{1}{4096} \sum_{a,b,c \in \beta_n} \mathcal{J}_{abc} \bigg( \left. \hat{\mathcal{I}}^{(n)}_{abcd} (\xi) \right|^{\xi^{(q)}_{u}}_{\xi^{(q)}_{l}} \bigg) \bigg( \left. \hat{\mathcal{I}}^{(n)}_{bcad} (\eta) \right|^{\eta^{(q)}_{u}}_{\eta^{(q)}_{l}} \bigg) \bigg( \left. \hat{\mathcal{I}}^{(n)}_{cabd} (\zeta) \right|^{\zeta^{(q)}_{u}}_{\zeta^{(q)}_{l}} \bigg) \quad \forall d \in \beta_n
+\end{equation}
+\begin{equation}
+	| \Omega_q | \bar{N}_{d}^{(q)} = \frac{1}{8192} \sum_{a,b,c \in \beta_n} \mathcal{J}_{abc} \bigg( \left. \hat{\mathcal{I}}^{(e)}_{abcd} (\xi) \right|^{\xi^{(q)}_{u}}_{\xi^{(q)}_{l}} \bigg) \bigg( \left. \hat{\mathcal{I}}^{(e)}_{bcad} (\eta) \right|^{\eta^{(q)}_{u}}_{\eta^{(q)}_{l}} \bigg) \bigg( \left. \hat{\mathcal{I}}^{(e)}_{cabd} (\zeta) \right|^{\zeta^{(q)}_{u}}_{\zeta^{(q)}_{l}} \bigg) \quad \forall d \in \beta_e
+\end{equation}
+
+Lastly, to evaluate
+\begin{equation}
+	| \Omega_q | \bar{N}_{a,i}^{(q)} = \int_{\xi^{(q)}_{l}}^{\xi^{(q)}_{u}} \int_{\eta^{(q)}_{l}}^{\eta^{(q)}_{u}} \int_{\zeta^{(q)}_{l}}^{\zeta^{(q)}_{u}} N_{a,i} ( \xi, \eta, \zeta ) J( \xi, \eta, \zeta ) d \xi d \eta d \zeta \quad \forall a \in \beta,
+\end{equation}
+we may define
+\begin{equation}
+	\tilde{\mathcal{I}}^{(e)}_{abcd} (\xi_i) = \int \tilde{P}^{(e)}_{abcd} (\xi_i) d \xi_i
+\end{equation}
+or
+\begin{eqnarray}
+	\tilde{\mathcal{I}}^{(e)}_{abcd} (\xi_i) = (\xi_{ia} + \xi_{ib}) \xi_i + \bigg( 2 \xi_{ia} \xi_{ib} + (\xi_{ia} + \xi_{ib}) (\xi_{ic} + \xi_{id}) \bigg) \frac{\xi_i^2}{2} \nonumber \\ + \bigg( 2 \xi_{ia} \xi_{ib} (\xi_{ic} + \xi_{id}) + (\xi_{ia} + \xi_{ib}) \xi_{ic} \xi_{id} \bigg) \frac{\xi_i^3}{3} + \xi_{ia} \xi_{ib} \xi_{ic} \xi_{id} \frac{\xi_i^4}{2},
+\end{eqnarray}
+and we find
+\begin{equation}
+	| \Omega_q | \bar{N}_{a,i}^{(q)} = \frac{1}{1024} \sum_{b, c \in \beta_n} \mathcal{X}_{ibc} \varepsilon_{jpq} \bigg( \left. \mathcal{I}^{(n)}_{abc} (\xi_j) \right|^{(\xi_j)^{(q)}_{u}}_{(\xi_j)^{(q)}_{l}} \bigg) \bigg( \left. \mathcal{I}^{(n)}_{bca} (\xi_p) \right|^{(\xi_p)^{(q)}_{u}}_{(\xi_p)^{(q)}_{l}} \bigg) \bigg( \left. \mathcal{I}^{(n)}_{cab} (\xi_q) \right|^{(\xi_q)^{(q)}_{u}}_{(\xi_q)^{(q)}_{l}} \bigg) \quad \forall a \in \beta_n
+\end{equation}
+\begin{equation}
+	| \Omega_q | \bar{N}_{a,i}^{(q)} = \frac{1}{2084} \sum_{b, c \in \beta_n} \mathcal{X}_{ibc} \varepsilon_{jpq} \bigg( \left. \tilde{\mathcal{I}}^{(e)}_{a_1a_2bc} (\xi_j) \right|^{(\xi_j)^{(q)}_{u}}_{(\xi_j)^{(q)}_{l}} \bigg) \bigg( \left. \hat{\mathcal{I}}^{(n)}_{bca_1a_2} (\xi_p) \right|^{(\xi_p)^{(q)}_{u}}_{(\xi_p)^{(q)}_{l}} \bigg) \bigg( \left. \hat{\mathcal{I}}^{(n)}_{ca_1a_2b} (\xi_q) \right|^{(\xi_q)^{(q)}_{u}}_{(\xi_q)^{(q)}_{l}} \bigg) \quad \forall a \in \beta_e
+\end{equation}
+
+We will choose to proceed in our derivations with the foregoing element formulation in mind. 
+
+\section{Recasting the Element Local Stiffness Matrix}
+
+Consider a continuum finite element that utilizes a nodal interpolant of the form:
+\begin{equation}
+	x_i (\xi, \eta, \zeta) = \sum_{a \in \beta_n} N_a (\xi, \eta, \zeta) X_{ia} + \sum_{a \in \beta} N_a (\xi, \eta, \zeta) u_{ia}
+\end{equation}
+Henceforth, the dependence of the nodal shape functions $N_a$ upon the parameterized element coordinates ($\xi, \eta, \zeta$) is implied. We presume that the shape functions are defined with respect to the element's \textit{reference} configuration. The total deformation gradient $\mathbf{F}$ within the element may be expressed as
+\begin{equation}
+	F_{ij} = \frac{\partial x_i}{\partial X_j} = \frac{\partial X_i}{\partial X_j} + \frac{\partial}{\partial X_j}\sum_{a \in \beta} N_a (\xi, \eta, \zeta) u_{ia} = \delta_{ij} + \sum_{a \in \beta} \frac{\partial N_a}{\partial X_j} u_{ia}
+\end{equation}
+The right Cauchy-Green deformation tensor $\mathbf{C}$ is then
+\begin{eqnarray}
+	C_{ij} = F_{ki} F_{kj} = \bigg( \delta_{ki} + \sum_a \frac{\partial N_a}{\partial X_i} u_{ka} \bigg) \bigg( \delta_{kj} + \sum_b \frac{\partial N_b}{\partial X_j} u_{kb} \bigg) \\ = \delta_{ij} + \sum_a \frac{\partial N_a}{\partial X_i} u_{ja} + \sum_a \frac{\partial N_a}{\partial X_j} u_{ia} + \sum_a \sum_b u_{ka} \frac{\partial N_a}{\partial X_i} \frac{\partial N_b}{\partial X_j} u_{kb}
+\end{eqnarray}
+where it is understood that $a,b \in \beta$; henceforth, we will dispense with the set specifications of the nodal indicies. The corresponding Green-Lagrangian strain tensor $\mathbf{E}$ is written as
+\begin{equation}
+	E_{ij} = \frac{1}{2} (C_{ij} - \delta_{ij}) = \frac{1}{2} \bigg( \sum_a \frac{\partial N_a}{\partial X_i} u_{ja} + \sum_a \frac{\partial N_a}{\partial X_j} u_{ia} + \sum_a \sum_b u_{ka} \frac{\partial N_a}{\partial X_i} \frac{\partial N_b}{\partial X_j} u_{kb} \bigg)
+\end{equation}
+If we consider only the linear portion of the strain, then we may approximate $\mathbf{E}$ with the \textit{linearized} strain tensor, $\mathbf{\varepsilon}$:
+\begin{equation}
+	E_{ij} \approx \varepsilon_{ij} = \frac{1}{2} \bigg( \sum_a \frac{\partial N_a}{\partial X_i} u_{ja} + \sum_a \frac{\partial N_a}{\partial X_j} u_{ia} \bigg) = \frac{1}{2} (F_{ij} + F_{ji}) - \delta_{ij}
+\end{equation}
+Clearly, $\mathbf{\varepsilon}$ will be symmetric. This allows us to write the 6 independent components of the linearized strain tensor in the form of a vector $\mathbf{e}$ (arranged according to Voigt notation):
+\begin{equation}
+	\mathbf{e} = \left\{ \begin{array}{cccccc} \varepsilon_{11} & \varepsilon_{22} & \varepsilon_{33} & 2 \varepsilon_{23} & 2 \varepsilon_{13} & 2 \varepsilon_{12} \end{array} \right\}^T  \quad (6 \times 1)
+\end{equation}
+If we define the cannonical $\mathbf{B}_a$ matrix to be a mapping between the nodal displacement vector $\mathbf{u}_a$ and a contribution to the strain $\mathbf{e}$, where
+\begin{equation}
+	\mathbf{B}_a = \left[ \begin{array}{ccc} N_{a,1} & 0 & 0 \\ 0 & N_{a,2} & 0 \\ 0 & 0 & N_{a,3} \\ 0 & N_{a,3} & N_{a,2} \\ N_{a,3} & 0 & N_{a,1} \\ N_{a,2} & N_{a,1} & 0 \end{array} \right]
+\end{equation}
+\begin{equation}
+	\mathbf{u}_a = \left\{ \begin{array}{ccc} u_{1a} & u_{2a} & u_{3a} \end{array} \right\}^T
+\end{equation}
+then we may write
+\begin{equation}
+	\mathbf{e} = \sum_a \mathbf{B}_a \mathbf{u}_a
+\end{equation}
+If we claim that $a = 1, \ldots, n$ (there being $n$ nodes in the element), then we may go one step further than this by writing the following:
+\begin{equation}
+	\mathbf{B} = \left[ \begin{array}{cccc} \mathbf{B}_1 & \mathbf{B}_2 & \ldots & \mathbf{B}_n \end{array} \right] \quad (6 \times 3n)
+\end{equation}
+\begin{equation}
+	\mathbf{u} = \left\{ \begin{array}{cccc} \mathbf{u}_1^T & \mathbf{u}_2^T & \ldots & \mathbf{u}_n^T \end{array} \right\}^T \quad (3n \times 1)
+\end{equation}
+\begin{equation}
+	\mathbf{e} = \mathbf{B} \mathbf{u}
+\end{equation}
+where $\mathbf{u}$ (without any subscript) is understood to be the vector of displacements for \textit{all} nodes in the element, and $\mathbf{B}$ (again, without any subscript) is a linear map between these nodal displacements, and the strain $\mathbf{e}$ at an--as of yet, unspecified--location in the element.
+
+If we now consider the element to be subdivided into a number of quadrature cells $q = 1, \ldots, K$, then we will seek to find the strain $\mathbf{e}^{(q)}$ at each quadrature point of interest, i.e.
+\begin{equation}
+	\mathbf{e}^{(q)} = \mathbf{B}^{(q)} \mathbf{u}
+\end{equation}
+where it is understood that $\mathbf{B}^{(q)}$ will be evaluated at the location of quadrature point $q$ ($\xi_q, \eta_q, \zeta_q$). Here too, we may go one step further:
+\begin{equation}
+	\mathbb{E} = \mathbb{B} \mathbf{u}
+\end{equation}
+where
+\begin{equation}
+	\mathbb{B} = \left[ \begin{array}{c} \mathbf{B}^{(1)} \\ \mathbf{B}^{(2)} \\ \vdots \\ \mathbf{B}^{(K)} \end{array} \right] \quad (6K \times 3n)
+\end{equation}
+\begin{equation}
+	\mathbb{E} = \left\{ \begin{array}{c} \mathbf{e}^{(1)} \\ \mathbf{e}^{(2)} \\ \vdots \\ \mathbf{e}^{(K)} \end{array} \right\} \quad (6K \times 1)
+\end{equation}
+such that we now have a linear mapping in the form of $\mathbb{B}$ between all of the nodal displacements $\mathbf{u}$, and all of the quadrature point strains $\mathbb{E}$.
+
+If we consider the material tangent modulus $\mathbf{D}^{(q)}$ (a $6 \times 6$ matrix) to be a linear map between quadrature point strains and quadrature point stresses, i.e.
+\begin{equation}
+	\mathbf{T}^{(q)} = \mathbf{D}^{(q)} \mathbf{e}^{(q)}
+\end{equation}
+where the components of the Cauchy stress tensor $T_{ij}$ can be represented in the form of a vector:
+\begin{equation}
+	\mathbf{T} = \left\{ \begin{array}{cccccc} T_{11} & T_{22} & T_{33} & T_{23} & T_{13} & T_{12} \end{array} \right\}^T  \quad (6 \times 1)
+\end{equation}
+Once more, we will choose to cast this in the form of an element-wide linear operator
+\begin{equation}
+	\mathbb{D} = \left[ \begin{array}{cccc} \mathbf{D}^{(1)} & \mathbf{0} & \ldots & \mathbf{0} \\ \mathbf{0} & \mathbf{D}^{(2)} & \ldots & \mathbf{0} \\ \vdots & \vdots & \ddots & \vdots \\ \mathbf{0} & \mathbf{0} & \ldots & \mathbf{D}^{(K)} \end{array} \right] \quad (6K \times 6K)
+\end{equation}
+\begin{equation}
+	\mathbb{T} = \left\{ \begin{array}{c} \mathbf{T}^{(1)} \\ \mathbf{T}^{(2)} \\ \vdots \\ \mathbf{T}^{(K)} \end{array} \right\} \quad (6K \times 1)
+\end{equation}
+\begin{equation}
+	\mathbb{T} = \mathbb{D} \mathbb{E} = \mathbb{D} \mathbb{B} \mathbf{u}
+\end{equation}
+
+If ultimately we are interested in computing the element's contribution to the internal force vector $\mathbf{f}_a$ for each node $a$, where
+\begin{equation}
+	f_{ia} = \int_{\Omega_e} T_{ij} N_{a,j} dv,
+\end{equation}
+we may use the element's quadrature rule to rewrite this as
+\begin{equation}
+	f_{ia} = \sum_q w_q T^{(q)}_{ij} N^{(q)}_{a,j}
+\end{equation}
+where $w_q$ is the integration weight associated with quadrature point $q$. In vector form, this is
+\begin{equation}
+	\mathbf{f}_a = \sum_q w_q {\mathbf{B}_a^{(q)}}^T \mathbf{T}^{(q)}
+\end{equation}
+If we define $\mathbf{f}$ to be the vector of internal forces for \textit{all} nodes in the element, i.e.
+\begin{equation}
+	\mathbf{f} = \left\{ \begin{array}{cccc} \mathbf{f}_1^T & \mathbf{f}_2^T & \ldots & \mathbf{f}_n^T \end{array} \right\}^T \quad (3n \times 1),
+\end{equation}
+certainly, based on our previous definition for $\mathbf{B}^{(q)}$,
+\begin{equation}
+	\mathbf{f} = \sum_q w_q {\mathbf{B}^{(q)}}^T \mathbf{T}^{(q)}
+\end{equation}
+If we further define a quadrature ``weighting'' operator $\mathbf{W}^{(q)}$ as simply
+\begin{equation}
+	\mathbf{W}^{(q)} = w_q \mathbf{I} \quad (6 \times 6),
+\end{equation}
+with a corresponding element-wide weighting operator (denoted $\mathbb{W}$) as
+\begin{equation}
+	\mathbb{W} = \left[ \begin{array}{cccc} \mathbf{W}^{(1)} & \mathbf{0} & \ldots & \mathbf{0} \\ \mathbf{0} & \mathbf{W}^{(2)} & \ldots & \mathbf{0} \\ \vdots & \vdots & \ddots & \vdots \\ \mathbf{0} & \mathbf{0} & \ldots & \mathbf{W}^{(K)} \end{array} \right] \quad (6K \times 6K),
+\end{equation}
+then we may write
+\begin{equation}
+	\mathbf{f} = \mathbb{B}^T \mathbb{W} \mathbb{T}
+\end{equation}
+
+Finally, the element's local internal force vector $\mathbf{f}$ can therefore be written in terms of the element's local displacement vector $\mathbf{u}$ by composing the mappings previoulsy defined. This also serves to illustrate the form of the element's local stiffness matrix, $\mathbf{k}$.
+\begin{equation}
+	\mathbf{f} = \mathbb{B}^T \mathbb{W} \mathbb{D} \mathbb{B} \mathbf{u} = \mathbf{k} \mathbf{u}
+\end{equation}
+\begin{equation}
+	\mathbf{k} = \mathbb{B}^T \mathbb{W} \mathbb{D} \mathbb{B} \quad (3n \times 3n)
+\end{equation}
+However, it should be noted that the above expression is only valid for \textit{linear} finite elements (small deformations, and linear elastic constitutive laws). Nonetheless, this representation will help to illuminate some of the nuanced aspects of element locking in the following section.
+
+\section{The Strain-Averaging Operator}
+
+We now suppose that in certain contexts, it may be beneficial to augment the element's stiffness matrix $\mathbf{k}$ in such a way that we obtain ``better'' performance for a given class of problems. The meaning of ``better'' will depend on the specific circumstance. For instance, in the incompressible limit, ``better'' performance simply means the avoidance of volumetric locking. Likewise, in our specific circumstance of sufficiently thin element configurations, ``better'' means the avoidance of shear locking and thickness locking.
+
+From a high-level perspective, we might consider attempting modifications to any of the element-wide linear operators previously defined ($\mathbb{B}$, $\mathbb{D}$, $\mathbb{W}$). Augmenting $\mathbb{W}$ would be tantamount to modifying the element's quadrature rule. If we were to somehow ``enhance'' the constitutive routines within the element, this would be akin to augmenting $\mathbb{D}$. Playing with the shape functions and/or their gradients would relate back to $\mathbb{B}$. However, we will choose to adopt a somewhat different strategy, namely: the introduction of a supplementary ``strain-averaging'' operator: $\mathbb{A}$.
+
+Before elaborating further on the precise form of $\mathbb{A}$, let us consider the element-wide linear operator $\mathbb{B}$ that maps nodal displacements to quadrature point strain values. In essence, $\mathbb{B}$ is a mapping $f \colon \mathbb{R}^{3n} \mapsto \mathbb{R}^{6K}$. Certainly, the dimension of the image of $f$ will be $\min (3n-6, 6K)$ (accounting for the 6 rigid body modes of deformation). In the case of $n - 2 > 2K$, we observe that the resulting $\mathbf{k}$ will be rank-deficient. This occurs for certain low-order quadrature schemes. Naturally, this situation should be avoided at all costs. If we were to attempt to modify $\mathbb{B}$, then certainly, any operations that we perform on $\mathbb{B}$ should preserve its rank.
+
+With this in mind, let us suppose that we are dealing with a particular (thin) element $\Omega_e$. The element's inertia tensor
+\begin{equation}
+	I_{ij} = \int_{\Omega_e} x_i x_j dv = \sum_q w_q x_i x_j,
+\end{equation}
+and its corresponding eigendecomposition
+\begin{equation}
+	I_{ij} = Q_{ik} \Lambda_{kl} Q_{jl},
+\end{equation}
+will yield a local element coordinate frame whose axes are defined as the eigenvectors of the element's inertia tensor (the columns of $\mathbf{Q}$). Additionally, the distribution of the inertia tensor's eigenvalues will indicate the extent to which the element may be considered ``thin,'' and in what capacity. In particular, if the inertia tensor's eigenvalues are denoted $\lambda_i$, then we may concoct a number of non-dimensional parameters:
+\begin{equation}
+	\mu_1 = \frac{\sqrt{\lambda_1} - \sqrt{\lambda_3}}{\sqrt{\lambda_1} + \sqrt{\lambda_3}}, \qquad \mu_2 = \frac{\sqrt{\lambda_2} - \sqrt{\lambda_3}}{\sqrt{\lambda_1} - \sqrt{\lambda_3}}
+\end{equation}
+where $\mu_1 \in [0,1)$ indicates the degree to which the element is considered sufficiently ``thin'' ($\mu_1 = 1$) or not ($\mu_1 = 0$), while $\mu_2 \in [0,1]$ determines the degree to which the element is sufficiently ``beam-like'' ($\mu_2 = 0$) or ``plate-like'' ($\mu_2 = 1$).
+
+For a given thin element configuration, we will want to rotate the quadrature point strains into the element's local coordinate frame, and then additively decompose the strains into component sets of interest via a collection of subspace projection operators. For plate-like behavior ($\alpha, \beta \in \{1, 2\}$):
+\begin{equation}
+	\tilde{e}_{\alpha \beta} = Q_{\alpha i} Q_{\beta j} e_{ij}
+\end{equation}
+\begin{equation}
+	\bar{e}_{\alpha} = \frac{1}{2} (Q_{\alpha i} Q_{3 j} + Q_{\alpha j} Q_{3 i}) e_{ij}
+\end{equation}
+\begin{equation}
+	\hat{e} = Q_{3 i} Q_{3 j} e_{ij}
+\end{equation}
+separating the strains into membrane, transverse shear, and normal components, respectively. All that remains is to appropriately average the projected strain components via distinct scalar ``strain-averaging operators'', e.g.:
+\begin{equation}
+	e'^{(q)} = \sum_p A_{qp} e^{(p)}
+\end{equation}
+with the final (selectively averaged) strains being computed as
+\begin{equation}
+	e'_{ij} = Q_{i \alpha} Q_{j \beta} \tilde{e}_{\alpha \beta} + (Q_{i \alpha} Q_{j 3} + Q_{j \alpha} Q_{i 3}) \bar{e}'_{\alpha} + Q_{i 3} Q_{j 3} \hat{e}'.
+\end{equation}
+
+The key question is then: how to carry out the averaging scheme. One approach might be to consider a coarsened quadrature subdivision of the element, onto which the existing quadrature cell strains may be projected. The coarsened (averaged) strains may then be projected (extrapolated) back onto the original quadrature subdivision, effecting a reduction in the overall number of independent strain values. Such a scheme would necessitate the construction of inter-grid transfer operators between the two quadrature cell subdivisions (both coarse and fine). A fine-to-coarse mapping might appear as
+\begin{equation}
+	e^{(r)} = \sum_p M_{rp} e^{(p)}
+\end{equation}
+whereas a coarse-to-fine mapping would be
+\begin{equation}
+	e^{(q)} = \sum_r N_{qr} e^{(r)}
+\end{equation}
+indicating that $A_{qp} = N_{qr} M_{rp}$ (a rank-deficient $K \times K$ linear map). Let us suppose that
+\begin{equation}
+	M_{rp} = \frac{V^{(p)} \cap V^{(r)}}{V^{(r)}}
+\end{equation}
+and
+\begin{equation}
+	N_{qr} = \frac{V^{(r)} \cap V^{(q)}}{V^{(q)}}
+\end{equation}
+so
+\begin{equation}
+	A_{qp} = \frac{(V^{(p)} \cap V^{(r)}) (V^{(r)} \cap V^{(q)})}{V^{(r)} V^{(q)}}
+\end{equation}
+where $V^{(r)}$ and $V^{(p)}$, $V^{(q)}$ are quadrature cell volumes in the coarse and fine grids, respectively. It should be noted that the decomposed strain components may have their own distinct coarse grid subdivisions, and correspondingly, their own averaging operators $A_{qp}$. Moreover, the membrane strains should not be averaged ($\tilde{A}_{qp} = \delta_{qp}$). Therefore, the element strain-averaging operator can be written in-full by observing
+\begin{equation}
+	e'^{(q)}_{ij} = Q_{i \alpha} Q_{j \beta} \delta_{qp} \tilde{e}^{(p)}_{\alpha \beta} + (Q_{i \alpha} Q_{j 3} + Q_{j \alpha} Q_{i 3}) \bar{A}_{qp} \bar{e}^{(p)}_{\alpha} + Q_{i 3} Q_{j 3} \hat{A}_{qp} \hat{e}^{(p)}
+\end{equation}
+\begin{equation}
+	e'^{(q)}_{ij} = \left[ Q_{i \alpha} Q_{j \beta} \delta_{qp} Q_{\alpha k} Q_{\beta l} + \frac{1}{2} (Q_{i \alpha} Q_{j 3} + Q_{j \alpha} Q_{i 3}) \bar{A}_{qp} (Q_{\alpha k} Q_{3 l} + Q_{\alpha l} Q_{3 k}) + Q_{i 3} Q_{j 3} \hat{A}_{qp} Q_{3 k} Q_{3 l} \right] e_{kl}^{(p)}
+\end{equation}
+\begin{equation}
+	e'^{(q)}_{ij} = \left[ \tilde{\mathbb{A}}^{(qp)}_{ijkl} + \bar{\mathbb{A}}^{(qp)}_{ijkl} + \hat{\mathbb{A}}^{(qp)}_{ijkl} \right] e_{kl}^{(p)} = \mathbb{A}^{(qp)}_{ijkl} e_{kl}^{(p)}
+\end{equation}
+or, if one prefers:
+\begin{equation}
+	\mathbb{E}' = \mathbb{A} \mathbb{E}.
+\end{equation}
+The augmented stiffness matrix is then
+\begin{equation}
+	\mathbf{k} = \mathbb{B}^T \mathbb{W} \mathbb{D} \mathbb{A} \mathbb{B}.
+\end{equation}
+
+\end{document}

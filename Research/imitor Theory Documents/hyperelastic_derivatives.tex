@@ -1,0 +1,117 @@
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage{graphicx} % support the \includegraphics command and options
+\usepackage[margin=1.0in]{geometry}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\title{\textsc{Hyperelastic Derivatives}}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+Suppose we have a hyperelastic material model which is described by a strain energy density functional which depends directly on the total deformation of the material $W(\mathbf{F})$. In turn, the total deformation depends upon the end-step displacements of the element $\mathbf{F} (\mathbf{u}_b)$, such that the strain energy density can be written directly in terms of the element's displacements $W(\mathbf{u}_b)$.
+
+Ultimately, we desire the updated stress, and the derivatives of the stress with respect to the relevant degrees of freedom of the element. As an intermediate step, we would prefer that the constitutive model maintain a minimal level of interaction with the element's degrees of freedom. Rather, the element should handle the computations related to specific degrees of freedom. Instead, the material model should only concern itself with computing an updated stress and the derivatives of the stress with respect to the deformation quantities of interest (e.g. $\mathbf{D} \Delta$, $\mathbf{F}$, $\mathbf{B}$, $I1$, $I2$, etc.) However, we would like to maintain an abstract interface for the material model, which requires only that an abstract ``deformation'' object be passed to it. This deformation object may contain multiple different deformation quantities that are used to compute the updated stress. The deformation object is responsible for computing its own quantities in terms of the element's degrees of freedom, as well as the derivatives of these quantities with respect to the element dofs. Later on, during the element's force and stiffness computations, the deformation object will be used to help compute the derivative of the updated stress with respect to the element dofs via the chain rule.
+
+Fundamentally, we are accustomed to working with a material ``tangent modulus'' which takes the form of the derivative of the stress with respect to a deformation increment. 
+
+\begin{equation}
+	F_{ij} = \delta_{ij} + \sum_a \varphi_{a,j} (\bar{u}_{ia} + \hat{u}_{ia})
+\end{equation}
+\begin{equation}
+	\frac{\partial F_{ij}}{\partial \hat{u}_{kb}} = \varphi_{b,j} \delta_{ik}
+\end{equation}
+
+\begin{equation}
+	B_{ij} = F_{ik} F_{jk}
+\end{equation}
+\begin{equation}
+	\frac{\partial B_{ij}}{\partial F_{mn}} = \delta_{im} F_{jn} + F_{in} \delta_{jm}
+\end{equation}
+\begin{equation}
+	\frac{\partial T_{ij} (\mathbf{B})}{\partial B_{mn}} = \frac{\partial T_{ij} (\mathbf{B}, J)}{\partial B_{mn}} + \frac{\partial T_{ij} (\mathbf{B}, J)}{\partial J} \frac{\partial J}{\partial B_{mn}}
+\end{equation}
+\begin{equation}
+	\frac{\partial J}{\partial B_{mn}} = \frac{1}{2} J B_{mn}^{-1}
+\end{equation}
+with a proof following from taking $\partial J / \partial \sigma_n$ and $\partial B_{mn} / \partial \sigma_n$, where $\sigma_n$ are the principal values of $\mathbf{F}$ (of $\mathbf{V}$, $\mathbf{U}$).
+
+\section{Hyperelastic Material Model Implementation}
+
+Herein we describe the implementation for a hyperelastic material model which depends only on the current state of deformation at a given material point. This is in contrast with the incremental kinematic stress update procedure, wherein the material state is updated based solely upon the current strain \textit{increment}, which itself is decomposed into a pure stretch and pure rotation, each of which are used to update the stress separately.
+
+Let us consider a hyperelastic material (specifically, a compressible Mooney-Rivlin solid) whose strain energy density functional $W(\mathbf{B})$ depends only upon the invariants ($I_1$, $I_2$, $I_3$) of the total deformation ($\mathbf{B}$). Recall that $\mathbf{F} = \mathbf{V} \mathbf{R}$ and $\mathbf{B} = \mathbf{F} \mathbf{F}^T = \mathbf{V}^2$. Knowing the specific form of $W(\mathbf{B})$, we can compute its derivatives with respect to a given deformation tensor of our choosing (namely $\mathbf{B}$) to obtain expressions for the stress $\mathbf{T} (\mathbf{B})$ and the material tangent modulus $\partial \mathbf{T} / \partial \mathbf{B}$ as direct functions of $\mathbf{B}$. Thus, we need only provide the current state of deformation to our constitutive model in order to obtain directly the updated stress, and the derivative of the stress with respect to $\mathbf{B}$ (i.e. the tangent modulus). Note, however, that this departs from the standard conception of the tangent modulus as being $\partial \mathbf{T} / \partial \mathbf{D \Delta}$. This departure is immaterial, as ultimately we are only concerned with the derivative of the stress with respect to the element's independent degrees of freedom, and the ``tangent modulus'' is merely an intermediary term that assists in obtaining these derivatives through the chain rule.
+
+Consider the fact that in an incrementally objective formulation, the updated stress is computed through the use of an operator split, separating the deformation increment into a pure stretch and a pure rotation, such that:
+\begin{equation}
+	\mathbf{T}_{k+1} (\hat{\mathbf{F}}) = \mathbf{T}_{k+1} (\hat{\mathbf{R}}, \hat{\mathbf{U}}) = \hat{\mathbf{R}} \big( \mathbf{T}_{k} + \hat{\mathbf{T}} (\hat{\mathbf{U}}) \big) \hat{\mathbf{R}}^T,
+\end{equation}
+or
+\begin{equation}
+	\mathbf{T}_{k+1} (\hat{\mathbf{F}}) = \mathbf{T}_{k+1} (\hat{\mathbf{V}}, \hat{\mathbf{R}}) = \hat{\mathbf{R}} \mathbf{T}_{k} \hat{\mathbf{R}}^T + \hat{\mathbf{T}} (\hat{\mathbf{V}}).
+\end{equation}
+In the first case, the material is effectively stretched first, and rotated second (the ``strongly objective'' algorithm of Rashid). In the second case, the material is rotated first, and stretched second (the Hughes-Winget algorithm). Ostensibly, the ordering of these two operations \textit{should} be irrelevant, but it may yet serve as a source of disagreement between implementations which use one method or the other. They are, however, both considered ``incrementally objective,'' in the sense that
+\begin{itemize}
+	\item[1] they yield the same result for a pure rotation: $\hat{\mathbf{F}} = \hat{\mathbf{R}}$,
+	\item[2] they yield the same result for a pure stretch: $\hat{\mathbf{F}} = \hat{\mathbf{U}} = \hat{\mathbf{V}}$.
+\end{itemize}
+Irrespective of which method is utilized, the derivatives of the stress with respect to the element's degrees of freedom are generally obtained via:
+\begin{equation}
+	\frac{\partial \mathbf{T}}{\partial \hat{\mathbf{u}}} = \frac{\partial \mathbf{T}}{\partial \hat{\mathbf{R}}} \frac{\partial \hat{\mathbf{R}}}{\partial \hat{\mathbf{u}}} + \frac{\partial \mathbf{T}}{\partial \hat{\mathbf{U}}} \frac{\partial \hat{\mathbf{U}}}{\partial \hat{\mathbf{u}}} = \frac{\partial \mathbf{T}}{\partial \hat{\mathbf{R}}} \frac{\partial \hat{\mathbf{R}}}{\partial \hat{\mathbf{u}}} + \frac{\partial \mathbf{T}}{\partial \mathbf{D} \Delta} \frac{\partial \mathbf{D} \Delta}{\partial \hat{\mathbf{U}}} \frac{\partial \hat{\mathbf{U}}}{\partial \hat{\mathbf{u}}},
+\end{equation}
+or
+\begin{equation}
+	\frac{\partial \mathbf{T}}{\partial \hat{\mathbf{u}}} = \frac{\partial \mathbf{T}}{\partial \hat{\mathbf{V}}} \frac{\partial \hat{\mathbf{V}}}{\partial \hat{\mathbf{u}}} + \frac{\partial \mathbf{T}}{\partial \hat{\mathbf{R}}} \frac{\partial \hat{\mathbf{R}}}{\partial \hat{\mathbf{u}}} = \frac{\partial \mathbf{T}}{\partial \mathbf{D} \Delta} \frac{\partial \mathbf{D} \Delta}{\partial \hat{\mathbf{V}}} \frac{\partial \hat{\mathbf{V}}}{\partial \hat{\mathbf{u}}} + \frac{\partial \mathbf{T}}{\partial \hat{\mathbf{R}}} \frac{\partial \hat{\mathbf{R}}}{\partial \hat{\mathbf{u}}}.
+\end{equation}
+
+By contrast, a hyperelastic material defines the current state of stress in terms of the current deformation state only. For a Mooney-Rivlin solid, this amounts to:
+\begin{equation}
+	T_{ij} = 2 C_1 J^{-5/3} \left[ B_{ij} - \frac{1}{3} I_1 \delta_{ij} \right] + 2 C_2 J^{-7/3} \left[ I_1 B_{ij} B_{mj} - \frac{2}{3} I_2 \delta_{ij} \right] + D_1 (J-1) \delta_{ij}
+	\label{eq:Tij}
+\end{equation}
+This expression and its corresponding derivation are taken from the document on the Mooney-Rivlin implementation in imitor. Ultimately, to compute the derivatives of the stress with respect to the element's degrees of freedom, we need only pursue:
+\begin{equation}
+	\frac{\partial \mathbf{T} (\mathbf{B}, J)}{\partial \hat{\mathbf{u}}} = \left. \frac{\partial \mathbf{T}}{\partial {\mathbf{B}}} \right|_{J} \frac{\partial {\mathbf{B}}}{\partial \hat{\mathbf{u}}} + \left. \frac{\partial \mathbf{T}}{\partial {J}} \right|_{\mathbf{B}} \frac{\partial {J}}{\partial \hat{\mathbf{u}}}
+\end{equation}
+where we consider $\mathbf{T} (\mathbf{B}, J)$ from equation (\ref{eq:Tij}) to be a function of $\mathbf{B}$ and $J$, taken as independent variables. As it happens, we already have expressions for $\left. {\partial \mathbf{T}}/{\partial {\mathbf{B}}} \right|_{J}$ and $\left. {\partial \mathbf{T}}/{\partial {J}} \right|_{\mathbf{B}}$.
+\begin{equation}
+	\left. \frac{\partial T_{ij}}{\partial B_{kl}} \right|_{J} = \frac{-10}{3} C_1 J^{-8/3} \left[ B_{ij} - \frac{1}{3} I_1 \delta_{ij} \right] + \frac{-14}{3} C_2 J^{-10/3} \left[ I_1 B_{ij} - B_{im} B_{mj} - \frac{2}{3} I_2 \delta_{ij} \right] + 2 D_1 \delta_{ij}
+\end{equation}
+\begin{eqnarray}
+	\left. \frac{\partial T_{ij}}{\partial J} \right|_{\mathbf{B}} = 2 C_1 J^{-5/3} \left[ \frac{1}{2} \delta_{ik} \delta_{jl} + \frac{1}{2} \delta_{il} \delta_{jk} - \frac{1}{3} \delta_{ij} \delta_{kl} \right] \nonumber \\ + 2 C_2 J^{-7/3} \left[ \delta_{kl} B_{ij} \frac{1}{2} I_1 \delta_{ik} \delta_{jl} + \frac{1}{2} I_1 \delta_{il} \delta_{jk} - \frac{1}{2} \delta_{ik} B_{lj} - \frac{1}{2} \delta_{il} B_{kj} \right. \nonumber \\ \left. - \frac{1}{2} B_{ik} \delta_{jl} - \frac{1}{2} B_{il} \delta_{jk} - \frac{2}{3} I_1 \delta_{ij} \delta_{kl} + \frac{2}{3} \delta_{ij} B_{lk} \right]
+\end{eqnarray}
+For simplicity, we would prefer to have the quantity ${\partial \mathbf{T}}/{\partial {\mathbf{B}}}$ as our material tangent modulus, i.e.
+\begin{equation}
+	\frac{\partial \mathbf{T} (\mathbf{B}, J)}{\partial {\mathbf{B}}} = \left. \frac{\partial \mathbf{T}}{\partial {\mathbf{B}}} \right|_{J} + \left. \frac{\partial \mathbf{T}}{\partial {J}} \right|_{\mathbf{B}} \frac{\partial {J}}{\partial {\mathbf{B}}},
+\end{equation}
+thus necessitating the quantity ${\partial {J}}/{\partial {\mathbf{B}}}$. Knowing that $\mathbf{F} = \mathbf{V} \mathbf{R}$ and $\mathbf{B} = \mathbf{F} \mathbf{F}^T = \mathbf{V}^2$, recognize that $J = \Pi_{i = 1}^{3} \lambda_i$, where $\lambda_i$ are the principal values of $\mathbf{F}$, $\mathbf{V}$, and $\mathbf{U}$. Note that the principal values of $\mathbf{B}$ are $\lambda_i^2$. We choose to pursue our derivation of ${\partial {J}}/{\partial {\mathbf{B}}}$ via:
+\begin{equation}
+	\frac{\partial {J}}{\partial {\mathbf{B}}} = \sum_{i = 1}^{3} \frac{\partial {J}}{\partial \lambda_i} \frac{\partial \lambda_i}{\partial {\mathbf{B}}}.
+\end{equation}
+Quite simply, we find that $\partial J / \partial \lambda_i = \Pi_{j \neq i} \lambda_j$. Let us briefly consider the spectral representations for $\mathbf{V}$ and $\mathbf{B}$:
+\begin{equation}
+	\mathbf{V} = \sum_{i = 1}^{3} \lambda_i \mathbf{v}_i \otimes \mathbf{v}_i, \qquad \mathbf{B} = \sum_{i = 1}^{3} \lambda^2_i \mathbf{v}_i \otimes \mathbf{v}_i.
+\end{equation}
+We readily find that
+\begin{equation}
+	\frac{\partial \mathbf{B}}{\partial \lambda_i} = 2 \lambda_i \mathbf{v}_i \otimes \mathbf{v}_i, \qquad \frac{\partial \lambda_i}{\partial \mathbf{B}} = \frac{1}{2 \lambda_i} \mathbf{v}_i \otimes \mathbf{v}_i,
+\end{equation}
+and so
+\begin{equation}
+	\frac{\partial {J}}{\partial {\mathbf{B}}} = \sum_{i = 1}^{3} \frac{\Pi_{j \neq i} \lambda_j}{2 \lambda_i} \mathbf{v}_i \otimes \mathbf{v}_i = \frac{1}{2} J \sum_{i = 1}^{3} \frac{1}{\lambda^2_i} \mathbf{v}_i \otimes \mathbf{v}_i,
+\end{equation}
+which simplifies to
+\begin{equation}
+	\frac{\partial {J}}{\partial {\mathbf{B}}} = \frac{1}{2} J \mathbf{B}^{-1}.
+\end{equation}
+
+As was mentioned earlier, our implementation computes ${\partial \mathbf{T}}/{\partial {\mathbf{B}}}$ as the material tangent modulus, such that
+\begin{equation}
+	\frac{\partial \mathbf{T} (\mathbf{B})}{\partial \hat{\mathbf{u}}} = \frac{\partial \mathbf{T}}{\partial {\mathbf{B}}} \frac{\partial {\mathbf{B}}}{\partial \hat{\mathbf{u}}},
+\end{equation}
+which obviates the need for a decomposition of the deformation increment into an incremental stretch and rotation. This difference poses some challenges. 
+
+\end{document}

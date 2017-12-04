@@ -1,0 +1,103 @@
+% = CHAPTER
+$ = SECTION
+& = SUB-SECTION
+#/@ = DO'S/DONT'S
+
+%PARTITIONED ELEMENT METHODS
+	$OVERVIEW
+		*goal is to construct shape functions on arbitrary polytopes
+		*want efficient and stable quadrature rules
+		*depart from the idea of shape functions defined pointwise
+		*invoke idea behind FE approximation spaces: use discretization
+		*solve local approximation problem to define SFs
+		*enforce constraints to attain reproducibility & consistency
+	$PEM DISCRETIZATIONS
+		*consider an arbitrary element domain
+		*discretize domain into conforming sub-domains: a partition
+		*limitation: sub-domains must be polytopes
+		*shape constraints imposed according to chosen approx. method
+	$PEM APPROXIMATION SPACES
+		*define SFs as FE-like piece-wise polynomials on the partition
+		*try to minimize number of basis functions for efficiency
+		&FE basis functions:
+			*unknowns stored at verticies only (efficient)
+			*easy generalization to high order
+			*limited to canonical shapes (tris/tets, quads/hexas)
+			*quadrature rules much simpler (may use high order)
+			*equivalent to Joe Bishop's approach (w/ Laplace SFs)
+			*less sensitive to conditioning problems
+		&WG basis functions:
+			*unknowns stored on cells and edges
+			*generalization to high order more expensive
+			*Rashid & Sadri 2012 approach (low order)
+			*may suffer from conditioning issues at high order
+		&DG basis functions:
+			*unknowns stored on cells
+			*easy generalization to high order
+			*New/current approach
+			*may suffer from conditioning issues at high order
+		&VE basis functions:
+			*unknowns stored at verticies only (efficient)
+			*high order generalization effected via serendipity SFs
+			*generalizes to arbitrary polytopes
+			*New/speculated approach
+			*less sensitive to conditioning problems
+	$PEM QUADRATURE RULES
+		*quadrature rules are defined/linked to the chosen partition
+		*1-to-1 relation between partitioned cells and quadrature points
+		*use Lassere integration to get weights of polytopal domains
+		*employ low-order quadrature rules for the sake of efficiency
+		*FE/simplicial discretization allows high-order composite rules
+	$PEM BOUNDARY VALUE PROBLEMS
+		*setup: define a space of approximating functions over the element (basis)
+		*goal:  select shape functions from this basis that are "optimal"
+			-trial functions should reproduce polynomials as best they can
+			-test functions should be close to trial functions (for stability)
+			-test functions should satisfy compatibility requirements weakly
+			-test functions should satisfy quad. consistency requirements against polys.
+		*must propose a positive-definite functional to minimize on E
+		*must enforce constraints on minimization
+			-consistency enforced via Lagrange multipliers
+		*develop a resulting system of equations
+		*condense out all internal dofs in terms of element nodal values
+		*allows for the inclusion of optional enhanced dofs, if needed
+		*want SFs to be free of pathologies
+		&Laplace shape functions
+			*Joe Bishop's approach
+			*Rashid & Sadri 2012 approach
+		&Least-squares penalty method
+			*necessary to stabilize WG/DG approaches
+		&Other methods
+			*many things to explore in this regard...
+			*biharmonic? (for higher-order completeness? C^1 hard)
+	$PEM CONSTRAINTS
+		&STABILITY
+			-driven by the inf-sup conditions
+			-handled via sufficient quadrature arrangement
+		&COMPATIBILITY
+			-driven by the generalized patch test
+			-handled by constraints on approximation spaces/BVP
+		&CONSISTENCY
+			-driven by Galerkin exactness
+			-enforced by quadrature accuracy
+			-alternatively via lagrange multiplier constraint
+		&REPRODUCIBILITY
+			-driven by completeness requirements
+			-handled by BVP/functional specification
+			-alternatively enforced via constraints
+	$SPECIFIC FORMULATIONS
+		&Harmonic SFs with an FE basis (Joe Bishop's approach)
+		&Stabilized harmonic SFs with WG basis (Rashid & Sadri approach)
+		&C^k penalty approximating SFs with DG basis (new method)
+		&Harmonic SFs with VE basis + stabilization (new method)
+	$PEM ENHANCEMENT FUNCTIONS
+		*GENERAL RULE: enhancements should seek to increase completeness
+			-witnessed in most incompatible modes formulations
+			-only way to improve accuracy: increase order, locally
+		*balance stability, consistency, compatibility, reproducibility
+			-bubble function construction closely tied to other SFs
+			-enhancements must be orthogonal to low-order terms
+			-must satisfy compatibility weakly over whole boundary
+		*element-wide high order enhancement functions
+			-inexpensive way to improve polynomial completeness
+			-may apply to boundary dofs, or internal dofs

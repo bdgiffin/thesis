@@ -1,0 +1,124 @@
+\chapter{Mathematical Preliminaries}
+%
+
+This chapter provides definitions for key mathematical concepts and terms that will be referred to throughout the later chapters. Readers who are intimately familiar with the terminology of mathematical analysis may skip this chapter in the interest of time.
+
+\section{Notational Conventions}
+
+\section{Definitions of Analysis Terms}
+
+This section presents the mathematical definitions for 
+
+\subsubsection*{Sets} A \textit{set} $X$ is a collection of distinct elements $x \in X$. Some common examples of sets include the set of all real numbers $\mathbb{R}$, the set of all natural numbers $\mathbb{N} = \left\{ 0, 1, 2, \ldots \right\}$, and the empty set $\emptyset = \{ \, \}$.
+
+\subsubsection*{Metric Spaces} A \textit{metric space} is a set $X$ which possesses a metric $d \colon X \times X \mapsto \mathbb{R}$ defined on $X$, such that for all $x, y, z \in X$, the metric $d$ satisfies:
+\begin{itemize}
+  \item $d(x,y) \geq 0$, and $d(x,y) = 0 \Leftrightarrow x = y$ (Positivity)
+  \item $d(x,y) = d(y,x)$ (Symmetry)
+  \item $d(x,z) \leq d(x,y) + d(y,z)$ (Triangle Inequality)
+\end{itemize}
+
+\subsubsection*{Sequences} A \textit{sequence} $\{ x_n \}$ is an ordered collection of elements $x \in X$.
+
+\subsubsection*{Limits and Convergence of Sequences} A sequence $\{ x_n \}$ possesses a \textit{limit} $x$ if for every $\epsilon > 0$, there exists a natural number $N$ such that $|x_n - x| > \epsilon$ for all $n \geq N$. A \textit{convergent} sequence is one which converges to a limit.
+
+\subsubsection*{Cauchy Sequences} A sequence $\{ x_n \}$ is termed \textit{Cauchy} if for every $\epsilon > 0$, there exists a natural number $N$ such that $|x_n - x_m| > \epsilon$ for all $n, m \geq N$. 
+
+\subsubsection*{Completeness} A metric space $X$ is called \textit{complete} if every Cauchy sequence $\{x_n\}$ in $X$ converges to a limit contained in $X$.
+
+\subsubsection*{Fields} A \textit{field} $R$ is a set $X$ on which are defined the operations of addition, subtraction, multiplication, and division.
+
+\subsubsection*{Linear Space} A \textit{linear space} (or \textit{vector space}) defined over a field $R$ is a set $X$ with the operations of \textit{vector addition} and \textit{scalar multiplication} defined, such that for all $\mathbf{x}, \mathbf{y}, \mathbf{z} \in X$ and $a, b \in R$, the following axioms hold:
+\begin{itemize}
+  \item $\mathbf{x} + (\mathbf{y} + \mathbf{z}) = (\mathbf{x} + \mathbf{y}) + \mathbf{z}$
+  \item $\mathbf{x} + \mathbf{y} = \mathbf{y} + \mathbf{x}$
+  \item $\exists \mathbf{0} \in X$ such that $\mathbf{x} + \mathbf{0} = \mathbf{x}$
+  \item $\forall \mathbf{x} \in X$, $\exists (-\mathbf{x}) \in X$ such that $\mathbf{x} + (-\mathbf{x}) = \mathbf{0}$
+  \item $a(b\mathbf{x}) = (ab)\mathbf{x}$
+  \item $1\mathbf{x} = \mathbf{x}$
+  \item $a(\mathbf{x} + \mathbf{y}) = a\mathbf{x} + a\mathbf{y}$
+  \item $(a+b)\mathbf{x} = a\mathbf{x} + b\mathbf{x}$
+\end{itemize}
+
+\subsubsection*{Normed Linear Spaces} A \textit{normed linear space} is a linear space $X$ defined over a field $R$ with an associated \textit{norm} $|| \cdot || \colon X \mapsto R$, such that for all $\mathbf{x}, \mathbf{y} \in X$ and $a \in R$:
+\begin{itemize}
+  \item $|| a \mathbf{x} || = a || \mathbf{x} ||$
+  \item $|| \mathbf{x} + \mathbf{y} || \leq || \mathbf{x} || + || \mathbf{y} ||$
+  \item $|| \mathbf{x} || \geq 0$
+  \item $|| \mathbf{x} || = 0 \Leftrightarrow \mathbf{x} = \mathbf{0}$
+\end{itemize}
+
+\subsubsection*{Inner Product Spaces} An \textit{inner product space} is a vector space $X$ defined over a field $R$ and equipped with an \textit{inner product} $\langle \cdot, \cdot \rangle \colon X \times X \mapsto R$, such that for all $\mathbf{x}, \mathbf{y}, \mathbf{z} \in X$ and $a \in R$:
+\begin{itemize}
+  \item $\langle \mathbf{x}, \mathbf{y} \rangle = \overline{\langle \mathbf{y}, \mathbf{x} \rangle}$
+  \item $\langle a\mathbf{x}, \mathbf{y} \rangle = a \langle \mathbf{x}, \mathbf{y} \rangle$ and $\langle \mathbf{x}, \mathbf{y} + \mathbf{z} \rangle = \langle \mathbf{x}, \mathbf{y} \rangle + \langle \mathbf{x}, \mathbf{z} \rangle$
+  \item $\langle \mathbf{x}, \mathbf{x} \rangle \geq \mathbf{0}$ and $\langle \mathbf{x}, \mathbf{x} \rangle = 0 \Leftrightarrow \mathbf{x} = \mathbf{0}$
+\end{itemize}
+Inner product spaces naturally possess an ``induced'' norm:
+\begin{equation}
+  || \mathbf{x} || = \sqrt{\langle \mathbf{x}, \mathbf{x} \rangle}.
+\end{equation}
+
+\subsubsection*{The Cauchy-Schwarz Inequality} The \textit{Cauchy-Schwarz inequality} asserts that for an inner-product space $X$, the following inequality holds:
+\begin{equation}
+  | \langle \mathbf{x}, \mathbf{y} \rangle | \leq || \mathbf{x} || \, || \mathbf{y} || \quad \forall \mathbf{x}, \mathbf{y} \in X.
+\end{equation}
+
+\subsubsection*{Banach Spaces} A \textit{Banach space} is a normed linear space that is complete.
+
+\subsubsection*{Hilbert Spaces} A \textit{Hilbert space} is an inner product space which is also a complete metric space, whose metric is induced by the inner product, i.e.
+\begin{equation}
+  d(\mathbf{x},\mathbf{y}) = || \mathbf{x} - \mathbf{y} || = \sqrt{\langle \mathbf{x} - \mathbf{y}, \mathbf{x} - \mathbf{y} \rangle}.
+\end{equation}
+
+\subsubsection*{Functions} A \textit{function} $f \colon X \mapsto Y$ define a relation between two sets $X$ and $Y$ such that $y = f(x)$ for $x \in X$ and $y \in Y$.
+
+\subsubsection*{Continuous Functions} A function $f \colon X \mapsto Y$ is called \textit{continuous} if for every open subset $S \subseteq Y$, its inverse image $f^{-1} (S) = \left\{ x \in X : f(x) \in S \right\}$ is an open subset of $X$.
+
+\subsubsection*{Topological Spaces} A \textit{topological space} consists of a set $X$ and a topology $\tau$ (a collection of subsets of $X$) such that
+\begin{itemize}
+  \item $\emptyset$ and $X$ belong to $\tau$
+  \item Any union of members in $\tau$ belongs to $\tau$
+  \item Any finite intersection of members in $\tau$ belongs to $\tau$
+\end{itemize}
+
+\subsubsection*{Topological Vector Spaces} A \textit{topological vector space} $X$ is a vector space defined over a field $R$ which possesses a topology $\tau$ such that the operations of vector addition $X \times X \mapsto X$ and scalar multiplication $R \times X \mapsto X$ are continuous functions. \textit{Function spaces} may be classified as topological vector spaces.
+
+\subsubsection*{$\sigma$-algebras} A \textit{$\sigma$-algebra} $\Sigma$ is a collection of subsets of a set $X$, such that $\emptyset \in \Sigma$, $X \backslash S \in \Sigma$ if $S \in \Sigma$, and $\cup_i S_i \in \Sigma$ if $S_i \in \Sigma$. $\sigma$-algebras are useful for the purposes of defining measures.
+
+\subsubsection*{Measurable Spaces} A \textit{Measurable Space} is a set $X$ equipped with a $\sigma$-algebra.
+
+\subsubsection*{Measures} A \textit{measure} defined on a set $X$ is a function which assigns non-negative real values to subsets of $X$.
+
+\subsubsection*{Lebesgue Measure} The \textit{Lebesgue measure} $\lambda(S)$ of a subset $S \subseteq X$ is given by
+\begin{equation}
+  \lambda (S) = \inf \left\{ \sum_{n = 1}^{\infty} \ell (I_n) \, : \, S \subseteq \cup_{n=1}^{\infty} I_n \right\},
+\end{equation}
+where $\ell (I_n)$ is the length of an interval $I_n$. Intuitively, the Lebesgue measure characterizes the least upper bound on the total combined length of the intervals $I_n$, among all such sets of intervals which form a cover of $S$.
+
+\subsubsection*{Measure Spaces} A \textit{Measure Space} $\Omega$ is a measurable space with a non-negative measure.
+
+\subsubsection*{$L^p$ Spaces} An \textit{$L^p$ space} is a vector space of functions $f$ defined on a measure space $\Omega$, which are $p-$integrable in the Lebesgue sense for $p \geq 1$, with corresponding $L^p$ norm 
+\begin{equation}
+  || f ||_{p} = \left[ \int_{\Omega} | f |^p \, d \Omega \right]^{1/p} < + \infty.
+\end{equation}
+
+\subsubsection*{$C^k$ Function Spaces} The \textit{function space} $C^k (\Omega)$ consists of all functions $f \in C^k (\Omega)$ defined on $\Omega$ whose derivatives up through order $k$ are defined and continuous. In particular, $C^0 (\Omega)$ denotes the space of all continuous functions, $C^1 (\Omega) \subset C^0 (\Omega)$ denotes the space of all continuous functions whose first derivatives are also continuous, and $C^\infty (\Omega)$ denotes the space of ``smooth'' functions with continuous derivatives of all orders.
+
+\subsubsection*{Weak Derivatives} Given two locally integrable functions $u$ and $v$ defined on $\Omega \subset \mathbb{R}^d$, $v$ is called the $\alpha$-th \textit{weak derivative} of $u$ if
+\begin{equation}
+  \int_{\Omega} u D^{\alpha} \varphi \, d \Omega = (-1)^{\alpha} \int_{\Omega} v \varphi \, d \Omega,
+\end{equation}
+for all $\varphi \in C^{\infty} (\Omega)$ with compact support, where
+\begin{equation}
+  D^{\alpha} \varphi \equiv \frac{\partial^{|\alpha|} \varphi}{\partial x_1^{\alpha_1} \ldots \partial x_d^{\alpha_d}}.
+\end{equation}
+In general, the weak derivative of a function may be defined ``almost everywhere'' in the domain $\Omega$, i.e. excluding a set of zero measure.
+
+\subsubsection*{Sobolev Spaces} A \textit{Sobolev space} $H^{k,p} (\Omega)$ is a function space defined as
+\begin{equation}
+  H^{k,p} (\Omega) = \left\{ u \in L^p (\Omega), \, D^{\alpha} u \in L^p (\Omega) \, \, \forall | \alpha | \leq k \right\},
+\end{equation}
+where $\Omega \subset \mathbb{R}^d$, and the derivatives $D^{\alpha} u$ are interpreted in the weak sense.
+
+\subsubsection*{Uniform Convergence} Given a set $X$ with elements $x \in X$, a sequence of functions $\left\{ f_n \right\}$ defined on $X$ is said to converge \textit{uniformly} to a limiting function $f$ on $X$ if for every $\epsilon > 0$, there exists an integer $N(\epsilon)$ (independent of $x$) such that $|f_n(x) - f(x)| < \epsilon$ for all $x \in X$ and for all $n \geq N(\epsilon)$.

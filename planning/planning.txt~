@@ -1,0 +1,149 @@
+Timeline:
+	November - Scoping + Writing
+	December - Writing
+	January - Results + Revision
+	February - Editing + Review
+	March 9th - Submission (2 days before)
+
+Only have (less than) 3 months to write! We're going to need to burn the midnight oil. :)
+
+Goals:
+	By the end of November: Have a fully scoped out manuscript, with descriptions of what will go where, and bulleted ideas for everything that will ultimately be contained within the thesis.
+	By the end of December: Have a fully written manuscript (rough draft) with completed descriptions that supplement all bullet points that had been scoped out - pass this off to Mark for initial editing.
+	By the end of January:  Have a fully revised manuscript; this should be edited based on Mark's comments, and will include all figures and test results that would have been needed based on the scoped out goals.
+
+November:
+	13th-19th: High-level scoping for all chapters
+		14th (Tuesday):   Long-term planning (i.e. this document)
+				  Read T for Transformation to get pumped; sleep/wake up early
+				  Dig deep!
+		15th (Wednesday): Scoping for the thesis as a whole (re-structure, as needed)
+				  Reorganize the overall outline at the chapter level
+				  	-settle on the high-level content for each chapter
+					-lay out game-plan for each chapter
+					-everything should be united under a central thesis/idea
+					-explain what SHOULD and SHOULD NOT be included in each chptr
+					-create discrete bullet points that enumerate the specific 
+					 things that you want to say, and organize them into the
+					 appropriate chapters (re-organize content)
+					-decide which references need to be discussed where
+					-ultimately hammer down precisely what is going to make the
+					 cut, and what is not as far as content is concerned
+					-focus on what you have, right now; not on what you don't
+					-provide motivating advice for laying out content in each chpt
+					-consider working backward from what you intend to present
+					 at the very end of the thesis -- what are you trying to say?
+				  Plan out discrete goals for Thursday (tomorrow), and beyond (recap)
+		16th (Thursday):  Scoping for the INTRODUCTORY chapter
+				  Consider what contextual information is relevant
+					-ORGANIZE REFERENCES, regarding the order in which they
+					 should be discussed, and consider how this aids in telling
+					 the story that you are communicating
+					-quickly skim through older theses to ESTABLISH A BASIS FOR
+					 COMPARISON (perhaps even "steal" references/ideas)
+		17th (Friday):    Scoping for the BACKGROUND chapters
+				  Consider what contextual information is relevant
+					-ORGANIZE REFERENCES, regarding the order in which they
+					 should be discussed, and consider how this aids in telling
+					 the story that you are communicating
+					-quickly skim through older theses to ESTABLISH A BASIS FOR
+					 COMPARISON (perhaps even "steal" references/ideas)
+		18th (Saturday):  Scoping for the expositional (PEM, methods) chapters
+				  Consider topics for further exploration (scope remaining work)
+					-explore idea of quadrature basis (maybe infeasible ~ 1hr max)
+					-consider alternative discretization methods
+		19th (Sunday):    Scoping for the demonstrative (results, conclusions) chapters
+				  Consider topics for further exploration (scope remaining work)
+					-create a list of interesting problems to run
+					-make sure these problems aid in addressing the central thesis
+					-make sure problems test/demonstrate independent things:
+						*convergence (distorsional loss of accuracy/converg)
+							!go to truly higher-orders (3rd, 4th, 5th max)
+							 (this alone is worth the whole dissertation)
+						*element distorsion (trapezoidal locking)
+						*thin limit (shear locking)
+						*incompressibility (volumetric locking)
+	20th-26th: Mid-level  scoping for all sections
+		20th (Monday):    Long-term planning (revise this document)
+				  Scoping for the implementation chapter
+		21st (Tuesday):   Long-term planning (revise this document)
+				  Scoping for the demonstrative (results, conclusions) chapters
+				  Consider topics for further exploration (scope remaining work)
+					-create a list of interesting problems to run
+					-make sure these problems aid in addressing the central thesis
+					-make sure problems test/demonstrate independent things:
+						*convergence (distorsional loss of accuracy/converg)
+							!go to truly higher-orders (3rd, 4th, 5th max)
+							 (this alone is worth the whole dissertation)
+						*element distorsion (trapezoidal locking)
+						*thin limit (shear locking)
+						*incompressibility (volumetric locking)
+		22nd (Wednesday): Section scoping for background & methods
+		23rd (Thursday):  Section scoping for PEM formulation
+		24th (Friday):    Section scoping for PEM implementation
+		25th (Saturday):  Section scoping for results
+		26th (Sunday):    Section scoping for results (continued)
+	27th-3th: Writing for introduction and solid mechanics background chapters
+		27th (Monday):    Long-term planning (revise this document)
+				  Writing for introduction (coarse draft)
+		28th (Tuesday):   Writing for introduction (rough draft)
+		29th (Wednesday): Writing for introduction (revision, submit to Rashid for editing)
+		30th (Thursday):  Writing for solid mechanics (coarse draft)
+		1st  (Friday):    Writing for solid mechanics (rough draft)
+		2nd  (Saturday):  Writing for solid mechanics (revision)
+		3rd  (Sunday):    Writing for solid mechanics (revision, submit to Rashid for editing)
+	
+December:
+	4th-10th:  Writing for pem & implementation chapters, submit pem chapter to Rashid for editing
+		4th    (Monday): Long-term planning (revise this document)
+				 Writing for pem (coarse draft)
+		5th   (Tuesday): Writing for pem (rough draft)
+		6th (Wednesday): Writing for pem (rough draft)
+		7th  (Thursday): Writing for pem (revision, submit to Rashid for editing)
+		8th    (Friday): Writing for implementation (coarse draft)
+		9th  (Saturday): Writing for implementation (rough draft)
+		10th   (Sunday): Writing for implementation (rough draft)
+	11th-12th: Finish writing for implementation chapter & submit to Rashid for editing
+		11th   (Monday): Writing for implementation (revision)
+		12th  (Tuesday): Writing for implementation (revision, submit to Rashid for editing)
+	13th-17th: Vacation in Puerto Rico
+	18th-24th: Writing for numerical results
+		18th (Monday):    Long-term planning (revise this document)
+				  Writing for results (coarse draft)
+		19th (Tuesday):   Writing for results (rough draft)
+		20th (Wednesday): Writing for results (rough draft)
+		21st (Thursday):  Writing for results (rough draft)
+		22nd (Friday):    Writing for results (revision, submit to Rashid for editing)
+		23rd (Saturday):  Christmas break
+		24th (Sunday):    Christmas break
+	25th-31st: Writing for extended formulations & accuracy
+		25th (Monday):    Christmas break
+		26th (Tuesday):   Writing for conclusions (coarse draft)
+		28st (Thursday):  Writing for conclusions (rough draft)
+		29nd (Friday):    Writing for conclusions (revision, submit to Rashid for editing)
+		30rd (Saturday):  Slack day
+		31th (Sunday):    New Years' break
+
+January:
+	1st-7th:   Writing for numerical results/testing, and conclusions (pending simulations)
+	8th-14th:  Develop implementation to test out extended formluations (simple ones)
+	15th-21st: Create set of interesting tests to run
+	22th-28th: Process results, and generate figures
+	29th-4th:  Provide supplementary commentary and discussion in thesis
+
+February:
+	5th-11th:  Send completed disseration to reviewers (other than Mark)
+	12th-18th: Make revisions according to Mark's suggestions
+	19th-25th: Make typographical edits
+	26th-4th:  Make formatting and graphical edits
+
+March:
+	5th-9th: Handle meeting/submission logistics
+
+Things to avoid:
+	-Do not write an automated meshing utility; map/steal/make meshes by hand if you have to.
+		(prefer to create SIMPLE tests that demonstrate efficacy, without overlap)
+		(focus is on the element FORMULATION, not on meshing -- see other disserations)
+	-Do not go overboard with examples, the idea is to present the work you did, thus far.
+	-Talk about the problem that curved faces pose, but do not attempt to solve this problem
+	 (quantifying this problem is probably insightful enough, and needn't be addressed here).

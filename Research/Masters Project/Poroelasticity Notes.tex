@@ -1,0 +1,353 @@
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+\title{Poroelasticity Notes}
+\author{Giffin, B.}
+
+\begin{document}
+\maketitle
+
+\section{List of Variables}
+
+\subsection{General}
+
+\begin{itemize}
+	\item[$B$] The spatial body within which the problem is defined
+	\item[$\partial B$] Bounding surface of $B$
+	\item[$n_i$] Normal vector (on $\partial B$)
+	\item[$x_i$] Global position in cartesian coordinates (vector)
+	\item[$t$] Time (scalar)
+	\item[$g_i$] Gravitational body force (vector)
+	\item[$b_{ij}$] Biot's modulus (rank 2 tensor with non-zero components only on the diagonal; links total stress and fluid pressure increments)
+\end{itemize}
+
+\subsection{Poroelastic Solid}
+
+\begin{itemize}
+	\item[$u_i$] Displacement of the ``skeleton''
+	\item[$\rho$] Overall mass density per unit of initial (undeformed) volume
+	\item[$\sigma_{ij}$] Total stress tensor
+	\item[$C_{ijkl}$] Elastic stiffness modulus of the ``skeleton''
+	\item[$\epsilon_{ij}$] ``Skeleton'' strain tensor
+	\item[$\rho^s$] Intrinsic matrix mass density
+	\item[$\partial_u B$] The part of the boundary on which ``skeleton'' displacements are prescribed
+	\item[$\bar{u}_i$] Prescribed ``skeleton'' displacements on $\partial_u B$
+	\item[$\partial_t B$] The part of the boundary on which surface tractions are prescribed
+	\item[$\bar{t}_i$] Prescribed traction vector on $\partial_t B$ (affects the total stress, $\sigma_{ij}$)
+\end{itemize}
+
+\subsection{Compressible Fluid}
+
+\begin{itemize}
+	\item[$p$] Fluid (pore) pressure
+	\item[$\mathcal{V}_i$] Volumetric fluid flux
+	\item[$\phi$] Ratio of the pore volume in the present (deformed) configuration to the total RVE volume in the reference (undeformed) configuration (Lagrangian porosity)
+	\item[$\phi_0$] Initial pore volume in the reference (undeformed) configuration to the total RVE volume in the reference configuration
+	\item[$\frac{1}{M}$] Inverse of Biot's modulus (scalar valued quantity that links pore pressure and porosity variation)
+	\item[$\rho^f$] Intrinsic fluid mass density
+	\item[$k_{ij}$] Hydraulic conductivity tensor
+	\item[$\partial_p B$] The part of the boundary on which fluid pressure is prescribed
+	\item[$\bar{p}$] Prescribed fluid pressure on $\partial_p B$
+	\item[$\partial_{\mathcal{V}} B$] The part of the boundary on which normal volumetric flux is prescribed
+	\item[$\bar{\mathcal{V}}$] Prescribed normal volumetric flux on $\partial_{\mathcal{V}} B$
+\end{itemize}
+
+\newpage
+\section{Governing Equations: Strong Form}
+
+\subsection{Equation of Equilibrium of the Poroelastic Solid}
+
+\begin{equation}
+	\sigma_{ij,j} + \rho g_i = 0 \qquad \forall x \in B
+\end{equation}
+
+Boundary Conditions for the Poroelastic Solid:
+
+\begin{equation}
+	u_i = \bar{u}_i \quad on \quad \partial_u B
+\end{equation}
+\begin{equation}
+	\sigma_{ij} n_j = \bar{t}_i \quad on \quad \partial_t B
+\end{equation}
+
+Initial Conditions for the Poroelastic Solid:
+\begin{equation}
+	u_i (t=0) = u_i^0
+\end{equation}
+
+\subsection{Equation of Compressible Fluid Flow in a Porous Medium}
+
+\begin{equation}
+	\frac{\partial}{\partial t} \phi + \mathcal{V}_{i,i} = 0 \qquad \forall x \in B
+\end{equation}
+
+Boundary Conditions for the Compressible Fluid:
+
+\begin{equation}
+	p = \bar{p} \quad on \quad \partial_p B
+\end{equation}
+\begin{equation}
+	\mathcal{V}_i n_i = \bar{\mathcal{V}} \quad on \quad \partial_{\mathcal{V}} B
+\end{equation}
+
+Initial Conditions for the Compressible Fluid:
+\begin{equation}
+	p (t=0) = p^0
+\end{equation}
+
+\subsection{Contitutive Relations for the Poroelastic Solid}
+\begin{equation}
+	\sigma_{ij} = C_{ijkl} \epsilon_{kl} - b_{ij} p
+\end{equation}
+\begin{equation}
+	\epsilon_{ij} = \frac{1}{2} (u_{i,j}+u_{j,i})
+\end{equation}
+
+\subsubsection{Contitutive Relations for the Compressible Fluid}
+\begin{equation}
+	\phi = \phi_0 + b_{ij} \epsilon_{ij} + \frac{p}{M}
+\end{equation}
+\begin{equation}
+	\mathcal{V}_i = -k_{ij} ( p_{,j} - \rho^f g_j )
+\end{equation}
+
+In practice: Set $p^0$ consistent with a hydrostatic pressure distribution as the initial condition, i.e. $p_{,j}^0 = \rho^f g_j$. Then solve for the resulting $u_i^0$.
+
+\newpage
+\section{Weak Form}
+\subsection{Generalized Weak Form Problem Statement}
+Define:
+\begin{equation}
+	u_i \in \mathcal{S} = \{ u_i | u_i \in H^1 (B), u_i = \bar{u}_i \quad on \quad \partial_u B \}
+\end{equation}
+\begin{equation}
+	v_i \in V = \{ v_i | v_i \in H^1 (B), v_i = 0 \quad on \quad \partial_u B \}
+\end{equation}
+and
+\begin{equation}
+	p_i \in \mathcal{T} = \{ p | p \in H^1 (B), p = \bar{p} \quad on \quad \partial_p B \}
+\end{equation}
+\begin{equation}
+	q_i \in \mathcal{Q} = \{  q | q \in H^1 (B), q = 0 \quad on \quad \partial_p B \}
+\end{equation}
+Find $u_i \in \mathcal{S}$ and $p \in \mathcal{T}$ such that:
+\begin{equation}
+	\int_B \sigma_{ij} v_{i,j} dv = \int_{\partial_t B} \bar{t}_i v_i da + \int_B \rho g_i v_i dv \quad \forall v_i \in V
+\end{equation}
+and
+\begin{equation}
+	\int_B \mathcal{V}_i q_{,i} dv = \int_{\partial_{\mathcal{V}} B} \bar{\mathcal{V}} q da + \int_B \frac{\partial \phi}{\partial t} q dv \quad \forall q \in \mathcal{Q}
+\end{equation}
+
+\subsection{Derivation of the Discrete-in-Time Equations}
+Substitute the constitutive relations for the fluid and the solid into each integral statement
+\begin{equation}
+	\int_B \left[ C_{ijkl} \{ \frac{1}{2} (u_{k,l}+u_{l,k}) \} - b_{ij} p \right] v_{i,j} dv = \int_{\partial_t B} \bar{t}_i v_i da + \int_B \rho g_i v_i dv \quad \forall v_i \in V
+\end{equation}
+\begin{equation}
+	\int_B \left[ -k_{ij} ( p_{,j} - \rho^f g_j ) \right] q_{,i} dv = \int_{\partial_{\mathcal{V}} B} \bar{\mathcal{V}} q da + \int_B \frac{\partial}{\partial t} ( \phi_0 + b_{ij} \epsilon_{ij} + \frac{p}{M} ) q dv \quad \forall q \in \mathcal{Q}
+\end{equation}
+simplifying,
+\begin{equation}
+	\int_B v_{i,j} C_{ijkl} u_{k,l} dv - \int_B v_{i,j} b_{ij} p dv = \int_{\partial_t B} v_i \bar{t}_i da + \int_B v_i \rho g_i dv \quad \forall v_i \in V
+\end{equation}
+\begin{equation}
+	- \int_B q_{,i} k_{ij} p_{,j} dv - \int_B q \frac{\partial}{\partial t} ( b_{ij} u_{i,j} + \frac{p}{M} ) dv= \int_{\partial_{\mathcal{V}} B} q \bar{\mathcal{V}} da - \int_B q_{,i} k_{ij} \rho^f g_j dv \quad \forall q \in \mathcal{Q}
+\end{equation}
+Integrate each of the above equations with respect to time from $t_m$ to $t_{m+1}$
+\begin{eqnarray}
+	\int_{t_m}^{t_{m+1}} \left[ \int_B v_{i,j} C_{ijkl} u_{k,l} dv - \int_B v_{i,j} b_{ij} p dv \right] dt ... \nonumber \\
+	... = \int_{t_m}^{t_{m+1}} \left[ \int_{\partial_t B} v_i \bar{t}_i da + \int_B v_i \rho g_i dv \right] dt \quad \forall v_i \in V
+\end{eqnarray}
+\begin{eqnarray}
+	\int_{t_m}^{t_{m+1}} \left[ - \int_B q_{,i} k_{ij} p_{,j} dv - \int_B q \frac{\partial}{\partial t} ( b_{ij} u_{i,j} + \frac{p}{M} ) dv \right] dt ... \nonumber \\
+	... = \int_{t_m}^{t_{m+1}} \left[ \int_{\partial_{\mathcal{V}} B} q \bar{\mathcal{V}} da - \int_B q_{,i} k_{ij} \rho^f g_j dv \right] dt \quad \forall q \in \mathcal{Q} 
+\end{eqnarray}
+and define
+\begin{equation}
+	\Delta t = t_{m+1} - t_m
+\end{equation}
+We propose an approximate integration scheme (generalized trapezoidal rule) as follows for a general function of time, $f(t)$
+\begin{equation}
+	\int_{t_m}^{t_{m+1}} f(t) dt \approx \left[ \frac{1}{2} (1 + \theta) f^{(m+1)} + \frac{1}{2} (1 - \theta) f^{(m)} \right] \Delta t = f^{(m,\theta)} \Delta t
+\end{equation}
+where $\theta = +1$ corresponds to the Backward Euler method, $\theta = -1$ corresponds to the Forward Euler method, and $\theta = 0$ corresponds to the Crank-Nicolson method. Applying this rule to our integral statements from before, we obtain the dicrete-in-time weak form equations
+\begin{eqnarray}
+	\int_B v_{i,j} C_{ijkl}^{(m,\theta)} u_{k,l}^{(m,\theta)} dv - \int_B v_{i,j} b_{ij}^{(m,\theta)} p^{(m,\theta)} dv ... \nonumber \\
+	... = \int_{\partial_t B} v_i \bar{t}_i^{(m,\theta)} da + \int_B v_i \rho^{(m,\theta)} g_i dv \quad \forall v_i \in V
+\end{eqnarray}
+\begin{eqnarray}
+	- \Delta t \int_B q_{,i} k_{ij}^{(m,\theta)} p_{,j}^{(m,\theta)} dv - \int_B q b_{ij}^{(m+1)} u_{i,j}^{(m+1)} dv - \int_B q \frac{p^{(m+1)}}{M^{(m+1)}} dv ... \nonumber \\
+	... = \Delta t \left[ \int_{\partial_{\mathcal{V}} B} q \bar{\mathcal{V}}^{(m,\theta)} da - \int_B q_{,i} k_{ij}^{(m,\theta)} \rho^{f (m,\theta)} g_j dv \right] ... \nonumber \\
+	... - \int_B q b_{ij}^{(m)} u_{i,j}^{(m)} dv - \int_B q \frac{p^{(m)}}{M^{(m)}} dv \quad \forall q \in \mathcal{Q}
+\end{eqnarray}
+
+\section{Galerkin Approximation}
+We now wish to find an approximate solution, $u^h_i \in \mathcal{S}^h \subset \mathcal{S}$ and $p^h \in \mathcal{T}^h \subset \mathcal{T}$ such that
+\begin{equation}
+	\mathbf{u}^h = \sum_{a \in \eta_0} \Phi_a \mathbf{u}_a + \sum_{a \in \eta_u} \Phi_a \bar{\mathbf{u}}_a, \qquad p^h = \sum_{a \in \zeta_0} \hat{\Phi}_a p_a + \sum_{a \in \zeta_p} \hat{\Phi}_a \bar{p}_a
+\end{equation}
+\begin{equation}
+	\mathbf{v}^h = \sum_{a \in \eta_0} \Phi_a \mathbf{v}_a, \qquad q^h = \sum_{a \in \zeta_0} \hat{\Phi}_a q_a
+\end{equation}
+with the following definitions for the sets of nodes, $a$. Note that the sets $\eta_0$ and $\eta_u$ are defined independently from $\zeta_0$ and $\zeta_p$.
+\begin{itemize}
+	\item[$\eta_0$] The set of nodes without prescribed skeleton displacements
+	\item[$\eta_u$] The set of nodes with prescribed skeleton displacements, $\bar{\mathbf{u}}$
+	\item[$\zeta_0$] The set of nodes without prescribed fluid pressure
+	\item[$\zeta_p$] The set of nodes with prescribed fluid pressure, $\bar{p}$
+\end{itemize}
+Henceforth, we shall adopt matrix and vector representations for all quantities, with the stress and strain vectors arranged according to Voigt notation. It therefore becomes of interest to investigate the following quantities
+\begin{equation}
+	\mathbf{\epsilon} = \sum_{a} \mathbf{B}_a \mathbf{u}_a, \qquad \nabla \cdot p = \sum_{a} \hat{\mathbf{B}}_a p_a
+\end{equation}
+where we define $\mathbf{B}_a$ and $\hat{\mathbf{B}}_a$ (in three spatial dimensions) as follows
+\begin{equation}
+	\mathbf{B}_a = \left[
+	\begin{array}{ccc}
+		\Phi_{a,1} & 0 & 0 \\
+		0 & \Phi_{a,2} & 0 \\
+		0 & 0 & \Phi_{a,3} \\
+		0 & \Phi_{a,3} & \Phi_{a,2} \\
+		\Phi_{a,3} & 0 & \Phi_{a,1} \\
+		\Phi_{a,2}& \Phi_{a,1} & 0 
+	\end{array} \right]
+	\qquad
+	\hat{\mathbf{B}}_a = \left[
+	\begin{array}{c}
+		\hat{\Phi}_{a,1} \\
+		\hat{\Phi}_{a,2} \\
+		\hat{\Phi}_{a,3}
+	\end{array} \right]
+\end{equation}
+We shall also recast the ``skeleton'' modulus tensor, $C_{ijkl}$, as the canonical modulus matrix, $\mathbf{D}$. Further, we will rearrange the Biot modulus, $b_{ij}$, into the form of a column vector, $\mathbf{b}$, as shown below (in three spatial dimensions)
+\begin{equation}
+	\mathbf{b} = \left[
+	\begin{array}{c}
+		b_1 \\
+		b_2 \\
+		b_3 \\
+		0 \\
+		0 \\
+		0
+	\end{array} \right]
+\end{equation}
+with these definitions, we may now express the Galerkin approximation to the weak form as follows
+\begin{eqnarray}
+	 \sum_{b \in \eta_0} \bigg( \int_B \mathbf{B}_a^T \mathbf{D}^{(m,\theta)} \mathbf{B}_b dv \bigg) \mathbf{u}_b^{(m,\theta)} + \sum_{b \in \eta_u} \bigg( \int_B \mathbf{B}_a^T \mathbf{D}^{(m,\theta)} \mathbf{B}_b dv \bigg) \bar{\mathbf{u}}_b^{(m,\theta)} ... \nonumber \\
+	... - \sum_{b \in \zeta_0} \bigg( \int_B \mathbf{B}_a^T \mathbf{b}^{(m,\theta)} \hat{\Phi}_b dv \bigg) p_b^{(m,\theta)} - \sum_{b \in \zeta_p} \bigg( \int_B \mathbf{B}_a^T \mathbf{b}^{(m,\theta)} \hat{\Phi}_b dv \bigg) \bar{p}_b^{(m,\theta)} ... \nonumber \\
+	... = \int_{\partial_t B} \Phi_a \bar{\mathbf{t}}^{(m,\theta)} da + \int_B \Phi_a \rho^{(m,\theta)} \mathbf{g} dv \quad \forall a \in \eta_0
+\end{eqnarray}
+\begin{eqnarray}
+	\Delta t \left[ - \sum_{b \in \zeta_0} \bigg( \int_B \hat{\mathbf{B}}_a^T \mathbf{k}^{(m,\theta)} \hat{\mathbf{B}}_b dv \bigg) p_b^{(m,\theta)} - \sum_{b \in \zeta_p} \bigg(  \int_B \hat{\mathbf{B}}_a^T \mathbf{k}^{(m,\theta)} \hat{\mathbf{B}}_b dv \bigg) \bar{p}_b^{(m,\theta)} \right] ... \nonumber \\
+	... - \sum_{b \in \eta_0} \bigg( \int_B \hat{\Phi}_a \mathbf{b}^{T (m+1)} \mathbf{B}_b dv \bigg) \mathbf{u}_b^{(m+1)} - \sum_{b \in \eta_u} \bigg( \int_B \hat{\Phi}_a \mathbf{b}^{T (m+1)} \mathbf{B}_b dv \bigg) \bar{\mathbf{u}}_b^{(m+1)} ... \nonumber \\
+	... - \sum_{b \in \zeta_0} \bigg( \int_B \hat{\Phi}_a M^{-1 (m+1)} \hat{\Phi}_b dv \bigg) p_b^{(m+1)} - \sum_{b \in \zeta_p} \bigg(  \int_B \hat{\Phi}_a M^{-1 (m+1)} \hat{\Phi}_b dv \bigg) \bar{p}_b^{(m+1)} ... \nonumber \\
+	... = \Delta t \left[ \int_{\partial_{\mathcal{V}} B} \hat{\Phi}_a \bar{\mathcal{V}}^{(m,\theta)} da - \int_B \hat{\mathbf{B}}_a^T \mathbf{k}^{(m,\theta)} \rho^{f (m,\theta)} \mathbf{g} dv \right] ... \nonumber \\
+	... - \sum_{b \in \eta_0} \bigg( \int_B \hat{\Phi}_a \mathbf{b}^{T (m)} \mathbf{B}_b dv \bigg) \mathbf{u}_b^{(m)} - \sum_{b \in \eta_u} \bigg( \int_B \hat{\Phi}_a \mathbf{b}^{T (m)} \mathbf{B}_b dv \bigg) \bar{\mathbf{u}}_b^{(m)} ... \nonumber \\
+	... - \sum_{b \in \zeta_0} \bigg( \int_B \hat{\Phi}_a M^{-1 (m)} \hat{\Phi}_b dv \bigg) p_b^{(m)} - \sum_{b \in \zeta_p} \bigg(  \int_B \hat{\Phi}_a M^{-1 (m)} \hat{\Phi}_b dv \bigg) \bar{p}_b^{(m)} \quad \forall a \in \zeta_0
+\end{eqnarray}
+We can simplify these expressions by introducing the following notation for the integral statements
+\begin{equation}
+	\mathbf{K_{uu}}_{ab}^{(m)} = \int_B \mathbf{B}_a^T \mathbf{D}^{(m)} \mathbf{B}_b dv \qquad ( 3 \times 3 )
+\end{equation}
+\begin{equation}
+	\mathbf{K_{up}}_{ab}^{(m)} = \int_B \mathbf{B}_a^T \mathbf{b}^{(m)} \hat{\Phi}_b dv \qquad ( 3 \times 1 )
+\end{equation}
+\begin{equation}
+	\mathbf{K_{pu}}_{ab}^{(m)} = \int_B \hat{\Phi}_a \mathbf{b}^{T (m)} \mathbf{B}_b dv \qquad ( 1 \times 3 )
+\end{equation}
+\begin{equation}
+	{K^1_{pp}}_{ab}^{(m)} = \int_B \hat{\mathbf{B}}_a^T \mathbf{k}^{(m)} \hat{\mathbf{B}}_b dv \qquad ( 1 \times 1 )
+\end{equation}
+\begin{equation}
+	{K^2_{pp}}_{ab}^{(m)} = \int_B \hat{\Phi}_a M^{-1 (m)} \hat{\Phi}_b dv \qquad ( 1 \times 1 )
+\end{equation}
+this yields
+\begin{eqnarray}
+	 \sum_{b \in \eta_0} \mathbf{K_{uu}}_{ab}^{(m,\theta)} \mathbf{u}_b^{(m,\theta)} - \sum_{b \in \zeta_0} \mathbf{K_{up}}_{ab}^{(m,\theta)} p_b^{(m,\theta)}  ... \nonumber \\
+	... = \int_{\partial_t B} \Phi_a \bar{\mathbf{t}}^{(m,\theta)} da + \int_B \Phi_a \rho^{(m,\theta)} \mathbf{g} dv ... \nonumber \\
+	... - \sum_{b \in \eta_u} \mathbf{K_{uu}}_{ab}^{(m,\theta)} \bar{\mathbf{u}}_b^{(m,\theta)} + \sum_{b \in \zeta_p}\mathbf{K_{up}}_{ab}^{(m,\theta)} \bar{p}_b^{(m,\theta)} \quad \forall a \in \eta_0
+\end{eqnarray}
+\begin{eqnarray}
+	 - \sum_{b \in \eta_0} \mathbf{K_{pu}}_{ab}^{(m+1)} \mathbf{u}_b^{(m+1)} - \Delta t \sum_{b \in \zeta_0} {K^1_{pp}}_{ab}^{(m, \theta)} p_b^{(m,\theta)} - \sum_{b \in \zeta_0} {K^2_{pp}}_{ab}^{(m+1)} p_b^{(m+1)}  ... \nonumber \\
+	... = \Delta t \left[ \int_{\partial_{\mathcal{V}} B} \hat{\Phi}_a \bar{\mathcal{V}}^{(m,\theta)} da - \int_B \hat{\mathbf{B}}_a^T \mathbf{k}^{(m,\theta)} \rho^{f (m,\theta)} \mathbf{g} dv \right] ... \nonumber \\
+	... + \sum_{b \in \eta_u} \mathbf{K_{pu}}_{ab}^{(m+1)} \bar{\mathbf{u}}_b^{(m+1)} + \Delta t \sum_{b \in \zeta_p} {K^1_{pp}}_{ab}^{(m, \theta)} \bar{p}_b^{(m,\theta)} + \sum_{b \in \zeta_p} {K^2_{pp}}_{ab}^{(m+1)} \bar{p}_b^{(m+1)} ... \nonumber \\
+	- \sum_{b \in \eta_0} \mathbf{K_{pu}}_{ab}^{(m)} \mathbf{u}_b^{(m)} - \sum_{b \in \eta_u} \mathbf{K_{pu}}_{ab}^{(m)} \bar{\mathbf{u}}_b^{(m)} - \sum_{b \in \zeta_0} {K^2_{pp}}_{ab}^{(m)} p_b^{(m)} - \sum_{b \in \zeta_p} {K^2_{pp}}_{ab}^{(m)} \bar{p}_b^{(m)} \quad \forall a \in \zeta_0
+\end{eqnarray}
+define contributions to the global forcing/residual vector as
+\begin{equation}
+	\mathbf{F_{u}}_{a}^{(m)} = \int_{\partial_t B} \Phi_a \bar{\mathbf{t}}^{(m)} da + \int_B \Phi_a \rho^{(m)} \mathbf{g} dv - \sum_{b \in \eta_u} \mathbf{K_{uu}}_{ab}^{(m)} \bar{\mathbf{u}}_b^{(m)} + \sum_{b \in \zeta_p}\mathbf{K_{up}}_{ab}^{(m)} \bar{p}_b^{(m)} \qquad ( 3 \times 1 )
+\end{equation}
+\begin{equation}
+	{F^1_{p}}_{a}^{(m)} = \int_{\partial_{\mathcal{V}} B} \hat{\Phi}_a \bar{\mathcal{V}}^{(m)} da - \int_B \hat{\mathbf{B}}_a^T \mathbf{k}^{(m)} \rho^{f (m)} \mathbf{g} dv + \sum_{b \in \zeta_p} {K^1_{pp}}_{ab}^{(m)} \bar{p}_b^{(m)} \qquad ( 1 \times 1 )
+\end{equation}
+\begin{equation}
+	{F^2_{p}}_{a}^{(m)} = \sum_{b \in \eta_u} \mathbf{K_{pu}}_{ab}^{(m)} \bar{\mathbf{u}}_b^{(m)} + \sum_{b \in \zeta_p} {K^2_{pp}}_{ab}^{(m)} \bar{p}_b^{(m)} \qquad ( 1 \times 1 )
+\end{equation}
+substituting for the above expressions
+\begin{eqnarray}
+	 \sum_{b \in \eta_0} \mathbf{K_{uu}}_{ab}^{(m,\theta)} \mathbf{u}_b^{(m,\theta)} - \sum_{b \in \zeta_0} \mathbf{K_{up}}_{ab}^{(m,\theta)} p_b^{(m,\theta)} = \mathbf{F_{u}}_{a}^{(m,\theta)} \quad \forall a \in \eta_0
+\end{eqnarray}
+\begin{eqnarray}
+	 - \sum_{b \in \eta_0} \mathbf{K_{pu}}_{ab}^{(m+1)} \mathbf{u}_b^{(m+1)} - \Delta t \sum_{b \in \zeta_0} {K^1_{pp}}_{ab}^{(m, \theta)} p_b^{(m,\theta)} - \sum_{b \in \zeta_0} {K^2_{pp}}_{ab}^{(m+1)} p_b^{(m+1)}  ... \nonumber \\
+	... = \Delta t {F^1_{p}}_{a}^{(m,\theta)} + {F^2_{p}}_{a}^{(m+1)} - {F^2_{p}}_{a}^{(m)} - \sum_{b \in \eta_0} \mathbf{K_{pu}}_{ab}^{(m)} \mathbf{u}_b^{(m)} - \sum_{b \in \zeta_0} {K^2_{pp}}_{ab}^{(m)} p_b^{(m)} \quad \forall a \in \zeta_0
+\end{eqnarray}
+and expanding the $(m,\theta)$ terms, we obtain
+\begin{eqnarray}
+	(1+\theta) \left[ \sum_{b \in \eta_0} \mathbf{K_{uu}}_{ab}^{(m+1)} \mathbf{u}_b^{(m+1)} - \sum_{b \in \zeta_0} \mathbf{K_{up}}_{ab}^{(m+1)} p_b^{(m+1)} \right] ... \qquad \qquad \nonumber \\
+	... = (1+\theta) \mathbf{F_{u}}_{a}^{(m+1)} + (1-\theta) \left[ \mathbf{F_{u}}_{a}^{(m)} - \sum_{b \in \eta_0} \mathbf{K_{uu}}_{ab}^{(m)} \mathbf{u}_b^{(m)} + \sum_{b \in \zeta_0} \mathbf{K_{up}}_{ab}^{(m)} p_b^{(m)} \right] \quad \forall a \in \eta_0
+\end{eqnarray}
+\newline
+\begin{eqnarray}
+	 - \sum_{b \in \eta_0} \mathbf{K_{pu}}_{ab}^{(m+1)} \mathbf{u}_b^{(m+1)} - \sum_{b \in \zeta_0} \bigg( (1+\theta) \frac{\Delta t}{2} {K^1_{pp}}_{ab}^{(m+1)} + {K^2_{pp}}_{ab}^{(m+1)} \bigg) p_b^{(m+1)}  ... \nonumber \\
+	... = (1+\theta) \frac{\Delta t}{2} {F^1_{p}}_{a}^{(m+1)} + {F^2_{p}}_{a}^{(m+1)} + (1-\theta) \frac{\Delta t}{2} {F^1_{p}}_{a}^{(m)} - {F^2_{p}}_{a}^{(m)} ... \nonumber \\
+	... - \sum_{b \in \eta_0} \mathbf{K_{pu}}_{ab}^{(m)} \mathbf{u}_b^{(m)} - \sum_{b \in \zeta_0} \bigg( (\theta-1) \frac{\Delta t}{2} {K^1_{pp}}_{ab}^{(m)} + {K^2_{pp}}_{ab}^{(m)} \bigg) p_b^{(m)} \quad \forall a \in \zeta_0
+\end{eqnarray}
+For $\theta = 0$ (Crank-Nicolson method) we find
+\begin{eqnarray}
+	\sum_{b \in \eta_0} \mathbf{K_{uu}}_{ab}^{(m+1)} \mathbf{u}_b^{(m+1)} - \sum_{b \in \zeta_0} \mathbf{K_{up}}_{ab}^{(m+1)} p_b^{(m+1)} ... \qquad \qquad \nonumber \\
+	... = \mathbf{F_{u}}_{a}^{(m+1)} + \mathbf{F_{u}}_{a}^{(m)} - \sum_{b \in \eta_0} \mathbf{K_{uu}}_{ab}^{(m)} \mathbf{u}_b^{(m)} + \sum_{b \in \zeta_0} \mathbf{K_{up}}_{ab}^{(m)} p_b^{(m)} \quad \forall a \in \eta_0
+\end{eqnarray}
+\begin{eqnarray}
+	 - \sum_{b \in \eta_0} \mathbf{K_{pu}}_{ab}^{(m+1)} \mathbf{u}_b^{(m+1)} - \sum_{b \in \zeta_0} \bigg( \frac{\Delta t}{2} {K^1_{pp}}_{ab}^{(m+1)} + {K^2_{pp}}_{ab}^{(m+1)} \bigg) p_b^{(m+1)}  ... \nonumber \\
+	... = \frac{\Delta t}{2} {F^1_{p}}_{a}^{(m+1)} + {F^2_{p}}_{a}^{(m+1)} + \frac{\Delta t}{2} {F^1_{p}}_{a}^{(m)} - {F^2_{p}}_{a}^{(m)} ... \nonumber \\
+	... - \sum_{b \in \eta_0} \mathbf{K_{pu}}_{ab}^{(m)} \mathbf{u}_b^{(m)} + \sum_{b \in \zeta_0} \bigg( \frac{\Delta t}{2} {K^1_{pp}}_{ab}^{(m)} - {K^2_{pp}}_{ab}^{(m)} \bigg) p_b^{(m)} \quad \forall a \in \zeta_0
+\end{eqnarray}
+The above equations may be cast in matrix form as:
+\begin{eqnarray}
+	\left[
+	\begin{array}{cc}
+		\mathbf{K_{uu}} & -\mathbf{K_{up}} \\
+		-\mathbf{K_{pu}} & -\bigg( \frac{\Delta t}{2} \mathbf{K^1_{pp}} + \mathbf{K^2_{pp}} \bigg)
+	\end{array} \right] ^{(m+1)}
+	\left[
+	\begin{array}{c}
+		\mathbf{u} \\
+		\mathbf{p}
+	\end{array} \right] ^{(m+1)} ... \nonumber \\
+	... = \left[
+	\begin{array}{cc}
+		-\mathbf{K_{uu}} & \mathbf{K_{up}} \\
+		-\mathbf{K_{pu}} & \bigg( \frac{\Delta t}{2} \mathbf{K^1_{pp}} - \mathbf{K^2_{pp}} \bigg)
+	\end{array} \right] ^{(m)}
+	\left[
+	\begin{array}{c}
+		\mathbf{u} \\
+		\mathbf{p}
+	\end{array} \right] ^{(m)} ... \nonumber \\
+	... + \left[
+	\begin{array}{c}
+		\mathbf{F_u} \\
+		 \bigg( \frac{\Delta t}{2} \mathbf{F^1_{p}} + \mathbf{F^2_{p}} \bigg)
+	\end{array} \right] ^{(m+1)} +
+	\left[
+	\begin{array}{c}
+		\mathbf{F_u} \\
+		 \bigg( \frac{\Delta t}{2} \mathbf{F^1_{p}} - \mathbf{F^2_{p}} \bigg)
+	\end{array} \right] ^{(m)}
+\end{eqnarray}
+
+
+
+\end{document}

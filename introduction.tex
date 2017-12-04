@@ -1,53 +1,289 @@
 \chapter{Introduction}
-%
-(An introductory description of the problem that is being addressed, which the presented research intends to resolve. The problem need not be described in explicit detail (i.e. we need not explain the mathematical aspects of solid mechanics in its totality), but it should address the locking problem to a sufficient extent, making it clear to the reader what the fundamental problem is, and why it is so difficult to address. Do not repeat the abstract; rather, build upon what was already said, but in more explicit terms.)
-%
-For every physical model, there exist discrepancies to be found with it; in the infamous words of Box: ``All models are wrong...but some are useful,'' a statement which certainly holds true in the context of modern computational solid mechanics. The field has evolved substantially since its early beginnings in the 1950s, developing into a mature area of research which encompasses more traditional engineering practices, as well as aspects of data and computer science, along with newly developed areas of mathematics.
 
-Today, the early techniques have been extended for applications in modeling complex physical processes and engineered systems, but as a consequence, there has been a proliferation of different modeling techniques to accomodate these particular applications. To a large extent, these developments have succeeded in solving a few very specific problems relevant to the engineering community, but the accompanying explosion in model complexity has placed an undue burden upon traditional analysts, who are unhappily faced with the prospect of first: selecting a modeling method from the vast number that currently exist, and second: negotiating the many nuances and difficulties inherrent to the chosen methodology.
+% OPENING (scope of the thesis)
 
-But despite the many recent advancements in techniques for modeling difficult problems such as contact, pervasive fracture, fluid-structure interaction, and so forth, seemingly limited progress has been made in the arenas of model discretization, and ``robustness'' in the face of arbitrary discretizations. These issues account for much of the disuse and distrust of more complex numerical models by the engineering community at large, for two primary reasons: model generation is stymied by rather severe restrictions on the discretization approaches in common usage, owing to the fact that the accuracy of the associated numerical models depends strongly upon the ``quality'' of the resulting discretization. In other words, model accuracy is too often the product of the chosen discretization.
+	% A high-level description of the research setting:
+		% Efficient & accurate approximation methods for nonlinear solid mechanics
+	For decades, finite element methods have been the foremost tool for engineers and physicists to model the deformation of solid bodies. Numerous extensions of the method have been developed in an effort to model more complex physical processes, including nonlinear kinematic and material behavior.
 
-This fact was identified fairly early on in the development of the traditional finite element method, giving rise to the notion of ``locking'' as a general phenomenon which is characterized by a loss of solution accuracy and/or convergence for some limiting value of a problem parameter. One of the most commonly discussed and addressed forms of locking in computational solid mechanics is the issue of ``volumetric locking,'' wherein a model attempting to represent a nearly incompressible material will suffer from a marked loss of accuracy. For an elastic material model, the parameter dependency in question relates to the Poisson's ratio. Other forms of locking may include ``shear locking,'' ``membrane locking,'' or ``trapezoidal locking,'' nearly all of which are a consequence of a poor choice of model discretization, particularly with regard to relatively thin beam- or plate-like geometries.
+	% A high% level statement of the fundamental problem(s):
+		% FE solution accuracy is compromised by the issues of locking and mesh quality
+		% Proposed solutions handle some, but not all of these problems
+	Despite these advances, traditional finite element methods have been plagued by recurrent issues of numerical accuracy pertaining to locking and poor mesh quality. Various strategies have been proposed to overcome some of these issues, though few have been able to address the underlying problem of element distorsion sensitivity.
 
-In response to these problems, various approaches were proposed as a means of handling different forms of locking, but they were altogether encumbered by still severe restrictions on element geometry. Consequently, traditional beam and shell element models are still commonly used by analysts in an effort to avoid these issues, though even structural elements are not immune to the effects of locking, and suffer from a host of their own (albeit related) problems.
+	% A high-level statement of the proposed solution(s):
+		% Thesis presents a polytopal element framework to address these issues
+		% Polyhedral discretization is aimed at overcoming issues of mesh quality
+		% Framework is amenable to classical FE procedures used to address locking
+	This thesis presents a polytopal element framework to address the aforementioned issues. The use of arbitrary polygonal and polyhedral shapes in place of the standard element shapes used in FEM seeks to address the issue of distorsion sensitivity directly, obviating issues of meshing and mesh quality, while maintaining many of the desirable features of the FEM.
 
-Over the past few decades, there has been somewhat slow progress in the pursuit of so-called ``locking-free'' formulations, yet most of these only address one aspect of the locking problem (typically volumetric locking), and not the broad range of issues suggested by the terminology. Nonetheless, the methods which appear to have the most success almost invariably attempt to address the locking problem by respecting the discretization and compatibility at element interfaces only weakly (i.e. non-conforming and Discontinuous Galerkin methods).
+\section{Historical Development} % (what has led up to polyhedral discretizations)
 
-As a consequence, Discontinuous Galerkin methods have attracted the attention of researchers in the field of numerical methods development for this very reason. However, the DG approaches have not overcome the canonical FEM and related methodologies for a number of reasons. One commonly cited reason relates to the fact that DG methods can become sensitive to the selection of certain penalty parameters used to weakly enforce inter-element continuity and boundary conditions, thereby imposing a rather arbitrary choice upon engineering analysts.
+	% Origin of finite element methods, applied to solid mechanics problems
+		% Finite elements developed initially for LINEAR, structural problems
+	According to \cite{Felippa:04}, finite element methods originated in the 1950s to address challenges related to the engineering design of aircraft. More rigorous mathematical justifications of the method were developed later on, and its usage permeated to other fields of study (namely, in structural engineering applications). Following the advent of isoparametric element formulations, displacement-based finite element methods gained widespread popularity, though most early applications considered only linear kinematic and material behavior.
+	% Subsequently, more complicated models were developed to accomodate nonlinearities:
+		% Finite deformations incorporated to handle non-linear geometric effects
+		% Advanced constitutive models developed for plastic and viscoelastic materials
+		% Contact between deformable bodies (more geometric non-linearity)
+	Subsequently, advanced solution methodologies were developed to accomodate various sources of nonlinearity, including finite deformations, nonlinear constitutive behavior, and contact.
 
-\section{Mathematical Characterization of Solution Accuracy and Robustness}
+	% Finite element methods still hold up in the aforementioned contexts because:
+		% Compact support property of basis functions yields efficient solutions
+			% Domain decomposition more straightforward, parallel scalability
+		% Element quadrature rules effectively consider individual material points
+			% leads to reasonable accuracy and solution efficiency
+			% directly compatible with the theory of continuum mechanics
+			% naturally accomodates non-linear kinematics
+			% naturally accomodates non-linear constitutive models
+		% Yields a precise description of mesh boundaries
+			% allows for straightforward contact enforcement
+			% application of other BC's (FSI pressure coupling) also straightforward
+	Over half a century after its initial development, the finite element method is still widely used, and recognized as the industry standard method for modeling complicated structural systems. It's reigning popularity can be attributed to several desirable features of the method:
+	\begin{itemize}
+		\item[1.)] The compact support property of the isoparametric basis functions helps to facilitate more efficient solution methodologies.
+		\item[2.)] The kronecker delta property and precise description of mesh boundaries allow for a relatively straightforward application of boundary conditions and contact constraints.
+		\item[3.)] Numerical quadrature on element domains derived from product Gauss rules balances accuracy, efficiency, and stability, which also accomodates nonlinear kinematic and material behavior.
+	\end{itemize}	
+	
+	% However, finite element methods have suffered from two major (but related) issues:
+		% Poor solution accuracy due to effects of ``locking''
+			% The quality and type of discretization heavily impacts accuracy
+			% Low order elements suffer the most from these issues
+			% Linear tetrahedra and triangles are the worst offenders
+			% Thin an distorted elements perform poorly
+		% Meshing of complex geometries into quality discretizations is difficult
+			% Generally time-consuming to produce quality meshes (human effort)
+			% Hard or impossible to avoid mesh distorsion
+			% Recent developments have been made towards hex-dominant meshing
+				% still limited by element distortion
+	However, despite these advantageous characteristics, finite element methods have suffered from two major (related) issues:
+	\begin{itemize}
+		\item[1.)] Standard element formulations are prone to the effects of numerical locking phenomena, which can significantly degrade the accuracy of the method. These issues are more prevalent for low-order elements, and especially so for linear triangles and tetrahedra. Moreover, very thin or distorted elements tend to exhibit more severe pathologies.
+		\item[2.)] The process of meshing complex geometries is encumbered by the aforementioned concerns over locking, to the extent that it becomes difficult -- if not impossible to produce quality discretizations using automated tools which do not require extensive human intervention.
+	\end{itemize}
+	
+	Despite recent efforts to pursue automated quad-dominant \cite{Remacle:12} and hex-dominant \cite{Xifeng:17} meshing algorithms which seek to optimize certain mesh quality metrics, the inherrent problem of element distorsion sensitivity still remains. Consequently, substantial efforts have been made to address the locking problem through a variety of different approaches, to be discussed in the following section.
 
-\section{An Assessment of Various Approximation Methods}
-%
-A detailed discussion of various approximation schemes in common usage, and an evaluation of their performance in the context of non-linear solid mechanics.
-\subsection{Continuous Galerkin Methods and the FEM}
-\subsubsection{Structural Finite Elements}
+	\subsection{Locking in Finite Elements}
+	
+		% Establish fundamentally what locking is
+			% observations regarding volumetric locking
+			% observations regarding shear locking
+			% mathematical characterization of locking by Babuska
+		Locking, as a general phenomenon presented in \cite{Babuska&Suri:92:1}, is characterized by a loss of solution accuracy and/or convergence for certain choices of material or discretization parameters. In mathematical terms, an approximation method is deemed \textit{robust} if the accuracy of its numerical solution converges uniformly under mesh refinement for all values of a given problem parameter. Conversely, a method is said to exhibit \textit{locking} if the accuracy of the solution degenerates as the chosen problem parameter approaches some limiting value.
+		
+		One of the most commonly discussed and addressed forms of locking in computational solid mechanics is the issue of \textit{volumetric locking}, wherein displacement-based element formulations suffer from a marked loss of accuracy when used to model the deformation of nearly incompressible materials. For a linear elastic material model, the parameter dependency in question relates to the Poisson's ratio of the material. Other forms of locking which are sensitive to geometric/discretization parameters include: \textit{shear locking}, which is linked to the aspect ratio of continuum elements used to model thin geometries; \textit{membrane locking}, which occurs in curved shell elements (see \cite{Winkler:10}); and \textit{trapezoidal locking}, which occurs in distorted four-node quadrilateral elements (see \cite{MacNeal:87}).
+	
+		% Concerted efforts were made to address the issues of locking:
+		
+		% Higher-order elements
+			% shown to eliminate locking issues at high enough order
+			% accuracy still highly contingent on element distortion
+			% complexity of high-order elements seen as disadvantageous
+		Early efforts to address issues pertaining to locking sought to develop more robust discretizations in the form of higher-order elements. In \cite{Babuska&Suri:92:2} and \cite{Suri:91}, Babu\u{s}ka and Suri justified the ability of high-order elements to overcome the effects of volumetric locking. Moreover, the improved convergence behavior of these elements made them an attractive option for seeking efficiency gains. Nonetheless, higher-order elements were generally seen as too complex in comparison with standard low-order elements for commercial applications. Additionally, high-order elements encounter issues when applied to explicit dynamics problems due to the relative difficulty of constructing a lumped mass matrix. Moreover, the accuracy and convergence rate of high-order elements is degraded if the elements posess curved edges, as demonstrated in \cite{Lee&Bathe:93}.
+			
+		% Mixed formulations based on Hu-Washizu principle
+			% one of the most robust solutions to locking
+			% directed at incompressibility, resolves pressure field accurately
+			% requires the interpolation of displacement, strain, and stress fields
+			% must satisfy the inf-sup (LBB) conditions for stability
+			% somewhat limited, based on the choice for the material model
+			% can suffer from issues of numerical conditioning
+		As an alternative to the standard displacement-based element formulations, some researchers have argued for the use of so-called mixed finite element methods, which provide a separate interpolation of the displacement, strain, and stress fields utilizing a 3-field Hu-Washizu variational principle in the specification of the weak form. While these methods are generally seen as robust in the face of locking (as noted in \cite{Babuska&Suri:92:1} and \cite{Babuska&Suri:92:2}), they are nonetheless subject to potential issues of stability, i.e. the Babu\u{s}ka-Brezzi, or inf-sup conditions (refer to \cite{Babuska:71}, \cite{Brezzi:74}.) Mixed methods are also not as easily generalized to handle arbitrary constitutive relationships in comparison with standard FEM discretizations.
+		
+		% Method of incompatible modes
+			% aimed mostly at improving bending performance of elements
+			% based on mixed formulations, reduced to 2-field method
+			% considers enhanced strain mode degrees of freedom
+			% enhanced dofs can be condensed out at the element level
+			% performance of elements is still sensitive to mesh distortion
+		In an effort to retain some of the beneficial characteristics of mixed finite element methods, mixed assumed strain methods (alternately the method of incompatible modes) were formalized for geometrically linear problems in \cite{Simo&Rifai:90}, and extended to nonlinear problems in \cite{Simo&Armero:92} and \cite{Simo&Armero&Taylor:93}. Such methods derive from the Hu-Washizu variational principle, and rely upon energy orthogonality between the enhanced strain field and the resulting stress field to eliminate the need for independently interpolating the stress field, thereby yielding a 2-field formulation. Though the method is effective in treating a variety of geometric locking phenomena, it nonetheless suffers from spurious instability problems for both linear and nonlinear problems (see \cite{Bathe&Sussman:14} and \cite{Bathe&Pantuso:97}, respectively), even if the elements satisfy the inf-sup condition.
+			
+		% Selective Reduced Integration techniques
+			% developed to handle incompressibility constraint
+			% works fairly well, though may fail inf-sup
+		Other attempts to adapt mixed formulations for more general use with arbitrary material models without relying upon an interpolation of the stress field resulted in selective reduced integration (SRI) and equivalent strain projection techniques, which avoided the need for the explicit interpolation of strain or stress fields. These methods were fairly successful in overcoming the issues of volumetric locking via the so-called B-bar approach for linear problems discussed in \cite{Hughes:00}, and via the F-bar approach for nonlinear problems discussed in \cite{Souza:96}. Though these methods generally perform well, their success has been limited to the problem of volumetric locking; they are less successful with regard to treating other forms of locking, and can lead to stability problems if the strain projection spaces are not carefully chosen.
+		
+		% Hourglass stiffness and viscosity
+			% use underintegration of the element (single point quadrature)
+			% supplement with (small) artificial stiffness & viscosity parameters
+			% efficient computationally, especially for explicit dynamics
+			% an ad hoc solution, sensitive to the choice of HG parameters
+		At the opposite end of the spectrum, and in recognition of the inherrent issues of stability that tend to plauge methods that rely upon reduced integration to combat locking, orthogonal hourglass control methodologies were suggested, as in \cite{Flanagan:81}. These approaches considered using low-order quadrature rules to avoid common locking phenomena, combined with artificial stiffness terms to maintain stability while preserving essential convergence characteristics. While these elements tend to be highly efficient computationally (particularly for explicit dynamic analyses), the obvious disadvantage of these approaches relates to their reliance upon user-specified artificial stiffness and viscosity parameters. Appropriate selection of these parameters is not always a trivial matter, and often warrants investigation via sensitivity analyses.
+			
+		% Important point: most of these methods restricted to standard (hex) elements
+			% not easily generalizable/extensible to other elements/methods
+			% moreover, standard isoparametric elements are part of the problem
+				% led to development of alternative methods/discretizations
+		Ultimately, the foregoing methodologies have had only limited success in resolving the full spectrum of locking problems, particularly with regard to geometric locking phenomena. Moreover, many of the proposed enhancements are imited to specific element formulations (typically low-order quadrilaterals or hexahedra), and are not readily generalizable to other discretizations. To a certain extent, the propensity for locking in FEM is controlled largely by the standard isoparametric elements' sensitivity to geometric distorsion. In other words, model accuracy is too often the product of the chosen discretization. For this reason, considerable efforts have been invested in recent years towards the development of alternative discretizations and numerical methods. The merits and shortcomings of these methods are discussed in the following section.
+	
+	\subsection{Alternative Numerical Methods and Discretizations}
+		% Efforts toward meshing & element quality led to new methods & discretizations
+		Driven by the concerns over meshing and element quality, a wide variety of alternative approximation methods have been explored in recent decades. The general consensus amongst those pursuing the development of truly ``robust'' numerical methods (those which perform well regardless of the specific choice of discretization) is that there is a need for abstraction away from the kinds of discretizations used to represent the approximate solution of a PDE on a given problem domain. In particular, certain forms of discretization may be convenient from a geometric perspective in the sense that they are easy to generate, but they may not result in a suitable approximation space for the given problem at hand.
+		
+		% Meshfree methods
+			% avoid issues of mesh sensitivity altogether -- abandon the mesh
+			% construct shape functions using weighting/kernal functions
+			% several different varieties: SPH, MLS, RKPM, Max-Ent
+			% solutions tend to be much smoother
+			% able to handle severe/extreme deformations & changing topology
+			% lose compact support property; less computationally efficient
+			% boundaries are not well-defined; handling of BCs and contact is hard
+			% suffers from issues of numerical integration; lose consistency
+			% need to define a background mesh for integration (NOT mesh-free)
+		In direct response to these considerations, so-called \textit{meshfree} methods were developed in an effort to construct approximation spaces that are defined independently of a chosen spatial discretization. Meshfree methods encompass a broad class of approximation schemes, including smoothed particle hydrodynamics (SPH), the element-free Galerkin (EFG) method, and the reproducing kernel particle method (RKPM), among others. A majority of these methods rely upon an a priori specification of a set of weighting functions used to construct an associated set of basis functions satisfying necessary reproducibility requirements. The resulting meshfree basis yields relatively smooth solutions which are less sensitive to the specific choice and distribution of weighting functions.
+		
+		However, a departure from utilizing a structured partition of the domain presents a number of challenges. Specifically, meshfree methods still require the definition of a background mesh to effect numerical integration of the weak form equations, thereby invalidating claims that the method has no need of an underlying discretization. Moreover, because the basis functions tend to be non-polynomial in form (and because they are not compactly supported/overlapping on element domains), they are more challenging to accurately integrate. Chen et. al. have proposed a means of overcoming these issues in \cite{Chen:13} though a \textit{variationally consistent integration} scheme.
+		
+		Also, because the basis functions do not in general possess the kronecker delta property, the application of boundary conditions and contact constraints becomes less straightforward. Several techniques have been proposed to handle this issue, including Lagrange multiplier methods, Nitsche's method, and mesh blending at domain boundaries.
+			
+		% Discontinuous Galerkin methods
+			% accomodate arbitrary polytopal domains
+			% solution within a given polytopal domain is locally polynomial
+			% tends to be fairly robust across different discretizations
+			% relatively efficient, shares some favorable characteristics of FEM
+			% penalty terms are needed to enforce BCs & weak continuity
+			% penalty parameters are problem dependent, must be chosen carefully
+		In contrast, Discontinuous Galerkin (DG) methods have attracted the attention of researchers in the field of numerical methods development due to their represention of solution fields as piece-wise polynomials over individual elements, resulting in solution discontinuities at element boundaries. To guarantee stability, DG methods rely upon the inclusion of penalty terms which seek to minimize these discontinuities. DG methods are advantageous in that they may accomodate arbitrary element shapes, provided an appropriate numerical integration scheme can be defined over the element domain. Moreover, DG methods exhibit desireable distorsion robustness characteristics.
+		
+		However, the DG approaches have not obviated the usage of the canonical FEM and related methodologies for a number of reasons. One commonly cited reason relates to the fact that DG methods can become sensitive to the choice of penalty parameters used to weakly enforce inter-element continuity and boundary conditions; the selection of these parameters is problem dependent. Additionally, DG methods tend to suffer from poor numerical conditioning problems if the discretization does not conform with relatively stringent regularity requirements, thereby limiting the types of discretizations used with the method.
+			
+		% Weak Galerkin methods
+			% more recently developed approach
+			% can handle arbitrary polytopal element domains
+			% based on the notion of weak derivatives
+			% similar in some respects to DG methods; polynomial basis functions
+			% dofs stored in element domains, and on element boundaries
+			% weak derivative property avoids need for penalty terms (unlike DG)
+			% may result in a large number of unknowns, less efficient
+			% current formulations place limits on element geometry			
+		The more recent ``weak Galerkin'' finite element method first introduced by Wang and Ye for elliptic problems in \cite{Wang:13}, and for parabolic equations by Li and Wang in \cite{Li:13}, pursues the discretization of a (2D) problem domain into arbitrary polygonal elements. The method considers an associated space of ``weak functions'' defined on the elements and their edges, such that functions defined on element domains are related to functions defined on the element's edges via a ``discrete weak gradient operator.'' In general, the spaces of functions under consideration on the element interiors and edges are typically low-order polynomials (commonly just constants). However, there are some non-trivial choices that must be made regarding an optimal selection of these polynomial spaces for the sake of computational efficiency, which is discussed in more detail in reference \cite{Mu:15:1}. Within the published literature, there appears to be little discussion regarding numerical quadrature, ostensibly because exact quadrature rules exist for simplicial geometries, which are most commonly used with the method. Additionally, the method has so-far only been applied to the solution of linear problems.
 
-\subsection{Discontinuous Galerkin Methods}
+	The computational accuracy of the weak Galerkin approach has been explored by Mu et. al. in \cite{Mu:13}, showing that for certain problems, the weak Galerkin method converges at rates comparable to those of the standard FEM. Lin et. al. performed a comparative study between the weak Galerkin (WG), discontinuous Galerkin (DG), and mixed finite element (MFEM) methods in \cite{Lin:15}, demonstrating some of the competitive and desirable characteristics of WG in contrast to DG or MFEMs (e.g. no need for penalty parameters, and definiteness of the resulting linear system of equations).
 
-\subsection{Mesh Free Methods}
+	Despite its generality, the method had only been extensively studied and applied to triangular or tetrahedral meshes, until Mu et. al. adapted the method for use on polytopal meshes in \cite{Mu:15:2} and \cite{Mu:15:1}, albeit with a number of shape regularity restrictions placed on the elements. In general, the implementation of WG considers the mesh degrees of freedom as belonging to both the elements and their edges, however in \cite{Mu:15:1} it is noted that the local element degrees of freedom can be expressed in terms of the bounding edge degrees of freedom to improve computational efficiency.
 
-\subsection{Isogeometric Methods}
+	A modified approach for solving Poisson's equation was also proposed by Wang et. al. in \cite{Wang:14}, which sought to express functions on edges only implicitly. This modified approach, however, requires the inclusion of an additional term in the weak form which penalizes jumps in the solution value at element boundaries, similiar to a discontinuous Galerkin method. The key advantage of this approach is that it successfully reduces computational expense by eliminating the need for having degrees of freedom belonging to the edges of the mesh, albeit at the cost of introducing a dependence upon the choice of a penalty parameter.
 
-\subsection{Polytopal Element Methods}
-\subsubsection{The Weak Galerkin Method}
-\subsubsection{The Virtual Element Method}
-\subsubsection{The Partitioned Element Method}
+	% Polygonal and Polyhedral methods
+		% element geometry made to be more flexible (arbitrary)
+			% opens up new possibilities for meshing
+		% construct basis functions directly on the elements (no isoparametric map)
+		% basis functions possess compact support; numerically efficient
+		% mesh boundaries again well-defined; good for contact & BC enforcement
+		% techniques developed for efficient domain integration (Sukumar, Mousavi)
+	In the wake of these investigations, it became clear that many of the desirable properties of the FEM (compact support, kronecker delta, quadrature efficiency, and inter-element compatibility) were qualities worth preserving. To this end, efforts were made toward improving and generalizing the existing element formulations to apply to arbitrary element shapes -- polygons and polyhedra. Rather than relying upon shape functions defined through an isoparametric transformation from a parent element domain, recent polytopal element methodologies have explored various techniques for constructing approximants directly on the physical element domains. In doing so, issues regarding distorsion sensitivity of the elements are largely obviated, and new opportunities for discretizing the domain with irregular shapes are made possible.
 
-\section{Recent Advances in Domain Discretization}
-%
-An overview of various approaches to the problem of discretizing a solid domain for the purposes of obtaining a computational mesh amenable to a particular approximation scheme.
-\subsection{Discretizations Using Regular Shapes}
+	% New discretization methods have made polyhedral meshing more accessible
+		% Voronoi meshing has made leaps and bounds in recent years (Ebeida)
+		% Efforts made toward hex mesh intersection with B-rep geometry (Celeris)
+	In light of these developments, recent advances in meshing technologies have made polyhedral element methods a more readily feasible option. Very recently, Ebeida et. al. have released the software VoroCrust (\cite{Ebeida:17}): an automated voronoi discretization tool based on a constrained Poisson disk sampling methodology. Additionally, the Celeris CAE tool currently in development provides a means of intersecting a background graded hexahedral mesh with a piece-wise linear boundary representation (B-rep) to obtain a volume-filling polyhedral mesh.
 
-\subsection{Discretizations with Arbitrary Polytopes}
-\subsubsection{Voronoi Diagrams}
-\subsubsection{Cut Cell Methods}
+	% Justify current demand for reliable and robust polyhedral element methods
+	For these reasons, efficient and robust polyhedral element formulations are in high demand, leading to a proliferation of different approaches. A number of these methods are discussed in the following section.
 
-\subsection{Assessments of Mesh Quality}
+\section{Recent Developments in Polytopal Discretizations} % (polyhedral finite element methods)
 
-\section{The Proposed Polytopal Element Framework}
+	% Reiterate the main motivation behind polyhedral discretizations
+		% Want to avoid meshing limitations while preserving desirable FEM properties
+			% definition of quadrature rules & precise boundary description
+	Polytopal element methods combine many of the attractive features of FEM with the geometric flexibility of having arbitrary element shapes, the primary motivation for which arises from the aforementioned concerns over discretization sensitivity. Many such methods share a few distinguishing features in common with one another: mesh degrees of freedom are borne by nodes -- the geometric verticies of (low-order) elements; nodal basis functions are compactly supported over adjoining element domains, and satisfy the kronecker delta property; basis functions are defined directly on the element's physical domain, rather than on a parent domain.
+	
+	Where these methods differ is in the way that they choose to define an element's shape functions, if at all. These approaches may be loosely categorized into three separate strategies: an explicit definition of the element's basis functions via a continuous interpolation scheme; an implicit definition of the element's shape functions via the Virtual Element Method (VEM); or a discrete representation of the element's shape functions via an approximation scheme. These three methodologies are elaborated upon in the following sections.
 
-(Explain the scope of your work, how this serves as a novel and innovative contribution that addresses the problem, what will and will not be addressed by this approach, and where the introductory material ("old stuff") ends and your contribution ("new stuff") begins.)
+	\subsection{Continuous Interpolation on Arbitrary Polytopes}
+		% Overview of efforts to define interpolants directly on polytopal domains
+		In an effort to generalize the core idea behind isoparametric element coordinates, which yield a point-wise definition of the element's shape functions and their gradients within a given element domain, various efforts to explicitly define shape functions directly on arbitrary polytopal domains has led to the creation of a broad family of interpolation schemes, collectively referred to as \textit{generalized barycentric coordinates}.
+		
+		% Briefly describe the idea of generalized barycentric coordinates
+			% harmonic/Laplace coordinates
+			% Waschpress coordinates
+			% maximum entropy coordinates
+		At a minimum, shape functions which fall into this category must: form a partition of unity, satisfy linear completeness, and interpolate the nodal data (i.e. satisfy the kronecker delta property). These coordinates are uniquely defined according to the standard barycentric coordinate system for simplicial domains. For arbitrary polytopal domains, numerous such coordinate systems exist, including Wachspress' coordinates \cite{Wachspress:75}, mean values coordinates \cite{Floater:03}, harmonic coordinates \cite{Joshi:07}, and maximum entropy coordinates \cite{Sukumar:04}, among others.
+			
+		% Require significant number of quadrature points to retain accuracy
+		Though generalized barycentric coordinates have been applied in the context of finite elements, their development has largely been propelled by the graphics community on account of their relatively smooth interpolatory properties. However, thier smooth (non-polynomial) character presents a challenge with regard to accurate numerical integration. Consequently, relatively high-order quadrature schemes are required to achieve reasonable accuracy and satisfaction of patch tests. More recently, a polynomial projection scheme has been suggested in \cite{Talischi:14} to remedy these integration errors for linear problems; for general nonlinear problems, a gradient correction scheme has been proposed in \cite{Talischi:15} and \cite{Chi:16}. These developments have illuminated new possibilities for defining more efficient quadrature rules on polytopes while still satisfying the essential requirements for convergence.
+		
+		% Many approaches are limited by restrictions on element geometry/convexity
+		Yet in spite of these developments, many existing coordinate schemes are sill limited by moderate to severe restrictions on element shape/convexity, and produce sharp gradients in the presence of degenerate geometric features. These concerns, and a recognition of the fact that the shape functions need not be defined point-wise for finite element applications, have motivated research efforts toward discrete representations of element interpolants.
 
-(Provide a coarse outline, guiding the reader to what lies ahead.)
+	\subsection{Virtual Element Methods}
+		% Overview of virtual element methods (avoids definition of SFs on element domains)
+		% never explicitly constructs/represents shape functions on elements
+		% considers ``virtual'' shape functions, projected onto a polynomial subspace
+		% exploits linearity of bilinear form to separate consistency & stability terms
+		% consistency term formed by low-order polynomial projection of virtual SFs
+		% stability term formed by higher-order projection, scaled by HG parameter
+		% limited in applicability to linear problems (some efforts toward nonlinear)
+		% stabilization still a somewhat ad hoc procedure
+		The Virtual Element Method (VEM) summarized in \cite{Veiga:13} is a relatively new approach, and based in part upon the older concept of mimetic finite differences (MFD). Although the method supposes that continuous shape functions (trial and test functions) \textit{exist} within arbitrary polytopal elements, the VEM never explicitly \textit{defines} how these shape functions vary on element interiors. Instead, the VEM supposes that these ``virtual'' functions may be separated (via projection operators) into polynomial and non-polynomial parts, which are handled in different ways.
+		
+		The cornerstone of the method is the idea that the bilinear form for a given element may be decomposed into two distinct parts: a term which guarantees variational consistency (Galerkin exactness) involving the low-order polynomial part of the shape functions, and a term which provides stability involving the non-polynomial part. The consistency term must be integrated exactly, but the stability term can be evaluated approximately. Because this decomposition relies upon the linearity of the bilinear form, direct generalizations of the method to nonlinear problems are not immediately available.
+		
+		VEM has been applied to three-dimensional elasticity problems in \cite{Gain:13}, though limited to strictly linear deformations and material behavior. In \cite{Veiga:15}, a VEM formulation for low-order elements which accomodates nonlinear ``black-box'' constitutive algorithms is presented, and in \cite{Chi:17} an extension to finite deformations (with appropriate stabilization terms) is introduced. Given the means by which these approaches exploit the use of a projected uniform gradient to integrate the stress divergence term, however, it is unclear how they could be extended to accomodate higher-order elements.
+		
+		VEM formulations are able to tolerate geometric degeneracies and element non-convexity without encountering serious numerical difficulties, though their good behavior in the presence of these features is often governed by an ad hoc approximation of the stabilization terms. For this reason, it appears worthwhile to explore a more rigorous means of establishing the necessary stability requirements on more complicated element domains, while attempting to maintain the relative simplicity of the VEM.
+		
+	\subsection{Approximate Interpolation on Arbitrary Polytopes}
+		% Overview of efforts to define shape functions only loosely over element domains
+		% Somewhere in between the barycentric coordinate-type elements, and the VEM
+		Rather than defining shape functions either entirely explicitly, or implicitly, yet another strategy considers the representation of the element's shape functions in an approximate way, while enforcing a few essential requirements. Namely: polynomial reproducibility, inter-element compatibility, and consistency with the weak form.
+		
+		% VETFEM (variable element topology finite element method)
+			% define SFs as polynomials, subject to continuity requirements
+			% suffers from robustness issues
+		In \cite{Rashid:00} and \cite{Rashid:06}, Rashid and co-workers  explored the variable element topology finite element method (VETFEM), characterized by an approximate representation of the element's shape functions as low-order polynomials satisfying weak continuity requirements at element boundaries. Within this framework, the element shape functions are determined by a local minimization problem, selecting from a discrete approximation space of polynomials those shape functions which optimize specified continuity and smoothness objectives. This minimization procedure is constrained by the requirements of consistency and reproducibility to guarantee satisfaction of linear patch tests. Dohrmann and Rashid later extended this approach to higher-order elements in \cite{Dohrmann:02}, instead focusing on a direct construction of the shape function derivatives, rather than of the shape functions themselves.
+		
+		The VETFEM may be viewed as a non-conforming finite element method, as the minimization process altogether allows for residual discontinuities at inter-element boundaries. Nonetheless, because the elements satisfy weak contunity requirements, the method exhibits proper convergence characteristics. Additionally, because the VETFEM yields a point-wise representation of the shape functions as low-order polynomials, direct integration of the weak form can be carried out using relatively efficient domain quadrature rules.
+			
+		% DDPFEM (discrete data polyhedral finite element method)
+			% define only SF values and gradients at discrete points
+			% requires a partition of the element into cells
+			% element formulation more robust with finer partition
+		Though the VETFEM was developed to handle arbitrary polygonal elements, it was observed to suffer from sensitivity to geometric degeneracies and element non-convexity. In response to these issues, a discrete data polyhedral finite element method (DDPFEM) proposed in \cite{Selimotic:08} was suggested to exploit the fact that for typical solid mechanics applications, it is generally only necessary to evaluate the element's shape functions (and their derivatives) at a discrete number of quadrature points. The proposed method shares several characteristics in common with the VETFEM, utilizing a similarly posed constrained minimization procedure to obtain the precise values and gradients of the shape functions at discrete points on the element's interior. One of the cited challenges with this approach pertains to the appropriate selection of an efficient quadrature rule for the elements.
+			
+		% PEM (partitioned element method)
+			% embraces element partition idea
+			% construct SFs in hierarchial manner, assume SFs piecewise polynomial
+		Nonetheless, the initial thoughts put forward by the DDPFEM ultimately led to the development of the partitioned element method (PEM) presented in \cite{Rashid:12}. The method proceeds by partitioning an element into polygonal quadrature cells, and allowing the element's shape functions to vary according to a local polynomial defined within each of these cells, resulting in piece-wise polynomial shape functions which are discontinuous at quadrature cell boundaries. The polynomial coefficients defined in each cell are obtained by minimizing the discontinuities in the shape functions (and their gradients) across all cell interfaces, subject to the necessary consistency and reproducibility constraints. The original presentation in \cite{Rashid:12} considers the shape functions to be approximate solutions of Laplace's equation on the partitioned cell grid. Later developments have dispensed with the Laplacian term, instead penalizing discontinuities in shape function gradients at cell boundaries.
+			
+		% Joe Bishop's version of FE-based approximants w/ Laplace shape functions
+			% similar in concept: discretize element domain
+			% use FE basis functions on a local tet mesh, solve Laplace equation
+		Subsequently, Bishop has proposed a similar partitioned element scheme in \cite{Bishop:14}, wherein the elements and their faces are subdivided into simplicies, resembling a local FE discretization of the element domain. The shape functions are obtained as the solution to Laplace's equation on this subdivision. Because this approach utilizes an FE-like discretization, the resulting shape functions are piece-wise linear and $C^0$ continuous, thereby avoiding the need for a penalty term to enforce continuity. However, the method still requires the use of a gradient correction scheme to account for quadrature error and recover consistency.
+
+	% Lead into the present work, following last category: ``partitioned element methods''
+		% select the PEM approach as the one of particular interest for this thesis
+	Following these developments, we choose to recognize a new class of methods, herein collectively referred to as \textit{partitioned element methods}. These may be viewed as a generalization of the original PEM presented in \cite{Rashid:12}. It is the subject of this thesis to further explore these methods, and to expose their particular merits and potential shortcomings.
+
+\section{Scope of the Present Work}
+
+	% Description of the partitioned element framework
+		% Elements are discretized (partitioned) into cells (atomic units of mesh)
+		% Approximation space is constructed on this partition (much like FE, etc.)
+		% A local BVP is solved to obtain shape functions on the partition
+		% Solution method depends on choice of local approximation method; many choices
+		% Quadrature rules on the element are informed by the partition
+	In this work, we put forth a general framework for partitioned element methods as a collection of different approaches for constructing approximate representations of element shape functions on arbitrary polytopes. These methods share several features in common:
+	\begin{itemize}
+		\item[(1)] Elements are discretized (partitioned) into non-overlapping polygonal cells. These cells are used to inform the quadrature rule of the element.
+		\item[(2)] A local approximation space is defined on the partitioned element geometry.
+		\item[(3)] A set of BVPs and appropriate constraints are posed, whose solutions yield the shape functions of the element.
+		\item[(4)] A stable numerical scheme is developed to obtain approximate solutions to these BVPs using the approximation space defined in (2).
+	\end{itemize}
+	Numerous formulations are possible within this framework; a few of these are explored within the scope of this thesis.
+	
+	% Assert that nonlinearities (material & kinematic) are accomodated in this framework
+	% Describe how this framework can accomodate standard anti% locking formulations
+		% Allude to the incorporation of these methods as part of present research
+	 The application area of interest for these methods is in nonlinear solid mechanics. The efficacy of the methods explored will be assessed within this context, with regard to their ability to naturally accomodate nonlinear kinematic and material behavior. The robustness of the resulting elements, and their performance in the face of locking phenomena will be evaluated. Additionally, several methodologies which leverage the partitioned element framework to combat certain forms of locking will be discussed.
+
+	% Overview of contents each chapter
+		% Chapter 2 establishes the computational solid mechanics BVP
+		% Chapter 3 presents an accurate incremental kinematic update procedure (optional)
+		% Chapter 4 presents a general class of partitioned element methods
+		% Chapter 5 details an implementational framework for the PEM
+		% Chapter 6 provides a number of numerical investigations into the PEM
+		% Chapter 7 discusses opportunities for further research & development
+	The remainder of this dissertation is organized as follows: Chapter \ref{ch:solid_mechanics} establishes the context of nonlinear computational solid mechanics. Chapter \ref{ch:pem} presents the overarching framework for partitioned element methods. Chapter \ref{ch:implementation} details a particular implementational framework for the PEM. Chapter \ref{ch:results} provides a number of numerical investigations of the PEM. Chapter \ref{ch:future_work} concludes with a discussion of opportunities for further research and development.

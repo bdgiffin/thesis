@@ -1,0 +1,81 @@
+% = CHAPTER
+$ = SECTION
+& = SUB-SECTION
+#/@ = DO'S/DONT'S
+
+%PEM IMPLEMENTATIONAL FRAMEWORK
+	*emphasize element-level computations as being tantamount to FE meshing & solution procedure
+	*must discretize the geometry efficiently, get accurate computations of geometric quantities
+	*computations dominated by systems of equations, require efficient linear solvers (CG, etc.)
+	*explore accuracy of computations and impact on global solution behavior
+	$DISCRETIZATION/GEOMETRIC PARTITIONING
+		&DETERMINISTIC PARTITIONING (STAR-CONVEX SHAPES)
+			*use edge-based partitioning scheme for simplicity
+			*heuristically, should provide relatively stable quadrature rules
+			*limited to star-convex shapes, unless able to sub-divide into convex regions
+			*suggest leveraging existing meshing toolkits to this purpose
+			*caveat: discretizations should remain relatively efficient
+			*much work remains with regard to assessing the quality of a partition
+		&VORONOI PARTITIONING (ARBITRARY DOMAINS)
+			*discuss options (e.g. using qhull) to carry out efficient voronoi partition
+			*allude to algorithms (Ebeida) for doing this on arbitrary domains
+			*may encounter degeneracies (short egdes) leading to ill-conditioning
+	$GRAPH-BASED GEOMETRY
+		*invoke notions of generic programming paradigms
+			-allows for more code reuse/abstraction
+			-amenable to generic pointers, etc.
+			-less favorable in some computing environments/languages (CUDA, Fortran)
+		&ENTITIES
+			*verticies, segments, facets, cells
+			*show representative tree diagram
+			*each d-entity shares 1 (d-1)-entity in common with another on a d-manifold
+		&MANIFOLD
+			*nodes, edges, faces, elements
+			*show representative tree diagram
+	$SOLUTION PROCESS
+		&CONSTRUCTION/ASSIGNMENT OF PARTITION-BASED BASIS FUNCTIONS
+			*must construct basis functions on the partitioned geometry
+			*nature of basis functions requires knowledge of which approx. method used
+			*add element-wide polynomial enhancements as needed
+			*elaborate on choice of polynomial basis to avoid conditioning issues
+		&GENERIC SUB-ELEMENT SOLUTION PROCESS
+			*solution methods are abstracted, assisted by graph-based generic programming
+		&ENTITY-LEVEL CALCULATIONS AND ASSEMBLY
+			*numerical integration on arbitrary polytopes
+				-Lassere integration
+				-Gauss, Dunavant quadrature on simplicies
+		&APPLICATION OF CONSTRAINTS
+			*pose set of linear constraints
+			*suggest Lagrange multiplier method
+			*alternatively suggest pseudo-inverse method to handle constraints
+		&LINEAR SOLUTION METHOD
+			*the need for pseudo-inverse computations in the case of non-planar faces
+				-discuss challenges, limitations
+	$CONSTRUCTION OF QUADRATURE RULES
+		*remark that applied consistency constraints must acknowledge choice of quad. rule
+		*degree of violation of consistency will depend in part on quad. rule accuracy
+		&COMPOSITE MID-POINT RULE
+			*discuss impact on quadrature error/accuracy
+				-introduces need for PG approach to robustly preserve consistency
+	$VERIFICATION TESTING
+		&TEST(S) FOR REPRODUCIBILITY
+			*verify pass/fail status of reproducibility
+			*state effects of non-planar faces
+			*should yield exact results at each point for polys up to specified order
+		&TEST(S) FOR CONSISTENCY
+			*verify pass/fail status of reproducibility
+			*examine effects of different quadrature rules
+			*should yield exact results for polys up to specified order (patch tests)
+	$NUMERICAL CONSIDERATIONS
+		&LINEAR SYSTEM CONDITIONING ANALYSIS
+			*compute error bound on linear system condition number
+			*show that it is poor for DG/WG methods, according to choice of poly. basis
+			*show that it gets bad if there are degeneracies or bad entity size ratios
+		&INVESTIGATION OF NUMERICAL ACCURACY
+			*demonstrate accuracy problems for high-order element formulations
+			*demonstrate accuracy problems for degenerate features
+			*demonstrate numerical problems for non-planar faces
+		&INVESTIGATION OF QUADRATURE ACCURACY
+			*introduce measure of quadrature error
+			*check robustness of quadrature error against element distortion (2012 paper)
+

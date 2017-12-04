@@ -1,0 +1,59 @@
+% = CHAPTER
+$ = SECTION
+& = SUB-SECTION
+* = PARAGRAPH
+#/@ = DO'S/DONT'S
+
+%NUMERICAL INVESTIGATIONS OF PEM
+	*compare efficacy of various PEM approaches
+	*try to see which formulation is the most robust/accurate
+	*investigate sensitivity to choice of internal penalty parameters in the element formulations
+	*examine behavior of the elements in canonical locking type problems
+		-volumetric locking
+		-shear locking (thin elements)
+	$PATCH TESTS
+		&LINEAR PATCH TEST(S)
+			*2D & 3D
+			*with and without consistency correction
+			*BG vs PG
+			*sensitivity to patch distorsion
+		&QUADRATIC PATCH TEST(S)
+			*2D & 3D
+			*with and without consistency correction
+			*BG vs PG
+			*sensitivity to patch distorsion
+	$CONVERGENCE STUDIES
+		*investigate convergence for high-order shape functions
+		*exploration of accuracy/convergence in refinement limit (limited by SF errors?)
+			-exploration of effects of numerical accuracy & system conditioning
+		&PLATE WITH HOLE PROBLEM (2D)
+			*compare against serendipity and lagrange elements
+			*demonstrate loss of convergence for serendipity isoparametric elements
+			*demonstrate higher-order convergence for PEM shape functions
+		
+	$SENSITIVITY ANALYSES
+		*examine sensitivity to mesh distortions
+		*sensitivity to internal (penalty) parameters
+		*senstivity to material parameters / dependency
+		*assess whether optimal values exist, whether formulation too sensitive
+	$LOCKING PERFORMANCE
+		*primary goal is to assess performance for coarse resolution meshes
+		&THIN PLATE BENDING PROBLEM (3D)
+			*use global error metrics to assess performance (L2 and H1 measures)
+				-should have 
+			*investigate sensitivity to mesh distortions
+			*investigate sensitivity to material parameters
+		&PINCHED PIPE PROBLEM (3D)
+			*run using finite deformations
+			*refer to Bischoff's work on continuum shell formulations
+			*prefer a polyhedral mesh, if this is feasible
+			*compare against standard conforming hex elements (expect poor performance)
+			*displacement controlled pinch to illustrate localization performance
+		&TWISTING ANNULUS (2D plane strain)
+			*inner radius remains fixed, outer radius rigidly rotates
+			*individual elements should experience simple shear AND some bending
+				-bending deformation causes locking/bad stress field
+			*nearly incompressible material model
+			*measure stress error (should exhibit locking behavior)
+			*there should exist an exact, axisymmetric solution
+				-provide derivation/approximation to the analytic solution

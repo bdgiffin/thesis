@@ -1,0 +1,83 @@
+\contentsline {section}{List of Figures}{vi}
+\contentsline {section}{List of Tables}{vii}
+\contentsline {section}{Abstract}{viii}
+\contentsline {section}{Acknowledgments}{ix}
+\contentsline {chapter}{\numberline {1}Introduction}{1}
+\contentsline {section}{\numberline {1.1}Historical Development}{1}
+\contentsline {subsection}{\numberline {1.1.1}Locking in Finite Elements}{3}
+\contentsline {subsection}{\numberline {1.1.2}Alternative Numerical Methods and Discretizations}{5}
+\contentsline {section}{\numberline {1.2}Recent Developments in Polytopal Discretizations}{9}
+\contentsline {subsection}{\numberline {1.2.1}Continuous Interpolation on Arbitrary Polytopes}{9}
+\contentsline {subsection}{\numberline {1.2.2}Virtual Element Methods}{10}
+\contentsline {subsection}{\numberline {1.2.3}Approximate Interpolation on Arbitrary Polytopes}{11}
+\contentsline {section}{\numberline {1.3}Scope of the Present Work}{13}
+\contentsline {chapter}{\numberline {2}An Overview of Computational Solid Mechanics}{15}
+\contentsline {section}{\numberline {2.1}The Lagrangian Description of Motion}{16}
+\contentsline {subsection}{\numberline {2.1.1}Compatibility}{17}
+\contentsline {subsection}{\numberline {2.1.2}Finite Strain Measures}{17}
+\contentsline {section}{\numberline {2.2}Conservation of Linear and Angular Momentum}{18}
+\contentsline {subsection}{\numberline {2.2.1}Measures of Stress}{19}
+\contentsline {section}{\numberline {2.3}Constitutive Relations}{20}
+\contentsline {subsection}{\numberline {2.3.1}Models of Elasticity}{20}
+\contentsline {subsection}{\numberline {2.3.2}Equations of Material State}{22}
+\contentsline {section}{\numberline {2.4}A Model Solid Mechanics Boundary Value Problem}{23}
+\contentsline {subsection}{\numberline {2.4.1}The Strong Form Statement of Equilibrium}{23}
+\contentsline {subsection}{\numberline {2.4.2}The Equivalent Weak Form Statement of Equilibrium}{24}
+\contentsline {section}{\numberline {2.5}Galerkin Approximations to the Weak Form}{25}
+\contentsline {subsection}{\numberline {2.5.1}Finite Element Methods}{26}
+\contentsline {section}{\numberline {2.6}Requirements for Convergence of an Approximation Method}{27}
+\contentsline {subsection}{\numberline {2.6.1}Satisfaction of Essential Boundary Conditions}{27}
+\contentsline {subsection}{\numberline {2.6.2}Completeness/Approximability}{27}
+\contentsline {subsection}{\numberline {2.6.3}Variational Consistency}{27}
+\contentsline {subsubsection}{\numberline {2.6.3.1}Constraints on Numerical Quadrature}{27}
+\contentsline {subsection}{\numberline {2.6.4}Numerical Stability}{27}
+\contentsline {subsubsection}{\numberline {2.6.4.1}The Inf-Sup Condition}{27}
+\contentsline {subsection}{\numberline {2.6.5}Tests for Convergence}{27}
+\contentsline {subsubsection}{\numberline {2.6.5.1}The Irons Patch Test}{27}
+\contentsline {subsubsection}{\numberline {2.6.5.2}The Generalized Patch Test}{27}
+\contentsline {subsubsection}{\numberline {2.6.5.3}The F-E-M Test}{27}
+\contentsline {section}{\numberline {2.7}Sources of Solution Nonlinearity in Solid Mechanics}{27}
+\contentsline {subsection}{\numberline {2.7.1}Finite Deformations and Nonlinear Kinematics}{27}
+\contentsline {subsection}{\numberline {2.7.2}Nonlinear Material Behavior}{27}
+\contentsline {subsection}{\numberline {2.7.3}Requirements of the Approximation Method}{27}
+\contentsline {chapter}{\numberline {3}Partitioned Element Methods}{28}
+\contentsline {section}{\numberline {3.1}Overview}{28}
+\contentsline {section}{\numberline {3.2}An Abstract Partitioned Element Framework}{29}
+\contentsline {subsection}{\numberline {3.2.1}The Element Partition}{29}
+\contentsline {subsection}{\numberline {3.2.2}Partition-Based Approximation Spaces}{29}
+\contentsline {subsection}{\numberline {3.2.3}Selection of an Appropriate Objective Functional}{30}
+\contentsline {subsection}{\numberline {3.2.4}Construction of Element Appoximants}{31}
+\contentsline {section}{\numberline {3.3}Essential Requirements of the PEM}{31}
+\contentsline {subsection}{\numberline {3.3.1}Reproducibility}{31}
+\contentsline {subsubsection}{\numberline {3.3.1.1}Requirements of the Approximation Space}{31}
+\contentsline {subsection}{\numberline {3.3.2}Compatibility}{31}
+\contentsline {subsubsection}{\numberline {3.3.2.1}Weak Enforcement of Continuity}{32}
+\contentsline {subsection}{\numberline {3.3.3}Stability}{32}
+\contentsline {subsubsection}{\numberline {3.3.3.1}Restrictions on the Element Partition}{32}
+\contentsline {subsection}{\numberline {3.3.4}Variational Consistency}{32}
+\contentsline {subsubsection}{\numberline {3.3.4.1}Weak Enforcement of Consistency}{32}
+\contentsline {subsection}{\numberline {3.3.5}Numerical Quadrature Consistency}{34}
+\contentsline {subsubsection}{\numberline {3.3.5.1}Bubnov-Galerkin and Petrov-Galerkin Approaches}{34}
+\contentsline {section}{\numberline {3.4}Specific Formulations}{34}
+\contentsline {subsection}{\numberline {3.4.1}The Continuous-Galerkin PEM}{34}
+\contentsline {subsection}{\numberline {3.4.2}The Weak-Galerkin PEM}{34}
+\contentsline {subsection}{\numberline {3.4.3}The Discontinuous-Galerkin PEM}{34}
+\contentsline {section}{\numberline {3.5}Enhancements to Improve Solution Accuracy}{34}
+\contentsline {subsection}{\numberline {3.5.1}Partition-Based Enhancement Functions}{34}
+\contentsline {subsection}{\numberline {3.5.2}Mixed PEM Discretizations}{34}
+\contentsline {chapter}{\numberline {4}An Implementational Framework for the PEM}{35}
+\contentsline {section}{\numberline {4.1}Generation of Arbitrary Polytopal Meshes}{35}
+\contentsline {section}{\numberline {4.2}Element Partitioning Schemes}{35}
+\contentsline {section}{\numberline {4.3}Abstract Data Structures and Generic Programming Concepts}{35}
+\contentsline {section}{\numberline {4.4}Hierarchial Construction of Appoximants}{35}
+\contentsline {section}{\numberline {4.5}Issues of Numerical Conditioning}{35}
+\contentsline {subsection}{\numberline {4.5.1}PEM Linear System Conditioning}{35}
+\contentsline {subsection}{\numberline {4.5.2}The Effect of Element Scaling}{35}
+\contentsline {subsection}{\numberline {4.5.3}On the Choice of an Appropriate PEM Basis}{35}
+\contentsline {chapter}{\numberline {5}A Numerical Evaluation of the PEM}{36}
+\contentsline {section}{\numberline {5.1}Convergence Analysis}{36}
+\contentsline {section}{\numberline {5.2}Parameter Sensitivity Analysis}{36}
+\contentsline {section}{\numberline {5.3}Computational Efficiency}{36}
+\contentsline {subsection}{\numberline {5.3.1}Performance Comparison}{36}
+\contentsline {section}{\numberline {5.4}Resistance to Locking Phenomena}{36}
+\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{37}

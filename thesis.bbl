@@ -1,0 +1,299 @@
+\begin{thebibliography}{10}
+
+\bibitem{Babuska:71}
+Ivo Babu{\u{s}}ka.
+\newblock Error-bounds for finite element method.
+\newblock {\em Numerische Mathematik}, 16:322--333, 1971.
+
+\bibitem{Babuska&Suri:92:2}
+Ivo Babu{\u{s}}ka and Manil Suri.
+\newblock Locking effects in the finite element approximation of elasticity
+  problems.
+\newblock {\em Numerische Mathematik}, 62:439--463, 1992.
+
+\bibitem{Babuska&Suri:92:1}
+Ivo Babu{\u{s}}ka and Manil Suri.
+\newblock On locking and robustness in the finite element method.
+\newblock {\em SIAM Journal on Numerical Analysis}, 29(5):1261--1293, 1992.
+
+\bibitem{Bishop:14}
+J.~E. Bishop.
+\newblock A displacement-based finite element formulation for general polyhedra
+  using harmonic shape functions.
+\newblock {\em International Journal for Numerical Methods in Engineering},
+  97:1--31, 2014.
+
+\bibitem{Brezzi:74}
+Franco Brezzi.
+\newblock On the existence, uniqueness and approximation of saddle-point
+  problems arising from lagrangian multipliers.
+\newblock {\em ESAIM: Mathematical Modelling and Numerical Analysis -
+  Modélisation Mathématique et Analyse Numérique}, 8:129--151, 1974.
+
+\bibitem{Chen:13}
+Jiun-Shyan Chen, Michael Hillman, and Marcus R\"{u}ter.
+\newblock An arbitrary order variationally consistent integration for galerkin
+  meshfree methods.
+\newblock {\em International Journal for Numerical Methods in Engineering},
+  95:387--418, 2013.
+
+\bibitem{Chi:17}
+H.~Chi, L.~Beir{\~{a}}o da~Veiga, and G.~H. Paulino.
+\newblock Some basic formulations of the virtual element method (vem) for
+  finite deformations.
+\newblock {\em Computer Methods in Applied Mechanics and Engineering},
+  318:148--192, 2017.
+
+\bibitem{Chi:16}
+Heng Chi, Cameron Talischi, Oscar Lopez-Pamies, and Glaucio~H. Paulino.
+\newblock A paradigm for higher-order polygonal elements in finite elasticity
+  using a gradient correction scheme.
+\newblock {\em Computer Methods in Applied Mechanics and Engineering},
+  306:216--251, 2016.
+
+\bibitem{Veiga:13}
+L.~Beir{\~{a}}o da~Veiga, F.~Brezzi, A.~Cangiani, G.~Manzini, L.~D. Marini, and
+  A.~Russo.
+\newblock Basic principles of virtual element methods.
+\newblock {\em Computer Methods in Applied Mechanics and Engineering},
+  23:199--214, 2013.
+
+\bibitem{Veiga:15}
+L.~Beir{\~{a}}o da~Veiga, C.~Lovadina, and D.~Mora.
+\newblock A virtual element method for elastic and inelastic problems on
+  polytope meshes.
+\newblock {\em Computer Methods in Applied Mechanics and Engineering},
+  295:327--346, 2015.
+
+\bibitem{Souza:96}
+E.~A. de~Souza~Neto, D.~Peri{\'{c}}, M.~Dukto, and D.~R.~J. Owen.
+\newblock Design of simple low order finite elements for large strain analysis
+  of nearly incompressible solids.
+\newblock {\em International Journal of Solids and Structures}, 33:3277--3296,
+  1996.
+
+\bibitem{Dohrmann:02}
+C.~R. Dohrmann and M.~M. Rashid.
+\newblock Polynomial approximation of shape function gradients from element
+  geometries.
+\newblock {\em International Journal for Numerical Methods in Engineering},
+  53:945--958, 2002.
+
+\bibitem{Ebeida:17}
+Mohamed~Salah Ebeida.
+\newblock Vorocrust v. 1.0, Jul 2017.
+
+\bibitem{Felippa:04}
+Carlos~A. Felippa.
+\newblock {\em Introduction to Finite Element Methods}.
+\newblock University of Colorado, Boulder, 2004.
+
+\bibitem{Flanagan:81}
+D.~P. Flanagan and T.~Belytschko.
+\newblock A uniform strain hexahedron and quadrilateral with orthogonal
+  hourglass control.
+\newblock {\em International Journal for Numerical Methods in Engineering},
+  17:679--706, 1981.
+
+\bibitem{Floater:03}
+Michael~S. Floater.
+\newblock Mean value coordinates.
+\newblock {\em Computer Aided Geometric Design}, 20:19--27, 2003.
+
+\bibitem{Gain:13}
+Arun Gain, Cameron Talischi, and Glaucio~H. Paulino.
+\newblock On the virtual element method for three-dimensional elasticity
+  problems on arbitrary polyhedral meshes.
+\newblock {\em Computer Methods in Applied Mechanics and Engineering}, 282, 11
+  2013.
+
+\bibitem{Xifeng:17}
+Xifeng Gao, Wenzel Jakob, Marco Tarini, and Daniele Panozzo.
+\newblock Robust hex-dominant mesh generation using field-guided polyhedral
+  agglomeration.
+\newblock {\em ACM Transactions on Graphics}, 36, 2017.
+
+\bibitem{Hughes:00}
+Thomas J.~R. Hughes.
+\newblock {\em The Finite Element Method--Linear Static and Dynamic Finite
+  Element Analysis}.
+\newblock Dover Publications, 2000.
+
+\bibitem{Joshi:07}
+Pushkar Joshi, Mark Meyer, Tony DeRose, Brian Green, and Tom Sanocki.
+\newblock Harmonic coordinates for character articulation.
+\newblock {\em ACM Transactions on Graphics}, 26, 2007.
+
+\bibitem{Lee&Bathe:93}
+Nam-Sua Lee and Klaus-J{\"{u}}rgen Bathe.
+\newblock Effects of element distortions on the performance of isoparametric
+  elements.
+\newblock {\em International Journal for Numerical Methods in Engineering},
+  36:3553--3576, 1993.
+
+\bibitem{Li:13}
+Qiaoluan~H. Li and Junping Wang.
+\newblock Weak galerkin finite element methods for parabolic equations.
+\newblock {\em Numerical Methods for Partial Differential Equations},
+  29:2004--2024, 2013.
+
+\bibitem{Lin:15}
+Guang Lin, Jiangguo Liu, and Farrah Sadre-Marandi.
+\newblock A comparative study on the weak galerkin, discontinuous galerkin, and
+  mixed finite element methods.
+\newblock {\em Journal of Computational and Applied Mathematics}, 273:346--362,
+  2015.
+
+\bibitem{MacNeal:87}
+Richard~H. MacNeal.
+\newblock A theorem regarding the locking of tapered four-noded membrane
+  elements.
+\newblock {\em International Journal for Numerical Methods in Engineering},
+  24:1793--1799, 1987.
+
+\bibitem{Mu:13}
+L.~Mu, J.~Wang, and Y.~Wang.
+\newblock A computational study of the weak galerkin method for second-order
+  elliptic equations.
+\newblock {\em Numerical Algorithms}, 63:753, 2013.
+
+\bibitem{Mu:15:2}
+L.~Mu, J.~Wang, and X.~Ye.
+\newblock Weak galerkin finite element method for second-order elliptic
+  problems on polytopal meshes.
+\newblock {\em International Journal of Numerical Analysis and Modeling},
+  12:31--53, 2015.
+
+\bibitem{Mu:15:1}
+Lin Mu, Junping Wang, and Xiu Ye.
+\newblock A weak galerkin finite element method with polynomial reduction.
+\newblock {\em Journal of Computational and Applied Mathematics}, 285:45--58,
+  2015.
+
+\bibitem{Bathe&Pantuso:97}
+Daniel Pantuso and Klaus-J{\"{u}}rgen Bathe.
+\newblock On the stability of mixed finite elements in large strain analysis of
+  incompressible solids.
+\newblock {\em Finite Elements in Analysis and Design}, 28:83--104, 1997.
+
+\bibitem{Rashid:00}
+M.~M. Rashid and P.~M. Gullett.
+\newblock On a finite element method with variable element topology.
+\newblock {\em Computer Methods in Applied Mechanics and Engineering},
+  190:1509--1527, 2000.
+
+\bibitem{Rashid:12}
+M.~M. Rashid and A.~Sadri.
+\newblock The partitioned element method in computational solid mechanics.
+\newblock {\em Computer Methods in Applied Mechanics and Engineering},
+  237--240:152--165, 2012.
+
+\bibitem{Rashid:06}
+M.~M. Rashid and M.~Selimoti{\'{c}}.
+\newblock A three-dimensional finite element method with arbitrary polyhedral
+  elements.
+\newblock {\em International Journal for Numerical Methods in Engineering},
+  67:226--252, 2006.
+
+\bibitem{Remacle:12}
+J.-F. Remacle, J.~Lambrechts, B.~Seny, E.~Marchandise, A.~Johnen, and
+  C.~Geuzainet.
+\newblock Blossom-quad: a non-uniform quadrilateral mesh generator using a
+  minimum cost perfect matching algorithm.
+\newblock {\em International Journal for Numerical Methods in Engineering},
+  89:1102--1119, 2012.
+
+\bibitem{Selimotic:08}
+Mili Selimoti{\'{c}}.
+\newblock {\em Polyhedral Finite-Element Approximants in 3D Solid Mechanics}.
+\newblock PhD thesis, University of California, Davis, 2008.
+
+\bibitem{Simo&Armero:92}
+J.~C. Simo and F.~Armero.
+\newblock Geometrically non-linear enhanced strain mixed methods and the method
+  of incompatible modes.
+\newblock {\em International Journal for Numerical Methods in Engineering},
+  33:1413--1449, 1992.
+
+\bibitem{Simo&Armero&Taylor:93}
+J.~C. Simo, F.~Armero, and R.~L. Taylor.
+\newblock Improved versions of assumed enhanced strain tri-linear elements for
+  3d finite deformation problems.
+\newblock {\em Computer Methods in Applied Mechanics and Engineering},
+  110:359--386, 1993.
+
+\bibitem{Simo&Rifai:90}
+J.~C. Simo and M.~S. Rifai.
+\newblock A class of mixed assumed strain methods and the method of
+  incompatible modes.
+\newblock {\em International Journal for Numerical Methods in Engineering},
+  29:1595--1638, 1990.
+
+\bibitem{Stummel:79}
+Friedrich Stummel.
+\newblock The generalized patch test.
+\newblock {\em SIAM Journal on Numerical Analysis}, 16(3):449--471, 1979.
+
+\bibitem{Stummel:80}
+Friedrich Stummel.
+\newblock The limitations of the patch test.
+\newblock {\em International Journal for Numerical Methods in Engineering},
+  16:177--188, 1980.
+
+\bibitem{Sukumar:04}
+N.~Sukumar.
+\newblock Construction of polygonal interpolants: a maximum entropy approach.
+\newblock {\em International Journal for Numerical Methods in Engineering},
+  61:2159--2181, 2004.
+
+\bibitem{Suri:91}
+Manil Suri.
+\newblock On the robustness of the $h$- and $p$-versions of the finite-element
+  method.
+\newblock {\em Journal of Computational and Applied Mathematics}, 35:303--310,
+  1991.
+
+\bibitem{Bathe&Sussman:14}
+Theodore Sussman and Klaus-J{\"{u}}rgen Bathe.
+\newblock Spurious modes in geometrically nonlinear small displacement finite
+  elements with incompatible modes.
+\newblock {\em Computers \& Structures}, 140:14--22, 2014.
+
+\bibitem{Talischi:14}
+Cameron Talischi and Glaucio~H. Paulino.
+\newblock Addressing integration error for polygonal finite elements through
+  polynomial projections: A patch test connection.
+\newblock {\em Mathematical Models and Methods in Applied Sciences},
+  24:1701--1727, 2014.
+
+\bibitem{Talischi:15}
+Cameron Talischi, Anderson Pereira, Ivan F.~M. Menezes, and Glaucio~H. Paulino.
+\newblock Gradient correction for polygonal and polyhedral finite elements.
+\newblock {\em International Journal for Numerical Methods in Engineering},
+  102:728--747, 2015.
+
+\bibitem{Wachspress:75}
+Eugene~L. Wachspress.
+\newblock {\em A Rational Finite Element Basis}.
+\newblock Academic Press, 1975.
+
+\bibitem{Wang:13}
+J.~Wang and X.~Ye.
+\newblock A weak galerkin finite element method for second-order elliptic
+  problems.
+\newblock {\em Journal of Computational and Applied Mathematics}, 241:103--115,
+  2013.
+
+\bibitem{Wang:14}
+X.~Wang, N.S. Malluwawadu, F.~Gao, and T.C. McMillan.
+\newblock A modified weak galerkin finite element method.
+\newblock {\em Journal of Computational and Applied Mathematics}, 271:319--329,
+  2014.
+
+\bibitem{Winkler:10}
+Robert Winkler.
+\newblock Comments on membrane locking.
+\newblock {\em Proceedings in Applied Mathematics and Mechanics}, 10:229--230,
+  2010.
+
+\end{thebibliography}

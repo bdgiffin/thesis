@@ -1,0 +1,60 @@
+\title{Qualifying Exam Review Questions}
+\author{}
+\date{\today}
+
+\documentclass[12pt]{article}
+
+\usepackage{graphicx} % support the \includegraphics command and options
+\usepackage[margin=1.0in]{geometry}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+
+\begin{document}
+\maketitle
+
+\begin{itemize}
+	\item[1.)] Given that the traction vector $\mathbf{t} ( \mathbf{x}, \mathbf{n} )$ characterizes the distribution of force at position $\mathbf{x}$ acting upon an oriented surface with normal $\mathbf{n}$, prove that the traction depends \textit{linearly} upon $\mathbf{n}$, giving rise to the Cauchy stress tensor. \underline{Hint}: You will need to make use of Newton's third law: $\mathbf{t} (\mathbf{x}, - \mathbf{e}_i) = - \mathbf{t} (\mathbf{x}, \mathbf{e}_i)$.
+	\item[2.)] Prove that the Cauchy stress tensor is symmetric.
+	\item[3.)] Suppose that the Earth (of radius $R$) consists of a highly viscous, nearly-incompressible fluid of uniform density $\rho$, such that the stress state in the fluid is purely hydrostatic. Making use of Newton's universal law of gravitation ($F = G \frac{m_1 m_2}{r^2}$) write out an expression for the body force per unit mass $\mathbf{b}(r)$ as a function of the radial distance $r$ from the center of the Earth. Then, utilize this expression to obtain an estimate for the pressure at the center of the Earth.
+	\item[4.)] Consider a ball of negligible radius which is attached to a rigid circular ring in 2-dimensions, such that the ring is described by $(x-a)^2 + (y-b)^2 = r^2$. The ball is permitted to slide freely on the ring. Suppose that an arbitrary body force $\mathbf{b} ( \mathbf{x} )$ (which varies with spatial position $\mathbf{x}$) acts upon the ball. Further, suppose that $\mathbf{b} (\mathbf{x})$ derives from a scalar potential field $f (\mathbf{x})$ such that $\mathbf{b} (\mathbf{x}) = \nabla f (\mathbf{x})$. Write out the system of equations necessary to solve for the stationary (equilibrium) position of the ball on the ring.
+	\item[5.)] Explain (in words) the meaning of ``weak'' as it relates to the \textit{weak form} statement of elastostatics.
+	\item[6.)] Consider a bi-material bar with uniform cross-sectional area $A$ and length $L$ which is aligned with the $x-$axis. For $0 < x < L/2$, the bar consists of an elastic material with Young's modulus $E_1$. For $L/2 < x < L$, the bar consists of a \textit{different} elastic material with Young's modulus $E_2$. The bar is fixed at its left end such that the axial displacement $u( x = 0 ) = 0$, and loaded at its right end (at $x = L$) by an axial force $P$. Using the theory of minimum potential energy, derive the strong form statement of equilibirium for the bi-material bar. This should include: the point-wise statement of equilibrium, the boundary conditions for the bar, and the \textit{interface} conditions at $x = L/2$.
+	\item[7.)] Write out the expressions for each of the following deformation measures in terms of the deformation gradient $\mathbf{F}$. Also, provide a physical interpretation of the following deformation measures:
+	\begin{itemize}
+		\item[$\mathbf{E}$:] The Lagrangian strain tensor
+		\item[$\mathbf{C}$:] The Right (Green's) deformation tensor
+		\item[$\mathbf{B}$:] The Left (Cauchy-Green) deformation tensor
+		\item[$\mathbf{A}$:] The Almansi (Eulerian) strain tensor
+	\end{itemize}
+	\item[8.)] Demonstrate that the Lagrangian strain tensor $\mathbf{E}$ and the Right (Green's) deformation tensor $\mathbf{C}$ possess the same eigenvectors. Further, write out an expression which relates the eigenvalues of $\mathbf{E}$ and $\mathbf{C}$.
+	\item[9.)] Prove Namson's relation for area transformations: $\mathbf{n} \, da = J \mathbf{F}^{-T} \mathbf{N} \, dA$.
+	\item[10.)] Establish the relationship between the Cauchy stress tensor $\boldsymbol{\sigma}$ and the first Piola-Kirchhoff stress tensor $\mathbf{P}$.
+	\item[11.)] Demonstrate the following work conjugacies:
+	\begin{eqnarray}
+		\frac{\boldsymbol{\sigma} \colon \mathbf{D}}{\rho} = \frac{\mathbf{P} \colon \dot{\mathbf{F}}}{\rho_0} = \frac{\mathbf{S} \colon \dot{\mathbf{E}}}{\rho_0} \nonumber
+	\end{eqnarray}
+	\item[12.)] Derive the transport theorem for an advected scalar quantity $f (\mathbf{x})$:
+	\begin{eqnarray}
+		\frac{d}{dt} \int_{\Omega (t)} f ( \mathbf{x} ) \, dv = \int_{\Omega (t)} \frac{\partial}{\partial t} f ( \mathbf{x} ) \, dv + \int_{\partial \Omega (t)} f ( \mathbf{x} ) (\mathbf{v} \cdot \mathbf{n}) \, da \nonumber
+	\end{eqnarray}
+	\item[13.)] Suppose that we have a constitutive law described by $\boldsymbol{\sigma} = f (\mathbf{D})$. Under a superposed rigid-body rotation $\mathbf{Q}$ we should have $\hat{\boldsymbol{\sigma}} = f (\hat{\mathbf{D}})$, where it is \textit{given} that $\hat{\mathbf{D}} = \mathbf{Q} \mathbf{D} \mathbf{Q}^T$, and we further \textit{require} that $\hat{\boldsymbol{\sigma}} = \mathbf{Q} \boldsymbol{\sigma} \mathbf{Q}^T$. What conditions must be placed upon the constitutive relation $f (\mathbf{D})$ such that the aforementioned requirement is satisfied?
+	\item[14.)] Derive the path-integral expression for the $J$-integral in 2D as the rate of dissipation in a material region $R$ surrounding a crack tip as it extends in a self-similar manner.
+	\item[15.)] From the path-integral expression for the $J$-integral, derive an \textit{area}-integral expression for the $J$-integral.
+	\item[16.)] Explain where the major and minor symmetries of the elastic modulus tensor $C_{ijkl}$ come from. 
+	\item[17.)] Drucker's postulate claims that for any closed path in \textit{stress-space}, the following relation holds: $\oint (\sigma_{ij} - \sigma^0_{ij}) d \varepsilon_{ij} \geq 0 \, \, \, \forall \sigma^0_{ij}$. What two main assumtions are necessary for Drucker's postulate to hold true?
+	\item[18.)] If $\mathbf{x}^T \mathbf{A} \mathbf{x} = 0 \, \, \forall \mathbf{x}$, what conclusions can we make about the specific form of $\mathbf{A}$?
+	\item[19.)] Write out the spectral respresentation of a symmetric tensor $\mathbf{S}$. Then, consider the action of $\mathbf{S}$ upon some arbitrary vector $\mathbf{v}$ (write out an expression for the resulting vector): what is the geometric interpretation of this expression?
+	\item[20.)] The (Hu-Washizu) three-field mixed-variational principle consists of the following potential energy functional $\Pi \left[ \mathbf{u}, \boldsymbol{\sigma}, \boldsymbol{\varepsilon} \right]$:
+	\begin{eqnarray}
+		\Pi \left[ u_i, \sigma_{ij}, \varepsilon_{ij} \right] = \int_{\Omega} \left[ \sigma_{ij} \bigg( \frac{1}{2} ( u_{i,j} + u_{j,i} ) - \varepsilon_{ij} \bigg) + W ( \varepsilon_{ij} ) \right] \, dv - \int_{\Omega} b_i u_i \, dv - \int_{\partial \Omega} \bar{t}_i u_i \, da \nonumber
+	\end{eqnarray}
+	wherein the displacement, stress, and strain fields are represented independently of one another. Within this setting:
+	\begin{itemize}
+		\item[(a.)] What are the corresponding weak/variational equations that arise from the principle of stationary potential energy, and what are the requirements on the function spaces which contain each of the three fields ($\mathbf{u}, \, \boldsymbol{\sigma}, \, \boldsymbol{\varepsilon}$)?
+		\item[(b.)] What are the corresponding strong form (Euler-Lagrange) equations?
+	\end{itemize}
+	\item[21.)] What does it mean for a function to be contained within the $H^1 (\Omega)$ space of functions? Can you think of a function which is contained in $C^0 (\Omega)$ which is not contained within $H^1 (\Omega)$? Conversely, are there any functions which are contained in $H^1 (\Omega)$ that are not contained within $C^0 (\Omega)$?
+\end{itemize}
+
+\end{document}

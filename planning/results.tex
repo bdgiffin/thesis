@@ -1,0 +1,64 @@
+\chapter{Numerical Investigations of the PEM}
+
+	% compare efficacy of various PEM approaches
+	% try to see which formulation is the most robust/accurate
+	% investigate sensitivity to choice of internal penalty parameters in the element formulations
+	% examine behavior of the elements in canonical locking type problems
+		% volumetric locking
+		% shear locking (thin elements)
+
+	\section{Patch Tests}
+
+		\subsection{Linear Patch Tests}
+			% 2D & 3D
+			% with and without consistency correction
+			% BG vs PG
+			% sensitivity to patch distorsion
+
+		\subsection{Quadratic Patch Tests}
+			% 2D & 3D
+			% with and without consistency correction
+			% BG vs PG
+			% sensitivity to patch distorsion
+
+	\section{Convergence Studies}
+		% investigate convergence for high-order shape functions
+		% exploration of accuracy/convergence in refinement limit (limited by SF errors?)
+			% exploration of effects of numerical accuracy & system conditioning
+
+		\subsection{Plate with a Circular Hole in Tension}
+			% compare against serendipity and lagrange elements
+			% demonstrate loss of convergence for serendipity isoparametric elements
+			% demonstrate higher-order convergence for PEM shape functions
+
+	\section{Sensitvity Analyses}
+		% examine sensitivity to mesh distortions
+		% sensitivity to internal (penalty) parameters
+		% senstivity to material parameters / dependency
+		% assess whether optimal values exist, whether formulation too sensitive
+
+	\section{Locking Behavior}
+		% primary goal is to assess performance for coarse resolution meshes
+
+		\subsection{Twisting Annulus}
+			% inner radius remains fixed, outer radius rigidly rotates
+			% individual elements should experience simple shear AND some bending
+				% bending deformation causes locking/bad stress field
+			% nearly incompressible material model
+			% measure stress error (should exhibit locking behavior)
+			% there should exist an exact, axisymmetric solution
+				% provide derivation/approximation to the analytic solution
+
+		\subsection{Thin Plate in Bending}
+			% use global error metrics to assess performance (L2 and H1 measures)
+				% should have 
+			% investigate sensitivity to mesh distortions
+			% investigate sensitivity to material parameters
+
+		\subsection{Pinched Pipe}
+			% run using finite deformations
+			% refer to Bischoff's work on continuum shell formulations
+			% prefer a polyhedral mesh, if this is feasible
+			% compare against standard conforming hex elements (expect poor performance)
+			% displacement controlled pinch to illustrate localization performance
+

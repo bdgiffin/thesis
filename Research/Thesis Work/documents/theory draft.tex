@@ -1,0 +1,308 @@
+\title{A generalized problem statement for finite element locking}
+\author{B. Giffin}
+\date{\today}
+
+\documentclass[12pt]{article}
+\usepackage{hyperref}
+
+\usepackage{graphicx} % support the \includegraphics command and options
+\usepackage[margin=1.0in]{geometry}
+\usepackage{amssymb}
+
+\begin{document}
+\maketitle
+
+\section{Problem Statement}
+Consider a linear operator $\mathbf{M} \colon \mathbb{R}^{3n} \mapsto \mathcal{V}$ which maps $\mathbf{u} \in \mathbb{R}^{3n}$ to $\mathbf{g} \in \mathcal{V} \subset \mathbb{R}^{9m}$. For an element in 3 spatial dimensions, $\mathbf{M}$ should have dimension $9m \times 3n$ and rank $3n - 3$. Effectively, $\mathbf{M}$ may be concieved of as a ``gradient operator'' which maps nodal displacements to quadrature point displacement gradients at the element level.
+
+Now suppose that a number of constraints upon the displacement gradients exist which may be cast in the following (linear) form:
+\begin{equation}
+        \mathbf{C} \mathbf{g} - \mathbf{c} = \mathbf{0}
+\end{equation}
+where $\mathbf{c}$ is a vector of length $k$ (pertaining to $k$ constraints) and $\mathbf{C}$ is a linear operator of dimension $k \times 9m$. At present, we will not choose to specify what these constraints may be, but incompressibility and the thin limit are borne in mind. In general, the ``kinematic'' $\mathbf{g}$ that is obtained from the element formulation's native gradient operator $\mathbf{M}$ will not satisfy the constraint equation, i.e.
+\begin{equation}
+        \mathbf{C} \mathbf{M} \mathbf{u} - \mathbf{c} = \mathbf{r}
+        \label{eq:constraint}
+\end{equation}
+where $\mathbf{r}$ is a residual vector which indicates the degree to which the constraints have been violated. Suffice it to say, this is to some extent a ``bad'' thing, in particular because we suppose that violations of the constraints imply element locking for certain deformation patterns (though this has not yet been definitively established). We are therefore interested in attempting a modification to $\mathbf{g}$--to $\mathbf{M}$--such that the constraint equation (\ref{eq:constraint}) is not as egregiously violated.
+
+We will choose to imagine that such a modification will take the form of a linear operator $\mathbf{S}$ of dimension $9m \times 9m$ (notionally, a ``smoothing,'' or ``smearing'' operator) which maps the original displacement gradients $\mathbf{g}$ to modified displacement gradients $\tilde{\mathbf{g}}$, i.e.
+\begin{equation}
+        \tilde{\mathbf{g}} = \mathbf{S} \mathbf{g}
+\end{equation}
+The key question is then: how to construct an appropriate $\mathbf{S}$? In this pursuit, let us enumerate a number of conditions on $\mathbf{S}$.
+\begin{itemize}
+        \item[[ 1]] $\mathbf{S} \mathbf{g} = \mathbf{g} \quad \forall \mathbf{g} \in \mathcal{V}^{a}$: In order for convergence of the finite element method to be maintained, we require that if the nodal displacements are set consistent with an affine displacement field, then the element is able to reproduce a constant stress (strain) field exactly (for at least linear consistency to hold). If we suppose that the nodal displacements can be additively decomposed into an affine and a non-affine part:
+        \begin{equation}
+                \mathbf{u} = \mathbf{u}^{(a)} + \mathbf{u}^{(n)}
+        \end{equation}
+        such that $\mathbf{u}^{(a)} \in \mathcal{U}^{a}$, $\mathbf{u}^{(n)} \in \mathcal{U}^{n}$, $\mathcal{U}^{a} \oplus \mathcal{U}^{n} = \mathbb{R}^{3n}$, then so too can the displacement gradients be additively decomposed in like fashion:
+        \begin{equation}
+                \mathbf{g} = \mathbf{g}^{(a)} + \mathbf{g}^{(n)}
+        \end{equation}
+        \begin{equation}
+                \mathbf{g}^{(a)} = \mathbf{M} \mathbf{u}^{(a)}, \quad \mathbf{g}^{(n)} = \mathbf{M} \mathbf{u}^{(n)}
+        \end{equation}
+        such that $\mathbf{g}^{(a)} \in \mathcal{V}^{a}$, $\mathbf{g}^{(n)} \in \mathcal{V}^{n}$, $\mathcal{V}^{a} \oplus \mathcal{V}^{n} = \mathcal{V}$. This suggests that $\mathbf{M}$ may be split into two separate operators:
+        \begin{equation}
+                \mathbf{M} = \mathbf{M}^{(a)} + \mathbf{M}^{(n)}
+        \end{equation}
+        where $\mathbf{M}^{(a)} \colon \mathcal{U}^{(a)} \mapsto \mathcal{V}^{(a)}$, $\mathbf{M}^{(n)} \colon \mathcal{U}^{(n)} \mapsto \mathcal{V}^{(n)}$, and accordingly,
+        \begin{equation}
+                \mathbf{g}^{(a)} = \mathbf{M}^{(a)} \mathbf{u}, \quad \mathbf{g}^{(n)} = \mathbf{M}^{(n)} \mathbf{u}.
+        \end{equation}
+        Our condition for linear consistency to hold then amounts to:
+        \begin{equation}
+                \mathbf{S} \mathbf{M}^{(a)} = \mathbf{M}^{(a)}.
+        \end{equation}
+        If we contemplate $\mathbf{M}^{(a)}$ as a summation of rank-1 matricies ala the singular value decomposition
+        \begin{equation}
+                \mathbf{M}^{(a)} = \sum_i \sigma_i \mathbf{V}^{(a)}_i \otimes \mathbf{U}^{(a)}_i, \quad \mathbf{V}^{(a)}_i \in V^{(a)}, \quad \mathbf{U}^{(a)}_i \in U^{(a)}
+        \end{equation}
+        then we may construct an affine subspace projection operator $\mathbf{A}$ of the form
+        \begin{equation}
+                \mathbf{A} = \sum_i \mathbf{V}^{(a)}_i \otimes \mathbf{V}^{(a)}_i.
+	     \label{eq:Asub}
+        \end{equation}
+        To preserve linear consistency, we need only construct an $\mathbf{S}$ that satisfies
+        \begin{equation}
+                \mathbf{S} = \mathbf{A} + \hat{\mathbf{S}} (\mathbf{1} - \mathbf{A})
+	     \label{eq:Ssub}
+        \end{equation}
+        where $\hat{\mathbf{S}}$ may be thought of as a smoothing operator which applies \textit{only} to the part of the displacement gradients which depart from constant strain over the entire element. In other words, $\hat{\mathbf{S}} \colon \mathcal{V}^{(n)} \mapsto \mathcal{V}^{(e)}$, where $\hat{\mathbf{S}} \mathbf{g}^{(n)} = \mathbf{g}^{(e)} \in \mathcal{V}^{(e)} \subset \mathbb{R}^{9m}$ constitutes the gradient ``enhancement'' contribution, i.e.
+        \begin{equation}
+                \tilde{\mathbf{g}} = \mathbf{g}^{(a)} + \mathbf{g}^{(e)}.
+        \end{equation}
+        Note carefully that if $\mathcal{V}^{(e)} \cap \mathcal{V}^{(a)} \neq \emptyset$, then we run the risk of having our final modified/enchanced gradient operator $\tilde{\mathbf{M}} = \mathbf{S} \mathbf{M}$ be surjective. For example, if $\mathcal{V}^{(e)} = \mathcal{V}^{(a)}$, then all patterns of deformation will induce some non-zero (but spatially constant) strain within the element. Consequently, the resulting element stiffness matrix will be ``right-invertible,'' but not necessarily ``left-invertible.'' We therefore pose the following restriction on $\mathcal{V}^{(e)}$:
+        \begin{equation}
+                \dim(\mathcal{V}^{(e)} \cap (\mathbb{R}^{9m} \, \backslash \, \mathcal{V}^{(a)})) = \dim(\mathcal{V}^{(n)}).
+        \end{equation}
+        Seemingly, this is only possible if $\mathcal{V}^{(e)} \cap \mathcal{V}^{(a)} = \emptyset$ (a formal proof may be warranted.) This at least guarantees $\tilde{\mathbf{M}}$ to be bijective. But even so, rank-sufficiency of the \textit{element} stiffness matrix is not assured, particularly not if the element's complementary ``divergence operator'' (tentatively $\mathbf{M}^T \mathbf{W}$, where $\mathbf{W}$ is a quadrature weighting operator) is ``blind'' to certain patterns of stress that result from our choice of $\mathcal{V}^{(e)}$.
+
+        \newpage
+
+        \item[[ 2]] $\mbox{rank}(\mathbf{C} \hat{\mathbf{S}} \mathbf{M}^{(n)}) < \mbox{rank}(\mathbf{CM}^{(n)})$:  This condition arises from the supposition that element locking is a consequence of constraint violation. Ideally, we would like to minimize the constraint residual $||\tilde{\mathbf{r}}||$ obtained from the modified displacement gradients, where
+        \begin{equation}
+                \mathbf{C} \tilde{\mathbf{g}} - \mathbf{c} = \tilde{\mathbf{r}}
+        \end{equation}
+        or
+        \begin{equation}
+                \mathbf{C} \mathbf{S} \mathbf{M} \mathbf{u} - \mathbf{c} = \tilde{\mathbf{r}}.
+        \end{equation}
+        Considering the form of $\mathbf{S}$ from condition [ 1 ]:
+        \begin{equation}
+                \mathbf{C} \left[ \mathbf{A} + \hat{\mathbf{S}} (\mathbf{1} - \mathbf{A}) \right] \mathbf{M} \mathbf{u} - \mathbf{c} = \tilde{\mathbf{r}}
+        \end{equation}
+        \begin{equation}
+                \mathbf{C} (\hat{\mathbf{S}} \mathbf{M}^{(n)} + \mathbf{M}^{(a)}) \mathbf{u} - \mathbf{c} = \tilde{\mathbf{r}}.
+        \end{equation}
+        As will commonly be the case for the constraints we wish to consider, if the constraints are expressible as $\mathbf{C} \mathbf{g} = \mathbf{0}$ (i.e. $\mathbf{c} = \mathbf{0}$), then we may write
+        \begin{equation}
+                \mathbf{C} (\hat{\mathbf{S}} \mathbf{M}^{(n)} + \mathbf{M}^{(a)}) \mathbf{u} = \tilde{\mathbf{r}}.
+        \end{equation}
+        Note that since $\mathcal{V}^{(e)} \cap \mathcal{V}^{(a)} = \emptyset$, we may focus attention upon
+        \begin{equation}
+                \mathbf{C} \hat{\mathbf{S}} \mathbf{M}^{(n)} \mathbf{u} = \tilde{\mathbf{r}}^{(e)},
+        \end{equation}
+        where $\tilde{\mathbf{r}}^{(a)} = \mathbf{C} \mathbf{M}^{(a)} \mathbf{u}$, and $||\tilde{\mathbf{r}}|| \leq ||\tilde{\mathbf{r}}^{(a)}|| + ||\tilde{\mathbf{r}}^{(e)}||$ (by the triangle inequality). If our goal is to minimize $||\tilde{\mathbf{r}}||$, then ideally we would prefer
+        \begin{equation}
+               \mathbf{C} \hat{\mathbf{S}} \mathbf{M}^{(n)} \mathbf{u} = \mathbf{0},
+        \end{equation}
+        implying $||\tilde{\mathbf{r}}|| = ||\tilde{\mathbf{r}}^{(a)}||$, such that the only violation of the constraints occurs due to the affine deformation modes. In other words, we would like to maximize the null space of $\mathbf{C} \hat{\mathbf{S}} \mathbf{M}^{(n)}$ (minimize the rank of $\mathbf{C} \hat{\mathbf{S}} \mathbf{M}^{(n)}$, as compared to the unmodified $\mathbf{C} \mathbf{M}^{(n)}$).
+        \item[[ 3]] $\mbox{rank}(\hat{\mathbf{S}} \mathbf{M}^{(n)}) = \mbox{rank}(\mathbf{M}^{(n)})$: This condition arises from the need for maintaining rank-sufficiency of the element's stiffness matrix. Whatever smoothing operator $\hat{\mathbf{S}}$ we construct \textbf{must} preserve the rank of $\mathbf{M}^{(n)}$. This condition will be termed the ``rank-sufficiency constraint,'' which manifests itself as a constraint on the space of feasible $\hat{\mathbf{S}}$ matricies. It will be shown later that this constrained space may be framed as a matrix manifold.
+        \item[[ 4*]] $\min || \hat{\mathbf{S}} \mathbf{M}^{(n)} \mathbf{u} - \mathbf{M}^{(n)} \mathbf{u} ||$: In an effort to  preserve the best-approximation property of the finite element method, our modifications to the existing displacement gradients should be ``minimal'' in some sense.
+\end{itemize}
+
+The central task is then the appropriate specification of $\hat{\mathbf{S}}$ such that the above conditions are satisfied. In a sufficiently general setting, let us suppose that $\mathbf{M}^{(n)}$, $\hat{\mathbf{S}}$, and $\mathbf{C}$ may be written as
+\begin{equation}
+                \mathbf{M}^{(n)} = \sum_i \sigma_i \mathbf{V}^{(n)}_i \otimes \mathbf{U}^{(n)}_i = \mathbf{V} \mathbf{\Sigma} \mathbf{U}^T
+        \end{equation}
+\begin{equation}
+        \hat{\mathbf{S}} = \sum_i \hat{\lambda}_i \, \hat{\mathbf{Q}}_i \otimes \hat{\mathbf{R}}_i = \hat{\mathbf{Q}} \hat{\mathbf{\Lambda}} \hat{\mathbf{R}}^T,
+\end{equation}
+\begin{equation}
+        \mathbf{C} = \sum_i \gamma_i \, \mathbf{B}_i \otimes \mathbf{D}_i = \mathbf{B} \mathbf{\Gamma} \mathbf{D}^T,
+\end{equation}
+and therefore
+\begin{equation}
+        \mathbf{C} \hat{\mathbf{S}} \mathbf{M}^{(n)} = \mathbf{B} \mathbf{\Gamma} \mathbf{D}^T \hat{\mathbf{Q}} \hat{\mathbf{\Lambda}} \hat{\mathbf{R}}^T \mathbf{V} \mathbf{\Sigma} \mathbf{U}^T
+\end{equation}
+\begin{equation}
+        \mathbf{CM}^{(n)} = \mathbf{B} \mathbf{\Gamma} \mathbf{D}^T \mathbf{V} \mathbf{\Sigma} \mathbf{U}^T
+\end{equation}
+\begin{equation}
+        \hat{\mathbf{S}} \mathbf{M}^{(n)} = \hat{\mathbf{Q}} \hat{\mathbf{\Lambda}} \hat{\mathbf{R}}^T \mathbf{V} \mathbf{\Sigma} \mathbf{U}^T.
+\end{equation}
+Intuitively, the following quantities would seem to be of particular interest:
+\begin{equation}
+        \mathbf{L} = \mathbf{D}^T \hat{\mathbf{Q}}
+\end{equation}
+\begin{equation}
+        \mathbf{P} = \hat{\mathbf{R}}^T \mathbf{V}
+\end{equation}
+Consider the alternative set of conditions on $\hat{\mathbf{S}}$:
+\begin{itemize}
+        \item[(i)] $\min || \mathbf{L} ||_F$: Seeks orthogonality with the constraint vectors in an effort to mitigate locking.
+        \item[(ii)] $|| \hat{\mathbf{R}} - \mathbf{V} ||_2 < 1$: Imperative if rank-deficiency of the stiffness matrix is to be avoided.
+        \item[(iii)] $\min || \hat{\mathbf{S}} - \mathbf{V} \mathbf{V}^T ||_F$: Intended to maintain solution accuracy/consistency.
+\end{itemize}
+One (perhaps na\"{i}ve) approach to satisfy (i) and (ii) would be to specify
+\begin{equation}
+        \hat{\mathbf{Q}}_i \in \mbox{ker} ( \mathbf{D} ) \quad \forall i
+\end{equation}
+\begin{equation}
+        \hat{\mathbf{R}} = \mathbf{V}
+\end{equation}
+which would then only require the $\hat{\lambda}_i$'s to be set (via some minimzation procedure). However, such a strategy might likely result in zero values for some of the $\hat{\lambda}_i$'s, leading to rank deficiency. Another potential issue would arise if the rank of $\mathbf{D}^C$ were insufficient for the purposes of constructing $\hat{\mathbf{Q}}$. Nonetheless, we propose (provisionally):
+\begin{equation}
+        \hat{\mathbf{S}} = \hat{\mathbf{Q}} \hat{{\mathbf{Q}}}^T
+\end{equation}
+such that $\hat{\mathbf{S}}$ takes the form of an orthogonal projection, and $\mathbf{S}$ therefore is an orthogonal matrix.
+
+In this context, we may concieve of the averaged displacement gradients $\tilde{\mathbf{g}}$ (arising from our ``smearing'' operator $\mathbf{S}$) being akin to a selective \textit{averaging} of the existing gradients:
+\begin{equation}
+        \tilde{g}^{(k)}_{ij} = \sum_{r = 1}^{NQP} S^{(k,r)}_{ijmn} g^{(r)}_{mn} \quad \forall k
+\end{equation}
+\begin{equation}
+        S^{(k,r)}_{ijmn} = \frac{\int_{\omega_r} \phi^{(k)}_{ijmn} dv}{\sum_q \int_{\omega_q} \phi^{(k)}_{ijmn} dv}
+\end{equation}
+where $\phi^{(k)}_{ijmn}$ is some weighting/participation factor associated with quadrature cell $k$, which may vary with spatial position throughout the element. Conceivably, an $\mathbf{S}$ derived from our previously proposed form for $\hat{\mathbf{S}}$ may not be viable (from a computational effort standpoint), but an averaging scheme \textit{informed} by--reverse engineered from--such an $\mathbf{S}$ may provide a more practical solution.
+
+\newpage
+
+\section{Discussion of Matrix Manifolds}
+
+Fundamentally, we seek a linear operator $\mathbf{S}$ that is a solution to the following problem:
+\begin{eqnarray}
+	\min \, \, \mbox{rank} ( \mathbf{C} \mathbf{S} \mathbf{M} )  \nonumber \\
+	\mbox{s.t.} \, \, \mathbf{S} \mathbf{g} = \mathbf{g} \, \, \forall \mathbf{g} \in \mathcal{V}^{(a)} \\
+	\mbox{and} \, \, \mbox{rank} ( \mathbf{S} \mathbf{M} ) = \mbox{rank} ( \mathbf{M} ). \nonumber
+\end{eqnarray}
+As we observed previously, the first constraint (condition [1]) is easily accomodated via a representation for $\mathbf{S}$ which obeys equation (\ref{eq:Ssub}). Incorporation of the rank constraint (condition [3]), however, is less straightforward.
+
+It will prove useful to concieve of $\mathbb{R}^{n \times p}$ -- the space of all real $n \times p$ matricies -- as a linear (vector) space. We may say that $\mathbb{R}^{9m \times 9m}$ constitutes the full (unconstrained) search space for $\mathbf{S}$. Our goal is to determine an appropriate subspace (a ``matrix manifold'') $\mathcal{M} \subset \mathbb{R}^{9m \times 9m}$ which respects the imposed constraints. Constraining $\mathbf{S}$ to lie in this subspace will lead to a convex rank minimization problem over $\mathcal{M}$.
+
+As discussed previously, the first constraint will lead to a restriction on $\mathcal{M}$ such that
+\begin{equation}
+	\mathcal{M} = \left\{ \mathbf{S} \in \mathbb{R}^{9m \times 9m} : \mathbf{S} = \mathbf{A} + \hat{\mathbf{S}} ( \mathbf{1} - \mathbf{A} ) : \hat{\mathbf{S}} \in \hat{\mathcal{M}} \right\},
+\end{equation}
+where $\mathbf{A}$ is the ``affine subspace projection operator'' from equation (\ref{eq:Asub}), and supposing that $\hat{\mathbf{S}} \in \hat{\mathcal{M}} \subset \mathbb{R}^{9m \times 9m}$. It now remains to consider how the rank sufficiency constraint determines the subspace $\hat{\mathcal{M}}$ containing $\hat{\mathbf{S}}$. We tentatively propose:
+\begin{equation}
+	\hat{\mathcal{M}} = \left\{ \hat{\mathbf{S}} \in \mathbb{R}^{9m \times 9m} : \det ( \mathbf{N}^T \hat{\mathbf{S}}^T \hat{\mathbf{S}} \mathbf{N} ) \neq 0, \, \hat{\mathbf{S}}\succeq 0 \right\},
+\end{equation}
+where $\mathbf{N} \in \mathbb{R}^{3m \times r}$ contains $r$ orthogonal columns which form a basis for $\mathcal{V}^{(n)}$, and $\hat{\mathbf{S}}\succeq 0$ denotes that $\hat{\mathbf{S}}$ is positive-semidefinite. While this definition is sufficiently general from a mathematical perspective, we should anticipate numerical/computational issues. Some tolerance $\epsilon$ may need to be invoked such that $\det ( \mathbf{N}^T \hat{\mathbf{S}}^T \hat{\mathbf{S}} \mathbf{N} ) > \epsilon$ in practice.
+
+The rank minimization problem itself also poses difficulties, in that it is a known NP-hard problem. However, recent work \cite{recht2010} has suggested that the matrix rank minimization problem can be solved approximately via nuclear norm minimization, i.e. considering
+\begin{eqnarray}
+	\min \, \, || \mathbf{C} \mathbf{S} \mathbf{M} ||_*  \nonumber \\
+	\mbox{s.t.} \, \, \mathbf{S} \in \mathcal{M}
+\end{eqnarray}
+where $|| \mathbf{X} ||_*$ denotes the \textit{nuclear norm} of $\mathbf{X}$ (the sum of the singular values of $\mathbf{X}$).
+
+It is important to consider the fact that $\mathbf{S}$ is itself a ``smearing'' or ``averaging'' operator, which will ultimately be constructed via some averaging scheme. In the literature, this technique is referred to as ``strain projection,'' which further restricts the class of $\hat{\mathbf{S}}$ matricies to the set of orthogonal projection operators. In this context, we suppose that $\hat{\mathbf{S}} = \mathbf{Y} \mathbf{Y}^T$, $\mathbf{Y} \in \mbox{St} ( r, 9m )$, where $\mbox{St} ( r, 9m )$ denotes the \textit{(compact or orthogonal) Stiefel manifold} (the set of all $9m \times r$ orthonormal matricies). Formally,
+\begin{equation}
+	\mbox{St} (p, n) := \left\{ \mathbf{X} \in \mathbb{R}^{n \times p} : \mathbf{X}^T \mathbf{X} = \mathbf{1}_p \right\}.
+\end{equation}
+
+\newpage
+
+\section{Equivalence with Strain Projection Methods}
+
+Consider an element $\Omega_e$ with corresponding gradient operator $\mathbf{M} (\mathbf{x}) = \left[ \begin{array}{cccc} \mathbf{M}_1 & \mathbf{M}_2 & \ldots & \mathbf{M}_n \end{array} \right]$, composed of node-specific gradient operators $\mathbf{M}_a (\mathbf{x}) \, \forall a \in [ 1, \, \ldots , \, N ]$. Supposing that $\mathbf{u} = \left[ \begin{array}{cccc} \mathbf{u}_1 & \mathbf{u}_2 & \ldots & \mathbf{u}_N \end{array} \right]^T$ is the vector of all nodal displacements for the element, the displacement gradient defined over the element is
+\begin{equation}
+	\mathbf{g} (\mathbf{x}) = \mathbf{M} \mathbf{u} \quad \forall \mathbf{x} \in \Omega_e .
+\end{equation}
+We identify $\mathcal{V}$ as the space of functions defined over $\Omega_e$ such that $\mathbf{g} \in \mathcal{V}$. Selecting a basis $\{ \phi_i \}_{i=1}^{m}$ for $\mathcal{V}$ allows us to express $\mathbf{g}$ in terms of this basis:
+\begin{equation}
+	\mathbf{g} (\mathbf{x}) = \sum_{i=1}^{m} c_i \phi_i (\mathbf{x}) .
+\end{equation}
+Now consider an altogether different space of functions $\mathcal{W}$ defined on $\Omega_e$ with corresponding basis $\{ \varphi_j \}_{j=1}^{n}$. Suppose there exists a transformation $\mathbf{S} \colon \mathcal{V} \mapsto \mathcal{W}$ according to
+\begin{equation}
+	\mathbf{S} \mathbf{g} ( \mathbf{x} ) = \sum_{j = 1}^{n} \langle \varphi_j , \, \mathbf{g} \rangle_{\Omega_e} \, \varphi_j ( \mathbf{x} )
+\end{equation}
+where
+\begin{equation}
+	\langle \varphi_j , \, \mathbf{g} \rangle_{\Omega_e} = \frac{\int_{\Omega_e} \varphi_j \cdot \mathbf{g} \, d \Omega}{\int_{\Omega_e} \varphi_j \cdot \varphi_j  d \Omega},
+\end{equation}
+and therefore
+\begin{equation}
+	\mathbf{S} \mathbf{g} ( \mathbf{x} ) = \sum_{j = 1}^{n} \sum_{i = 1}^{m} c_i \langle \varphi_j , \, \phi_i \rangle_{\Omega_e} \, \varphi_j ( \mathbf{x} )  = \sum_{i = 1}^{m} c_i \sum_{j = 1}^{n} \langle \varphi_j , \, \phi_i \rangle_{\Omega_e} \, \varphi_j ( \mathbf{x} ) = \sum_{i = 1}^{m} c_i \bar{\phi}_i .
+\end{equation}
+To maintain linear consistency, we impose the requirement that $\mathcal{W}$ must span the space of functions which can represent a constant gradient over the element. Otherwise, the selection of $\mathcal{W}$ is limited only by considerations of stability. If $\mathcal{W}$ is selected such that it \textit{only} spans the space of constant gradient functions, then we find that the formulation reduces to one of a uniform gradient element.
+
+If the integral expressions are evaluated using the element's quadrature rule,
+\begin{equation}
+	\int_{\Omega_e} \varphi_j \cdot \mathbf{g} \, d \Omega = \sum_{q = 1}^{N_{qp}} w_q (\varphi_j (\mathbf{x}_q) \cdot \mathbf{g} (\mathbf{x}_q))
+\end{equation}
+\begin{equation}
+	| \varphi_j | \equiv \int_{\Omega_e} \varphi_j \cdot \, \varphi_j \, d \Omega = \sum_{q = 1}^{N_{qp}} w_q (\varphi_j (\mathbf{x}_q) \cdot \varphi_j (\mathbf{x}_q))
+\end{equation}
+\begin{equation}
+	\mathbf{S} \mathbf{g} ( \mathbf{x}_p ) = \sum_{j = 1}^{n} \sum_{q = 1}^{N_{qp}} \frac{w_q}{| \varphi_j |} \, \varphi_j ( \mathbf{x}_p ) (\varphi_j (\mathbf{x}_q) \cdot  \mathbf{g} (\mathbf{x}_q))
+\end{equation}
+\begin{equation}
+	\mathbf{S}_p = \sum_{j = 1}^{n} \frac{w_q}{| \varphi_j |} \, \varphi_j ( \mathbf{x}_p ) \otimes \varphi_j (\mathbf{x}_q)
+\end{equation}
+
+\newpage
+
+\section{Abstraction to Finite Deformations}
+
+In the pursuit of a formulation which is extensible to the context of finite deformations, we will choose to examine 
+
+\newpage
+
+\section{Formulation of Constraints}
+
+Now let us examine a few specific examples, particularly in the context of thin elements.
+
+In the thin limit, we would like for the stresses in the elements to agree as much as possible with the applied (assumed zero) traction boundary conditions:
+\begin{equation}
+        T_{ij} n_j = 0 \quad \mbox{on} \quad \partial B
+\end{equation}
+Supposing that $n_j$ may be adequately determined/set within the element, then we may imagine our constraint equations taking the form:
+\begin{equation}
+        T^{(k)}_{ij} (g^{(k)}_{mn}) \, n^{(k)}_j = 0 \quad \forall i, k
+\end{equation}
+for each quadrature point $k$ in the element, and where we suppose that $T^{(k)}_{ij} (g^{(k)}_{mn})$ may be written as a function of the displacement gradient $g^{(k)}_{mn}$ directly. In the case of linear elasticity, $T^{(k)}_{ij} (g^{(k)}_{mn}) = E^{(k)}_{ijmn} e^{(k)}_{mn} = \frac{1}{2} E^{(k)}_{ijmn} (g^{(k)}_{mn} + g^{(k)}_{nm})$, so
+\begin{equation}
+        \frac{1}{2} (E^{(k)}_{ijmn} + E^{(k)}_{ijnm}) n^{(k)}_j g^{(k)}_{mn} = 0 \quad \forall i, k
+\end{equation}
+or
+\begin{equation}
+        \mathbf{C}^{(k)}_{i} \colon \mathbf{g}^{(k)} = 0 \quad \forall i, k
+        \label{eq:constraintq4}
+\end{equation}
+where
+\begin{equation}
+        C^{(k)}_{imn} = E^{(k)}_{ijmn} n^{(k)}_j.
+\end{equation}
+
+Additionally, we may contemplate the incompressibility constraint:
+\begin{equation}
+        e_{ii} = 0 \quad \mbox{in} \quad B
+\end{equation}
+which amounts to
+\begin{equation}
+        g^{(k)}_{ii} = \delta_{ji} g^{(k)}_{ij} = 0 \quad \forall k
+\end{equation}
+or simply
+\begin{equation}
+        \mathbf{1} \colon \mathbf{g}^{(k)} = 0 \quad \forall k.
+        \label{eq:incompq4}
+\end{equation}
+
+Let us consider a particular element formulation: the 4-node isoparametric quadrilateral with a $2 \times 2$ Gauss-Legendre quadrature rule. The element supports 2 non-affine deformation patterns, meaning that $\mbox{rank} (\mathbf{M}^{(n)}) = 2$. Equation (\ref{eq:constraintq4}) provided us with a total of 8 constraint equations, meaning $\mbox{rank} (\mathbf{D}) = \mbox{rank} (\mathbf{D}^C) = 8$ (a sufficiently large enough space of vectors to choose from, all of which are orthogonal to the constraint vectors.) There is even sufficient rank remaining to permit the incorporation of additional constraints (namely, incompressibility, which yielded a total of $4$ equations from (\ref{eq:incompq4})). However, it is still unclear at this point if condition (ii) will be satisfied (if rank-sufficiency will be assured). As it happens, such a specification on $\mathbf{S}$ \textit{doesn't} lead to rank-deficiency (following a few numerical experiments), with or without the incompressibility constraint. However, despite some modest improvement, the solution is still over-stiff. Moreover, mesh distortion continues to loom large. Prospectively then, the 4-node quadrilateral may be seen as a poor starting platform for enhancement.
+
+\begin{thebibliography}{9}
+
+\bibitem{recht2010}
+  B. Recht, M. Fazel, P.A. Parrilo
+  \emph{Guaranteed minimum-rank solutions of linear matrix equations via nuclear norm minimization},
+  SIAM Review,
+  52 (3) (2010),
+  pp. 471-501.
+
+\end{thebibliography}
+
+\end{document}

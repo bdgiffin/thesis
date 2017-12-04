@@ -1,0 +1,951 @@
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage{graphicx} % support the \includegraphics command and options
+\usepackage[margin=0.75in]{geometry}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+%%% ToC (table of contents) APPEARANCE
+%\maxtocdepth{subsection} % include subsections
+%\renewcommand{\cftchapterpagefont}{}
+%\renewcommand{\cftchapterfont}{}     % no bold!
+\usepackage{hyperref}
+
+\usepackage{listings}
+\lstset{
+	language=C++,
+	basicstyle=\ttfamily,
+	tabsize=2
+}
+
+\title{\vskip 2.0in \begin{center} \includegraphics[width = 0.7in,trim=30 30 30 30,clip=true]{script_D.png}-\textbf{script} \end{center} \textbf{User's Guide}}
+\author{B. Giffin}
+\date{December 7, 2016}
+
+\begin{document}
+\maketitle
+
+D-script is a scripting language written for the purposes of automating the generation of analysis-ready \texttt{imitor} input files (\texttt{.i} and \texttt{.m} files) through the creation of a \texttt{.d} script file. In comparison to the standard \texttt{.i} file, a \texttt{.d} file aims to provide a more ``descriptive'' and flexible specification of problem parameters, whilst also easing the prescription of intricately defined time steps, material regions, time-functions, boundary conditions, and contact interactions.
+
+This document seeks to elaborate on the basic layout of a \texttt{.d} file, highlighting some of D-script's key features, and providing a handful of useful examples.
+
+\newpage
+
+\tableofcontents % the asterisk means that the contents itself isn't put into the ToC
+
+\newpage
+
+\section{Overview} The basic layout of a \texttt{.d} file includes a sequence of ``command blocks'' which define and control independent options for the analysis. The syntax for specifying these structures is described herein.
+\subsection{The \texttt{.d} File Structure} A typical \texttt{.d} file may contain some (or all) of the following command blocks, shown below:
+\begin{lstlisting}
+VERSION = <string>imitor_version_name
+
+MESH = <string>mesh_file_name
+
+PHYSICS {
+	# PHYSICS commands
+}
+
+MATERIAL <string>material_name {
+	# MATERIAL commands
+}
+
+SOLID {
+	# SOLID commands
+}
+
+DIRECTION <string>direction_name {
+	# DIRECTION commands
+}
+
+FUNCTION <string>function_name {
+	# FUNCTION commands
+}
+
+DISPLACEMENT {
+	# DISPLACEMENT commands
+}
+
+TRACTION/PRESSURE/FOLLOWER {
+	# TRACTION/PRESSURE/FOLLOWER commands
+}
+
+CONTACT_INTERACTION {
+	# CONTACT_INTERACTION commands
+}
+\end{lstlisting}
+For the most part, the order in which the above command blocks appear is irrelevant/arbitrary. The only exception to this rule occurs if a given command block references a named \texttt{MATERIAL}, \texttt{DIRECTION}, or \texttt{FUNCTION} definition. In these circumstances, the command block for the corresponding \texttt{MATERIAL}/\texttt{DIRECTION}/\texttt{FUNCTION} must be defined \textit{before} it can be referenced within another command block.
+\subsection{Command Block Structure} A command block consists of a (possibly named) scoped region -- delimited by curly braces -- which is identified by a leading keyword, and contains a series of commands which specify context-specific problem parameters. These commands can be listed in \textit{arbitrary order} within the scope of the command block. For example, a traction boundary condition can be applied to a set of facets defined on the mesh through the invocation of a \texttt{TRACTION} command block:
+\begin{lstlisting}
+TRACTION {
+	TYPE = PIOLA|CAUCHY
+	FACET_SET = <integer>facet_set_id_1 (<integer>facet_set_id_2 ...)
+	DIRECTION = <string>direction_name
+	MAGNITUDE = <string>function_name
+	SCALE_FACTOR = <float>scale_factor_value
+}
+\end{lstlisting}
+The user is expected to provide (problem-specific) arguments for all commands appearing in a command block. 
+
+\subsection{Command Syntax} In general, the specification of problem parameters within the scope of a given command block adheres to the following syntax:
+\begin{lstlisting}
+KEYWORD = <type>value
+\end{lstlisting}
+Keywords are case-insensitive string expressions that contain no blank spaces (e.g. \texttt{SCALE\_FACTOR}, \texttt{scale\_factor}, and \texttt{Scale\_Factor} would all parse to the same keyword, but \texttt{SCALE FACTOR} would result in an error due to the included blank space.) A \texttt{value}'s data \texttt{<type>} can be \texttt{integer}, \texttt{float}, or \texttt{string}. In contrast with keywords, most \texttt{value}s of type \texttt{string} \textit{are} case-sensitive, unless otherwise noted.
+
+For certain commands, only a finite set of values are accepted, in which case, the options are explicitly enumerated, of which one must be chosen:
+\begin{lstlisting}
+KEYWORD = OPTION_1|OPTION_2|...|OPTION_N
+\end{lstlisting}
+If the options are \texttt{string}-valued (e.g. \texttt{ON|OFF}), they will be read and interpreted as case-insensitive strings (i.e. specifying \texttt{on|off} or \texttt{On|Off} is acceptable.)
+
+If a command or its arguments can be optionally specified (omitted), then said command/arguments are denoted in parentheses:
+\begin{lstlisting}
+KEYWORD = <integer>value_1 (<integer>optional_value_2 ...)
+\end{lstlisting}
+
+All keyword-value pairs are delimited by the \texttt{=} sign, such that the inclusion of extra white space is unnecessary, e.g.
+\begin{lstlisting}
+SCALE_FACTOR=1.0
+\end{lstlisting}
+\begin{lstlisting}
+SCALE_FACTOR= 1.0
+\end{lstlisting}
+\begin{lstlisting}
+SCALE_FACTOR =1.0
+\end{lstlisting}
+\begin{lstlisting}
+SCALE_FACTOR = 1.0
+\end{lstlisting}
+are all acceptable syntax.
+\newpage
+\subsection{Comments} Blank lines, and comments (initiated with the \texttt{\#} symbol) may be included anywhere in a \texttt{.d} file for the purposes of clarity and formatting. For example, the following two code excerpts would be handled identically by the D-script parser: \newline
+\textit{Excerpt 1}:
+\begin{lstlisting}
+# ============================================================== #
+# Define a linear elastic material whose mechanical properties
+# conform with 6061 aluminum alloy.
+# ============================================================== #
+
+MATERIAL aluminum {
+  TYPE = ELASTIC # CM_1
+  # Using SI units (kg,m,s)
+  DENSITY        = 2.7E3  # kg/m^3
+  YOUNGS_MODULUS = 6.9E10 # N/m^2
+  POISSONS_RATIO = 0.25   # m/m
+} # END MATERIAL aluminum
+
+# ============================================================== #
+\end{lstlisting}
+\textit{Excerpt 2}:
+\begin{lstlisting}
+MATERIAL aluminum {
+  TYPE = ELASTIC
+  DENSITY = 2.7E3
+  YOUNGS_MODULUS = 6.9E10
+  POISSONS_RATIO = 0.25
+}
+\end{lstlisting}
+
+\subsection{Using \texttt{preppy} Variables} D-script supports the use of \texttt{preppy}: a Python-based text file preprocessor. Within any text file, \texttt{preppy} allows for the inclusion of preprocessing variable ``definitions'' (phrases containing the \texttt{=} symbol), and the evaluation of Python ``expressions'' which may contain defined variables. ``Phrases'' (definitions and expressions) which are to be interpreted by \texttt{preppy} are enclosed in square brackets, with each expression being replaced by its corresponding Python evaluation. Python functions from the math.py and sys.py libraries are currently supported.
+
+As an example, the following code excerpt:
+\begin{lstlisting}
+DIRECTION skew_surface_normal {
+	[theta = radians(30.0)] # from degrees
+	VECTOR = [cos(theta)]  [sin(theta)]  0.0
+}
+\end{lstlisting}
+would evaluate as
+\begin{lstlisting}
+DIRECTION skew_surface_normal {
+	VECTOR = 0.86602540378  0.5  0.0
+}
+\end{lstlisting}
+following a (built-in) call to \texttt{preppy}.
+
+\section{Version} The \texttt{VERSION} command (defined outside of any command block) specifies which release version of \texttt{imitor} (2014 or 2015) is to be used when running the resulting \texttt{.i} and \texttt{.m} files.
+
+The \texttt{VERSION} command appears as:
+\begin{lstlisting}
+VERSION = V14|V15
+\end{lstlisting}
+
+\section{Mesh} The \texttt{MESH} command (defined outside of any command block) specifies which mesh file to reference when considering element/facet/node sets. Currently the mesh file in question must be of type \texttt{.vtk}, and must contain FieldData which specifies appropriate element/facet/node sets (if any). Mesh files which conform to this specific format can be generated with the \texttt{vtkgen} utility.
+
+The \texttt{MESH} command appears as:
+\begin{lstlisting}
+MESH = <string>mesh_file_name
+\end{lstlisting}
+where \texttt{mesh\_file\_name} must specify either a file name which is local to the \texttt{.d} file's directory, or a file name with its absolute or relative path defined with reference to the \texttt{.d} file.
+
+\section{Physics} \label{physics_section} The \texttt{PHYSICS} command block specifies the main problem parameters and solution options for the analysis, and defines the time discretization within one or more \texttt{STEP} command blocks. Only one \texttt{PHYSICS} command block should appear within the \texttt{.d} file.
+
+The \texttt{PHYSICS} command block appears as:
+\begin{lstlisting}
+PHYSICS {
+	DIMENSION = 2|3
+	DEFORMATION = SMALL_DEF|FINITE_DEF
+	ANALYSIS = STATIC|DYNAMIC
+ (CONTACT = ON|OFF)
+	STRESS_TOLERANCE = <float>stress_tolerance_value
+	MAX_NR_ITERATIONS = <integer>maximum_newton_raphson_iterations
+	MAX_SOLUTION_PASSES = <integer>maximum_solution_passes
+	STEP {
+		...
+	}
+}
+\end{lstlisting}
+\texttt{DIMENSION} indicates the spatial dimension of the problem being considered (2D or 3D). \texttt{DEFORMATION} specifies whether or not the problem should operate under the assumption of small strains (\texttt{SMALL\_DEF}), or if finite deformations are accounted for (\texttt{FINITE\_DEF}). \texttt{ANALYSIS} determines if the problem is to be run using a quasi-static analysis (\texttt{STATIC}), or if a dynamic analysis utilizing the HHT-$\alpha$ time integration scheme is to be used (\texttt{DYNAMIC}). Optionally, the user may explicitly state whether or not the simulation is to include \texttt{CONTACT} via an \texttt{ON}/\texttt{OFF} parameter (by default, \texttt{CONTACT} is set to \texttt{OFF}.) \texttt{STRESS\_TOLERANCE} acts as a residual convergence tolerance parameter with the dimension of stress. The \texttt{MAX\_NR\_ITERATIONS} command specifies the maximum number of Newton-Raphson iterations to be performed for a given time step, whereas the \texttt{MAX\_SOLUTION\_PASSES} command indicates the maximum allowable number of solution passes to be made during the solution procedure for each time step.
+
+\subsection{Step} The \texttt{STEP} command block (which appears inside of the \texttt{PHYSICS} command block) defines the set of time steps to be used for a given duration of the analysis. Multiple \texttt{STEP} command blocks may be specified for the sake of having different sized time steps or different solution strategies during different portions of the analysis, provided that consecutive \texttt{STEP} command blocks share the same start/end times.
+
+The \texttt{STEP} command block appears as:
+\begin{lstlisting}
+STEP {
+	START_TIME = <float>current_step_start_time
+	END_TIME = <float>current_step_end_time
+	TIME_STEP = <float>time_step_value
+	SKIP = <integer>number_of_steps_to_skip_for_output
+	SOLUTION_STRATEGY = SC|SU|AC
+}
+\end{lstlisting}
+\texttt{START\_TIME} and \texttt{END\_TIME} correspond to the beginning and ending times which bound the time interval for a given \texttt{STEP} (not necessarily the absolute starting/ending times for the entire simulation, as there could be multiple \texttt{STEP} time intervals which together from the complete simulation time interval). \texttt{TIME\_STEP} indicates the size of the time step to be used over the specified time interval (this need not be an integer multiple of the \texttt{STEP} time interval, but may result in a variable end-step size.) The \texttt{SKIP} command dictates the number of time steps to ``skip over'' (omit) for the purposes of output (a value of 0 will result in all steps being output from the analysis, a value of 1 will output every other step, etc.) The \texttt{SOLUTION\_STRATEGY} for all time steps defined for a given \texttt{STEP} may be set to one of three options: a stepwise-coupled solution (\texttt{SC}), a stepwise-uncoupled solution (\texttt{SU}), or an alternating-coupled solution (\texttt{AC}). Presently, only the \texttt{SC} option has been tested in \texttt{imitor}, and is therefore recommended.
+
+\section{Material} The \texttt{MATERIAL} command block defines a named material model and its parameters. Multiple \texttt{MATERIAL} command blocks may appear within the same \texttt{.d} file, assigning different material properties to different regions of the mesh.
+
+The generic \texttt{MATERIAL} command block appears as:
+\begin{lstlisting}
+MATERIAL <string>material_name {
+	DENSITY = <float>density_value
+	TYPE = ELASTIC|HYPERELASTIC|ELASTOPLASTIC
+	# 
+	# Type-dependent material property definitions
+	#
+}
+\end{lstlisting}
+A \texttt{material\_name} must be provided following the \texttt{MATERIAL} keyword, such that the material definition can be referenced within a subsequent \texttt{SOLID} command block (refer to section \ref{solid_section}.) The \texttt{DENSITY} command indicates the mass density per unit of reference configuration volume of the material, and the \texttt{TYPE} command specifies which of 3 available material models to use: \texttt{ELASTIC}, \texttt{HYPERELASTIC}, or \texttt{ELASTOPLASTIC}, elaborated upon further in the next section.
+
+\subsection{Types} Presently, D-script supports 3 material models: an isotropic linear elastic material (\texttt{ELASTIC}), a hyperelastic compressible Mooney-Rivlin solid (\texttt{HYPERELASTIC}), and an elastic-plastic material with a linear isotropic hardening rule (\texttt{ELASTOPLASTIC}). Each of these models possess a type-specific set of material parameters that must be defined. The following sections describe the list of properties required for each material model.
+
+\subsubsection{Elastic}
+
+The \texttt{MATERIAL} command block for an \texttt{ELASTIC} material appears as:
+\begin{lstlisting}
+MATERIAL <string>elastic_material_name {
+	DENSITY = <float>density_value
+	TYPE = ELASTIC
+	YOUNGS_MODULUS = <float>youngs_modulus_value
+	POISSONS_RATIO = <float>poissons_ratio_value
+}
+\end{lstlisting}
+where the \texttt{YOUNGS\_MODULUS} and \texttt{POISSONS\_RATIO} of the material are the only required parameters for the \texttt{ELASTIC} model.
+
+If a given analysis is expected to produce sufficiently large strains in the material, then it is recommended that the user select the \texttt{HYPERELASTIC} model, instead of the \texttt{ELASTIC} model.
+
+\subsubsection{Hyperelastic}
+
+The \texttt{MATERIAL} command block for a \texttt{HYPERELASTIC} material appears as:
+\begin{lstlisting}
+MATERIAL <string>hyperelastic_material_name {
+	DENSITY = <float>density_value
+	TYPE = HYPERELASTIC
+	D1  = <float>D1_value
+	C1 = <float>C1_value
+	C2 = <float>C2_value
+}
+\end{lstlisting}
+where \texttt{C1} and \texttt{C2} are related to the distortional response of the material, and \texttt{D1} is related to its volumetric response.
+
+To remain consistent with small-strain linear elasticity, \texttt{D1}, \texttt{C1}, and \texttt{C2} should be specified such that
+\begin{eqnarray}
+	\kappa = 2 D_1 , \qquad \mu = 2 (C_{1} + C_{2}), \nonumber
+\end{eqnarray}
+where $\kappa$ and $\mu$ are the bulk and shear moduli of the material, respectively.
+
+Moreover, if we impose $C_{2} = 0$, then we recover the special case of a neo-Hookean solid.
+
+\subsubsection{Elastoplastic}
+
+The \texttt{MATERIAL} command block for an \texttt{ELASTOPLASTIC} material appears as:
+\begin{lstlisting}
+MATERIAL <string>elastoplastic_material_name {
+	DENSITY = <float>density_value
+	TYPE = ELASTOPLASTIC
+	YOUNGS_MODULUS = <float>youngs_modulus_value
+	POISSONS_RATIO = <float>poissons_ratio_value
+	HARDENING_MODULUS = <float>hardening_modulus_value
+	YIELD_STRESS = <float>initial_yield_stress_value
+}
+\end{lstlisting}
+where, in addition to the \texttt{YOUNGS\_MODULUS} and \texttt{POISSONS\_RATIO}, a linear \texttt{HARDENING\_MODULUS} and initial \texttt{YIELD\_STRESS} must be specified.
+
+\section{Solid} \label{solid_section} The \texttt{SOLID} command block associates sets of elements defined on the mesh with specific element formulations and defined material models. Multiple \texttt{SOLID} command blocks may appear within the same \texttt{.d} file, affiliating different material properties or element formulations with different element sets.
+
+The \texttt{SOLID} command block appears as:
+\begin{lstlisting}
+SOLID {
+	ELEMENT_SET = <integer>element_set_1 (<integer>element_set_2 ...)
+	MATERIAL = <string>material_name
+ (FORMULATION = <string>element_formulation)
+}
+\end{lstlisting}
+The \texttt{ELEMENT\_SET} command identifies one or more element set ids, corresponding to sets of continuum elements defined within the chosen \texttt{MESH} file. \texttt{MATERIAL} specifies the named material model (defined in a separate \texttt{MATERIAL} command block) that is to be associated with the aforementioned set(s) of elements.
+
+Optionally, an element \texttt{FORMULATION} may be specified if an alternative method for constructing shape functions is to be used (i.e. PEM), and/or if a selective reduced quadrature scheme is desired (i.e. mean-dilatation). This option is currently considered a work-in-progress.
+
+\section{Direction} The \texttt{DIRECTION} command block defines a named direction vector, for the sake of later prescribing displacement or traction boundary conditions. Multiple \texttt{DIRECTION} command blocks may appear within the same \texttt{.d} file.
+
+The \texttt{DIRECTION} command block appears as:
+\begin{lstlisting}
+DIRECTION <string>direction_name {
+	VECTOR = <float>x_component <float>y_component (<float>z_component)
+}
+\end{lstlisting}
+where \texttt{VECTOR} specifies the Cartesian components of a 2D (or 3D) direction vector, which need not have unit magnitude. A \texttt{direction\_name} must be provided following the \texttt{DIRECTION} keyword, such that the defined direction can be referenced within subsequent \texttt{DISPLACEMENT} (\ref{displacement_section}), \texttt{TRACTION} (\ref{traction_section}), or \texttt{FOLLOWER} (\ref{follower_section}) command blocks.
+
+\section{Function} The \texttt{FUNCTION} command block defines a (named) time-varying function through one of two possible methods: via a mathematical \texttt{EXPRESSION} written as a function of \texttt{t}, or through a \texttt{TABLE} of explicit abscissa-ordinate pairs. Multiple \texttt{FUNCTION} command blocks may appear within the same \texttt{.d} file.
+
+Generically, the \texttt{FUNCTION} command block appears as:
+\begin{lstlisting}
+FUNCTION <string>function_name {
+	#
+	# EXPRESSION or TABLE definition
+	#
+}
+\end{lstlisting}
+The user must provide a \texttt{function\_name} following the \texttt{FUNCTION} keyword, such that the defined function can be referenced within subsequent \texttt{DISPLACEMENT} (\ref{displacement_section}), \texttt{TRACTION} (\ref{traction_section}), \texttt{FOLLOWER} (\ref{follower_section}), or \texttt{PRESSURE} (\ref{pressure_section}) command blocks.
+
+\subsection{Expression} 
+
+The \texttt{FUNCTION} command block which defines a time-function through the use of an \texttt{EXPRESSION} appears as:
+\begin{lstlisting}
+FUNCTION <string>function_name {
+	EXPRESSION = <string>function_of_t
+}
+\end{lstlisting}
+The argument to the \texttt{EXPRESSION} command must be a mathematical function of the variable \texttt{t}, and must appear in quotations, e.g.:
+\begin{lstlisting}
+EXPRESSION = "5.0*sin(t*pi/2)"
+\end{lstlisting}
+Expressions are interpreted and evaluated in Python, and currently support the usage of Python functions found in the math.py library.
+\subsection{Table}
+
+The \texttt{FUNCTION} command block which defines a time-function through the use of a nested \texttt{TABLE} command block appears as:
+\begin{lstlisting}
+FUNCTION <string>function_name {
+	TABLE {
+		 <float>time_0	<float>value_0
+		 <float>time_1	<float>value_1
+		(<float>time_2	<float>value_2)
+		 ...
+	}
+}
+\end{lstlisting}
+where each line in the \texttt{TABLE} command block lists an abscissa-ordinate pair for the evaluated \texttt{value\_k} of the function when $t=$ \texttt{time\_k}. An arbitrary number of abscissa-ordinate pairs may be provided. Function values at intermediate times are computed via linear interpolation.
+
+\section{Displacement} \label{displacement_section} The \texttt{DISPLACEMENT} command block defines a (possibly time-varying) displacement boundary condition applied to a specified set of nodes in the mesh. Multiple \texttt{DISPLACEMENT} command blocks may appear within the same \texttt{.d} file, each constraining different components of the displacement for the same (or different) node sets.
+
+The \texttt{DISPLACEMENT} command block appears as:
+\begin{lstlisting}
+DISPLACEMENT {
+	NODE_SET = <integer>node_set_id_1 (<integer>node_set_id_2 ...)
+	DIRECTION = <string>direction_name
+	MAGNITUDE = <string>function_name
+	SCALE_FACTOR = <float>scale_factor_value
+}
+\end{lstlisting}
+The \texttt{NODE\_SET} command identifies one or more node set ids, corresponding to sets of nodes defined within the chosen \texttt{MESH} file. The \texttt{DIRECTION} command specifies the named direction (defined in a separate \texttt{DIRECTION} command block) of the displacement component that is to be constrained for the associated set(s) of nodes. The indicated displacement component is prescribed to have a value proportional in \texttt{MAGNITUDE} to the time-varying \texttt{FUNCTION} definition whose corresponding \texttt{function\_name} is given, and scaled by the indicated \texttt{SCALE\_FACTOR}.
+
+\section{Traction} \label{traction_section} The \texttt{TRACTION} command block defines a (possibly time-varying) traction boundary condition applied to a specified set of facets in the mesh. Multiple \texttt{TRACTION} command blocks may appear within the same \texttt{.d} file, and can be applied to the same (or different) facet sets.
+
+The \texttt{TRACTION} command block appears as:
+\begin{lstlisting}
+TRACTION {
+	TYPE = PIOLA|CAUCHY
+	FACET_SET = <integer>facet_set_id_1 (<integer>facet_set_id_2 ...)
+	DIRECTION = <string>direction_name
+	MAGNITUDE = <string>function_name
+	SCALE_FACTOR = <float>scale_factor_value
+}
+\end{lstlisting}
+\texttt{TYPE} indicates whether the applied natural boundary condition is a \texttt{PIOLA} traction (a force per unit of area in the \textit{reference} configuration), or a \texttt{CAUCHY} traction (a force per unit of area in the \textit{current} configuration). The \texttt{FACET\_SET} command identifies one or more facet set ids, corresponding to sets of facets defined within the chosen \texttt{MESH} file. The \texttt{DIRECTION} command specifies the named direction (defined in a separate \texttt{DIRECTION} command block) of the traction vector that is to be applied the associated set(s) of facets. The indicated traction vector is prescribed to have a value proportional in \texttt{MAGNITUDE} to the time-varying \texttt{FUNCTION} definition whose corresponding \texttt{function\_name} is given, and scaled by the indicated \texttt{SCALE\_FACTOR}.
+
+\section{Follower} \label{follower_section} The \texttt{FOLLOWER} command block defines a (possibly time-varying) ``follower'' traction boundary condition applied to a specified set of facets in the mesh. In contrast with a standard \texttt{TRACTION} vector which preserves its \textit{globally} defined direction throughout the analysis, a \texttt{FOLLOWER} traction vector maintains the same direction \textit{relative} to the orientation (in the current configuration) of the facet(s) to which the traction is applied (hence the term ``follower.'') Multiple \texttt{FOLLOWER} command blocks may appear within the same \texttt{.d} file, and can be applied to the same (or different) facet sets.
+
+The \texttt{FOLLOWER} command block appears as:
+\begin{lstlisting}
+FOLLOWER {
+	TYPE = PIOLA|CAUCHY
+	FACET_SET = <integer>facet_set_id_1 (<integer>facet_set_id_2 ...)
+	DIRECTION = <string>direction_name
+	MAGNITUDE = <string>function_name
+	SCALE_FACTOR = <float>scale_factor_value
+}
+\end{lstlisting}
+\texttt{TYPE} indicates whether the applied natural boundary condition is a \texttt{PIOLA} traction (a force per unit of area in the \textit{reference} configuration), or a \texttt{CAUCHY} traction (a force per unit of area in the \textit{current} configuration). The \texttt{FACET\_SET} command identifies one or more facet set ids, corresponding to sets of facets defined within the chosen \texttt{MESH} file. The \texttt{DIRECTION} command specifies the named direction (defined in the global coordinate system) of the traction vector's \textit{initial} orientation in the \textit{reference} configuration. The indicated traction vector is prescribed to have a value proportional in \texttt{MAGNITUDE} to the time-varying \texttt{FUNCTION} definition whose corresponding \texttt{function\_name} is given, and scaled by the indicated \texttt{SCALE\_FACTOR}.
+
+\section{Pressure} \label{pressure_section} The \texttt{PRESSURE} command block defines a (possibly time-varying) ``pressure'' traction boundary condition applied to a specified set of facets in the mesh. In contrast with a standard \texttt{TRACTION} vector which can act in any direction, a \texttt{PRESSURE} traction vector's direction is always \textit{normal} to the facet(s) upon which the pressure is applied. Multiple \texttt{PRESSURE} command blocks may appear within the same \texttt{.d} file, and can be applied to the same (or different) facet sets.
+
+The \texttt{PRESSURE} command block appears as:
+\begin{lstlisting}
+PRESSURE {
+	TYPE = PIOLA|CAUCHY
+	FACET_SET = <integer>facet_set_id_1 (<integer>facet_set_id_2 ...)
+	MAGNITUDE = <string>function_name
+	SCALE_FACTOR = <float>scale_factor_value
+}
+\end{lstlisting}
+\texttt{TYPE} indicates whether the applied natural boundary condition is a \texttt{PIOLA} traction (a force per unit of area in the \textit{reference} configuration), or a \texttt{CAUCHY} traction (a force per unit of area in the \textit{current} configuration). The \texttt{FACET\_SET} command identifies one or more facet set ids, corresponding to the sets of facets (defined within the chosen \texttt{MESH} file) to which the pressure will be applied. The pressure is prescribed to have a value proportional in \texttt{MAGNITUDE} to the time-varying \texttt{FUNCTION} definition whose corresponding \texttt{function\_name} is given, and scaled by the indicated \texttt{SCALE\_FACTOR}.
+
+\section{Contact Interaction} The \texttt{CONTACT\_INTERACTION} command block defines a frictionless contact constraint between two disjoint sets of facets. This constraint is only enforced if \texttt{CONTACT} is \texttt{ON} in the \texttt{PHYSICS} command block (\ref{physics_section}). Multiple \texttt{CONTACT\_INTERACTION} command blocks may appear within the same \texttt{.d} file, and can be applied to the same (or different) facet sets.
+
+The \texttt{CONTACT\_INTERACTION} command block appears as:
+\begin{lstlisting}
+CONTACT_INTERACTION {
+	FACET_SET_1 = <integer>facet_set_id_1
+	FACET_SET_2 = <integer>facet_set_id_2
+}
+\end{lstlisting}
+where \texttt{FACET\_SET\_1} and \texttt{FACET\_SET\_2} identify facet set ids, corresponding to two disjoint sets of facets defined within the chosen \texttt{MESH} file.
+
+\newpage
+\section{Examples} In the following section, we provide a few practical examples for the sake of illustrating what a typical \texttt{.d} file looks like. Three examples are provided: a square pipe loaded in torsion, a thin plate subjected to a blast pressure load, and a rigid block contacting an elastic surface.
+
+\subsection{Example 1: Tapered Square Pipe in Torsion}
+\begin{lstlisting}[showstringspaces=false]
+# ==================================================================== #
+#   EXAMPLE 1: TAPERED SQUARE PIPE IN TORSION
+# -------------------------------------------------------------------- #
+#   This example problem defines a square pipe geometry consisting of
+#   PEM hex8 elements, and uses the "hyperelastic" material model.
+#   One end of the pipe has all of its displacements degrees of freedom
+#   constrained (fixed), whilst the other end of the pipe has follower
+#   tractions applied to it which act in the "circumferential"-
+#   direction, such that pipe deforms quasi-statically in torsion.
+# ==================================================================== #
+#
+# Define preppy variables:
+#
+# Time Control Parameters:
+[T = 10.0]           # analysis end time
+[N = 10]             # N time steps
+#
+# Material Parameters:
+[E = 1.0E7]          # Elastic Modulus
+[NU = 0.25]          # Poissons' Ratio
+[G = E/(2*(1+NU))]   # (derived) Shear Modulus
+[K = E/(3*(1-2*NU))] # (derived) Bulk Modulus
+# Hyperelastic Parameter "beta": ranges from 0.0 (neo-Hookean) to 1.0
+[BETA = 0.0]
+#
+# Boundary Condition Parameters:
+[TAU = 2.0E6]        # magnitude of the applied torsional shear stresses
+#
+# ==================================================================== #
+
+VERSION = V15
+
+MESH = ../../vtkgen/tests/example1.vtk
+
+PHYSICS {
+  DIMENSION = 3
+  DEFORMATION = FINITE_DEF
+  ANALYSIS = STATIC
+  STRESS_TOLERANCE = 0.02
+  MAX_NR_ITERATIONS = 50
+  MAX_SOLUTION_PASSES = 100
+
+  STEP {
+    START_TIME = 0.0
+    END_TIME = [T]
+    TIME_STEP = [T/N]
+    SKIP = 0
+#   Use a stepwise-coupled (SC) solution strategy:
+    SOLUTION_STRATEGY = SC
+  }
+}
+
+MATERIAL ALUMINUM {
+  TYPE = HYPERELASTIC
+# SI Units (kg,m,s)
+  DENSITY = 2.7E3
+  D1 = [K/2]
+  C1 = [BETA*G/2]
+  C2 = [(1.0-BETA)*G/2]
+}
+
+SOLID {
+  ELEMENT_SET = 1
+  MATERIAL = ALUMINUM
+  FORMULATION = pem_hex8q12
+}
+
+DIRECTION X_DIR {
+         #  X    Y    Z
+  VECTOR = 1.0  0.0  0.0
+}
+
+DIRECTION Y_DIR {
+         #  X    Y    Z
+  VECTOR = 0.0  1.0  0.0
+}
+
+DIRECTION Z_DIR {
+         #  X    Y    Z
+  VECTOR = 0.0  0.0  1.0
+}
+
+FUNCTION RAMP {
+  TABLE {
+  # abscissa ordinate
+    0.0       0.0
+    [T]       1.0
+    [2*T]     1.0
+  }
+}
+
+
+FUNCTION CONSTANT {
+  TABLE {
+  # abscissa ordinate
+    0.0       1.0
+    [T]       1.0
+  } 
+}
+
+# Fully constrain the fixed end of the square pipe (node set 1).
+DISPLACEMENT {
+  NODE_SET = 1
+  SCALE_FACTOR = 0.0
+  DIRECTION = X_DIR
+  MAGNITUDE = CONSTANT
+}
+
+DISPLACEMENT {
+  NODE_SET = 1
+  SCALE_FACTOR = 0.0
+  DIRECTION = Y_DIR
+  MAGNITUDE = CONSTANT
+}
+
+DISPLACEMENT {
+  NODE_SET = 1
+  SCALE_FACTOR = 0.0
+  DIRECTION = Z_DIR
+  MAGNITUDE = CONSTANT
+}
+
+# Assign follower tractions to the faces at the free end 
+#   of the square pipe (facet sets 1-4).
+
+# bottom-edge
+FOLLOWER {
+  FACET_SET = 1
+  TYPE = PIOLA
+  SCALE_FACTOR = [+TAU]
+  DIRECTION = X_DIR
+  MAGNITUDE = RAMP
+}
+
+# left-edge
+FOLLOWER {
+  FACET_SET = 2
+  TYPE = PIOLA
+  SCALE_FACTOR = [-TAU]
+  DIRECTION = Y_DIR
+  MAGNITUDE = RAMP
+}
+
+# top-edge
+FOLLOWER {
+  FACET_SET = 3
+  TYPE = PIOLA
+  SCALE_FACTOR = [-TAU]
+  DIRECTION = X_DIR
+  MAGNITUDE = RAMP
+}
+
+# right-edge
+FOLLOWER {
+  FACET_SET = 4
+  TYPE = PIOLA
+  SCALE_FACTOR = [+TAU]
+  DIRECTION = Y_DIR
+  MAGNITUDE = RAMP
+}
+\end{lstlisting}
+
+\subsection{Example 2: Blast Pressure Loaded Plate}
+\begin{lstlisting}[showstringspaces=false]
+# ==================================================================== #
+#   EXAMPLE 2: BLAST PRESSURE LOADED PLATE
+# -------------------------------------------------------------------- #
+#   This example problem defines a square plate geometry consisting of
+#   isoparametric hex20 elements, and uses the "elastoplastic" material
+#   model. The edges of the plate have all of their displacement
+#   degrees of freedom held fixed, whilst the top surface of the plate
+#   has a Cauchy pressure applied to it whose time history is 
+#   consistent with a fluid blast wave. Because inertial effects are
+#   significant for this problem, the analysis setting has been
+#   set to DYNAMIC.
+# ==================================================================== #
+#
+# Define preppy variables:
+#
+# Time Control Parameters:
+[T = 0.2]       # analysis end time
+[N = 40]        # N time steps
+#
+# Blast Pressure Parameters:
+[PMAG = 3.0e5]  # magnitude of the initial blast pressure
+[TP = 0.01]     # time period over which the blast pressure is positive
+[B = 1.0]       # the blast pressure decay constant
+#
+# ==================================================================== #
+
+VERSION = V15
+
+MESH = ../../vtkgen/tests/example2.vtk
+
+PHYSICS {
+  DIMENSION = 3
+  DEFORMATION = FINITE_DEF
+  ANALYSIS = DYNAMIC
+  STRESS_TOLERANCE = 0.02
+  MAX_NR_ITERATIONS = 50
+  MAX_SOLUTION_PASSES = 100
+  STEP {
+    START_TIME = 0.0
+    END_TIME = [T]
+    TIME_STEP = [T/N]
+    SKIP = 0
+    # Use a stepwise-coupled (SC) solution strategy:
+    SOLUTION_STRATEGY = SC
+  }
+}
+
+MATERIAL ALUMINUM {
+  TYPE = ELASTOPLASTIC
+# SI Units (kg,m,s)
+  DENSITY = 2.7E3
+  YOUNGS_MODULUS = 1.0E7
+  POISSONS_RATIO = 0.25
+  HARDENING_MODULUS = 1.0E5
+  YIELD_STRESS = 2.4E5
+}
+
+SOLID {
+  ELEMENT_SET = 1
+  MATERIAL = ALUMINUM
+}
+
+DIRECTION X_DIR {
+         #  X    Y    Z
+  VECTOR = 1.0  0.0  0.0
+}
+
+DIRECTION Y_DIR {
+         #  X    Y    Z
+  VECTOR = 0.0  1.0  0.0
+}
+
+DIRECTION Z_DIR {
+         #  X    Y    Z
+  VECTOR = 0.0  0.0  1.0
+}
+
+
+
+
+FUNCTION CONSTANT {
+  TABLE {
+  # abscissa ordinate
+    0.0       1.0
+    [T]       1.0
+  } 
+}
+
+# Define an exponentially decaying blast load with a pressure sign reversal
+FUNCTION BLAST {
+  EXPRESSION = "[PMAG]*(1.0-t/[TP])*exp(-[B]*t/[TP])"
+}
+
+# Constrain the edges of the elastic plate (node set 1)
+DISPLACEMENT {
+  NODE_SET = 1
+  SCALE_FACTOR = 0.0
+  DIRECTION = X_DIR
+  MAGNITUDE = CONSTANT
+}
+DISPLACEMENT {
+  NODE_SET = 1
+  SCALE_FACTOR = 0.0
+  DIRECTION = Y_DIR
+  MAGNITUDE = CONSTANT
+}
+DISPLACEMENT {
+  NODE_SET = 1
+  SCALE_FACTOR = 0.0
+  DIRECTION = Z_DIR
+  MAGNITUDE = CONSTANT
+}
+
+# Assign the blast pressure to the top face of the plate (facet set 1)
+PRESSURE {
+  TYPE = CAUCHY
+  FACET_SET = 1
+  SCALE_FACTOR = 1.0
+  MAGNITUDE = BLAST
+}
+\end{lstlisting}
+
+\newpage
+\subsection{Example 3: Rigidly Rotating Block Contacting an Elastic Surface}
+\begin{lstlisting}[showstringspaces=false]
+# ==================================================================== #
+#   EXAMPLE 3: RIGIDLY ROTATING BLOCK CONTACTING AN ELASTIC SURFACE
+# -------------------------------------------------------------------- #
+#   This example problem defines a rigid cube and an elastic surface
+#   geometry consisting of isoparametric hex8 elements, and uses the
+#   "elastic" material model. The bottom face of the elastic surface
+#   has all of its displacement degrees of freedom held fixed, whilst 
+#   each vertical edge of the rigid block has its displacement
+#   components independently controlled, such that the block rigidly
+#   rotates and translates downward to come into contact with the
+#   elastic surface. A pair of facet sets are defined on the top face
+#   of the elastic surface and on the bottom face of the rigid block,
+#   such that a contact interaction can be defined between them.
+# ==================================================================== #
+#
+# Define preppy variables:
+#
+# Time Control Parameters:
+[T = 10.0]         # analysis end time
+[N = 100]          # N time steps
+[DP = 0.1]         # output (plotted) time step
+#
+# Block Displacement Parameters:
+[D = 0.5]          # vertical block movement
+[H = 1.1]          # block width
+[R = sqrt(2)*H]    # block circumscribing radius
+[OMEGA = 0.15621]  # angular velocity multiplier
+#
+# ==================================================================== #
+
+VERSION = V15
+
+MESH = ../../vtkgen/tests/example3.vtk
+
+PHYSICS {
+  DIMENSION = 3
+  DEFORMATION = FINITE_DEF
+  ANALYSIS = STATIC
+  CONTACT = ON
+  STRESS_TOLERANCE = 0.02
+  MAX_NR_ITERATIONS = 50
+  MAX_SOLUTION_PASSES = 100
+
+
+
+
+
+
+  STEP {
+    START_TIME = 0.0
+    END_TIME = [T]
+    TIME_STEP = [T/N]
+    SKIP = [DP*N/T-1]
+    # Use a stepwise-coupled (SC) solution strategy:
+    SOLUTION_STRATEGY = SC
+  }
+}
+
+MATERIAL ALUMINUM {
+  TYPE = ELASTIC
+# SI Units (kg,m,s)
+  DENSITY = 2.7E3
+  YOUNGS_MODULUS = 1.0E7
+  POISSONS_RATIO = 0.25
+}
+
+SOLID {
+  ELEMENT_SET = 1
+  MATERIAL = ALUMINUM
+}
+
+DIRECTION X_DIR {
+         #  X    Y    Z
+  VECTOR = 1.0  0.0  0.0
+}
+
+DIRECTION Y_DIR {
+         #  X    Y    Z
+  VECTOR = 0.0  1.0  0.0
+}
+
+DIRECTION Z_DIR {
+         #  X    Y    Z
+  VECTOR = 0.0  0.0  1.0
+}
+
+FUNCTION RAMP {
+  TABLE {
+  # abscissa ordinate
+    0.0       0.0
+    [T]       1.0
+    [2*T]     1.0
+  }
+}
+
+
+
+
+FUNCTION CONSTANT {
+  TABLE {
+  # abscissa ordinate
+    0.0       1.0
+    [T]       1.0
+  } 
+}
+
+# Constrain the bottom face of the elastic surface (node set 1)
+DISPLACEMENT {
+  NODE_SET = 1
+  SCALE_FACTOR = 0.0
+  DIRECTION = X_DIR
+  MAGNITUDE = CONSTANT
+}
+DISPLACEMENT {
+  NODE_SET = 1
+  SCALE_FACTOR = 0.0
+  DIRECTION = Y_DIR
+  MAGNITUDE = CONSTANT
+}
+DISPLACEMENT {
+  NODE_SET = 1
+  SCALE_FACTOR = 0.0
+  DIRECTION = Z_DIR
+  MAGNITUDE = CONSTANT
+}
+
+# Constrain the edges of the rigid block (node sets 2-5)
+# Edge 1:
+FUNCTION UX1 {
+  EXPRESSION = "[R]*(cos([OMEGA]*pi*t/[T]+5*pi/4)-cos(5*pi/4))"
+}
+FUNCTION UY1 {
+  EXPRESSION = "[R]*(sin([OMEGA]*pi*t/[T]+5*pi/4)-sin(5*pi/4))"
+}
+
+DISPLACEMENT {
+  NODE_SET = 2
+  SCALE_FACTOR = 1.0
+  DIRECTION = X_DIR
+  MAGNITUDE = UX1
+}
+DISPLACEMENT {
+  NODE_SET = 2
+  SCALE_FACTOR = 1.0
+  DIRECTION = Y_DIR
+  MAGNITUDE = UY1
+}
+
+DISPLACEMENT {
+  NODE_SET = 2
+  SCALE_FACTOR = [-D]
+  DIRECTION = Z_DIR
+  MAGNITUDE = RAMP
+}
+
+# Edge 2:
+FUNCTION UX2 {
+  EXPRESSION = "[R]*(cos([OMEGA]*pi*t/[T]-pi/4)-cos(-pi/4))"
+}
+FUNCTION UY2 {
+  EXPRESSION = "[R]*(sin([OMEGA]*pi*t/[T]-pi/4)-sin(-pi/4))"
+}
+
+DISPLACEMENT {
+  NODE_SET = 3
+  SCALE_FACTOR = 1.0
+  DIRECTION = X_DIR
+  MAGNITUDE = UX2
+}
+DISPLACEMENT {
+  NODE_SET = 3
+  SCALE_FACTOR = 1.0
+  DIRECTION = Y_DIR
+  MAGNITUDE = UY2
+}
+DISPLACEMENT {
+  NODE_SET = 3
+  SCALE_FACTOR = [-D]
+  DIRECTION = Z_DIR
+  MAGNITUDE = RAMP
+}
+
+# Edge 3:
+FUNCTION UX3 {
+  EXPRESSION = "[R]*(cos([OMEGA]*pi*t/[T]+pi/4)-cos(pi/4))"
+}
+FUNCTION UY3 {
+  EXPRESSION = "[R]*(sin([OMEGA]*pi*t/[T]+pi/4)-sin(pi/4))"
+}
+
+DISPLACEMENT {
+  NODE_SET = 4
+  SCALE_FACTOR = 1.0
+  DIRECTION = X_DIR
+  MAGNITUDE = UX3
+}
+
+
+DISPLACEMENT {
+  NODE_SET = 4
+  SCALE_FACTOR = 1.0
+  DIRECTION = Y_DIR
+  MAGNITUDE = UY3
+}
+DISPLACEMENT {
+  NODE_SET = 4
+  SCALE_FACTOR = [-D]
+  DIRECTION = Z_DIR
+  MAGNITUDE = RAMP
+}
+
+# Edge 4:
+FUNCTION UX4 {
+  EXPRESSION = "[R]*(cos([OMEGA]*pi*t/[T]+3*pi/4)-cos(3*pi/4))"
+}
+FUNCTION UY4 {
+  EXPRESSION = "[R]*(sin([OMEGA]*pi*t/[T]+3*pi/4)-sin(3*pi/4))"
+}
+
+DISPLACEMENT {
+  NODE_SET = 5
+  SCALE_FACTOR = 1.0
+  DIRECTION = X_DIR
+  MAGNITUDE = UX4
+}
+DISPLACEMENT {
+  NODE_SET = 5
+  SCALE_FACTOR = 1.0
+  DIRECTION = Y_DIR
+  MAGNITUDE = UY4
+}
+DISPLACEMENT {
+  NODE_SET = 5
+  SCALE_FACTOR = [-D]
+  DIRECTION = Z_DIR
+  MAGNITUDE = RAMP
+}
+
+# Define the contact interaction pair of facet sets (1-2)
+CONTACT_INTERACTION {
+  FACET_SET_1 = 1
+  FACET_SET_2 = 2
+}
+\end{lstlisting}
+
+\end{document}

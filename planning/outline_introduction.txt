@@ -1,0 +1,171 @@
+% = CHAPTER
+$ = SECTION
+& = PARAGRAPH
+#/@ = DO'S/DONT'S
+
+#PRIMARY purpose of the introduction is to establish what YOU did to the uninitiated
+#DO NOT use any equations in the introduction, just say things in words
+#DO NOT go into excessive technical detail
+#DO NOT belabour the existence of the problem to begin with -- the reader knows this
+#DO NOT turn the introduction into a literature review?
+@ASSUME the reader is familiar with the general topic of finite element/nonlinearities
+@FOCUS  on your own contributions
+
+%INTRODUCTION:
+	$OPENING (scope the thesis)
+		&A high-level description of the research setting:
+			*Efficient & accurate approximation methods for nonlinear solid mechanics
+		&A high-level statement of the fundamental problem(s):
+			*FE solution accuracy is compromised by the issues of locking and mesh quality
+			*Proposed solutions handle some, but not all of these problems
+		&A high-level statement of the proposed solution(s):
+			*Thesis presents a polytopal element framework to address these issues
+			*Polyhedral discretization is aimed at overcoming issues of mesh quality
+			*Framework is amenable to classical FE procedures used to address locking
+	$HISTORICAL DEVELOPMENT (what has led up to polyhedral discretizations)
+		&Origin of finite element methods, applied to solid mechanics problems
+			*Finite elements developed initially for LINEAR, structural problems
+		&Subsequently, more complicated models were developed to accomodate nonlinearities:
+			*Finite deformations incorporated to handle non-linear geometric effects
+			*Advanced constitutive models developed for plastic and viscoelastic materials
+			*Contact between elastic bodies (more geometric non-linearity)
+		&Finite element methods still hold up in the aforementioned contexts because:
+			*Compact support property of basis functions yields efficient solutions
+				-Domain decomposition more straightforward, parallel scalability
+			*Element quadrature rules effectively consider individual material points
+				-leads to reasonable accuracy and solution efficiency
+				-directly compatible with the theory of continuum mechanics
+				-naturally accomodates non-linear kinematics
+				-naturally accomodates non-linear constitutive models
+			*Yields a precise description of mesh boundaries
+				-allows for straightforward contact enforcement
+				-application of other BC's (FSI pressures) also straightforward
+		&However, finite element methods have suffered from two major (but related) issues:
+			*Poor solution accuracy due to effects of ``locking''
+				-The quality and type of discretization heavily impacts accuracy
+				-Low order elements suffer the most from these issues
+				-Linear tetrahedra and triangles are the worst offenders
+				-Thin an distorted elements perform poorly
+			*Meshing of complex geometries into quality discretizations is difficult
+				-Generally time-consuming to produce quality meshes (human effort)
+				-Hard or impossible to avoid mesh distorsion
+		&Concerted efforts were made to address the issues of locking
+			*Higher-order elements
+				-shown to eliminate locking issues at high enough order
+				-accuracy still highly contingent on element distortion
+			*Selective Reduced Integration techniques
+				-developed to handle incompressibility constraint
+				-works fairly well, though 
+			*Hourglass stiffness and viscosity
+				-use underintegration of the element (single point quadrature)
+				-supplement with (small) artificial stiffness & viscosity parameters
+				-efficient computationally, especially for explicit dynamics
+				-an ad hoc solution, sensitive to the choice of HG parameters
+			*Mixed formulations based on Hu-Washizu principle
+				-one of the most robust solutions to locking
+				-directed at incompressibility, resolves pressure field accurately
+				-requires the interpolation of displacement, strain, and stress fields
+				-must satisfy the inf-sup (LBB) conditions for stability
+				-somewhat limited, based on the choice for the material model
+				-can suffer from issues of numerical conditioning
+			*Method of incompatible modes
+				-aimed mostly at improving bending performance of elements
+				-based on mixed formulations, reduced to 2-field method
+				-considers enhanced strain mode degrees of freedom
+				-enhanced dofs can be condensed out at the element level
+				-performance of elements is still sensitive to mesh distortion
+			*Important point: most of these methods restricted to standard (hex) elements
+				-not easily generalizable/extensible to other elements/methods
+		&Efforts toward meshing & element quality led to new methods & discretizations
+			*Meshfree methods
+				-avoid issues of mesh sensitivity altogether -- abandon the mesh
+				-construct shape functions using weighting/kernal functions
+				-several different varieties: SPH, MLS, RKPM, Max-Ent
+				-solutions tend to be much smoother
+				-able to handle severe/extreme deformations & changing topology
+				-lose compact support property; less computationally efficient
+				-boundaries are not well-defined; handling of BCs and contact is hard
+				-suffers from issues of numerical integration; lose consistency
+				-need to define a background mesh for integration (NOT mesh-free)
+			*Discontinuous Galerkin methods
+				-accomodate arbitrary polytopal domains
+				-solution within a given polytopal domain is locally polynomial
+				-tends to be fairly robust across different discretizations
+				-relatively efficient, shares some favorable characteristics of FEM
+				-penalty terms are needed to enforce BCs & weak continuity
+				-penalty parameters are problem dependent, must be chosen carefully
+			*Weak Galerkin methods
+				-more recently developed approach
+				-can handle arbitrary polytopal element domains
+				-based on the notion of weak derivatives
+				-similar in some respects to DG methods; polynomial basis functions
+				-dofs stored in element domains, and on element boundaries
+				-weak derivative property avoids need for penalty terms (unlike DG)
+				-may result in a large number of unknowns, less efficient
+				-current formulations place limits on element geometry
+			*Hex-dominant meshing
+				-still limited by element distortion (lower high-order convergence)
+		&Polygonal and Polyhedral methods
+			*element geometry made to be more flexible (arbitrary)
+				-opens up new possibilities for meshing
+			*construct basis functions directly on the elements (no isoparametric map)
+			*basis functions possess compact support; numerically efficient
+			*mesh boundaries again well-defined; good for contact & BC enforcement
+			*techniques developed for efficient domain integration (Sukumar, Mousavi)
+		&New discretization methods have made polyhedral meshing more accessible
+			*Voronoi meshing has made leaps and bounds in recent years (Ebeida)
+			*Efforts made toward hex mesh intersection with B-rep geometry (Celeris)
+		&Justify current demand for reliable and robust polyhedral element methods
+	$PREVIOUS WORK / POLYHEDRAL DISCRETIZATIONS (specifically, polyhedral finite element methods)
+		&Reiterate the main motivation behind polyhedral discretizations
+			*Want to avoid meshing limitations while preserving desirable FEM properties
+				-definition of quadrature rules & precise boundary description
+		&Overview of efforts to define interpolants directly on polytopal domains
+			*Briefly describe the idea of generalized barycentric coordinates
+				-harmonic/Laplace coordinates
+				-Waschpress coordinates
+				-maximum entropy coordinates
+			*Require significant number of quadrature points to retain accuracy
+			*Many approaches are limited by restrictions on element geometry/convexity
+		&Overview of virtual element methods (avoid definition of SFs on element domains)
+			*never explicitly constructs/represents shape functions on elements
+			*considers ``virtual'' shape functions, projected onto a polynomial subspace
+			*exploits linearity of bilinear form to separate consistency & stability terms
+			*consistency term formed by low-order polynomial projection of virtual SFs
+			*stability term formed by higher-order projection, scaled by HG parameter
+			*limited in applicability to linear problems (some efforts toward nonlinear)
+			*stabilization still a somewhat ad hoc procedure
+		&Overview of efforts to define shape functions only loosely over element domains
+			*Somewhere in between the barycentric coordinate-type elements, and the VEM
+			*VETFEM (variable element topology finite element method)
+				-define SFs as polynomials, subject to continuity requirements
+				-suffers from robustness issues
+			*DDPFEM (discrete data polyhedral finite element method)
+				-define only SF values and gradients at discrete points
+				-requires a partition of the element into cells
+				-element formulation more robust with finer partition
+			*PEM (partitioned element method)
+				-embraces element partition idea
+				-construct SFs in hierarchial manner, assume SFs piecewise polynomial
+			*Joe Bishop's version of FE-based approximants w/ Laplace shape functions
+				-similar in concept: discretize element domain
+				-use FE basis functions on a local tet mesh, solve Laplace equation
+		&Lead into the present work, following last category: ``partitioned element methods''
+	$SCOPE OF THE PRESENT WORK
+		&Description of the partitioned element framework
+			*Elements are discretized (partitioned) into cells (atomic units of mesh)
+			*Approximation space is constructed on this partition (much like FE, etc.)
+			*A local BVP is solved to obtain shape functions on the partition
+			*Solution method depends on choice of local approximation method; many choices
+			*Quadrature rules on the element are informed by the partition
+		&Assert that nonlinearities (material & kinematic) are accomodated in this framework
+		&Describe how this framework can accomodate standard anti-locking formulations
+			*Allude to the incorporation of these methods as part of present research
+		&Overview of contents each chapter
+			*Chapter 2 establishes the solid mechanics BVP and considerations
+			*Chapter 3 develops essential conditions on FE-like methods & improvements
+			*Chapter 4 presents a general class of partitioned element methods
+			*Chapter 5 details an implementational framework for the PEM
+			*Chapter 6 provides a number of numerical investigations into the PEM
+			*Chapter 7 discusses opportunities for further research & development
+

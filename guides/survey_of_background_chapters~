@@ -1,0 +1,24 @@
+Baldwin - Continuum Mechanics Problem Statement
+		simply states the continuum mechanics problem in the span of just 2 pages!
+Emerson - No mention of solid mechanics, but provides framework for other stuff
+Gullet - Overview of Galerkin methods
+		-Governing equations: jumps straight to Strong form, then Weak form
+		-Galerkin method: consider subspace approx, Convergence, FEM, Meshless methods, VETFEM
+Selimotic - Finite element formulation
+		-Continuum Mechanics BVP formulation: strong form
+		-Weak form & discretization
+		-Conventional FEM & Galerkin approach
+		-Main characteristics and constraints of the conventional FEM
+		-Intro to VETFEM
+Settgast - Finite element preliminaries
+		-FEM equations of motion: strong to weak in 2 pages
+		-time stepping
+		-Element formulation
+		-Kinematics for constitutive input
+Wopschall - Notational and Mathematical Preliminaries
+	  - Introduction to nonlinear Solid Mechanics
+	  - Finite element Formulation in Nonlinear solid mechanics
+	  - Nonlinear solution strategies
+		(probably all of this goes into excessive detail; don't really need all this
+
+CORE IDEA: focus on what YOU did; don't explain foundational elements. Only bring these up if relevant

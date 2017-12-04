@@ -1,0 +1,125 @@
+\title{Finite Deformations}
+\author{B. Giffin}
+\date{\today}
+
+\documentclass[12pt]{article}
+
+\usepackage{graphicx} % support the \includegraphics command and options
+\usepackage[margin=1.0in]{geometry}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+
+\begin{document}
+
+For the element-level calculations, we require:
+\begin{equation}
+	\mathbf{f}_a = \int_{\Omega_0} \mathbf{P} \cdot \nabla \varphi_a dV = \sum_{q = 1}^{N_{qp}} w_q \mathbf{P}^{(q)} \cdot \nabla \varphi^{(q)}_a
+\end{equation}
+Abstractly, we could consider the step-wise procedure of constructing $\mathbf{P}$:
+\begin{equation}
+	\mathbf{P} = J \boldsymbol{\sigma} \mathbf{F}^{-T}
+\end{equation}
+where
+\begin{equation}
+	J = | \mathbf{F} |
+\end{equation}
+\begin{equation}
+	\boldsymbol{\sigma} = \frac{\partial W}{\partial \mathbf{B}} (\mathbf{B})
+\end{equation}
+\begin{equation}
+	\mathbf{B} = \mathbf{F} \mathbf{F}^T
+\end{equation}
+\begin{equation}
+	\mathbf{F} = \mathbf{I} + \sum_{a = 1}^{N_{nd}} \mathbf{u}_a \otimes \nabla \varphi_a
+\end{equation}
+Suppose that we are interested in the compressible neo-hookean hyperelastic constitutive model:
+\begin{equation}
+	W = \frac{\mu}{2} (I_1 - 3) - \mu \ln J + \frac{\lambda}{2} ( \ln J )^2
+\end{equation}
+where
+\begin{equation}
+	\boldsymbol{\sigma} = \frac{\mu}{J} (\mathbf{B} - \mathbf{I}) + \frac{\lambda}{J} ( \ln J ) \mathbf{I}
+\end{equation}
+and
+\begin{equation}
+	\frac{\partial \boldsymbol{\sigma}}{\partial \mathbf{B}} = - \frac{\mu}{J^2} \frac{\partial J}{\partial \mathbf{B}} \mathbf{B} + \frac{\mu}{J} \mathbf{I} \otimes \mathbf{I} - \frac{\lambda}{J^2} \frac{\partial J}{\partial \mathbf{B}} ( \ln J ) \mathbf{I} + \frac{\lambda + \mu}{J^2} \frac{\partial J}{\partial \mathbf{B}} \mathbf{I}
+\end{equation}
+\begin{equation}
+	\frac{\partial \boldsymbol{\sigma}}{\partial \mathbf{B}} = \frac{\mu}{J} \mathbf{I} \otimes \mathbf{I} - \frac{1}{J^2} \frac{\partial J}{\partial \mathbf{B}} \bigg( (\lambda + \mu) \mathbf{I} - \mu \mathbf{B} - \lambda ( \ln J ) \mathbf{I} \bigg)
+\end{equation}
+\begin{equation}
+	\frac{\partial \boldsymbol{\sigma}}{\partial \mathbf{B}} = \frac{\mu}{J} \mathbf{I} \otimes \mathbf{I} + \frac{1}{J^2} \bigg( \mu ( \mathbf{B} - \mathbf{I} ) + \lambda ( \ln J - 1 ) \mathbf{I} \bigg) \frac{\partial J}{\partial \mathbf{B}}
+\end{equation}
+\begin{equation}
+	\frac{\partial J}{\partial \mathbf{B}} = \frac{\partial J}{\partial \mathbf{F}} \frac{\partial \mathbf{F}}{\partial \mathbf{B}} = J \mathbf{F}^{-T} \frac{\partial \mathbf{F}}{\partial \mathbf{B}}
+\end{equation}
+\begin{equation}
+	\frac{\partial \boldsymbol{\sigma}}{\partial \mathbf{B}} = \frac{\mu}{J} \mathbf{I} \otimes \mathbf{I} + \frac{1}{J} \bigg( \mu ( \mathbf{B} - \mathbf{I} ) + \lambda ( \ln J - 1 ) \mathbf{I} \bigg) \mathbf{F}^{-T} \frac{\partial \mathbf{F}}{\partial \mathbf{B}}
+\end{equation}
+\begin{equation}
+	\frac{\partial \mathbf{F}}{\partial \mathbf{B}} = \bigg( \frac{\partial \mathbf{B}}{\partial \mathbf{F}} \bigg)^{-1}
+\end{equation}
+\begin{equation}
+	\frac{\partial \mathbf{B}}{\partial \mathbf{F}} = \mathbf{I} \otimes \mathbf{F}^T + \mathbf{F} \otimes \mathbf{I}
+\end{equation}
+\begin{equation}
+	\frac{\partial \sigma_{ij}}{\partial F_{kl}} = \frac{\mu}{J} (\delta_{ik} F_{jl} + \delta_{jk} F_{il}) + \frac{1}{J} \bigg( \mu ( B_{ij} - \delta_{ij} ) + \lambda ( \ln J - 1 ) \delta_{ij} \bigg) F_{lk}^{-1}
+\end{equation}
+
+Or
+\begin{equation}
+	\sigma_{ik} = \frac{1}{J} \bigg( \mu (F_{il} F_{kl} - \delta_{ik}) + \lambda ( \ln J ) \delta_{ik} \bigg)
+\end{equation}
+\begin{equation}
+	\frac{\partial \sigma_{ik}}{\partial F_{mn}} = \frac{1}{J} \bigg( \mu ( \delta_{im} F_{kn} + F_{in} \delta_{km} ) + \left[ \mu (\delta_{ik} - F_{il} F_{kl}) + \lambda ( 1 - \ln J ) \delta_{ik} \right] F_{nm}^{-1} \bigg)
+\end{equation}
+
+So
+\begin{equation}
+	P_{ij} = J \sigma_{ik} F_{jk}^{-1}
+\end{equation}
+\begin{equation}
+	P_{ij} = \mu (F_{ij} - F_{ji}^{-1}) + \lambda ( \ln J ) F_{ji}^{-1}
+\end{equation}
+\begin{eqnarray}
+	\frac{\partial P_{ij}}{\partial F_{mn}} = J \sigma_{ik} (F_{nm}^{-1} F_{jk}^{-1} - F_{jm}^{-1} F_{nk}^{-1}) \\ + \bigg( \mu ( \delta_{im} \delta_{jn} + F_{in} F_{jm}^{-1} ) + \left[ \mu (F_{ji}^{-1} - F_{ij}) + \lambda ( 1 - \ln J ) F_{ji}^{-1} \right] F_{nm}^{-1} \bigg)
+\end{eqnarray}
+\begin{eqnarray}
+	\frac{\partial P_{ij}}{\partial F_{mn}} = \bigg( \mu \left[ (F_{ij} - F_{ji}) F_{nm}^{-1} + (F_{ni} - F_{in}) F_{jm}^{-1}\right] + \lambda ( \ln J ) (F_{ji}^{-1} F_{nm}^{-1} - F_{ni}^{-1} F_{jm}^{-1}) \bigg) \\ + \bigg( \mu ( \delta_{im} \delta_{jn} + F_{in} F_{jm}^{-1} ) + \left[ \mu (F_{ji}^{-1} - F_{ij}) + \lambda ( 1 - \ln J ) F_{ji}^{-1} \right] F_{nm}^{-1} \bigg)
+\end{eqnarray}
+\begin{equation}
+	\frac{\partial P_{ij}}{\partial F_{mn}} = \mu (\delta_{im} \delta_{jn} + F_{ni}^{-1} F_{jm}^{-1}) + \lambda ( F_{ji}^{-1} F_{nm}^{-1} - ( \ln J ) F_{ni}^{-1} F_{jm}^{-1} )
+\end{equation}
+
+Ultimately:
+\begin{equation}
+	P_{ij} = \mu (F_{ij} - F_{ji}^{-1}) + \lambda ( \ln J ) F_{ji}^{-1}
+\end{equation}
+\begin{equation}
+	\frac{\partial P_{ij}}{\partial F_{mn}} = \mu (\delta_{im} \delta_{jn} + F_{ni}^{-1} F_{jm}^{-1}) + \lambda ( F_{ji}^{-1} F_{nm}^{-1} - ( \ln J ) F_{ni}^{-1} F_{jm}^{-1} )
+\end{equation}
+
+And
+\begin{equation}
+	F_{mn} = \delta_{mn} + \sum_{a = 1}^{N_{nd}} u_{ma} \varphi_{a,n}
+\end{equation}
+\begin{equation}
+	P_{ij} = \mu (F_{ij} - F_{ji}^{-1}) + \lambda ( \ln J ) F_{ji}^{-1}
+\end{equation}
+\begin{equation}
+	\frac{\partial F_{mn}}{\partial u_{kb}} = \delta_{mk} \varphi_{b,n}
+\end{equation}
+\begin{equation}
+	\frac{\partial P_{ij}}{\partial u_{kb}} = \left[ \mu (\delta_{ik} \delta_{jn} + F_{ni}^{-1} F_{jk}^{-1}) + \lambda ( F_{ji}^{-1} F_{nk}^{-1} - ( \ln J ) F_{ni}^{-1} F_{jk}^{-1} ) \right] \varphi_{b,n}
+\end{equation}
+
+Finally:
+\begin{equation}
+	f_{ia} = \sum_{q} w_q P^{(q)}_{ij} \varphi^{(q)}_{a,j}
+\end{equation}
+\begin{equation}
+	K_{iakb} = \sum_{q} w_q \frac{\partial P^{(q)}_{ij}}{\partial u_{kb}} \varphi^{(q)}_{a,j}
+\end{equation}
+
+\end{document}

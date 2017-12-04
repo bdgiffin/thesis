@@ -1,0 +1,98 @@
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage{graphicx} % support the \includegraphics command and options
+\usepackage[margin=1.0in]{geometry}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{A Brief Overview of Weak Galerkin Methods}
+
+The so-called ``weak Galerkin'' finite element method first introduced by Wang and Ye for elliptic problems in \cite{wg_elliptic}, and for parabolic equations by Li and Wang in \cite{wg_parabolic}, pursues the discretization of a (2D) problem domain $\Omega$ into polygonal elements $K$ and element edges $e$. The method considers the space of ``weak functions'' $v \in W (\Omega)$ satisfying
+\begin{equation}
+	W (\Omega) = \left\{ v \, \colon v|_K \in L^2 (K) \, \forall K, \, v|_{\partial K} \in H^{1/2} (\partial K) \, \forall K \right\},
+\end{equation}
+where
+\begin{equation}
+	H^{1/2} (\partial K) \equiv \left\{ v \in L^2 (\partial K) \, | \, \exists \, v' \in H^1 (K) \, \colon v = \text{tr} (v') \right\},
+\end{equation}
+and $\text{tr}(v')$ denotes the trace of $v'$ on $\partial K$. For any $v \in W(\Omega)$, its ``weak gradient'' $\nabla_w v$ is defined on the interior of any element $K$ through its action on a vector field $\mathbf{q} \in H( \text{div}, K )$:
+\begin{equation}
+	\int_K \mathbf{q} \cdot \nabla_w v \, dK = - \int_K v|_K \nabla \cdot \mathbf{q} \, dK + \int_{\partial K} v|_{\partial K} \mathbf{q} \cdot \mathbf{n} \, de, \quad \forall \mathbf{q} \in H( \text{div}, K )
+\end{equation}
+and
+\begin{equation}
+	H( \text{div}, K ) \equiv \left\{ \mathbf{q} \in \left[ L^2 (K) \right]^d, \, \nabla \cdot \mathbf{q} \in L^2 (K) \right\}.
+\end{equation}
+By extension, the ``discrete weak gradient'' operator $\nabla_{w,r}$ is defined such that the ``discrete weak gradient'' of $v$ (denoted $\nabla_{w,r} v \in V (K,r)$) satisfies
+\begin{equation}
+	\int_K \mathbf{q} \cdot \nabla_{w,r} v \, dK = - \int_K v|_K \nabla \cdot \mathbf{q} \, dK + \int_{\partial K} v|_{\partial K} \mathbf{q} \cdot \mathbf{n} \, de, \quad \forall \mathbf{q} \in V( K, r ),
+\end{equation}
+where $V(K,r) \subset \left[ P_r (K) \right]^d$ is a subspace of the space of vector-valued polynomials of maximal degree $r$ defined on $K$. A weak Galerkin approximation method is then constructed using $W (\Omega)$ for the trial and test function spaces (which may be different, but are generally chosen to be the same), and using the discrete weak gradient operator in place of the classical gradient.
+
+It can be easily shown that the ``weak gradient'' of a proper $H^1 (K)$ function is equivalent to its gradient on $K$. Moreover, if $u \in H^1 (K)$ and if $Q$ is an $L^2$ projection operator onto a discrete polynomial sub-space $V( K, r ) \subset H^1 (K)$, then the discrete weak gradient of the projection $Qu$ is equal to the projection of the gradient of $u$, i.e.
+\begin{equation}
+	\nabla_{w,r} (Qu) = Q (\nabla u).
+\end{equation}
+The first publication on the subject (reference \cite{wg_elliptic}) goes into more extensive detail regarding the mathematical properties of the method, making use of the above identity to help prove existence and uniqueness, as well as providing standard error estimates in the $L^2$ and $H^1$ semi-norms.
+
+In general, the spaces of functions under consideration on the element interiors and edges are typically low-order polynomials (commonly just constants). However, there are some non-trivial choices that must be made regarding an optimal selection of these polynomial spaces for the sake of computational efficiency, which is discussed in more detail in reference \cite{wg_polynomial_reduction}. Within the published literature, there appears to be little discussion regarding numerical quadrature, ostensibly because exact quadrature rules exist for simplicial geometries, which are most often used with the method. Additionally, the method has so-far only been applied to the solution of linear problems.
+
+The computational accuracy of the approach has been explored by Mu et. al. in \cite{wg_computational_study}, showing that for certain problems, the weak Galerkin method converges at rates comparable to those of the standard FEM. Lin et. al. performed a comparative study between the weak Galerkin (WG), discontinuous Galerkin (DG), and mixed finite element (MFEM) methods in \cite{wg_comparative}, demonstrating some of the competitive and desirable characteristics of WG in contrast to DG or MFEMs (e.g. no need for penalty parameters, and definiteness of the resulting linear system of equations).
+
+Despite its generality, the method had only been extensively studied and applied to triangular or tetrahedral meshes, until Mu et. al. adapted the method for use on polytopal meshes in \cite{wg_polytopal} and \cite{wg_polynomial_reduction}, albeit with a number of shape regularity restrictions placed on the elements. In general, the implementation of WG considers the mesh degrees of freedom as belonging to both the elements and their edges, however in \cite{wg_polynomial_reduction} it is noted that the local element degrees of freedom can be expressed in terms of the bounding edge degrees of freedom to improve computational efficiency.
+
+A modified approach for solving Poisson's equation was also proposed by Wang et. al. in \cite{wg_modified}, which sought to express the value of $v$ restricted to an edge $e$ implicitly via
+\begin{equation}
+	v|_{e} = \left\{ v \right\} \equiv (v|_{K_1} + v|_{K_2})/2 \, \, \forall e = K_1 \cap K_2.
+\end{equation}Consequently, the discrete weak gradients are obtained from
+\begin{equation}
+	\int_K \mathbf{q} \cdot \nabla_{w,r} v \, dK = - \int_K v|_K \nabla \cdot \mathbf{q} \, dK + \int_{\partial K} \left\{ v \right\} \mathbf{q} \cdot \mathbf{n} \, de, \quad \forall \mathbf{q} \in V( K, r ).
+\end{equation}
+This modified approach, however, requires the inclusion of an additional term in the weak form which penalizes jumps in the solution value at element boundaries (i.e. $[\![ v ]\!] \equiv v|_{K_1} \mathbf{n}_1 + v|_{K_2} \mathbf{n}_2$), similiar to a discontinuous Galerkin method. The key advantage of this approach is that it successfully reduces computational expense by eliminating the need for having degrees of freedom belonging to the edges of the mesh, albeit at the cost of introducing a dependence upon the choice of a penalty parameter.
+
+
+
+While the weak Galerkin method possesses several unique aspects, it may be fruitful to consider its similarities to the PEM, to be discussed at a later time...
+
+\begin{thebibliography}{9}
+
+\bibitem{wg_comparative}
+Guang Lin, Jiangguo Liu, Farrah Sadre-Marandi,
+A comparative study on the weak Galerkin, discontinuous Galerkin, and mixed finite element methods,
+Journal of Computational and Applied Mathematics 273 (2015) 346-362.
+
+\bibitem{wg_elliptic}
+J. Wang, X. Ye,
+A weak Galerkin finite element method for second-order elliptic problems,
+J. Comput. Appl. Math. 241 (2013) 103-115.
+
+\bibitem{wg_polynomial_reduction}
+Lin Mu, Junping Wang, Xiu Ye,
+A weak Galerkin finite element method with polynomial reduction,
+Journal of Computational and Applied Mathematics 285 (2015) 45-58.
+
+\bibitem{wg_polytopal}
+L. Mu, J. Wang, X. Ye,
+Weak Galerkin finite element method for second-order elliptic problems on polytopal meshes,
+Int. J. Numer. Anal. Model. 12 (2015) 31-53.
+
+\bibitem{wg_computational_study}
+Mu, L., Wang, J., Wang, Y. et al.
+A computational study of the weak Galerkin method for second-order elliptic equations,
+Numer Algor (2013) 63: 753.
+
+\bibitem{wg_parabolic}
+Qiaoluan H. Li, Junping Wang,
+Weak Galerkin Finite Element Methods for Parabolic Equations
+Numer Methods Partial Differential Eq 29 (2013) 2004-2024.
+
+\bibitem{wg_modified}
+X. Wang, N.S. Malluwawadu, F. Gao, T.C. McMillan,
+A modified weak Galerkin finite element method,
+Journal of Computational and Applied Mathematics 271 (2014) 319-329.
+
+\end{thebibliography}
+
+\end{document}
