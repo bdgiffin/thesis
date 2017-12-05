@@ -6,7 +6,7 @@
 \contentsline {section}{\numberline {1.1}Historical Development}{1}
 \contentsline {subsection}{\numberline {1.1.1}Locking in Finite Elements}{3}
 \contentsline {subsection}{\numberline {1.1.2}Alternative Numerical Methods and Discretizations}{5}
-\contentsline {section}{\numberline {1.2}Recent Developments in Polytopal Discretizations}{9}
+\contentsline {section}{\numberline {1.2}Recent Developments in Polytopal Discretizations}{8}
 \contentsline {subsection}{\numberline {1.2.1}Continuous Interpolation on Arbitrary Polytopes}{9}
 \contentsline {subsection}{\numberline {1.2.2}Virtual Element Methods}{10}
 \contentsline {subsection}{\numberline {1.2.3}Approximate Interpolation on Arbitrary Polytopes}{11}
@@ -19,13 +19,12 @@
 \contentsline {subsection}{\numberline {2.2.1}Measures of Stress}{19}
 \contentsline {section}{\numberline {2.3}Constitutive Relations}{20}
 \contentsline {subsection}{\numberline {2.3.1}Models of Elasticity}{20}
-\contentsline {subsection}{\numberline {2.3.2}Equations of Material State}{22}
-\contentsline {section}{\numberline {2.4}A Model Solid Mechanics Boundary Value Problem}{23}
+\contentsline {section}{\numberline {2.4}Model Boundary Value Problem}{22}
 \contentsline {subsection}{\numberline {2.4.1}The Strong Form Statement of Equilibrium}{23}
 \contentsline {subsection}{\numberline {2.4.2}The Equivalent Weak Form Statement of Equilibrium}{24}
-\contentsline {section}{\numberline {2.5}Galerkin Approximations to the Weak Form}{25}
-\contentsline {subsection}{\numberline {2.5.1}Finite Element Methods}{26}
-\contentsline {section}{\numberline {2.6}Requirements for Convergence of an Approximation Method}{27}
+\contentsline {section}{\numberline {2.5}Galerkin Approximations to the Weak Form}{24}
+\contentsline {subsection}{\numberline {2.5.1}Finite Element Methods}{25}
+\contentsline {section}{\numberline {2.6}Requirements for Convergence of an \\ Approximation Method}{26}
 \contentsline {subsection}{\numberline {2.6.1}Satisfaction of Essential Boundary Conditions}{27}
 \contentsline {subsection}{\numberline {2.6.2}Completeness/Approximability}{27}
 \contentsline {subsection}{\numberline {2.6.3}Variational Consistency}{27}
@@ -36,7 +35,7 @@
 \contentsline {subsubsection}{\numberline {2.6.5.1}The Irons Patch Test}{27}
 \contentsline {subsubsection}{\numberline {2.6.5.2}The Generalized Patch Test}{27}
 \contentsline {subsubsection}{\numberline {2.6.5.3}The F-E-M Test}{27}
-\contentsline {section}{\numberline {2.7}Sources of Solution Nonlinearity in Solid Mechanics}{27}
+\contentsline {section}{\numberline {2.7}Nonlinear Solution Methods}{27}
 \contentsline {subsection}{\numberline {2.7.1}Finite Deformations and Nonlinear Kinematics}{27}
 \contentsline {subsection}{\numberline {2.7.2}Nonlinear Material Behavior}{27}
 \contentsline {subsection}{\numberline {2.7.3}Requirements of the Approximation Method}{27}

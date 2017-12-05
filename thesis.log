@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.8.23)  3 DEC 2017 17:21
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.8.23)  4 DEC 2017 17:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -338,18 +338,12 @@ LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <29.86> not available
 [1
 
 
-] [2] [3] [4] [5] [6] [7] [8]
-Overfull \hbox (6.6626pt too wide) in paragraph at lines 186--186
+] [2] [3] [4] [5] [6] [7]
+Overfull \hbox (6.6626pt too wide) in paragraph at lines 180--180
 []\OT1/cmr/bx/n/17.28 Recent De-vel-op-ments in Poly-topal Dis-cretiza-tions 
  []
 
-[9] [10]
-Overfull \hbox (8.77463pt too wide) in paragraph at lines 226--227
-[]\OT1/cmr/m/n/12 VEM for-mu-la-tions are able to tol-er-ate ge-o-met-ric de-ge
-n-era-cies and el-e-ment non-convexity
- []
-
-[11] [12] [13]) [14]
+[8] [9] [10] [11] [12]) [13] [14]
 \openout2 = `solid_mechanics.aux'.
 
  (./solid_mechanics.tex
@@ -454,7 +448,7 @@ e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on thesis.pdf (53 pages, 768927 bytes).
+Output written on thesis.pdf (53 pages, 766614 bytes).
 PDF statistics:
  253 PDF objects out of 1000 (max. 8388607)
  174 compressed objects within 2 object streams

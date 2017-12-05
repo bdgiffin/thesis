@@ -177,15 +177,15 @@ One of the primary challenges of working with hypoelastic models concerns the ma
 \end{equation}
 where $\mathbf{D}$ and $\mathbf{W}$ specify the rate of deformation and spin at a given material point, respectively.
 
-\subsection{Equations of Material State}
+%\subsection{Equations of Material State}
+%
+%In a continuum body $\mathcal{B}_t$, every material point $\mathbf{x} \in \mathcal{B}_t$ is endowed with a ``material state'' $S_t (\mathbf{x})$ at time $t$. In the context of Lagrangian solid mechanics, the material state $S_t = \left\{ \boldsymbol{\sigma}, \, q_{*} \right\}$ typically consists of the Cauchy stress tensor $\boldsymbol{\sigma}$, and any (possibly tensorial) internal state variables $q_{*}$ associated with the material model.
+%
+%In a computational setting, the analysis is usually subdivided into discrete time steps $\left\{ t_k \right\}_{k=0}^N$, and the motion of material points from time $t_k$ to $t_{k+1}$ is described by an incremental displacement field, denoted $\hat{\mathbf{u}} = \mathbf{u}_{k+1} - \mathbf{u}_{k}$. The deformation associated with this motion may be characterized by an incremental deformation gradient $\hat{\mathbf{F}} = \partial \mathbf{x}_{k+1} / \partial \mathbf{x}_k = \mathbf{1} + \nabla_{x_k} \hat{\mathbf{u}}$.
+%
+%Assuming that the material behaves in a rate-independent manner, a generic constitutive model $f \colon (S_k, \nabla_{x_k} \hat{\mathbf{u}}) \mapsto S_{k+1}$ should yield the updated material state $S_{k+1}$ at time $t_{k+1}$ as a function of the material state $S_k$ at time $t_k$, and the incremental displacement gradient $\nabla_{x_k} \hat{\mathbf{u}}$.
 
-In a continuum body $\mathcal{B}_t$, every material point $\mathbf{x} \in \mathcal{B}_t$ is endowed with a ``material state'' $S_t (\mathbf{x})$ at time $t$. In the context of Lagrangian solid mechanics, the material state $S_t = \left\{ \boldsymbol{\sigma}, \, q_{*} \right\}$ typically consists of the Cauchy stress tensor $\boldsymbol{\sigma}$, and any (possibly tensorial) internal state variables $q_{*}$ associated with the material model.
-
-In a computational setting, the analysis is usually subdivided into discrete time steps $\left\{ t_k \right\}_{k=0}^N$, and the motion of material points from time $t_k$ to $t_{k+1}$ is described by an incremental displacement field, denoted $\hat{\mathbf{u}} = \mathbf{u}_{k+1} - \mathbf{u}_{k}$. The deformation associated with this motion may be characterized by an incremental deformation gradient $\hat{\mathbf{F}} = \partial \mathbf{x}_{k+1} / \partial \mathbf{x}_k = \mathbf{1} + \nabla_{x_k} \hat{\mathbf{u}}$.
-
-Assuming that the material behaves in a rate-independent manner, a generic constitutive model $f \colon (S_k, \nabla_{x_k} \hat{\mathbf{u}}) \mapsto S_{k+1}$ should yield the updated material state $S_{k+1}$ at time $t_{k+1}$ as a function of the material state $S_k$ at time $t_k$, and the incremental displacement gradient $\nabla_{x_k} \hat{\mathbf{u}}$.
-
-\section{A Model Solid Mechanics Boundary Value Problem}
+\section{Model Boundary Value Problem}
 
 Up to this point, we have discussed only the essential relationships which exist between physical quantities of interest in the context of solid mechanics. Ultimately, however, we should like to determine the anticipated motion and deformation of a particular body under the action of pre-determined externally applied forces. To this end, we must turn our attention to the definition -- and solution -- of a corresponding boundary value problem (BVP). Such problems must be well-posed, in the sense that there exists a unique solution to the stated problem, thereby imposing certain restrictions on the choice of boundary conditions.
 
@@ -256,7 +256,7 @@ Petrov-Galerkin methods consider the more general case where $\mathcal{V}^h \neq
 
 \subsection{Finite Element Methods}
 
-Finite element methods (FEM) are predicated on the idea that a problem domain $\mathcal{B}$ can be discretized into a finite number of simpler sub-domains $\omega_e \subset \mathcal{B}$, individually called elements, and collectively referred to as a ``mesh.'' The basis functions are assumed to be low-order polynomials within each element which possess compact support over a given patch of elements. The traditional finite element method assumes these basis functions to be $C^0$ continuous at element boundaries, yielding a priori satisfaction of compatibility.
+Finite element methods (FEM) are predicated on the idea that a problem domain $\mathcal{B}$ can be discretized into a finite number of simpler sub-domains $\omega_e \subset \mathcal{B}$, individually called elements, and collectively referred to as a ``mesh.'' The basis functions are assumed to be low-order polynomials within each element, and are compactly supported over a given patch of elements. The traditional finite element method assumes these basis functions to be $C^0$ continuous at element boundaries, yielding a priori satisfaction of compatibility.
 
 Individual FE basis functions $\varphi_a$ are typically associated with the ``nodes'' $\mathbf{X}_a$ of the mesh (located at element verticies, along element edges, etc.), such that the kronecker delta property is satisfied:
 \begin{equation}
@@ -266,11 +266,26 @@ Consequently, the basis functions comprise a set of interpolants for discrete va
 
 Elements consisting of regular shapes (tetrahedra, hexahedra) also provide a natural means of effecting numerical integration of the weak form through the use of the isoparametric transformation and product Gaussian quadrature rules.
 
-\section{Requirements for Convergence of an Approximation Method}
+\section{Requirements for Convergence of an \\ Approximation Method}
+
+Because variational methods utilize finite dimensional approximations $\mathbf{u}^h \in \mathcal{S}^h$ and $\mathbf{v}^h \in \mathcal{V}^h$, they inherrently incur some error $\mathbf{e} = \mathbf{u}^h - \mathbf{u}$ in approximating the exact solution to the original boundary value problem. The  approximation power of a given method is typically characterized by the rate at which a specified error measure $||\mathbf{e}||$ becomes smaller as the dimension of the approximation spaces $\mathcal{S}^h$ and $\mathcal{V}^h$ are systematically increased.
+
 \subsection{Satisfaction of Essential Boundary Conditions}
+
+
+
 \subsection{Completeness/Approximability}
+
+
+
 \subsection{Variational Consistency}
+
+
+
 \subsubsection{Constraints on Numerical Quadrature}
+
+
+
 \subsection{Numerical Stability}
 \subsubsection{The Inf-Sup Condition}
 \subsection{Tests for Convergence}
