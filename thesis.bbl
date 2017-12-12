@@ -51,6 +51,17 @@ Heng Chi, Cameron Talischi, Oscar Lopez-Pamies, and Glaucio~H. Paulino.
 \newblock {\em Computer Methods in Applied Mechanics and Engineering},
   306:216--251, 2016.
 
+\bibitem{Chin:15}
+Eric~B. Chin, Jean~B. Lasserre, and N.~Sukumar.
+\newblock Numerical integration of homogeneous functions on convex and
+  nonconvex polygons and polyhedra.
+\newblock {\em Computational Mechanics}, 56:967--981, 2015.
+
+\bibitem{Shi:87}
+Zhong ci~Shi.
+\newblock The f-e-m-test for convergence of nonconforming finite elements.
+\newblock {\em Mathematics of Computation}, 49(180):391--405, 1987.
+
 \bibitem{Veiga:13}
 L.~Beir{\~{a}}o da~Veiga, F.~Brezzi, A.~Cangiani, G.~Manzini, L.~D. Marini, and
   A.~Russo.
@@ -175,6 +186,12 @@ Daniel Pantuso and Klaus-J{\"{u}}rgen Bathe.
 \newblock On the stability of mixed finite elements in large strain analysis of
   incompressible solids.
 \newblock {\em Finite Elements in Analysis and Design}, 28:83--104, 1997.
+
+\bibitem{Rashid:93}
+M.~M. Rashid.
+\newblock Incremental kinematics for finite element applications.
+\newblock {\em International Journal for Numerical Methods in Engineering},
+  36:3937--3956, 1993.
 
 \bibitem{Rashid:00}
 M.~M. Rashid and P.~M. Gullett.

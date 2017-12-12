@@ -155,9 +155,9 @@ with corresponding eigenvectors
 \begin{equation}
 	|| \mathbf{v}_2 || = \frac{\sqrt{2 (x^2 + 4 - \sqrt{x^2+4} (2 \sin y - x \cos y))}}{x \sin y + 2 \cos y}
 \end{equation}
-\begin{equation}
-	\mathbf{v}_1 = \frac{1}{\sqrt{- 2 \sqrt{x^2+4} (x \cos y - 2 \sin y - \sqrt{x^2+4})}} \left\{ \begin{array}{c} x \cos y - 2 \sin y - \sqrt{x^2 + 4} \\ 2 \cos y + x \sin y \end{array} \right\},
-\end{equation}
+%\begin{equation}
+%	\mathbf{v}_1 = \frac{1}{\sqrt{- 2 \sqrt{x^2+4} (x \cos y - 2 \sin y - \sqrt{x^2+4})}} \left\{ \begin{array}{c} x \cos y - 2 \sin y - \sqrt{x^2 + 4} \\ 2 \cos y + x \sin y \end{array} \right\},
+%\end{equation}
 \begin{equation}
 	\mathbf{v}_2 = \frac{1}{\sqrt{2 \sqrt{x^2+4} (x \cos y - 2 \sin y + \sqrt{x^2+4})}} \left\{ \begin{array}{c} x \cos y - 2 \sin y + \sqrt{x^2 + 4} \\ 2 \cos y + x \sin y \end{array} \right\}.
 \end{equation}
@@ -176,13 +176,13 @@ and the in-plane Hencky strain is
 	\mathbf{h}_2 = \frac{1}{2} \left[ \ln (\lambda_1) \mathbf{v}_1 \otimes \mathbf{v}_1 + \ln (\lambda_2) \mathbf{v}_2 \otimes \mathbf{v}_2 \right],
 \end{equation}
 where
-\begin{eqnarray}
-	\mathbf{v}_1 \otimes \mathbf{v}_1 = \frac{1}{- 2 \sqrt{x^2+4} (x \cos y - 2 \sin y - \sqrt{x^2+4})} \\
-	 \left[ \begin{array}{cc} (x \cos y - 2 \sin y - \sqrt{x^2 + 4})^2 &
-	 (x \cos y - 2 \sin y - \sqrt{x^2 + 4})(2 \cos y + x \sin y) \\ 
-	 (x \cos y - 2 \sin y - \sqrt{x^2 + 4})(2 \cos y + x \sin y) &
-	 4 \cos^2 y + x^2 \sin^2 y + 4 x \cos y \sin y \end{array} \right]
-\end{eqnarray}
+%\begin{eqnarray}
+%	\mathbf{v}_1 \otimes \mathbf{v}_1 = \frac{1}{- 2 \sqrt{x^2+4} (x \cos y - 2 \sin y - \sqrt{x^2+4})} \\
+%	 \left[ \begin{array}{cc} (x \cos y - 2 \sin y - \sqrt{x^2 + 4})^2 &
+%	 (x \cos y - 2 \sin y - \sqrt{x^2 + 4})(2 \cos y + x \sin y) \\ 
+%	 (x \cos y - 2 \sin y - \sqrt{x^2 + 4})(2 \cos y + x \sin y) &
+%	 4 \cos^2 y + x^2 \sin^2 y + 4 x \cos y \sin y \end{array} \right]
+%\end{eqnarray}
 
 For this special motion, it can be shown that the Hencky model of elasticity results in the following expressions for the in-plane principal stresses:
 \begin{equation}
@@ -203,13 +203,101 @@ Since the above equations hold irrespective of which value is chosen for $\theta
 	\sigma_{2,r} (\cos \phi + \sin \phi) + \frac{\sigma_{2,\phi}}{r} (\cos \phi - \sin \phi) = 0,
 \end{equation}
 
-Consider the stress tensor:
+\section{Alternative Approach}
+
+Consider the form of the stress divergence equations in cylindrical polar coordinates:
 \begin{equation}
-  \boldsymbol{\sigma} = \sigma_{rr} \mathbf{e}_r \otimes \mathbf{e}_r + \sigma_{\theta \theta} \mathbf{e}_\theta \otimes \mathbf{e}_\theta + \sigma_{zz} \mathbf{e}_z \otimes \mathbf{e}_z + \frac{1}{2} \left[ \sigma_{r\theta} (\mathbf{e}_r \otimes \mathbf{e}_\theta + \mathbf{e}_\theta \otimes \mathbf{e}_r) + \sigma_{rz} (\mathbf{e}_r \otimes \mathbf{e}_z + \mathbf{e}_z \otimes \mathbf{e}_r) + \sigma_{z\theta} (\mathbf{e}_z \otimes \mathbf{e}_\theta + \mathbf{e}_\theta \otimes \mathbf{e}_z),
+  \nabla \cdot \boldsymbol{\sigma} = \left\{ \begin{array}{c} \frac{\partial \sigma_{rr}}{\partial r} + \frac{\sigma_{rr}}{r} + \frac{1}{r} \frac{\partial \sigma_{\theta r}}{\partial \theta} + \frac{\partial \sigma_{z r}}{\partial z} - \frac{\sigma_{\theta \theta}}{r} \\
+    \frac{1}{r} \frac{\partial \sigma_{\theta \theta}}{\partial \theta} + \frac{\partial \sigma_{r\theta}}{\partial r} + \frac{\sigma_{r\theta}}{r} + \frac{\sigma_{\theta r}}{r} + \frac{\partial \sigma_{z \theta}}{\partial z} \\
+    \frac{\partial \sigma_{z z}}{\partial z} + \frac{\partial \sigma_{r z}}{\partial r} + \frac{\sigma_{r z}}{r} + \frac{1}{r} \frac{\partial \sigma_{\theta z}}{\partial \theta} \end{array} \right\} = \mathbf{0}.
 \end{equation}
-and it's divergence:
+By the assumptions of plane strain and axisymmetry, we rationalize that $\boldsymbol{\sigma} (r)$ is a function of $r$, alone, and therefore,
 \begin{equation}
-  \nabla \cdot \boldsymbol{\sigma} = \sigma_{rr} \mathbf{e}_r \otimes \mathbf{e}_r + \sigma_{\theta \theta} \mathbf{e}_\theta \otimes \mathbf{e}_\theta + \sigma_{zz} \mathbf{e}_z \otimes \mathbf{e}_z + \frac{1}{2} \left[ \sigma_{r\theta} (\mathbf{e}_r \otimes \mathbf{e}_\theta + \mathbf{e}_\theta \otimes \mathbf{e}_r) + \sigma_{rz} (\mathbf{e}_r \otimes \mathbf{e}_z + \mathbf{e}_z \otimes \mathbf{e}_r) + \sigma_{z\theta} (\mathbf{e}_z \otimes \mathbf{e}_\theta + \mathbf{e}_\theta \otimes \mathbf{e}_z),
+  \nabla \cdot \boldsymbol{\sigma} = \left\{ \begin{array}{c} \frac{\partial \sigma_{rr}}{\partial r} + \frac{\sigma_{rr} - \sigma_{\theta \theta}}{r} \\
+    \frac{\partial \sigma_{r\theta}}{\partial r} + \frac{2 \sigma_{r\theta}}{r} \\
+    \frac{\partial \sigma_{r z}}{\partial r} + \frac{\sigma_{r z}}{r} \end{array} \right\} = \mathbf{0}.
+\end{equation}
+Furthermore, by the assumptions of plane strain, we observe that $\sigma_{rz} = 0$ and $\sigma_{\theta z} = 0$. Additionally, if we impose the incompressibility condition $\nabla \cdot \mathbf{v} = \text{tr} (\mathbf{D}) = 0$, then for a linear hypoelastic material model of grade zero obeying
+\begin{equation}
+  \dot{\boldsymbol{\sigma}} = \mathbb{C} : \mathbf{D} + \mathbf{W} \boldsymbol{\sigma} - \boldsymbol{\sigma} \mathbf{W},
+\end{equation}
+we find that
+\begin{equation}
+  \text{tr} (\dot{\boldsymbol{\sigma}}) = 0 \, \Rightarrow \, \text{tr} (\boldsymbol{\sigma}) = 0 \, \forall t.
+\end{equation}
+The deformation necessitates that $\sigma_{zz} = 0$, and therefore $\sigma_{\theta \theta} = - \sigma_{rr}$. Consequently, we are left with 2 governing differential equations for $\sigma_{rr}$ and $\sigma_{r \theta}$:
+\begin{equation}
+  \frac{\partial \sigma_{rr}}{\partial r} + \frac{2 \sigma_{rr}}{r} = 0, \quad \frac{\partial \sigma_{r\theta}}{\partial r} + \frac{2 \sigma_{r\theta}}{r} = 0,
+\end{equation}
+whose solutions are of the form
+\begin{equation}
+  \sigma_{rr} = \frac{a}{r^2}, \quad \sigma_{r\theta} = \frac{b}{r^2}.
+\end{equation}
+Consequently,
+\begin{equation}
+  \left\{ \begin{array}{c} \sigma_{rr} \\ \sigma_{\theta \theta} \\ \sigma_{r \theta} \end{array} \right\} = r^{-2} \left\{ \begin{array}{c} +a \\ -a \\ b \end{array} \right\}.
+\end{equation}
+
+Under the assumption of incompressibility, We may characterize the deformation via the velocity field $v_r = 0$, $v_z = 0$, and $v_\theta (r) = r \dot{\phi}(r)$, yielding the velocity gradient (in cylindrical polar coordinates):
+\begin{equation}
+  \mathbf{L} = \nabla \mathbf{v} = \left[ \begin{array}{ccc} v_{r,r} & v_{r,\theta}/r-v_\theta /r & v_{r,z} \\
+      v_{\theta,r} & v_{\theta,\theta}/r + v_r /r & v_{\theta,z} \\
+      v_{z,r} & v_{z,\theta} /r & v_{z,z} \end{array} \right] = 
+  \left[ \begin{array}{ccc} 0 & -\dot{\phi} & 0 \\
+      \dot{\phi} + r \dot{\phi}_{,r} & 0 & 0 \\
+      0 & 0 & 0 \end{array} \right],
+\end{equation}
+and the corresponding rate of deformation and spin tensors:
+\begin{equation}
+  \mathbf{D} = \frac{r \dot{\phi}_{,r}}{2} \left[ \begin{array}{ccc} 0 & 1 & 0 \\
+      1 & 0 & 0 \\
+      0 & 0 & 0 \end{array} \right], \quad \mathbf{W} = 
+  \frac{2 \dot{\phi} + r \dot{\phi}_{,r}}{2} \left[ \begin{array}{ccc} 0 & - 1 & 0 \\
+      1 & 0 & 0 \\
+      0 & 0 & 0 \end{array} \right].
+\end{equation}
+The resulting stress rate equations are
+\begin{equation}
+  \left\{ \begin{array}{c} \dot{\sigma}_{rr} \\ \dot{\sigma}_{\theta \theta} \\ \dot{\sigma}_{r \theta} \end{array} \right\} = \left\{ \begin{array}{c} 0 \\ 0 \\ \mu r \dot{\phi}_{,r} \end{array} \right\} + 
+  (2 \dot{\phi} + r \dot{\phi}_{,r}) \left\{ \begin{array}{c} - \sigma_{r \theta} \\ \sigma_{r \theta} \\ \sigma_{rr} \end{array} \right\},
+\end{equation}
+or
+\begin{equation}
+  \left\{ \begin{array}{c} \dot{a} \\ \dot{b} \end{array} \right\} = \left\{ \begin{array}{c} 0 \\ \mu r^3 \dot{\phi}_{,r} \end{array} \right\} + (2 \dot{\phi} + r \dot{\phi}_{,r}) \left[ \begin{array}{cc} 0 & -1 \\ 1 & 0 \end{array} \right] \left\{ \begin{array}{c} a \\ b \end{array} \right\},
+\end{equation}
+which must be valid $\forall r, \, t$. If we assume that $\dot{\phi} = f(r)$ (and not of $t$), then we obtain the condition
+\begin{equation}
+  3 f_{,r} + r f_{,rr} = 0,
+\end{equation}
+implying $f_{,r} = B r^{-3}$, and $\phi (r, t) = (A - B r^{-2} / 2)t$, thus
+\begin{equation}
+  \left\{ \begin{array}{c} \dot{a} \\ \dot{b} \end{array} \right\} = \left\{ \begin{array}{c} 0 \\ \mu B \end{array} \right\} + 2 A \left[ \begin{array}{cc} 0 & -1 \\ 1 & 0 \end{array} \right] \left\{ \begin{array}{c} a \\ b \end{array} \right\},
+\end{equation}
+and
+\begin{equation}
+  a(t) = - \frac{\mu B}{2 A} - C_2 \sin (2 A t) + C_1 \cos (2 A t),
+\end{equation}
+\begin{equation}
+  b(t) = C_1 \sin (2 A t) + C_2 \cos (2 A t).
+\end{equation}
+Imposing the initial conditions $a(0) = b(0) = 0$ results in:
+\begin{equation}
+  a(t) = \frac{\mu B}{2 A} \left[ \cos (2 A t) - 1 \right], \quad b(t) = \frac{\mu B}{2 A} \sin (2 A t).
+\end{equation}
+Imposing the boundary conditions $\phi(R_i,t) = 0 \, \, \forall t$, $\phi(R_o,t) = \Phi \, t \, \, \forall t$ yields:
+\begin{equation}
+  A = \frac{\Phi R_i^{-2}}{R_i^{-2} - R_o^{-2}}, \quad B = \frac{2 \Phi}{R_i^{-2} - R_o^{-2}}.
+\end{equation}
+
+The final analytical solution for the displacement and stress fields is presented below:
+\begin{equation}
+  u_r = 0, \quad u_\theta = r \Phi \frac{R_i^{-2} - r^{-2}}{R_i^{-2} - R_o^{-2}} t, \quad u_z = 0,
+\end{equation}
+\begin{equation}
+  \sigma_{rr} = - \sigma_{\theta \theta} = \mu \frac{r^{-2}}{R_i^{-2}} \left[ \cos \left( 2 \frac{\Phi R_i^{-2}}{R_i^{-2} - R_o^{-2}} t \right) - 1 \right],
+\end{equation}
+\begin{equation}
+  \sigma_{r \theta} = \mu \frac{r^{-2}}{R_i^{-2}} \sin \left( 2 \frac{\Phi R_i^{-2}}{R_i^{-2} - R_o^{-2}} t \right).
 \end{equation}
 
 \end{document}

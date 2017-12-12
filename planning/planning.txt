@@ -85,51 +85,85 @@ November:
 		26th (Sunday):    Section scoping for results (continued)
 	27th-3th: Writing for introduction and solid mechanics background chapters
 		27th (Monday):    Long-term planning (revise this document)
-				  Writing for introduction (coarse draft)
-		28th (Tuesday):   Writing for introduction (rough draft)
-		29th (Wednesday): Writing for introduction (revision, submit to Rashid for editing)
-		30th (Thursday):  Writing for solid mechanics (coarse draft)
-		1st  (Friday):    Writing for solid mechanics (rough draft)
-		2nd  (Saturday):  Writing for solid mechanics (revision)
-		3rd  (Sunday):    Writing for solid mechanics (revision, submit to Rashid for editing)
+				  Writing for introduction
+		28th (Tuesday):   Writing for introduction
+		29th (Wednesday): Writing for introduction
+		30th (Thursday):  Writing for introduction
+		1st  (Friday):    Writing for introduction
+		2nd  (Saturday):  Writing for solid mechanics
+		3rd  (Sunday):    Writing for solid mechanics
 	
 December:
-	4th-10th:  Writing for pem & implementation chapters, submit pem chapter to Rashid for editing
+	4th-10th:  Writing for solid mechanics and pem
 		4th    (Monday): Long-term planning (revise this document)
-				 Writing for pem (coarse draft)
-		5th   (Tuesday): Writing for pem (rough draft)
-		6th (Wednesday): Writing for pem (rough draft)
-		7th  (Thursday): Writing for pem (revision, submit to Rashid for editing)
-		8th    (Friday): Writing for implementation (coarse draft)
-		9th  (Saturday): Writing for implementation (rough draft)
-		10th   (Sunday): Writing for implementation (rough draft)
-	11th-12th: Finish writing for implementation chapter & submit to Rashid for editing
-		11th   (Monday): Writing for implementation (revision)
-		12th  (Tuesday): Writing for implementation (revision, submit to Rashid for editing)
+				 Writing for solid mechanics
+		5th   (Tuesday): Writing for solid mechanics
+		6th (Wednesday): Writing for solid mechanics
+		7th  (Thursday): Writing for solid mechanics
+		8th    (Friday): Writing for solid mechanics & pem
+		9th  (Saturday): Writing for pem (N/A)
+		10th   (Sunday): Writing for pem (modal quadrature)
+	11th-12th: pem and travel
+		11th   (Monday): Writing for pem
+		12th  (Tuesday): Writing for pem
 	13th-17th: Vacation in Puerto Rico
-	18th-24th: Writing for numerical results
-		18th (Monday):    Long-term planning (revise this document)
-				  Writing for results (coarse draft)
-		19th (Tuesday):   Writing for results (rough draft)
-		20th (Wednesday): Writing for results (rough draft)
-		21st (Thursday):  Writing for results (rough draft)
-		22nd (Friday):    Writing for results (revision, submit to Rashid for editing)
+	18th-24th: pem, implementation, & christmas
+		18th (Monday):    pem
+		19th (Tuesday):   pem
+		20th (Wednesday): pem
+		21st (Thursday):  implementation
+		22nd (Friday):    Christmas break
 		23rd (Saturday):  Christmas break
 		24th (Sunday):    Christmas break
-	25th-31st: Writing for extended formulations & accuracy
+	25th-31st: implementation & New Year
 		25th (Monday):    Christmas break
-		26th (Tuesday):   Writing for conclusions (coarse draft)
-		28st (Thursday):  Writing for conclusions (rough draft)
-		29nd (Friday):    Writing for conclusions (revision, submit to Rashid for editing)
-		30rd (Saturday):  Slack day
+		26th (Tuesday):   implementation
+		28st (Thursday):  implementation
+		29nd (Friday):    implementation
+		30rd (Saturday):  implementation
 		31th (Sunday):    New Years' break
 
 January:
-	1st-7th:   Writing for numerical results/testing, and conclusions (pending simulations)
-	8th-14th:  Develop implementation to test out extended formluations (simple ones)
-	15th-21st: Create set of interesting tests to run
+	1st-7th:   impelementation, results, presentation
+		1st     (Monday): New Years' break
+		2nd    (Tuesday): implementation
+		3rd  (Wednesday): results
+		4th   (Thursday): results
+		5th     (Friday): Work on presentation
+		6th   (Saturday): Work on presentation
+		7th     (Sunday): Work on presentation
+	8th-14th:  presentation, results
+		8th     (Monday): Work on presentation
+		9th    (Tuesday): Work on presentation
+		10th (Wednesday): Work on presentation
+		11th  (Thursday): Submit presentation to LLNL (BY NOON)
+		12th    (Friday): results
+		13th  (Saturday): results
+		14th    (Sunday): results
+	15th-21st: results, interview
+		15th    (Monday): results
+		16th   (Tuesday): results
+		17th (Wednesday): results
+		18th  (Thursday): LLNL interview
+		19th    (Friday): results
+		20th  (Saturday): results
+		21st    (Sunday): results
 	22th-28th: Process results, and generate figures
+		22nd    (Monday): Fly to ABQ
+		23rd   (Tuesday): Sandia interview
+		24th (Wednesday): Sandia interview
+		25th  (Thursday): Fly home
+		26th    (Friday): conclusions
+		27th  (Saturday): conclusions
+		28th    (Sunday): conclusions
 	29th-4th:  Provide supplementary commentary and discussion in thesis
+		29th    (Monday): conclusions
+		30th   (Tuesday): conclusions
+		31st (Wednesday): conclusions
+		 1st  (Thursday): REVIEW & EDITING
+		 2nd    (Friday): 
+		 3rd  (Saturday): 
+		 4th    (Sunday): 
 
 February:
 	5th-11th:  Send completed disseration to reviewers (other than Mark)

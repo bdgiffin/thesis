@@ -64,7 +64,7 @@
 	
 	Despite recent efforts to pursue automated quad-dominant \cite{Remacle:12} and hex-dominant \cite{Xifeng:17} meshing algorithms which seek to optimize certain mesh quality metrics, the inherrent problem of element distorsion sensitivity still remains. Consequently, substantial efforts have been made to address the locking problem through a variety of different approaches. An overview of locking and its remedies are given in the following section.
 
-	\subsection{Locking in Finite Elements}
+	\subsection*{Locking in Finite Elements}
 	
 		% Establish fundamentally what locking is
 			% observations regarding volumetric locking
@@ -117,7 +117,7 @@
 				% led to development of alternative methods/discretizations
 		Ultimately, the foregoing methodologies have had only limited success in resolving the full spectrum of locking problems, particularly with regard to geometric locking phenomena. Moreover, many of the proposed enhancements are limited to specific element types (typically low-order quadrilaterals or hexahedra), and are not readily generalizable to other discretizations. To a large extent, the propensity for locking in FEM is controlled by the standard isoparametric elements' sensitivity to geometric distorsion. In other words, model accuracy is too often the product of the chosen discretization. For this reason, considerable efforts have been invested in recent years towards the development of alternative discretizations and numerical methods, a few of which are discussed in the following section.
 	
-	\subsection{Alternative Numerical Methods and Discretizations}
+	\subsection*{Alternative Numerical Methods and Discretizations}
 		% Efforts toward meshing & element quality led to new methods & discretizations
 		Driven by concerns over meshing and element quality, a wide variety of alternative approximation methods have been explored in recent decades. The general consensus is that the construction of an approximation space should be disconnected (to a variable extent) from the particular choice of discretization. In particular, isoparametric finite element basis functions are conveniently defined in terms of the discretization, but may not necessarily result in a suitable approximation space for the given problem at hand.
 		
@@ -186,7 +186,7 @@
 	
 	Where these methods differ is in the way that they choose to define an element's shape functions (if at all). These approaches may be loosely organized into three distinct categories: methods which explicitly define the element's basis functions via a continuous interpolation scheme; methods which define the element's shape functions only implicitly -- i.e. ``virtual'' element methods; and methods which form a discrete representation of the element's shape functions via an approximation scheme. These three methodologies are elaborated upon in the following sections.
 
-	\subsection{Continuous Interpolation on Arbitrary Polytopes}
+	\subsection*{Continuous Interpolation on Arbitrary Polytopes}
 		% Overview of efforts to define interpolants directly on polytopal domains
 		In an effort to generalize the core idea behind isoparametric element coordinates which yield a point-wise definition of the element's shape functions and their gradients within a given element domain, various efforts to explicitly define shape functions directly on arbitrary polytopal domains has led to the creation of a broad family of interpolation schemes, collectively referred to as \textit{generalized barycentric coordinates}.
 		
@@ -202,7 +202,7 @@
 		% Many approaches are limited by restrictions on element geometry/convexity
 		Yet in spite of these developments, many existing coordinate schemes are sill limited by moderate to severe restrictions on element shape/convexity, and produce sharp gradients in the presence of degenerate geometric features. These concerns, and a recognition of the fact that the shape functions need not be defined point-wise for finite element applications, have motivated research efforts toward discrete representations of element interpolants.
 
-	\subsection{Virtual Element Methods}
+	\subsection*{Virtual Element Methods}
 		% Overview of virtual element methods (avoids definition of SFs on element domains)
 		% never explicitly constructs/represents shape functions on elements
 		% considers ``virtual'' shape functions, projected onto a polynomial subspace
@@ -217,7 +217,7 @@
 		
 		Nonetheless, VEM formulations are able to tolerate geometric degeneracies and element non-convexity without encountering serious numerical difficulties, though their good behavior in the presence of these features is often governed by an ad hoc approximation of the stabilization terms. A more rigorous development of the corresponding stability terms for more complicated element domains remains to be explored.
 		
-	\subsection{Approximate Interpolation on Arbitrary Polytopes}
+	\subsection*{Approximate Interpolation on Arbitrary Polytopes}
 		% Overview of efforts to define shape functions only loosely over element domains
 		% Somewhere in between the barycentric coordinate-type elements, and the VEM
 		In contrast with the previously described approaches, yet another strategy considers the representation of the element's shape functions in an approximate way, while enforcing a few essential requirements, namely: polynomial reproducibility, inter-element compatibility, and weak form consistency.

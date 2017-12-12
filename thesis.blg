@@ -3,52 +3,50 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis.aux
 The style file: plain.bst
 A level-1 auxiliary file: introduction.aux
-A level-1 auxiliary file: mathematics.aux
 A level-1 auxiliary file: solid_mechanics.aux
-A level-1 auxiliary file: solution_inaccuracy.aux
 A level-1 auxiliary file: pem_formulation.aux
 A level-1 auxiliary file: implementation.aux
 A level-1 auxiliary file: results.aux
 A level-1 auxiliary file: future_work.aux
 Database file #1: bibliography.bib
-You've used 47 entries,
+You've used 50 entries,
             2118 wiz_defined-function locations,
-            814 strings with 11361 characters,
-and the built_in function-call counts, 15246 in all, are:
-= -- 1564
-> -- 671
+            832 strings with 11731 characters,
+and the built_in function-call counts, 16204 in all, are:
+= -- 1664
+> -- 703
 < -- 0
-+ -- 283
-- -- 218
-* -- 1089
-:= -- 2605
-add.period$ -- 140
-call.type$ -- 47
-change.case$ -- 246
++ -- 297
+- -- 228
+* -- 1159
+:= -- 2765
+add.period$ -- 149
+call.type$ -- 50
+change.case$ -- 260
 chr.to.int$ -- 0
-cite$ -- 47
-duplicate$ -- 511
-empty$ -- 1176
-format.name$ -- 218
-if$ -- 3072
+cite$ -- 50
+duplicate$ -- 544
+empty$ -- 1257
+format.name$ -- 228
+if$ -- 3269
 int.to.chr$ -- 0
-int.to.str$ -- 47
-missing$ -- 48
-newline$ -- 237
-num.names$ -- 94
-pop$ -- 182
+int.to.str$ -- 50
+missing$ -- 51
+newline$ -- 252
+num.names$ -- 100
+pop$ -- 190
 preamble$ -- 1
-purify$ -- 203
+purify$ -- 214
 quote$ -- 0
-skip$ -- 343
+skip$ -- 364
 stack$ -- 0
-substring$ -- 1242
-swap$ -- 47
+substring$ -- 1335
+swap$ -- 50
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 182
+type$ -- 194
 warning$ -- 0
-while$ -- 171
-width$ -- 49
-write$ -- 513
+while$ -- 182
+width$ -- 52
+write$ -- 546

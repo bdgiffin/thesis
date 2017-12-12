@@ -6,7 +6,7 @@ This chapter addresess some of the essential aspects of numerical approximation 
 
 \section{The Lagrangian Description of Motion}
 
-Consider a body $\Omega_0 \subset \mathbb{R}^d$ consisting of a set of material points whose positions in some reference configuration at time $t = 0$ are denoted $\mathbf{X}$. At a later time $t > 0$, the body occupies a new configuration $\Omega_t = \raisebox{\depth}{$\chi$} (\Omega_0, t) \subset \mathbb{R}^d$, such that the motion of individual material points yield new spatial positions $\mathbf{x}$ according to the bijection $\raisebox{\depth}{$\chi$}_t \, \colon \mathbf{X} \leftrightarrow \mathbf{x}$, i.e.
+Consider a body $\mathcal{B}_0 \subset \mathbb{R}^d$ consisting of a set of material points whose positions in some reference configuration at time $t = 0$ are denoted $\mathbf{X}$. At a later time $t > 0$, the body occupies a new configuration $\raisebox{\depth}{$\chi$} (\mathcal{B}_0, t) = \mathcal{B}_t \subset \mathbb{R}^d$, such that the motion of individual material points yield new spatial positions $\mathbf{x}$ according to the bijection $\raisebox{\depth}{$\chi$}_t \, \colon \mathbf{X} \leftrightarrow \mathbf{x}$, i.e.
 \begin{equation}
   \mathbf{x} = \raisebox{\depth}{$\chi$} (\mathbf{X}, t), \quad \mathbf{X} = \raisebox{\depth}{$\chi$}^{-1} (\mathbf{x}, t).
 \end{equation}
@@ -24,17 +24,11 @@ At a given time $t$, the Jacobian of the deformation mapping $\raisebox{\depth}{
 \end{equation}
 where $\nabla_X$ denotes the gradient with respect to $\mathbf{X}$. The deformation gradient may be used to map differential line segments $d \mathbf{X}$, surface areas $d \mathbf{A}$, and volumes $d V$ defined in the reference configuration into their corresponding transformed quantities ($d \mathbf{x}$, $d \mathbf{a}$, $dv$) at time $t$:
 \begin{equation}
-  d \mathbf{x} = \mathbf{F} d \mathbf{X}
-\end{equation}
-\begin{equation}
-  d \mathbf{a} = J \mathbf{F}^{-T} d \mathbf{A}
-\end{equation}
-\begin{equation}
-  d v = J d V
+  d \mathbf{x} = \mathbf{F} d \mathbf{X}, \quad d \mathbf{a} = J \mathbf{F}^{-T} d \mathbf{A}, \quad d v = J d V,
 \end{equation}
 where $J \equiv \det{\mathbf{F}}$.
 
-In a similar fashion, the spatial velocity gradient $\mathbf{L} = \nabla_x \mathbf{v}$ (where $\nabla_x$ denotes the gradient with respect to $\mathbf{x}$) may be expressed as
+In like fashion, the spatial velocity gradient $\mathbf{L} = \nabla_x \mathbf{v}$ (where $\nabla_x$ denotes the gradient with respect to $\mathbf{x}$) may be expressed as
 \begin{equation}
   \mathbf{L} = \frac{\partial \mathbf{v}}{\partial \mathbf{x}} = \frac{\partial \dot{\mathbf{x}}}{\partial \mathbf{X}} \frac{\partial \mathbf{X}}{\partial \mathbf{x}} = \dot{\mathbf{F}} \mathbf{F}^{-1},
 \end{equation}
@@ -43,23 +37,23 @@ which may be further decomposed into a symmetric part $\mathbf{D}$ (the rate of 
   \mathbf{D} = \frac{1}{2} (\mathbf{L} + \mathbf{L}^T), \quad \mathbf{W} = \frac{1}{2} (\mathbf{L} - \mathbf{L}^T).
 \end{equation}
 
-\subsection{Compatibility}
+\subsection*{Compatibility}
 
-In continuum mechanics, compatibility refers to the idea that a given body remains a contiguous medium following some deformation described by $\raisebox{\depth}{$\chi$}_t$. In other words, $\raisebox{\depth}{$\chi$}_t$ must characterize a continuous mapping of material points between different configurations in time, such that the topology of body remains unchanged. Compatibilitiy is characterized by the following necessary and sufficient conditions:
+Compatibility refers to the idea that a given body remains a contiguous medium following some deformation described by $\raisebox{\depth}{$\chi$}_t$. In other words, $\raisebox{\depth}{$\chi$}_t$ must characterize a continuous mapping of material points between different configurations in time, such that the topology of body remains unchanged. Compatibilitiy is characterized by the following necessary and sufficient conditions:
 \begin{equation}
-  \nabla_X \times \mathbf{F} = \mathbf{0}.
+  \nabla_X \times \mathbf{F} = \mathbf{0} \quad \forall \mathbf{X} \in \mathcal{B}_0.
 \end{equation}
 Satisfaction of the above compatibility condition implies that there exists a continuous, single-valued displacement field which gives rise to the deformation characterized by $\mathbf{F}$.
 
-\subsection{Finite Strain Measures}
+\subsection*{Finite Strain Measures}
 
 Consider the set of all material line segments $d \mathbf{X}$ which lie in a small neighborhood around a given material point $\mathbf{X}$. Also, consider these same material line segments $d \mathbf{x}$ in the current configuration of the body after some deformation corresponding to $\mathbf{F} (\mathbf{X}, t)$ has taken place, such that $d \mathbf{x} = \mathbf{F} d \mathbf{X}$.
 
-At a given material point $\mathbf{X}$, the deformation gradient $\mathbf{F} (\mathbf{X}, t)$ may be characterized as a linear operator, which may be decomposed into two step-wise operations: a stretching operation $\mathbf{U}$ (or $\mathbf{V}$), and a rotation $\mathbf{R}$, yielding the polar decomposition of $\mathbf{F}$:
+At a given material point $\mathbf{X}$, the deformation gradient $\mathbf{F} (\mathbf{X}, t)$ is a linear operator, which may be decomposed into two step-wise operations: a stretching operation $\mathbf{U}$ (or $\mathbf{V}$), and a rotation $\mathbf{R}$, yielding the polar decomposition of $\mathbf{F}$:
 \begin{equation}
   \mathbf{F} = \mathbf{R} \mathbf{U} = \mathbf{V} \mathbf{R},
 \end{equation}
-where $\mathbf{U}$ is termed the right stretch tensor, and $\mathbf{V}$ is the left stretch tensor. There arise from $\mathbf{U}$ and $\mathbf{V}$ two primary deformation measures: the right Cauchy-Green deformation tensor $\mathbf{C} = \mathbf{U}^2$, and the left Cauchy-Green deformation tensor $\mathbf{B} = \mathbf{V}^2$. Each of these, in turn, yield two of the most commonly utilized finite strain measures: the Green-Lagrangian strain tensor $\mathbf{E} = \frac{1}{2} (\mathbf{C} - \mathbf{I})$, and the Eulerian-Almansi strain tensor $\mathbf{e} = \frac{1}{2} (\mathbf{I} - \mathbf{B}^{-1})$. It is not difficult to show that both of these strain measures reduce to the small strain tensor $\boldsymbol{\varepsilon} = \frac{1}{2} (\nabla_X \mathbf{u} + (\nabla_X \mathbf{u})^T)$ if the displacements are sufficiently small.
+where $\mathbf{U}$ is termed the right stretch tensor, and $\mathbf{V}$ is the left stretch tensor. There arise from $\mathbf{U}$ and $\mathbf{V}$ two primary deformation measures: the right Cauchy-Green deformation tensor $\mathbf{C} = \mathbf{U}^2$, and the left Cauchy-Green deformation tensor $\mathbf{B} = \mathbf{V}^2$. Each of these, in turn, yield the two most commonly utilized finite strain measures: the Green-Lagrangian strain tensor $\mathbf{E} = \frac{1}{2} (\mathbf{C} - \mathbf{I})$, and the Eulerian-Almansi strain tensor $\mathbf{e} = \frac{1}{2} (\mathbf{I} - \mathbf{B}^{-1})$. It is not difficult to show that both of these strain measures reduce to the small strain tensor $\boldsymbol{\varepsilon} = \frac{1}{2} (\nabla_X \mathbf{u} + (\nabla_X \mathbf{u})^T)$ if the displacements are sufficiently small.
 
 Another finite strain measure that has gained attention in more recent years is the Hencky (logarithmic, or ``true'') strain tensor $\mathbf{H} = \frac{1}{2} \log \mathbf{B}$. Because the Hencky strain tensor belongs to the Seth-Hill family of strain measures (as do the Green-Lagrangian and Eulerian-Almansi strain tensors), it likewise is seen to reduce to the small strain tensor in the limit of small displacements.
 
@@ -90,12 +84,12 @@ Since we have imposed no limitations on the choice of subset $\Omega_t$, we may 
   \rho (\mathbf{b} - \dot{\mathbf{v}}) + \nabla_x \cdot \boldsymbol{\sigma} = \mathbf{0} \quad \forall \mathbf{x} \in \mathcal{B}_t.
 \end{equation}
 
-Similarly, by formulating an expression for the conservation of angular momentum and following an analogous procedure, we obtain an additional point-wise requirement on the symmetry of the Cauchy stress tensor:
+Similarly, by formulating an expression for the conservation of angular momentum, we obtain an additional point-wise requirement on the symmetry of the Cauchy stress tensor:
 \begin{equation}
   \boldsymbol{\sigma} = \boldsymbol{\sigma}^T \quad \forall \mathbf{x} \in \mathcal{B}_t.
 \end{equation}
 
-\subsection{Measures of Stress}
+\subsection*{Measures of Stress}
 
 As expressed earlier, the Cauchy stress tensor $\boldsymbol{\sigma}$ relates the normal $\mathbf{n}$ of a given surface area element $d \mathbf{a} = \mathbf{n} \, da$ to the corresponding force per unit of area $\mathbf{t}$ which acts on that surface, where the surface element $d \mathbf{a}$ is defined in the current configuration of the body (at some time $t > 0$). The total force which acts on a given surface $d \mathbf{a}$ is then
 \begin{equation}
@@ -111,20 +105,20 @@ we may consider an equivalent representation of $d \mathbf{f}$, such that
 \end{equation}
 where $\mathbf{P}$ is defined as the first Piola-Kirchhoff stress tensor (which in general is not symmetric.), and where $\mathbf{p} = \mathbf{N} \cdot \mathbf{P}^T$ is the corresponding Piola traction vector, characterizing the distributed force which acts over a surface defined in the reference configuration with area $dA$ and normal $\mathbf{N}$.
 
-Another stress measure (related to the first Piola-Kirchhoff stress) is the second Piola-Kirchhoff stress tensor $\mathbf{S}$, which is commonly defined as the pull-back of the Kirchhoff stress tensor $\boldsymbol{\tau} = J \boldsymbol{\sigma}$:
+Another stress measure (related to the first Piola-Kirchhoff stress) is the second Piola-Kirchhoff stress tensor $\mathbf{S}$, and is commonly defined as the pull-back of the Kirchhoff stress tensor $\boldsymbol{\tau} = J \boldsymbol{\sigma}$:
 \begin{equation}
   \mathbf{S} = \mathbf{F}^{-1} \boldsymbol{\tau} \mathbf{F}^{-T}.
 \end{equation}
 
 \section{Constitutive Relations}
 
-Fundamentally, we require there to be some relationship between the forces applied to a given body, and the observed deformation of those bodies. Such relationships are generally referred to as constitutive models, which characterize a macroscopic connection between stress and strain in a continuum.
+Fundamentally, we require there to be some relationship between the forces applied to a given body, and its observed deformation. Such relationships are generally referred to as constitutive models, which characterize a macroscopic connection between stress and strain in a continuum.
 
-\subsection{Models of Elasticity}
+\subsection*{Models of Elasticity}
 
  Constitutive models have variable forms, mostly notably as they relate to notions of elasticity: the tendency of a material to revert to its original undeformed configuration if the applied forces are removed. Models for elastic material behavior fall into three primary categories: hyperelasticity, Cauchy-elasticity, and hypoelasticity.
 
-Hyperelasticity is concerned with the description of a material's state through an elastic potential function, which characterizes the total stored elastic strain energy $W (\mathbf{F})$ in the material as a function of the total deformation measured from some (nominally undeformed) reference configuration. Differentiation of this potential with respect to a given deformation measure will yield an expression for the corresponding work-conjugate measure of stress, e.g.
+Hyperelasticity is concerned with the description of a material's state through an elastic potential function, which expresses the total stored elastic strain energy $W (\mathbf{F})$ in the material as a function of the total deformation measured from some (nominally undeformed) reference configuration. Differentiation of this potential with respect to a given deformation measure will yield an expression for the corresponding work-conjugate measure of stress, e.g.
 \begin{equation}
   \mathbf{P} = \frac{\partial W}{\partial \mathbf{F}}, \qquad \mathbf{S} = \frac{\partial W}{\partial \mathbf{E}}.
 \end{equation}
@@ -132,7 +126,7 @@ Some common examples of hyperelastic models include the St. Venant-Kirchhoff mat
 \begin{equation}
   W (\mathbf{E}) = \frac{\lambda}{2} \text{tr} (\mathbf{E})^2 + \mu \text{tr} (\mathbf{E}^2),
 \end{equation}
-Hencky's elasticity model:
+the Hencky elasticity model:
 \begin{equation}
   W (\mathbf{H}) = \frac{\lambda}{2} \text{tr} (\mathbf{H})^2 + \mu \text{tr} (\mathbf{H}^2),
 \end{equation}
@@ -159,11 +153,11 @@ and are suitable for small deformations, but are typically not applicable in the
 \begin{equation}
   \boldsymbol{\sigma} = f (\mathbf{F}),
 \end{equation}
-and are more suitable in the realm of finite deformations. For such models to be considered objective under a superposed rigid rotation corresponding to $\mathbf{R}$, they must satisfy the following condition:
+and are suitable in the context of finite deformations. For such models to be considered objective under a superposed rigid rotation corresponding to $\mathbf{R}$, they must satisfy the following condition:
 \begin{equation}
   \mathbf{R} \boldsymbol{\sigma} \mathbf{R}^T = f (\mathbf{R} \mathbf{F}).
 \end{equation}
-Nonetheless, such models may still suffer from being non-conservative, in the sense that the total work done by the stresses in moving through an arbitrary closed cycle of deformation does not necessarily sum to zero. For these reasons, models of hyperelasticity are generally preferred where the use of such models is deemed appropriate. Nonetheless elasticity models are still useful, particularly in the context of small deformations.
+Nonetheless, such models may still suffer from being non-conservative, in the sense that the total work done by the stresses acting on a body moving through an arbitrary closed cycle of deformation does not necessarily sum to zero. For these reasons, models of hyperelasticity are generally preferred where the use of such models is deemed appropriate. Nonetheless elasticity models are still useful, particularly in the context of small deformations.
 
 In contrast, hypoelasticity models define an evolution (rate) equation in terms of the current stress and the velocity gradient at a given material point, i.e.
 \begin{equation}
@@ -187,13 +181,13 @@ where $\mathbf{D}$ and $\mathbf{W}$ specify the rate of deformation and spin at 
 
 \section{Model Boundary Value Problem}
 
-Up to this point, we have discussed only the essential relationships which exist between physical quantities of interest in the context of solid mechanics. Ultimately, however, we should like to determine the anticipated motion and deformation of a particular body under the action of pre-determined externally applied forces. To this end, we must turn our attention to the definition -- and solution -- of a corresponding boundary value problem (BVP). Such problems must be well-posed, in the sense that there exists a unique solution to the stated problem, thereby imposing certain restrictions on the choice of boundary conditions.
+Up to this point, we have discussed only the essential relationships which exist between physical quantities of interest in the context of solid mechanics. Ultimately, however, we should like to determine the anticipated motion and deformation of a particular body under the action of pre-determined externally applied forces. To this end, we must turn our attention to the definition -- and solution -- of boundary value problems (BVPs). Such problems must be well-posed, in the sense that there exists a unique solution to the stated problem, thereby imposing certain restrictions on the choice of boundary conditions.
 
-\subsection{The Strong Form Statement of Equilibrium}
+\subsection*{The Strong Form Statement of Equilibrium}
 
 In the context of solid mechanics, the solution of a given boundary value problem usually refers to a complete description of the primary field variable(s) of interest, namely the displacement field $\mathbf{u} (\mathbf{X})$ at all locations $\mathbf{X} \in \mathcal{B}_0$ within the body $\mathcal{B}_0$ in its reference configuration. Under the requirements of compatibility, we presume that the displacement field is a continuous function, whose derivatives up to second order are defined everywhere, i.e. $\mathbf{u} \in \left[ C^2 (\mathcal{B}_0) \right]^d$.
 
-Now, let us examine a quasi-static solid mechanics model problem of the following form: consider an open domain $\mathcal{B}_0 \subset \mathbb{R}^d$ whose boundary $\partial \mathcal{B}_0$ consists of the partition $\left\{ \Gamma_u, \Gamma_t \right\}$. Let $\mathbf{u} = \bar{\mathbf{u}} \, \, \forall \mathbf{X} \in \Gamma_u$ constitute a prescribed Dirichlet boundary condition imposed upon the displacement field, and $\mathbf{n} \cdot \boldsymbol{\sigma} = \bar{\mathbf{t}} \, \, \forall \mathbf{X} \in \Gamma_t$ be a Neumann boundary condition imposed upon the surface traction. Additionally, let us suppose that an applied body force $\mathbf{b}$ acts upon all points $\mathbf{X} \in \mathcal{B}_0$. Given these conditions, we should like to determine the displacement field $\mathbf{u} \in \mathcal{S} = \left\{ \mathbf{u} \in \left[ C^2 (\mathcal{B}_0) \right]^d \colon \mathbf{u} = \bar{\mathbf{u}} \, \, \forall \mathbf{x} \in \Gamma_u \right\}$ which satisfies the equations of equilibrium in a point-wise sense:
+Now, let us examine a quasi-static solid mechanics model problem of the following form: consider an open domain $\mathcal{B}_0 \subset \mathbb{R}^d$ whose boundary $\partial \mathcal{B}_0$ consists of the partition $\left\{ \Gamma^D_0, \Gamma^N_0 \right\}$. Let $\mathbf{u} = \bar{\mathbf{u}} \, \, \forall \mathbf{X} \in \Gamma^D_0$ constitute a prescribed Dirichlet boundary condition imposed upon the displacement field, and $\mathbf{n} \cdot \boldsymbol{\sigma} = \bar{\mathbf{t}} \, \, \forall \mathbf{X} \in \Gamma^N_0$ be a Neumann boundary condition imposed upon the surface traction. Additionally, let us suppose that an applied body force $\mathbf{b}$ acts upon all points $\mathbf{X} \in \mathcal{B}_0$. Given these conditions, we should like to determine the displacement field $\mathbf{u} \in \mathcal{S} = \left\{ \mathbf{u} \in \left[ C^2 (\mathcal{B}_0) \right]^d \colon \mathbf{u} = \bar{\mathbf{u}} \, \, \forall \mathbf{x} \in \Gamma^D_0 \right\}$ which satisfies the equations of equilibrium in a point-wise sense:
 \begin{equation}
   \rho \mathbf{b} + \nabla_x \cdot \boldsymbol{\sigma} = \mathbf{0} \quad \forall \mathbf{x} \in \mathcal{B}_t,
 \end{equation}
@@ -205,27 +199,29 @@ where $\rho_0 = J \rho$ is the mass density of the material at time $t = 0$. The
 
 It should be emphasized that the Dirichlet boundary conditions and the requirements of compatibility are satisfied implicitly, as a consequence of the deliberate choice of function space $\mathcal{S}$ for the displacement field. Such functions $\mathbf{u} \in \mathcal{S}$ are termed ``admissible,'' as potential solutions to the boundary value problem at hand.
 
-\subsection{The Equivalent Weak Form Statement of Equilibrium}
+\subsection*{The Equivalent Weak Form Statement of Equilibrium}
 
 In general, solutions to the strong form problem are not easily obtained. For this reason, it proves to be much more convenient to work with the (equivalent) ``weak form'' statement of the boundary value problem:
 
-\textit{Find $\mathbf{u} \in \mathcal{S} = \left\{ \mathbf{u} \in \left[H^{1} (\mathcal{B}_0)\right]^d \colon \mathbf{u} = \bar{\mathbf{u}} \, \, \forall \mathbf{X} \in \Gamma_u \right\}$ such that}
+\textit{Find $\mathbf{u} \in \mathcal{S} = \left\{ \mathbf{u} \in \left[H^{1} (\mathcal{B}_0)\right]^d \colon \mathbf{u} = \bar{\mathbf{u}} \, \, \forall \mathbf{X} \in \Gamma^D_0 \right\}$ such that}
 \begin{equation}
-  \int_{\raisebox{\depth}{$\chi$} (\mathcal{B}_0, t)} \rho \mathbf{b} \cdot \mathbf{v} \, dv + \int_{\raisebox{\depth}{$\chi$} (\Gamma_t, t)} \bar{\mathbf{t}} \cdot \mathbf{v} \, da - \int_{\raisebox{\depth}{$\chi$} (\mathcal{B}_0, t)} \boldsymbol{\sigma} \colon \nabla_x \mathbf{v} \, dv = 0 \quad \forall \mathbf{v} \in \mathcal{V},
+  \mathcal{R}(\mathbf{u}, \mathbf{v}) = \int_{\mathcal{B}_t} \rho \mathbf{b} \cdot \mathbf{v} \, dv + \int_{\Gamma^N_t} \bar{\mathbf{t}} \cdot \mathbf{v} \, da - \int_{\mathcal{B}_t} \boldsymbol{\sigma} \colon \nabla_x \mathbf{v} \, dv = 0 \quad \forall \mathbf{v} \in \mathcal{V},
   \label{eq:weakeulerian}
 \end{equation}
 \textit{or equivalently}
 \begin{equation}
-  \int_{\mathcal{B}_0} \rho_0 \mathbf{b} \cdot \mathbf{v} \, dV + \int_{\Gamma_t} \bar{\mathbf{p}} \cdot \mathbf{v} \, dA - \int_{\mathcal{B}_0} \mathbf{P} \colon \nabla_X \mathbf{v} \, dV = 0 \quad \forall \mathbf{v} \in \mathcal{V},
+  \mathcal{R}(\mathbf{u}, \mathbf{v}) = \int_{\mathcal{B}_0} \rho_0 \mathbf{b} \cdot \mathbf{v} \, dV + \int_{\Gamma^N_0} \bar{\mathbf{p}} \cdot \mathbf{v} \, dA - \int_{\mathcal{B}_0} \mathbf{P} \colon \nabla_X \mathbf{v} \, dV = 0 \quad \forall \mathbf{v} \in \mathcal{V},
   \label{eq:weaklagrangian}
 \end{equation}
-\textit{where $\mathcal{V} = \left\{ \mathbf{v} \in \left[H^{1} (\mathcal{B}_0)\right]^d \colon \mathbf{v} = \mathbf{0} \, \, \forall \mathbf{X} \in \Gamma_u \right\}$, and}
+\textit{where $\mathcal{V} = \left\{ \mathbf{v} \in \left[H^{1} (\mathcal{B}_0)\right]^d \colon \mathbf{v} = \mathbf{0} \, \, \forall \mathbf{X} \in \Gamma^D_0 \right\}$, and}
 \begin{equation}
   H^{1} (\mathcal{B}_0) = \left\{ u \in L^2 (\mathcal{B}_0), \, D^{\alpha} u \in L^2 (\mathcal{B}_0) \, \, \forall | \alpha | \leq 1 \right\}.
 \end{equation}
-In (\ref{eq:weaklagrangian}), the traction boundary condition has been replaced by $\mathbf{p} = \bar{\mathbf{p}} \, \, \forall \mathbf{X} \in \Gamma_t$ -- i.e. a condition on the Piola (rather than Cauchy) surface traction. The function space $\mathcal{S}$ is commonly referred to as the space of admissible ``trial solutions,'' whereas $\mathcal{V}$ is called the space of ``test functions,'' and consists of all admissible variations such that $\mathcal{V} = T_{\mathbf{u}} \mathcal{S}$ is the tangent space to $\mathcal{S}$ (i.e. $\mathbf{u} + \mathbf{v} \in \mathcal{S} \, \, \forall \mathbf{u} \in \mathcal{S}, \, \mathbf{v} \in \mathcal{V}$). In words, our goal is determine the solution $\mathbf{u}$ from among all admissible trial solutions contained in $\mathcal{S}$ which satisfies equation (\ref{eq:weakeulerian}) or (\ref{eq:weaklagrangian}) for all admissible variations $\mathbf{v} \in \mathcal{V}$.
+It should be remarked that the space $\mathcal{S}$ of admissible solutions to the weak form now consists of much more general functions than those considered for the strong form. In other words, the requirements on the differentiability of functions in $\mathcal{S}$ have been ``weakened.''
 
-Under the assumptions of small displacements and linear elasticity, equations (\ref{eq:weakeulerian}) and (\ref{eq:weaklagrangian}) are equivalent, and may be more succinctly expressed in terms of a bilinear form $a(\cdot, \cdot) \colon \mathcal{S} \times \mathcal{V} \mapsto \mathbb{R}$ and a linear form $\ell (\cdot) : \mathcal{V} \mapsto \mathbb{R}$ such that
+In (\ref{eq:weaklagrangian}), the traction boundary condition has been replaced by $\mathbf{p} = \bar{\mathbf{p}} \, \, \forall \mathbf{X} \in \Gamma^N_0$ -- i.e. a condition on the Piola (rather than Cauchy) surface traction. The function space $\mathcal{S}$ is commonly referred to as the space of admissible ``trial solutions,'' whereas $\mathcal{V}$ is called the space of ``test functions,'' and consists of all admissible variations such that $\mathcal{V} = T_{\mathbf{u}} \mathcal{S}$ is the tangent space to $\mathcal{S}$ (i.e. $\mathbf{u} + \mathbf{v} \in \mathcal{S} \, \, \forall \mathbf{u} \in \mathcal{S}, \, \mathbf{v} \in \mathcal{V}$). In words, our goal is determine the solution $\mathbf{u}$ from among all admissible trial solutions contained in $\mathcal{S}$ which satisfies equation (\ref{eq:weakeulerian}) or (\ref{eq:weaklagrangian}) for all admissible variations $\mathbf{v} \in \mathcal{V}$.
+
+Under the assumptions of small displacements and linear elasticity, equations (\ref{eq:weakeulerian}) and (\ref{eq:weaklagrangian}) are equivalent, and may be more succinctly expressed in terms of a bilinear form $a \colon \mathcal{S} \times \mathcal{V} \mapsto \mathbb{R}$ and a linear form $\ell : \mathcal{V} \mapsto \mathbb{R}$ such that
 \begin{equation}
   a(\mathbf{u}, \mathbf{v}) + \ell (\mathbf{v}) = 0 \quad \forall \mathbf{v} \in \mathcal{V}.
 \end{equation}
@@ -233,67 +229,218 @@ Under the assumptions of small displacements and linear elasticity, equations (\
 
 \section{Galerkin Approximations to the Weak Form}
 
-In the weak form problem statement, the trial and test spaces $\mathcal{S}$ and $\mathcal{V}$ are taken to be infinite dimensional function spaces. In a practical computational setting, however, this renders the solution of such problems infeasible. Instead, most variational methods consider approximate solutions to the weak form, where $\mathbf{u} \in \mathcal{S}$ and $\mathbf{v} \in \mathcal{V}$ are replaced by $\mathbf{u}^h \in \mathcal{S}^h \subset \mathcal{S}$ and $\mathbf{v}^h \in \mathcal{V}^h \subset \mathcal{V}$, respectively. In this context, $\mathcal{S}^h = \left\{ \varphi_a \right\}_{a = 1}^{N}$ and $\mathcal{V}^h = \left\{ \phi_a \right\}_{a = 1}^{M}$ denote finite dimensional sub-spaces of $\mathcal{S}$ and $\mathcal{V}$, such that
+In the weak form problem statement, the trial and test spaces $\mathcal{S}$ and $\mathcal{V}$ are taken to be infinite dimensional function spaces. In a practical computational setting, however, this renders the solution of such problems infeasible. Instead, most variational methods consider approximate solutions to the weak form, where $\mathbf{u} \in \mathcal{S}$ and $\mathbf{v} \in \mathcal{V}$ are replaced by $\mathbf{u}^h \in \mathcal{S}^h \subset \mathcal{S}$ and $\mathbf{v}^h \in \mathcal{V}^h \subset \mathcal{V}$, respectively. In this context, $\left\{ \varphi_a \right\}_{a = 1}^{N}$ and $\left\{ \phi_a \right\}_{a = 1}^{M}$ denote finite dimensional bases for the sub-spaces $\mathcal{S}^h$ and $\mathcal{V}^h$, such that
 \begin{equation}
-  \mathbf{u}^h = \sum_{a = 1}^N \varphi_a \mathbf{u}_a, \qquad \mathbf{v}^h = \sum_{a = 1}^M \phi_a \mathbf{v}_a.
+  \mathbf{u}^h (\mathbf{X}) = \sum_{a = 1}^N \varphi_a (\mathbf{X}) \mathbf{u}_a, \qquad \mathbf{v}^h (\mathbf{X}) = \sum_{a = 1}^M \phi_a (\mathbf{X}) \mathbf{v}_a.
 \end{equation}
 
 This yields the Galerkin approximation to the weak form:
 \textit{Find $\mathbf{u}^h \in \mathcal{S}^h$ such that}
 \begin{equation}
-  \int_{\mathcal{B}_t} \rho \mathbf{b} \cdot \mathbf{v}^h \, dv + \int_{\raisebox{\depth}{$\chi$} (\Gamma_t, t)} \bar{\mathbf{t}} \cdot \mathbf{v}^h \, da - \int_{\mathcal{B}_t} \boldsymbol{\sigma} \colon \nabla_x \mathbf{v}^h \, dv = 0 \quad \forall \mathbf{v}^h \in \mathcal{V}^h,
-  \label{eq:approxweakeulerian}
+  \mathcal{R}(\mathbf{u}^h, \mathbf{v}^h) = 0 \quad \forall \mathbf{v}^h \in \mathcal{V}^h,
+  \label{eq:weakform}
 \end{equation}
-\textit{or equivalently}
+\textit{yielding the (in general, nonlinear) residual equations, in index notation:}
 \begin{equation}
-  \int_{\mathcal{B}_0} \rho_0 \mathbf{b} \cdot \mathbf{v}^h \, dV + \int_{\Gamma_t} \bar{\mathbf{p}} \cdot \mathbf{v}^h \, dA - \int_{\mathcal{B}_0} \mathbf{P} \colon \nabla_X \mathbf{v}^h \, dV = 0 \quad \forall \mathbf{v}^h \in \mathcal{V}^h.
-  \label{eq:approxweaklagrangian}
+  R_{ia} (\mathbf{u}^h) = \int_{\mathcal{B}_0} \rho_0 b_i \phi_a \, dV + \int_{\Gamma^N_0} \bar{p}_i \phi_a \, dA - \int_{\mathcal{B}_0} P_{ij} \phi_{a,j} \, dV = 0 \quad \forall i, \, a.
+  \label{eq:residual}
 \end{equation}
 
-Without loss of generality, if we suppose that $\mathcal{S} = \mathcal{V}$ (provided $\mathbf{u} = \mathbf{0} \, \, \forall \mathbf{X} \in \Gamma_u$), then we may select identical sub-spaces $\mathcal{S}^h = \mathcal{V}^h = \left\{ \varphi_a \right\}_{a = 1}^{N}$, resulting in a symmetric (or Bubnov-) Galerkin method. Traditional finite element methods fall into this category. Such methods are advantageous in the sense that (for linear problems) they result in stable, symmetric bilinear forms satisfying the Galerkin orthgonality (or ``best approximation'') property -- the property that the solution error $\mathbf{e} = \mathbf{u}^h - \mathbf{u}$ is orthogonal to the chosen sub-space $\mathcal{S}^h$. This is a direct consequence of $\mathcal{V}^h = T_{\mathbf{u}^h} \mathcal{S}^h$ (i.e. $\mathbf{u}^h + \mathbf{v}^h \in \mathcal{S}^h \, \, \forall \mathbf{u}^h \in \mathcal{S}^h, \, \mathbf{v}^h \in \mathcal{V}^h$).
+Without loss of generality, if we suppose that $\mathcal{S} = \mathcal{V}$ (provided $\mathbf{u} = \mathbf{0} \, \, \forall \mathbf{X} \in \Gamma^D_0$), then we may select identical sub-spaces $\mathcal{S}^h = \mathcal{V}^h$ ($\left\{ \varphi_a \right\}_{a = 1}^{N} = \left\{ \phi_a \right\}_{a = 1}^{M}$), resulting in a symmetric (or Bubnov-) Galerkin method. Traditional finite element methods fall into this category. Such methods are advantageous in the sense that (for linear problems) they result in stable, symmetric bilinear forms satisfying the Galerkin orthgonality (or ``best approximation'') property -- the property that the solution error $\mathbf{e} = \mathbf{u}^h - \mathbf{u}$ is orthogonal to the chosen sub-space $\mathcal{S}^h$.
 
 Petrov-Galerkin methods consider the more general case where $\mathcal{V}^h \neq \mathcal{S}^h$, resulting in differing trial and test function spaces. Such methods must guarantee satisfaction of the LBB (inf-sup) conditions to achieve convergence. Consequently, the selection of appropriate trial and test function spaces which result in stable discretizations is not trivial. Nonetheless, Petrov-Galerkin methods allow for greater flexibility in the construction of numerical approximation schemes.
 
-\subsection{Finite Element Methods}
+\subsection*{Finite Element Methods}
 
-Finite element methods (FEM) are predicated on the idea that a problem domain $\mathcal{B}$ can be discretized into a finite number of simpler sub-domains $\omega_e \subset \mathcal{B}$, individually called elements, and collectively referred to as a ``mesh.'' The basis functions are assumed to be low-order polynomials within each element, and are compactly supported over a given patch of elements. The traditional finite element method assumes these basis functions to be $C^0$ continuous at element boundaries, yielding a priori satisfaction of compatibility.
+Finite element methods (FEM) are predicated on the idea that a problem domain $\mathcal{B}_0$ can be discretized into a finite number of simpler sub-domains $\Omega_e \subset \mathcal{B}_0$, individually called elements, and collectively referred to as a ``mesh.'' The basis functions are assumed to be low-order polynomials within each element, and are compactly supported over a given patch of elements. The traditional finite element method assumes these basis functions to be $C^0$ continuous at element boundaries, yielding a priori satisfaction of compatibility.
 
-Individual FE basis functions $\varphi_a$ are typically associated with the ``nodes'' $\mathbf{X}_a$ of the mesh (located at element verticies, along element edges, etc.), such that the kronecker delta property is satisfied:
-\begin{equation}
-	\mathbf{u}^h (\mathbf{X}_b) = \sum_{a = 1}^N \varphi_a (\mathbf{X}_b) \mathbf{u}_a = \mathbf{u}_b.
-\end{equation}
-Consequently, the basis functions comprise a set of interpolants for discrete values of the solution defined at the nodes.
+Individual FE basis functions $\varphi_a$ are typically associated with the ``nodes'' $\mathbf{X}_a$ of the mesh (located at element verticies, along element edges, etc.), such that the kronecker delta property is satisfied, i.e. $\varphi_a (\mathbf{X}_b) = \delta_{ab}$. Consequently, the basis functions comprise a set of interpolants for discrete values of the solution defined at the nodes.
 
 Elements consisting of regular shapes (tetrahedra, hexahedra) also provide a natural means of effecting numerical integration of the weak form through the use of the isoparametric transformation and product Gaussian quadrature rules.
 
+\subsection*{Consistent Linearization of the Weak Form}
+
+	% Discuss and present a consistent linearization of the weak form
+	In order to determine the solution $\mathbf{u}^h \in \mathcal{S}^h$ satisfying the weak form equations, we will choose to employ a Newton-Raphson algorithm:
+	
+\begin{algorithm}
+ \caption{Newton-Raphson Iteration}
+ \label{alg:newtonraphson}
+ 	Compute initial guess $u_{jb}^{(0)}$ \;
+	\While{$||R_{ia}|| < \epsilon$}{
+ 		Assemble $K_{iajb} = \partial R_{ia} / \partial u_{jb}$ \;
+ 		Update $u_{jb}^{(k+1)} \leftarrow u_{jb}^{(k)} - K_{jbia}^{-1}  R_{ia}$ \;
+ 	}
+\end{algorithm}
+
+	Here, $R_{ia}$ denotes the residual (vector), and $K_{iajb}$ denotes the stiffness matrix -- the Jacobian of the residual with respect to the independent unknowns $u_{jb}$ (the nodal displacements). The above iteration procedure is repeated until the stopping criterion $||R_{ia}|| < \epsilon$ is reached, for some specified residual measure $||\cdot||$, and tolerance $\epsilon$.
+		
+	Given the residual equations $R_{ia} (\mathbf{u}^h) = 0 \, \forall i, \, a$, we may express their first partial derivatives $\partial R_{ia} / \partial u_{jb}$ with respect to the independent unknowns $u_{jb}$ as
+	\begin{equation}
+	  \frac{\partial R_{ia}}{\partial u_{jb}} =
+	  \int_{\Gamma^N_0} \frac{\partial \bar{p}_i}{\partial u_{jb}}  \phi_a \, dA
+	 - \int_{\mathcal{B}_0} \frac{\partial P_{ik}}{\partial u_{jb}} \phi_{a,k} \, dV,
+	\end{equation}
+	indicating two primary terms ($\bar{\mathbf{p}}$ and $\mathbf{P}$) which must be linearized. Subsequent discussions will focus on the linearization of the first Piola-Kirchhoff stress.
+	
+\subsection*{Nonlinear Deformation and Incremental Kinematics}
+
+	Let us contemplate the linearization of $\partial P_{ik} / \partial u_{jb}$ by applying the chain-rule:
+	\begin{equation}
+		\frac{\partial P_{ik}}{\partial u_{jb}} = \frac{\partial P_{ik}}{\partial F_{lm}} \frac{\partial F_{lm}}{\partial u_{jb}},
+	\end{equation}
+	revealing the deformation ``gradient operator:''
+	\begin{equation}
+		\frac{\partial F_{lm}}{\partial u_{jb}} = \delta_{jl} \varphi_{b,m}.
+	\end{equation}
+	If a enhanced strain formulation is employed, only the gradient operator would need to be modified; the subsequent expressions pertaining to $\partial P_{ik} / \partial F_{lm}$ would remain unchanged.
+
+	% Present consistent linearization for finite deformations
+	
+	Through further application of the chain-rule, and use of the following identities:
+	\begin{equation}
+		\frac{\partial J}{\partial F_{lm}} = J F_{ml}^{-1}, \quad \frac{\partial F_{kj}^{-1}}{\partial F_{lm}} = F_{kl}^{-1} F_{mj}^{-1},
+	\end{equation}
+	one can derive the following result:
+	\begin{equation}
+		\frac{\partial P_{ik}}{\partial F_{lm}} = J \sigma_{ij} (F_{ml}^{-1} F_{kj}^{-1} + F_{kl}^{-1} F_{mj}^{-1})  + J \frac{\partial \sigma_{ij}}{\partial F_{lm}} F_{kj}^{-1}.
+	\end{equation}
+	If the material model allows for the Cauchy stress to be written directly as a function of the deformation gradient (i.e. $\boldsymbol{\sigma} = f(\mathbf{F})$, as is the case for Cauchy-elastic material models), then a consistent linearization for $\partial \sigma_{ij} / \partial F_{lm}$ may be obtained by direct differentiation.
+	
+	Otherwise (for hypoelastic material models of the form $\dot{\boldsymbol{\sigma}} = g(\boldsymbol{\sigma}, \mathbf{L})$), we must consider the integral of the stress rate over some finite time interval $\Delta t = t_{k+1} - t_{k}$:
+	\begin{equation}
+		\boldsymbol{\sigma}_{k+1} = \boldsymbol{\sigma}_k + \int_{t_{k}}^{t_{k+1}} \dot{\boldsymbol{\sigma}} \, dt.
+	\end{equation}
+	The corresponding increment of motion is characterized by $\hat{\mathbf{F}} = \mathbf{F}_{k+1} \mathbf{F}^{-1}_{k} = \hat{\mathbf{R}} \hat{\mathbf{U}}$, which is used to update the stress via the following incremental algorithm (proposed in \cite{Rashid:93}):
+	\begin{equation}
+		\boldsymbol{\sigma}_{k+1} = \hat{\mathbf{R}} \left[ \boldsymbol{\sigma}_k + \int_{t_k}^{t_{k+1}} \accentset{\circ}{\boldsymbol{\sigma}} (\mathbf{D}) \, dt \right] \hat{\mathbf{R}}^T,
+	\end{equation}
+	where $\mathbf{D} = \frac{1}{\Delta t} \log \hat{\mathbf{U}}$ denotes the time-averaged rate of deformation over the time step. The resulting algorithmically consistent tangent $\partial \sigma_{ij} / \partial F_{lm}$ is computed as
+	\begin{equation}
+		\frac{\partial \sigma_{ij}}{\partial F_{lm}} = \frac{\partial \hat{R}_{ik}}{\partial F_{lm}} \hat{R}_{nk} \sigma_{nj} + \sigma_{in} \hat{R}_{nk} \frac{\partial \hat{R}_{jk}}{\partial F_{lm}} + \hat{R}_{ik} C_{knpq} \hat{R}_{jn} \frac{\partial D_{pq}}{\partial F_{lm}} \Delta t,
+	\end{equation}
+	where $C_{knpq} \equiv \partial \accentset{\circ}{\sigma}_{kn} / \partial D_{pq}$ (the material tangent modulus) is supplied by the constitutive model. The computation of $\partial \hat{R}_{ik} / \partial F_{lm}$ and $\partial D_{pq} / \partial F_{lm}$ may be accurately carried out with the aid of the following expressions:
+	\begin{equation}
+		\frac{\partial \hat{D}_{pq}}{\partial \hat{U}_{ij}} = \frac{1}{\Delta t} \sum_{r,s} \hat{Q}_{qr} \hat{Q}_{jr} \mathcal{H} (f, \hat{\lambda}_r, \hat{\lambda}_s) \hat{Q}_{ps} \hat{Q}_{is}; \quad f (\lambda) = \log (\lambda),
+	\end{equation}
+	\begin{equation}
+		\frac{\partial \hat{U}_{ij}}{\partial \hat{B}_{kl}} = \sum_{r,s} \hat{Q}_{jr} \hat{Q}_{lr} \mathcal{H} (g, \hat{\lambda}_r^2, \hat{\lambda}_s^2) \hat{Q}_{is} \hat{Q}_{ks}; \quad g (\lambda) = \sqrt{\lambda},
+	\end{equation}
+%	\begin{equation}
+%		\frac{\partial \hat{B}_{kj}}{\partial F_{lm}} = \frac{\partial \hat{B}_{kj}}{\partial \hat{F}_{iq}} \frac{\partial \hat{F}_{iq}}{\partial F_{lm}} = \left[ \delta_{kq} \hat{F}_{ij} + \hat{F}_{ik} \delta_{jq} \right] \delta_{il} \bar{F}^{-1}_{mq} = \bar{F}^{-1}_{mk} \hat{F}_{lj} + \hat{F}_{lk} \bar{F}^{-1}_{mj},
+%	\end{equation}
+	\begin{equation}
+		\frac{\partial \hat{B}_{kj}}{\partial F_{lm}} = F^{-1}_{mi} (\hat{F}_{ik} \hat{F}_{lj} + \hat{F}_{ij} \hat{F}_{lk}),
+	\end{equation}
+	\begin{equation}
+		\frac{\partial \hat{R}_{ik}}{\partial F_{lm}} = \delta_{il} \hat{R}_{mj} F^{-1}_{jk} - \hat{R}_{in} \frac{\partial \hat{U}_{nj}}{\partial F_{lm}} \hat{U}_{jk}^{-1},
+	\end{equation}
+	where we define
+	\begin{equation}
+		\mathcal{H} (f, x, y) \equiv \left\{ \begin{array}{cc} f'(x), & x = y \\
+		\frac{f(x) - f(y)}{x - y} & x \neq y \end{array} \right. ,
+	\end{equation}
+	and $\hat{\mathbf{U}} = \hat{\mathbf{Q}} \hat{\boldsymbol{\Lambda}} \hat{\mathbf{Q}}^T$ represents the eigendecomposition of $\hat{\mathbf{U}}$, and $\hat{\lambda}_i$ denote the corresponding eigenvalues of $\hat{\mathbf{U}}$.
+
 \section{Requirements for Convergence of an \\ Approximation Method}
 
-Because variational methods utilize finite dimensional approximations $\mathbf{u}^h \in \mathcal{S}^h$ and $\mathbf{v}^h \in \mathcal{V}^h$, they inherrently incur some error $\mathbf{e} = \mathbf{u}^h - \mathbf{u}$ in approximating the exact solution to the original boundary value problem. The  approximation power of a given method is typically characterized by the rate at which a specified error measure $||\mathbf{e}||$ becomes smaller as the dimension of the approximation spaces $\mathcal{S}^h$ and $\mathcal{V}^h$ are systematically increased.
+Because variational methods utilize finite dimensional spaces $\mathcal{S}^h$ and $\mathcal{V}^h$, they inherrently incur some error $\mathbf{e} = \mathbf{u}^h - \mathbf{u}$ in approximating the exact solution to the original boundary value problem. The  approximation power of a given method is typically characterized by the rate at which a specified error measure $||\mathbf{u}^h - \mathbf{u}||$ (defined on $\mathcal{S}$) decreases as the dimension $N$ of the approximation space $\mathcal{S}^h$ is systematically increased. For finite element methods, increasing the dimension $N$ of the approximation space is synonymous with refining the discretization, to the extent that a specified mesh parameter $h$ (the diameter of the largest element in the mesh) is decreased. An approximation method will therefore yield solutions $\mathbf{u}^h$ which converge to the exact solution $\mathbf{u}$, provided
+\begin{equation}
+	\lim_{N \rightarrow \infty} ||\mathbf{u}^h - \mathbf{u}|| = \lim_{h \rightarrow 0} ||\mathbf{u}^h - \mathbf{u}|| = 0.
+\end{equation}
+Further, a method whose solution error can be bounded by an estimate
+\begin{equation}
+	||\mathbf{u}^h - \mathbf{u}|| \leq C h^\alpha ||\mathbf{u}||,
+\end{equation}
+will converge at a rate of order $\alpha$.
 
-\subsection{Satisfaction of Essential Boundary Conditions}
+For an approximation method to achieve convergence, several conditions must be satisfied, namely: approximability, compatibility, stability, and quadrature consistency. These conditions are summarized in the following sections.
 
+	\subsection*{Approximability}
+	
+	To achieve $\alpha^{\text{th}}$-order convergence, the approximation space $\mathcal{S}^h$ must contain $[ P^{k} (\mathcal{B}_0) ]^d$ (the space of vector-valued polynomial functions of maximal degree $k = \alpha+1$) as a subset $\mathcal{S}^h \supset [ P^{k} (\mathcal{B}_0) ]^d$.
+	
+	This property is sometimes referred to as \textit{approximability}, reflecting a given method's ability to well-approximate the solution locally as a low-order polynomial. Alternativley, this condition is known as polynomial \textit{reproducibility}, or \textit{completeness}. This condition can be rationalized by the Weierstrass approximation theorem, which asserts that any smooth function can be approximated by polynomials to arbitrary precision.
+	
+	\subsection*{Compatibility}
 
+	 Compatibility, in an abstract sense, imposes requirements upon the continuity of trial solutions $\mathbf{u}^h \in \mathcal{S}^h$. For conforming finite element methods, this condition is automatically satisfied, as the trial solution space consists of sufficiently continuous functions, such that $\mathcal{S}^h \subset C^0$.
 
-\subsection{Completeness/Approximability}
+By comparison, non-conforming finite element methods admit more general functions $\mathbf{u}^h \in \mathcal{S}^h \not\subset C^0$. Such spaces of functions must satisfy certain additional requirements. Namely, Stummel has proposed in \cite{Stummel:79} the necessary and sufficient conditions for convergence of a non-conforming finite element method, necessitating passage of the \textit{generalized patch test}:
 
+\textit{For a given patch $\mathcal{P} \subset \overline{\mathcal{B}}_0$ and an approximating sequence of functions $u^h \in H^k (\mathcal{B}_0)$: for every $\mathbf{X} \in P$ there exists an open neighborhood $O$ in $\mathbb{R}^d$ such that}
+\begin{equation}
+  \lim_{h \rightarrow 0} \sum_{\forall \Omega_e} \int_{\partial \Omega_e} v \, D^\alpha u^h|_{\Omega_e} \mathbf{n} \, da = \mathbf{0}
+\end{equation}
+\textit{for all test functions $v \in C^{\infty}_0 (O)$, and $| \alpha | \leq k-1$.}
 
+	Shi later proposed the F-E-M test in \cite{Shi:87} as an alternative, sufficient condition for convergence, with corresponding interface requirement (the F-test):
+	\begin{equation}
+		\bigg| \int_{\Omega_a \cap \Omega_b} [\![ u^h ]\!] \, da \bigg| \leq O(h^{d/2}) ||u^h||_{\Omega_a \cup \Omega_b} \quad \forall \Omega_a \cap \Omega_b \neq \emptyset.
+	\end{equation}
+	
+%	Alternative presentation of compatibility
+	
+\subsection*{Stability}
 
-\subsection{Variational Consistency}
+	The LBB (inf-sup) conditions (introduced in \cite{Babuska:71}, \cite{Brezzi:74}) pertain to potentially differing choices for $\mathcal{S}^h$ and $\mathcal{V}^h$ with appropriately defined norms. For the model problem with bilinear form $a \colon \mathcal{S} \times \mathcal{V} \rightarrow \mathbb{R}$, \textit{uniqueness} of a given solution is contingent upon the inf-sup condition:
+	\begin{equation}
+		\inf_{u^h \in \mathcal{S}^h} \sup_{v^h \in 
+\mathcal{V}^h} \frac{a(u^h,v^h)}{||u^h|| \, ||v^h||} > 0.
+	\end{equation}
+	If $a$ is symmetric and $\mathcal{S}^h = \mathcal{V}^h$, this condition is equivalent to the requirement that $a$ be ellipitic (coercive):
+	\begin{equation}
+		a(u^h,u^h) \geq C_c ||u^h||^2 \quad \forall u^h \in \mathcal{S}^h.
+	\end{equation}
+	\textit{Existence} of a solution further depends upon the condition that $a(\cdot, \cdot)$ be bounded:
+	\begin{equation}
+		a(u^h,v^h) \leq C_b ||u^h|| \, ||v^h|| \quad \forall u^h \in \mathcal{S}^h, \, v^h \in \mathcal{V}^h,
+	\end{equation}
+	and surjective:
+	\begin{equation}
+		\sup_{u^h \in 
+\mathcal{S}^h} a(u^h,v^h) > 0 \quad \forall v^h \in \mathcal{V}^h.
+	\end{equation}
+	
+%	Heuristically, these conditions require that the elements utilize sufficiently accuate quadrature rules to integrate the weak form.
+	Heuristically, these conditions require that individual element stiffness matricies be of full rank, excluding rigid body modes of deformation. This necessitates both: the specification of a stable discretization, and sufficiently accurate evaluation (numerical integration) of the weak form.
+	
+%	Show that the inf-sup conditions can be converted into local criteria for the rank sufficiency of element-level stiffness matricies.
 
+\subsection*{Quadrature Consistency}
 
+Considering the variational formulation of the model boundary value problem in (\ref{eq:weaklagrangian}), if the exact solution $\mathbf{u} \in \mathcal{S}$ to the weak form is contained within the chosen approximation space (i.e. if $\mathbf{u} \in \mathcal{S}^h$), we require that $\mathbf{u}$ be identified as the unique solution to the Galerkin approximation in (\ref{eq:weakform}), namely:
+\begin{equation}
+  \mathcal{R}(\mathbf{u}, \mathbf{v}^h) = 0 \quad \forall \mathbf{v}^h \in \mathcal{V}^h.
+\end{equation}
+This property is referred to as \textit{Galerkin exactness}, and is particularly relevant to the satisfaction of finite element patch tests, which demonstrate Galerkin exactness when the exact solution is a low-order polynomial.
 
-\subsubsection{Constraints on Numerical Quadrature}
+In particular, given a stress field $P_{ij} (\mathbf{u})$ arising from the exact solution $\mathbf{u} \in \mathcal{S}^h$, and for the given boundary conditions $\bar{p}_i = P_{ij} N_j$ and $\rho_0 b_i = - P_{ij,j}$, we may express the residual equations as
+\begin{equation}
+	R_{ia} = \int_{\mathcal{B}_0} P_{ij} \phi_{a,j} \, dV + \int_{\mathcal{B}_0} P_{ij,j} \phi_a \, dV - \int_{\partial \mathcal{B}_0} P_{ij} N_j \phi_a \, dA = 0 \quad \forall i, \, a.
+\end{equation}
+If we suppose that the exact solution is well-approximated by low-order polynomials, i.e.
+\begin{equation}
+  u_{i} (\mathbf{X}) = \sum_{|\alpha| = 0}^{k} a_{i\alpha} \mathbf{X}^\alpha, \quad P_{ij} (\mathbf{X}) = \sum_{|\alpha| = 0}^{k-1} b_{ij\alpha} \mathbf{X}^\alpha,
+\end{equation}
+then the resulting conditions for Galerkin exactness are:
+\begin{equation}
+  \int_{\mathcal{B}_0} \mathbf{X}^{\alpha} \phi_{a,i} \, dV + \int_{\mathcal{B}_0} \mathbf{X}^{\alpha}_{,i} \phi_a \, dV = \int_{\partial \mathcal{B}_0} \mathbf{X}^{\alpha} N_i \phi_a \, dA \quad \forall i, \, a, \, | \alpha | \leq k-1.
+\end{equation}
+The above consistency requirements are required to hold over the problem domain $\mathcal{B}_0$ as a whole, or equivalently over each individual element domain $\Omega_e$:
+\begin{equation}
+  \int_{\Omega_e} \mathbf{X}^{\alpha} \phi_{a,i} \, dV + \int_{\Omega_e} \mathbf{X}^{\alpha}_{,i} \phi_a \, dV = \int_{\partial \Omega_e} \mathbf{X}^{\alpha} N_i \phi_a \, dA \quad \forall i, \, a, \, | \alpha | \leq k-1, \, \Omega_e \subset \mathcal{B}_0.
+  \label{eq:consistency}
+\end{equation}
+The above conditions are sufficient for satisfaction of the Irons' patch test up to $k^{\text{th}}$ order, provided $\mathcal{S}^h \supset [ P^{k} (\mathcal{B}_0) ]^d$. It should be emphasized that these conditions apply specifically to the test functions $\phi_a \in \mathcal{V}^h$.
 
-
-
-\subsection{Numerical Stability}
-\subsubsection{The Inf-Sup Condition}
-\subsection{Tests for Convergence}
-\subsubsection{The Irons Patch Test}
-\subsubsection{The Generalized Patch Test}
-\subsubsection{The F-E-M Test}
-
-\section{Nonlinear Solution Methods}
-\subsection{Finite Deformations and Nonlinear Kinematics}
-\subsection{Nonlinear Material Behavior}
-\subsection{Requirements of the Approximation Method}
+In most practical situations, however, the integral expressions in (\ref{eq:weakform}) are evaluated only approximately; numerical quadrature rules are defined on the elements and on their boundaries, such that
+\begin{equation}
+  \int_{\Omega_e} f(\mathbf{X}) dV \approx \sum_{q=1}^{N_q} w_q f(\mathbf{X}_q), \quad \int_{\partial \Omega_e} f(\mathbf{X}) dA \approx \sum_{b=1}^{N_b} w_b f(\mathbf{X}_b).
+\end{equation}
+This yields a discrete form of (\ref{eq:consistency}), henceforth referred to as \textit{quadrature consistency}:
+\begin{equation}
+  \sum_{q=1}^{N_q} w_q \left[ \mathbf{X}_q^{\alpha} \phi^{(q)}_{a,i} + \mathbf{X}^{\alpha}_{q,i} \phi^{(q)}_a \right] = \sum_{b=1}^{N_b} w_b \mathbf{X}_b^{\alpha} N^{(b)}_i \phi^{(b)}_a \quad \forall i, \, a, \, | \alpha | \leq k-1, \, \Omega_e \subset \mathcal{B}_0.
+  \label{eq:quadrature_consistency}
+\end{equation}
+These conditions effectively impose a set constraints on the accuracy of the chosen quadrature rules, and/or on the choice of test functions. Failure to satisfy the above conditions results in issues of integration error, and correspondingly, loss of convergence.
