@@ -42,6 +42,7 @@ which may be further decomposed into a symmetric part $\mathbf{D}$ (the rate of 
 Compatibility refers to the idea that a given body remains a contiguous medium following some deformation described by $\raisebox{\depth}{$\chi$}_t$. In other words, $\raisebox{\depth}{$\chi$}_t$ must characterize a continuous mapping of material points between different configurations in time, such that the topology of body remains unchanged. Compatibilitiy is characterized by the following necessary and sufficient conditions:
 \begin{equation}
   \nabla_X \times \mathbf{F} = \mathbf{0} \quad \forall \mathbf{X} \in \mathcal{B}_0.
+  \label{eq:compatibility}
 \end{equation}
 Satisfaction of the above compatibility condition implies that there exists a continuous, single-valued displacement field which gives rise to the deformation characterized by $\mathbf{F}$.
 
@@ -183,7 +184,7 @@ where $\mathbf{D}$ and $\mathbf{W}$ specify the rate of deformation and spin at 
 
 Up to this point, we have discussed only the essential relationships which exist between physical quantities of interest in the context of solid mechanics. Ultimately, however, we should like to determine the anticipated motion and deformation of a particular body under the action of pre-determined externally applied forces. To this end, we must turn our attention to the definition -- and solution -- of boundary value problems (BVPs). Such problems must be well-posed, in the sense that there exists a unique solution to the stated problem, thereby imposing certain restrictions on the choice of boundary conditions.
 
-\subsection*{The Strong Form Statement of Equilibrium}
+\subsection*{The Strong Form Statement of Equilibrium} \label{sec:strongform}
 
 In the context of solid mechanics, the solution of a given boundary value problem usually refers to a complete description of the primary field variable(s) of interest, namely the displacement field $\mathbf{u} (\mathbf{X})$ at all locations $\mathbf{X} \in \mathcal{B}_0$ within the body $\mathcal{B}_0$ in its reference configuration. Under the requirements of compatibility, we presume that the displacement field is a continuous function, whose derivatives up to second order are defined everywhere, i.e. $\mathbf{u} \in \left[ C^2 (\mathcal{B}_0) \right]^d$.
 
@@ -366,7 +367,7 @@ For an approximation method to achieve convergence, several conditions must be s
 
 	 Compatibility, in an abstract sense, imposes requirements upon the continuity of trial solutions $\mathbf{u}^h \in \mathcal{S}^h$. For conforming finite element methods, this condition is automatically satisfied, as the trial solution space consists of sufficiently continuous functions, such that $\mathcal{S}^h \subset C^0$.
 
-By comparison, non-conforming finite element methods admit more general functions $\mathbf{u}^h \in \mathcal{S}^h \not\subset C^0$. Such spaces of functions must satisfy certain additional requirements. Namely, Stummel has proposed in \cite{Stummel:79} the necessary and sufficient conditions for convergence of a non-conforming finite element method, necessitating passage of the \textit{generalized patch test}:
+By comparison, non-conforming finite element methods admit more general functions $\mathbf{u}^h \in \mathcal{S}^h \not\subset C^0$. Such spaces of functions must satisfy additional weak compatibility requirements. Namely, Stummel has proposed in \cite{Stummel:79} the necessary and sufficient conditions for convergence of a non-conforming finite element method, necessitating passage of the \textit{generalized patch test}:
 
 \textit{For a given patch $\mathcal{P} \subset \overline{\mathcal{B}}_0$ and an approximating sequence of functions $u^h \in H^k (\mathcal{B}_0)$: for every $\mathbf{X} \in P$ there exists an open neighborhood $O$ in $\mathbb{R}^d$ such that}
 \begin{equation}
@@ -374,7 +375,7 @@ By comparison, non-conforming finite element methods admit more general function
 \end{equation}
 \textit{for all test functions $v \in C^{\infty}_0 (O)$, and $| \alpha | \leq k-1$.}
 
-	Shi later proposed the F-E-M test in \cite{Shi:87} as an alternative, sufficient condition for convergence, with corresponding interface requirement (the F-test):
+	Shi later proposed the F-E-M test in \cite{Shi:87} as an alternative, sufficient condition for convergence, with a corresponding interface requirement (the F-test):
 	\begin{equation}
 		\bigg| \int_{\Omega_a \cap \Omega_b} [\![ u^h ]\!] \, da \bigg| \leq O(h^{d/2}) ||u^h||_{\Omega_a \cup \Omega_b} \quad \forall \Omega_a \cap \Omega_b \neq \emptyset.
 	\end{equation}
@@ -392,7 +393,7 @@ By comparison, non-conforming finite element methods admit more general function
 	\begin{equation}
 		a(u^h,u^h) \geq C_c ||u^h||^2 \quad \forall u^h \in \mathcal{S}^h.
 	\end{equation}
-	\textit{Existence} of a solution further depends upon the condition that $a(\cdot, \cdot)$ be bounded:
+	\textit{Existence} of a solution further depends upon the condition that $a$ be bounded:
 	\begin{equation}
 		a(u^h,v^h) \leq C_b ||u^h|| \, ||v^h|| \quad \forall u^h \in \mathcal{S}^h, \, v^h \in \mathcal{V}^h,
 	\end{equation}
@@ -432,7 +433,7 @@ The above consistency requirements are required to hold over the problem domain 
   \int_{\Omega_e} \mathbf{X}^{\alpha} \phi_{a,i} \, dV + \int_{\Omega_e} \mathbf{X}^{\alpha}_{,i} \phi_a \, dV = \int_{\partial \Omega_e} \mathbf{X}^{\alpha} N_i \phi_a \, dA \quad \forall i, \, a, \, | \alpha | \leq k-1, \, \Omega_e \subset \mathcal{B}_0.
   \label{eq:consistency}
 \end{equation}
-The above conditions are sufficient for satisfaction of the Irons' patch test up to $k^{\text{th}}$ order, provided $\mathcal{S}^h \supset [ P^{k} (\mathcal{B}_0) ]^d$. It should be emphasized that these conditions apply specifically to the test functions $\phi_a \in \mathcal{V}^h$.
+The above conditions are sufficient for satisfaction of the Irons patch test up to $k^{\text{th}}$ order, provided $\mathcal{S}^h \supset [ P^{k} (\mathcal{B}_0) ]^d$. It should be emphasized that these conditions apply specifically to the test functions $\phi_a \in \mathcal{V}^h$.
 
 In most practical situations, however, the integral expressions in (\ref{eq:weakform}) are evaluated only approximately; numerical quadrature rules are defined on the elements and on their boundaries, such that
 \begin{equation}

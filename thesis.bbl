@@ -124,6 +124,11 @@ Xifeng Gao, Wenzel Jakob, Marco Tarini, and Daniele Panozzo.
   agglomeration.
 \newblock {\em ACM Transactions on Graphics}, 36, 2017.
 
+\bibitem{Gordon:74}
+William~J. Gordon and James~A. Wixom.
+\newblock Pseudo-harmonic interpolation on convex domains.
+\newblock {\em SIAM Journal on Numerical Analysis}, 11(5):909--933, 1974.
+
 \bibitem{Hughes:00}
 Thomas J.~R. Hughes.
 \newblock {\em The Finite Element Method--Linear Static and Dynamic Finite
@@ -161,6 +166,12 @@ Richard~H. MacNeal.
   elements.
 \newblock {\em International Journal for Numerical Methods in Engineering},
   24:1793--1799, 1987.
+
+\bibitem{Martin:08}
+Sebastian Martin, Peter Kaufmann, Mario Botsch, Martin Wicke, and Markus Gross.
+\newblock Polyhedral finite elements using harmonic basis functions.
+\newblock {\em Eurographics Symposium on Geometry Processing 2008}, 27(5),
+  2008.
 
 \bibitem{Mu:13}
 L.~Mu, J.~Wang, and Y.~Wang.
@@ -250,12 +261,6 @@ J.~C. Simo and M.~S. Rifai.
 Friedrich Stummel.
 \newblock The generalized patch test.
 \newblock {\em SIAM Journal on Numerical Analysis}, 16(3):449--471, 1979.
-
-\bibitem{Stummel:80}
-Friedrich Stummel.
-\newblock The limitations of the patch test.
-\newblock {\em International Journal for Numerical Methods in Engineering},
-  16:177--188, 1980.
 
 \bibitem{Sukumar:04}
 N.~Sukumar.

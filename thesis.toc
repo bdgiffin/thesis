@@ -15,44 +15,27 @@
 \contentsline {section}{\numberline {2.6}Requirements for Convergence of an \\ Approximation Method}{28}
 \contentsline {chapter}{\numberline {3}Partitioned Element Methods}{33}
 \contentsline {section}{\numberline {3.1}Overview}{33}
-\contentsline {section}{\numberline {3.2}An Abstract Partitioned Element Framework}{34}
-\contentsline {subsection}{\numberline {3.2.1}The Element Partition}{34}
-\contentsline {subsection}{\numberline {3.2.2}Partition-Based Approximation Spaces}{35}
-\contentsline {subsection}{\numberline {3.2.3}Partition-Based Quadrature Rules}{36}
-\contentsline {subsection}{\numberline {3.2.4}Selection of an Appropriate Objective Functional}{38}
-\contentsline {subsection}{\numberline {3.2.5}Construction of Element Appoximants}{39}
-\contentsline {section}{\numberline {3.3}Essential Requirements of the PEM}{39}
-\contentsline {subsection}{\numberline {3.3.1}Reproducibility}{39}
-\contentsline {subsubsection}{\numberline {3.3.1.1}Requirements of the Approximation Space}{39}
-\contentsline {subsection}{\numberline {3.3.2}Compatibility}{39}
-\contentsline {subsubsection}{\numberline {3.3.2.1}Weak Enforcement of Continuity}{40}
-\contentsline {subsection}{\numberline {3.3.3}Stability}{40}
-\contentsline {subsubsection}{\numberline {3.3.3.1}Restrictions on the Element Partition}{40}
-\contentsline {subsection}{\numberline {3.3.4}Variational Consistency}{40}
-\contentsline {subsubsection}{\numberline {3.3.4.1}Weak Enforcement of Consistency}{40}
-\contentsline {subsection}{\numberline {3.3.5}Numerical Quadrature Consistency}{42}
-\contentsline {subsubsection}{\numberline {3.3.5.1}Bubnov-Galerkin and Petrov-Galerkin Approaches}{42}
-\contentsline {section}{\numberline {3.4}Specific Formulations}{42}
-\contentsline {subsection}{\numberline {3.4.1}The Continuous-Galerkin PEM}{42}
-\contentsline {subsection}{\numberline {3.4.2}The Weak-Galerkin PEM}{42}
-\contentsline {subsection}{\numberline {3.4.3}The Discontinuous-Galerkin PEM}{42}
-\contentsline {subsection}{\numberline {3.4.4}PEM Based on Composite Virtual Elements}{42}
-\contentsline {section}{\numberline {3.5}Enhancements to Improve Solution Accuracy}{42}
-\contentsline {subsection}{\numberline {3.5.1}Partition-Based Enhancement Functions}{42}
-\contentsline {subsection}{\numberline {3.5.2}Mixed PEM Discretizations}{42}
-\contentsline {chapter}{\numberline {4}An Implementational Framework for the PEM}{43}
-\contentsline {section}{\numberline {4.1}Generation of Arbitrary Polytopal Meshes}{43}
-\contentsline {section}{\numberline {4.2}Element Partitioning Schemes}{43}
-\contentsline {section}{\numberline {4.3}Abstract Data Structures and Generic Programming Concepts}{43}
-\contentsline {section}{\numberline {4.4}Hierarchial Construction of Appoximants}{43}
-\contentsline {section}{\numberline {4.5}Issues of Numerical Conditioning}{43}
-\contentsline {subsection}{\numberline {4.5.1}PEM Linear System Conditioning}{43}
-\contentsline {subsection}{\numberline {4.5.2}The Effect of Element Scaling}{43}
-\contentsline {subsection}{\numberline {4.5.3}On the Choice of an Appropriate PEM Basis}{43}
-\contentsline {chapter}{\numberline {5}A Numerical Evaluation of the PEM}{44}
-\contentsline {section}{\numberline {5.1}Convergence Analysis}{44}
-\contentsline {section}{\numberline {5.2}Parameter Sensitivity Analysis}{44}
-\contentsline {section}{\numberline {5.3}Computational Efficiency}{44}
-\contentsline {subsection}{\numberline {5.3.1}Performance Comparison}{44}
-\contentsline {section}{\numberline {5.4}Resistance to Locking Phenomena}{44}
-\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{45}
+\contentsline {section}{\numberline {3.2}Shape Functions as Unique Solutions to \\ Boundary Value Problems}{34}
+\contentsline {section}{\numberline {3.3}The Partitioned Element Framework}{37}
+\contentsline {subsection}{\numberline {3.3.1}Partition-Based Approximation Spaces}{38}
+\contentsline {subsection}{\numberline {3.3.2}Partition-Based Quadrature Rules}{38}
+\contentsline {subsection}{\numberline {3.3.3}Selection of an Appropriate Objective Functional}{41}
+\contentsline {section}{\numberline {3.4}Essential Requirements of the PEM}{41}
+\contentsline {section}{\numberline {3.5}Specific Formulations}{44}
+\contentsline {section}{\numberline {3.6}Enhancements to Improve Solution Accuracy}{44}
+\contentsline {chapter}{\numberline {4}An Implementational Framework for the PEM}{45}
+\contentsline {section}{\numberline {4.1}Generation of Arbitrary Polytopal Meshes}{45}
+\contentsline {section}{\numberline {4.2}Element Partitioning Schemes}{45}
+\contentsline {section}{\numberline {4.3}Abstract Data Structures and Generic Programming Concepts}{45}
+\contentsline {section}{\numberline {4.4}Hierarchial Construction of Appoximants}{45}
+\contentsline {section}{\numberline {4.5}Issues of Numerical Conditioning}{45}
+\contentsline {subsection}{\numberline {4.5.1}PEM Linear System Conditioning}{45}
+\contentsline {subsection}{\numberline {4.5.2}The Effect of Element Scaling}{45}
+\contentsline {subsection}{\numberline {4.5.3}On the Choice of an Appropriate PEM Basis}{45}
+\contentsline {chapter}{\numberline {5}A Numerical Evaluation of the PEM}{46}
+\contentsline {section}{\numberline {5.1}Convergence Analysis}{46}
+\contentsline {section}{\numberline {5.2}Parameter Sensitivity Analysis}{46}
+\contentsline {section}{\numberline {5.3}Computational Efficiency}{46}
+\contentsline {subsection}{\numberline {5.3.1}Performance Comparison}{46}
+\contentsline {section}{\numberline {5.4}Resistance to Locking Phenomena}{46}
+\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{47}
