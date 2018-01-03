@@ -4,31 +4,340 @@ This chapter defines a general class of polytopal element formulations referred 
 
 \section{Overview}
 
-	% goal is to construct shape functions on arbitrary polytopes
-	% invoke idea behind FE approximation spaces: use discretization
-	% solve local approximation problem to define SFs
-A partitioned element method is a finite element-like method which approaches the task of constructing shape functions on an arbitrary polytopal element domain by partitioning the element into simpler sub-domains (quadrature cells), and establishing a local approximation space defined on this partition. Optimal shape functions which minimize a chosen objective functional and which respect a set of imposed constraints are selected from this approximation space.
+	% reiterate the desire for robust, arbitrary polytopal elements
+	% reiterate the shortcomings of generalized barycentric coordinates
+	% reiterate the shortcomings of VEM
+	% PEM considers the construction of shape functions to be a special type of local approximation problem
+		% need to determine well-behaved interpolants on element domains
+		% can pose this as a boundary value problem
+		% approximate its solution using existing methods (FEM, etc.)
+		% yields relatively simple representation of shape functions
+			% i.e. piece-wise polynomial
+		% may utilize the discretization to define simple quadrature rules
+			% e.g. composite mid-point rules
+			% can enhance accuracy of these rules using gradient correction
+	% Some questions:
+		% how refined must the element's local discretization be to matain a sufficient level of accuracy?
+			% is a coarse discretiztion sufficient?
+		% what BVP should be used?
+			% Laplace's equation? (harmonic SFs)
+			% specification of BVP determines quality/robustness of SFs
+		% are certain approximation methods more suitable than others?
+			% FEM? DG? VEM?
 
-Partitioned element methods are motivated by the idea that it is generally easier and more efficient to define complicated functions over arbitrary polytopal domains if the functions are defined in a piece-wise polynomial fashion over simpler sub-domains. This is precisely the mentality which likewise motivates the finite element method.
+Partitioned element methods are finite element-like methods which approach the task of constructing shape functions on arbitrary polytopal element domains by partitioning each element into sub-domains (quadrature cells). The element partition serves a dual purpose: it is used to establish a composite quadrature rule for the element, and to define a finite dimensional function space, from which the element's shape functions are selected as the solutions to corresponding boundary value problems defined locally on the element.
 
 	% want efficient and stable quadrature rules
-The PEM is driven by the need for establishing stable and efficient quadrature rules on arbitrary polytopes. Unlike virtual element methods which typically circumvent the use of quadrature altogether, partitioned elements recognize the necessity of domain quadrature rules for evaluating nonlinear residual and stiffness terms. The use of sufficient quadrature also naturally yields a stable integration of the weak form which does not rely upon unphysical stabilization parameters.
+Partitioned element methods are motivated by the idea that it is generally easier and more efficient to define complicated functions over arbitrary domains if the functions are defined in a piece-wise polynomial fashion over simpler sub-domains. This is precisely the mentality which likewise motivates the finite element method. The PEM is driven by the need for establishing stable and efficient quadrature rules on arbitrary polytopes. Unlike virtual element methods which typically circumvent the use of quadrature altogether, partitioned element methods recognize the necessity of using domain quadrature rules to evaluate nonlinear residual and stiffness contributions. The use of sufficient quadrature also yields a stable integration of the weak form which does not rely upon unphysical stabilization parameters.
 
 	% depart from the idea of shape functions defined pointwise
-In contrast with most traditional perspectives which regard the shape functions as being continuously defined on element domains, the PEM exploits the fact that the shape functions and their gradients only need to be evaluated at a discrete number of quadrature points. With this in mind, the PEM constructs an approximation space which is centered around the quadrature cell partition of the element, and defines the shape functions within this discrete space.
+In contrast with most traditional perspectives which regard the shape functions as being continuously defined on element domains (i.e. generalized barycentric coordinates), the PEM exploits the fact that the shape functions and their gradients only need to be evaluated at a discrete number of quadrature points. With this in mind, PEM approximation spaces are deliberately centered around the quadrature cell partition of the element, and consequently resemble finite element approximation spaces.
 
 	% enforce constraints to attain reproducibility & consistency
-The shape functions of each element are subject to the conditions of approximability, compatibility, stability, and quadrature consistency, as detailed in \ref{ch:solid_mechanics}. Together, these conditions impose a number of unique requirements upon the element's partition and the associated cell-based approximation spaces. The resulting shape functions are obtained as the unique solutions to a set of constrained optimization problems, which arise primarily from the conditions of weak compatibility.
+The resulting shape functions on each element are altogether subject to the conditions of approximability, compatibility, stability, and quadrature consistency, as discussed in chapter \ref{ch:solid_mechanics}. Together, these conditions impose a number of unique requirements upon the element's partition, it's corresponding quadrature rules, and the associated cell-based approximation spaces.
+
+In the following sections, an abstract framework for the PEM is established, describing the corresponding shape function boundary value problems defined on an element. We further enumerate several specific partitioned element methods, and provide an assessment of their potential strengths and weaknesses.
 
 %PEM encompasses the special case where each element consists of a single sub-domain. Such approaches will henceforth be referred to as \textit{single-cell} methods, which share certain similarities with the VEM and VETFEM. Single-cell methods are not particularly robust when applied to arbitrary polyhedral meshes (namely those generated by B-rep intersection); they perform poorly if the element's geometry is sufficiently complicated.
 
-In the following sections, an abstract framework for the PEM is established, and a formal statement of several variational PEM problems are detailed.
+\section{Definition of Element Shape Functions}
 
-\section{Shape Functions as Unique Solutions to \\ Boundary Value Problems}
+	Consider the structure of a polyhedral element $\Omega \subset \mathbb{R}^3$, as depicted in figure (N). The element's boundary $\partial \Omega$ may be subdivided into a set of polygonal faces $\mathcal{T}_F (\Omega) = \left\{ F_i \right\}_{i=1}^{N_F}$, such that each face $F_i$ is shared entirely with an adjacent element, or with the mesh boundary. Corresponding sets of linear edges $\mathcal{T}_E (\Omega) = \left\{ E_i \right\}_{i=1}^{N_E}$ and nodes $\mathcal{T}_V (\Omega) = \left\{ V_i \right\}_{i=1}^{N_V}$ result by considering the sets of all unique intersections $\mathcal{T}_E (\Omega) = \left\{ F_i \cap F_j \neq \emptyset \, \, \forall i \neq j \right\}$ and $\mathcal{T}_V (\Omega) = \left\{ E_i \cap E_j \neq \emptyset \, \, \forall i \neq j \right\}$, respectively.
+	
+	% PEM function spaces are broken $H^1 (\Omega)$ spaces
+	% functions are defined independently on the open interior $\Omega$
+	% functions defined independently on shared element interfaces
+	The function spaces under consideration in the PEM are effectively broken $H^k (\Omega)$ spaces, where a given function $u \in \mathcal{W}_k (\overline{\Omega})$ is defined independently on the open interior of each polyhedral element $\Omega \subset \mathbb{R}^3$, and on its boundary $\partial \Omega$, such that
+	\begin{equation}
+		\mathcal{W}_k (\overline{\Omega}) = \left\{ u|_{\Omega} \in H^k (\Omega) : \mathcal{L}_{\Omega} u = f_{\Omega} \, \text{in} \, \Omega, \, u|_{F} \in \mathcal{W}_k (\overline{F}) \, \, \forall F \in \partial \Omega \right\},
+	\end{equation}
+	\begin{equation}
+		\mathcal{W}_k (\overline{F}) = \left\{ u|_{F} \in H^k (F) : \mathcal{L}_{F} u = f_{F} \, \text{in} \, F, \, u|_{E} \in \mathcal{W}_k (\overline{E}) \, \, \forall E \in \partial F \right\},
+	\end{equation}
+	\begin{equation}
+		\mathcal{W}_k (\overline{E}) = \left\{ u|_{E} \in H^k (E) : \mathcal{L}_{E} u = f_{E} \, \text{in} \, E, \, u|_{V} \in \mathbb{R} \, \, \forall V \in \partial E \right\}.
+	\end{equation}
+	In essence, the PEM supposes that a given function $u|_{\Omega} \in H^k (\Omega)$ defined on the element's interior is related to a corresponding boundary function $u|_{\partial \Omega} = \bar{u}$ (which itself is a broken $H^k (\partial \Omega)$ function) via a well-posed Dirichlet boundary value problem:
+	\begin{equation}
+		\mathcal{L}_{\Omega} u = f_{\Omega} \quad \forall \mathbf{X} \in \Omega \quad \text{s.t.} \quad u = \bar{u} \quad \forall \mathbf{X} \in \partial \Omega,
+		\label{eq:pem_bvp}
+	\end{equation}
+	where $\mathcal{L}_{\Omega}$ denotes a linear differential operator, and $f_{\Omega} \in L^2 (\Omega)$ is a generic forcing function. The element's degrees of freedom are collectively accounted for in both $\bar{u}$ and $f_{\Omega}$. Consequently, the interior function $u|_{\Omega}$ is uniquely defined, provided there exists a unique solution to (\ref{eq:pem_bvp}). In turn, we suppose that $u|_{F} \in H^k(F)$ is the solution to a similar (2-dimensional) boundary value problem defined on each face $F$, and $u|_E \in H^k(E)$ is the solution to a (1-dimensional) BVP on each edge $E$.
+	
+	% Additionally, the PEM considers the boundary of each element to be partitioned into a collection of $2$-dimensional polygonal faces $\partial \Omega = \cup_{i = 1}^{N_F} F_i$, where a given face $F$ is either a shared interface between two elements $F = \partial \Omega_a \cap \partial \Omega_b \neq \emptyset$ ($a \neq b$), or else it is a part of the domain boundary $F \subset \partial \Omega_a \cap \partial \mathcal{B}_0 \neq \emptyset$.
+	
+	
+	
+	% The boundary of each face $\partial F$ is likewise recursively partitioned into $1$-dimensional edges $\partial F = \cup_{i = 1}^{N_E} E_i$, whose end-points are the geometric verticies (the nodes) of the polyhedral element in question, which bear the primary degrees of freedom.
+	
+	The advantage of defining shape functions in this manner is that it affords a great deal of flexibility in the construction of arbitrary order interpolants, while maintaining $C^0$ continuity at inter-element interfaces. Moreover, given that the shape functions are uniquely defined at every point $\mathbf{X} \in \Omega$, they are amenable to post-processing and visualization-related tasks.
+	
+%	In the following sections, we will explore a few specific choices for the differential operator $\mathcal{L}$ and the forcing functions $f$ defined on the element and its faces, etc.
 
-The idea of element shape functions being defined as the solution to a corresponding boundary value problem (in particular, as the solution to Laplace's equation) may be traced back to the work of Gordon and Wixom \cite{Gordon:74}. This concept was later applied to polyhedral finite element methods by Martin et al. in \cite{Martin:08}. Likewise, many virtual element methods suppose that the element shape functions are harmonic, though they are never explicitly constructed or represented as such.
+\subsection*{Harmonic Shape Functions}
+
+	% Ideally want the shape functions to be uniquely defined on polytopes
+	% This can be achieved by considering SFs as unique solutions to BVPs
+	% Most natural BVP to consider is Laplace's equation with Dirichlet BCs
+	% BCs arise from conditions of compatibility with nodal values
+		% Help to guarantee weak inter-element compatibility
+	% Other authors have explored the idea of harmonic SFs on polytopes
+		% See \cite{Gordon:74}, \cite{Martin:08}, \cite{Bishop:14}
+		% To obtain these SFs, the authors use an element partition
+	% In previous works, the BCs were enforced as closely as possible
+	% This is not necessarily a good thing
+		% The solution to Laplace's equation can yield sharp gradients
+		% On arbitrary domains, can result in poor conditioning, locking
+	% In the present work, we seek to relax the conditions of compatibility
+		% Consider weak compatibility requirements
+			% Develop notion of weak compatibility in a rigorous setting
+			% Establish weak compatibility as sufficient for convergence
+			% Examine necessary conditions for stability
+		% Yields a non-conforming finite element method
+		% Elements are more robust on account of relaxed compatibility
+		% Polytopes accomodate nonconformity better (than simplicies, etc)
+
+	The simplest choice of $\mathcal{L}_{\Omega} = -\nabla^2$ and $f_{\Omega} = 0$ corresponds to Laplace's equation:
+	\begin{equation}
+		\nabla^2 u = 0 \quad \forall \mathbf{X} \in \Omega \quad \text{s.t.} \quad u = \bar{u} \quad \forall \mathbf{X} \in \partial \Omega,
+		\label{eq:pem_laplace}
+	\end{equation}
+	whose solution $u$ is harmonic on $\Omega$. Harmonic shape functions form a partition of unity, are linearly complete, and arise from degrees of freedom $u|_V$ borne only by the nodes of each element (therefore, they satisfy the kronecker delta property.) As such, harmonic shape functions are classifiable under the category of generalized barycentric coordinates.
+	
+	If instead $f_{\Omega} \neq 0$ (corresponding to Poisson's equation), then
+	\begin{equation}
+		-\nabla^2 u = f_{\Omega} \quad \forall \mathbf{X} \in \Omega \quad \text{s.t.} \quad u = \bar{u} \quad \forall \mathbf{X} \in \partial \Omega,
+		\label{eq:pem_poisson}
+	\end{equation}
+	and we may introduce additional degrees of freedom through $f_{\Omega}$ belonging to edges, faces, or element domains. These degrees of freedom are not necessarily associated with nodal evaluations of $u$, but instead may be designed to exhibit certain desirable characteristics. The solution $u$ to (\ref{eq:pem_poisson}) is not harmonic; instead, we shall refer to such functions as \textit{generalized harmonic shape functions}.
+	
+	Harmonic shape functions are not a new concept; Gordon and Wixom were among the first authors to propose the idea in \cite{Gordon:74}, and Martin et al. later considered their application to polyhedral finite elements in \cite{Martin:08}. However, obtaining exact solutions to (\ref{eq:pem_laplace}) is generally infeasible for arbitrary polyhedra. In practice, approximate solutions must be considered.
+	
+	In particular, Bishop has proposed a method for constructing FE approximations to harmonic shape functions in \cite{Bishop:14}. Additionally, the VETFEM (\cite{Rashid:00}, \cite{Rashid:06}) and the original PEM presented in \cite{Rashid:12}, may be viewed as techniques for obtaining discrete approximations to harmonic shape functions. Likewise, many virtual element methods (\cite{Chi:17}, \cite{Veiga:13}, \cite{Veiga:15}) suppose that the element shape functions are harmonic over individual element domains, though they are never explicitly constructed or represented as such.
+	
+	It herein becomes of interest to determine suitable approximations to harmonic shape functions on arbitrary polyhedra. A number of methods to achieve this end are discussed in the following section.
+	
+\subsection*{Shape Function Approximation Methods}
+	
+	The exact solution $u_0 \in \mathcal{S} (\Omega) = \left\{ u \in H^1(\Omega) : u = u_b \, \forall \mathbf{X} \in \partial \Omega \right\}$ to the more general Poisson equation in (\ref{eq:pem_poisson}) satisfies the equivalent weak form:
+	\begin{equation}
+		\int_\Omega (\nabla^2 u_0 + f) v_0 \, dV = 0 \quad \forall v_0 \in \mathcal{V} (\Omega),
+	\end{equation}
+	or equivalently
+	\begin{equation}
+		\int_\Omega \nabla u_0 \cdot \nabla v_0 \, dV - \int_{\partial \Omega} \frac{\partial u_0}{\partial N} v_0 \, dA = \int_\Omega f v_0 \, dV \quad \forall v_0 \in \mathcal{V} (\Omega),
+		\label{eq:weak_bvp}
+	\end{equation}
+	where $\mathcal{V} (\Omega) = \left\{ v \in H^1(\Omega) : v = 0 \, \forall \mathbf{X} \in \partial \Omega \right\}$ denotes an appropriately defined space of test functions. We seek approximate solutions $u^h_0 \in \mathcal{S}^h (\Omega)$ to the weak form, where $\mathcal{S}^h (\Omega)$ denotes a finite-dimensional approximation space.
+	
+\subsubsection*{Galerkin Approximations to Harmonic Shape Functions}
+
+	Consider finite dimensional sub-spaces $\mathcal{S}^h (\Omega) \subset \mathcal{S} (\Omega)$ and $\mathcal{V}^h (\Omega) \subset \mathcal{V} (\Omega)$. The Galerkin approximation $u^h_0 \in \mathcal{S}^h (\Omega)$ to a given harmonic shape function $u_0$ satisfies
+	\begin{equation}
+		\int_\Omega \nabla u^h_0 \cdot \nabla v^h_0 \, dV = \int_\Omega f v^h_0 \, dV \quad \forall v^h_0 \in \mathcal{V}^h (\Omega).
+		\label{eq:weak_poisson}
+	\end{equation}
+	
+	Bishop has already explored such an approximation scheme using an FE discretization of a given polyheral element into sub-dividing tetrahedra. Moreover, it was demonstrated in \cite{Bishop:14} that the resulting shape function approximations preserve low-order polynomial completeness. 
+	
+\subsubsection*{Non-conforming Galerkin Approximations to Harmonic Shape Functions}
+
+	If $\mathcal{S}^h (\Omega) \not\subset \mathcal{S} (\Omega)$ and $\mathcal{V}^h (\Omega) \not\subset \mathcal{V} (\Omega)$, in particular when $u^h_0 \neq u_b$ and $v^h_0 \neq 0$ on $\partial \Omega$, then we must resort to the use of non-conforming approximation methods.
+	
+	One approach would be to consider a Lagrange multiplier method to weakly enforce the boundary condition $u_0 = u_b$ on $\partial \Omega$ via
+	\begin{equation}
+		\min_{u_0, \, \lambda} \mathcal{G}(u_0,\lambda),
+	\end{equation}
+	\begin{equation}
+	\mathcal{G}(u_0,\lambda) \equiv \frac{1}{2} \int_{\Omega} \nabla u_0 \cdot \nabla u_0 \, dV - \int_{\Omega} f u_0 \, dV + \int_{\partial \Omega} \left[ u_0 - u_b \right] \lambda \, dA,
+\end{equation}
+	yielding two sets of equations in terms of the approximation $u^h_0 \in \mathcal{S}^h (\Omega)$ and the Lagrange multiplier field $\lambda \in \Lambda (\partial \Omega)$:
+	\begin{equation}
+		\int_{\Omega} \nabla u^h_0 \cdot \nabla v^h_0 \, dV - \int_\Omega f v^h_0 \, dV + \int_{\partial \Omega} \lambda v^h_0 \, dA = 0 \quad \forall v^h_0 \in \mathcal{V}^h (\Omega),
+	\end{equation}
+	\begin{equation}
+		\int_{\partial \Omega} (u^h_0 - u_b) \, \delta \lambda \, dA = 0 \quad \forall \delta \lambda \in \Lambda (\partial \Omega).
+	\end{equation}
+	Suppose that we establish bases for $u^h_0$ and $\lambda$:
+\begin{equation}
+	u^h_0 = \sum_{a=1}^{N} \varphi_a u_a, \quad \lambda = \sum_{a=1}^{M} \phi_a \lambda_a,
+\end{equation}
+such that
+\begin{equation}
+	\sum_{a=1}^N \left[ \int_{\Omega} \nabla \varphi_a \cdot \nabla \varphi_b \, dV \right] u_a + \sum_{c=1}^M \left[ \int_{\partial \Omega} \varphi_b \, \phi_c \, dA \right] \lambda_c = 0 \quad \forall b,
+\end{equation}
+\begin{equation}
+	\sum_{b=1}^N \left[ \int_{\partial \Omega} \phi_c \, \varphi_b \, dA \right] u_b = \int_{\partial \Omega} \bar{u} \, \phi_c \, dA \quad \forall c.
+\end{equation}
+If we suppose that the boundary conditions can be written in terms of yet another basis, i.e.
+\begin{equation}
+	\bar{u} = \sum_{a=1}^N \psi_a \bar{u}_a,
+\end{equation}
+then
+\begin{equation}
+	\sum_{b=1}^N \left[ \int_{\partial \Omega_e} \phi_c \, \varphi_b \, dA \right] u_b = \sum_{a=1}^M \left[ \int_{\partial \Omega_e} \psi_a \, \phi_c \, dA \right] \bar{u}_a \quad \forall c.
+\end{equation}
+Given an appropriate selection for the indicated bases, we must solve the saddle-point problem, in matrix format:
+\begin{equation}
+	\left[ \begin{array}{cc} \mathbf{K} & \mathbf{C} \\ \mathbf{C}^T & \mathbf{0} \end{array} \right] \left\{ \begin{array}{c} \mathbf{u} \\ \boldsymbol{\lambda} \end{array} \right\} = \left\{ \begin{array}{c} \mathbf{0} \\ \mathbf{B} \bar{\mathbf{u}} \end{array} \right\},
+\end{equation}
+where
+\begin{equation}
+	K_{ab} = \int_{\Omega_e} \nabla_X \varphi_a \cdot \nabla_X \varphi_b \, dV, \quad C_{bc} = \int_{\partial \Omega_e} \varphi_b \, \phi_c \, dA, \quad B_{ac} = \int_{\partial \Omega_e} \psi_a \, \phi_c \, dA.
+\end{equation}
+	
+\section{Break}
+	
+	Ultimately, one must show either that $\mathcal{S}^h$ and $\mathcal{V}^h$ and sub-spaces of $\mathcal{S}$ and $\mathcal{V}$, or else that any exterior approximation methods converge to the exact solution under cell refinement. Moreover, we must show that any approximation to the exact solution will yield elements that exhibit convergence under mesh (element) refinement -- and interesting embedded convergence problem.
+		
+	% Present the BVP (Laplace's equation) for polytopes with BCs
+	% Various methods have sought solutions to the above using FEM, etc.
+	% Such methods can be considered partitioned element methods
+	% In those contexts, SFs more honest if partition is very fine
+	% In the present work, we wish to consider relatively coarse pratitions
+	% Question: how much refinement is actually necessary for convergence?
+	% Answer: ostensibly not much at all, but it is important for stability
+	% Caveat: depends on the order of completeness of the local PEM space
+		% Linearly complete PEM spaces needed for 1st order convergence
+		% For higher order convergence, can use h- or p-refinement
+			% p-refinement is generally more efficient
+			
+	% May solve Laplace's equation directly with exact satisfaction of BCs
+	% Or may modify the BCs in a suitable way to relax exact conformity
+	% Must do so in a way that preserves:
+		% Stability: must maintain ellipticity of local bilinear form
+		% Completeness: reproduce low-order polynomials exactly
+		% Weak Compatibility: pass generalized patch test, or equivalent
+	% May accomplish this via a BC filtering/projection scheme
+		% Effectively equivalent to enforcing BCs with Lagrange multipliers
+		% Must carefully choose the basis for the Lagrange multiplier field
+			% Must yield stability, completeness, weak compatibility
+		% One option is a low-order polynomial sub-space
+			% Effectively equivalent to using a low-order polynomial basis
+			% This is precisely the result obtained by the VETFEM
+			% Runs the risk of Runge's phenomenon
+			% Using polynomial basis can lead to poor conditioning
+			% Requires inefficient specification of polynomial space
+		% Some issues could be avoided with use of FE basis on interior
+			% Still, must choose polynomial basis carefully
+			% This will be truly difficult for arbitrary polytopes
+		% Another option is to use Lagrange multiplier field = nodal basis
+			% Produces a naturally stable enforcement of BCs
+				% Get a bijection between image and preimage of BCs
+			% Problem: it may still be too strong
+				% Effectively may be enforcing original BCs
+			% Could introduce stabilization to zero block of system
+				% Introduces an auxiliary penalty parameter
+				% Stabilizes the saddle point problem
+				% Smooths out the multiplier field
+				% Practically equivalent to damping higher polynomials
+	% Alternatively, may use a penalty method
+		% Use adjustable parameter to damp out higher-order polynomials
+		% Preserve behavior of low-order polynomials for convergence
+		% Easy to demonstrate stability for parameter values > 0
+		% Problem is how to set this parameter
+			% Ostensibly will be more sensitive for degenerate geometries
+
+Harmonic shape functions $\varphi$ satisfy the following partial differential equation on each polytopal element domain $\Omega_e$:
+\begin{equation}
+	\nabla^2_X \varphi = 0 \quad \forall \mathbf{X} \in \Omega_e,
+\end{equation}
+subject to the Dirichlet boundary conditions:
+\begin{equation}
+	\varphi = \bar{\varphi} \quad \forall \mathbf{X} \in \partial \Omega_e,
+\end{equation}
+where it is supposed that the boundary conditions are informed by the values of the shape functions defined at the elements' nodes. Harmonic shape functions which satisfy the above are uniquely defined, and possess a number of desirable properties: smoothness, $C^0$ continuity at element boundaries, partition of unity, and polynomial reproducibility.
 
 The notion that the shape functions define a set of smooth and continuous interpolants on an element is an appealing concept, though it can frequently lead to numerical complications (nearly-singular solutions), particularly if the elements possess degenerate geometric features. Herein we postulate a number of alternative boundary value problems for constructing shape functions on arbitrary polytopes. These formulations are informed by the conditions of \textit{weak compatibility}, discussed in the following section.
+
+An equivalent set of weakened boundary conditions may be written as
+\begin{equation}
+	\int_{\partial \Omega_e} \left[ u - \bar{u} \right] \lambda \, dA = 0 \quad \forall \lambda \in H^{1/2} (\partial \Omega_e),
+\end{equation}
+where $\lambda$ denotes a Lagrange multiplier field, and
+\begin{equation}
+	H^{1/2} (\partial \Omega_e) \equiv \left\{ \lambda \in L^2 (\partial \Omega_e) \, | \, \exists \, \lambda' \in H^1 (\Omega_e) \, \colon \lambda = \text{tr} (\lambda') \right\}.
+\end{equation}
+A weak statement of the above equations can be written as
+\begin{equation}
+	\int_{\Omega_e} \nabla_X u \cdot \nabla_X v \, dV = 0 \quad \forall v \in H^1_0(\Omega_e).
+\end{equation}
+If we partition $\Omega_e$ into cells $\cup_i K_i$, we observe that
+\begin{equation}
+	\int_{\Omega_e} \nabla_X u \cdot \nabla_X v \, dV = \sum_j \int_{\Gamma_j} v [\![ \nabla_X u \cdot \mathbf{N} ]\!] \, dA = 0 \quad \forall v \in H^1_0(\Omega_e).
+\end{equation}
+If $[\![ \nabla_X u \cdot \mathbf{N} ]\!] = 0$, the above conditions are trivially satisfied. By contrast, to trivially satisfy compatibility in a weak sense, we insist that $[\![ u ]\!] = 0$ everywhere. We can consider enforcing both of these conditions in a weighted sense, resulting in the common PEM formulation in current usage:
+\begin{equation}
+	\mathcal{F} = \sum_j \int_{\Gamma_j} \alpha_j [\![ u]\!]^2 \, dA + \sum_j \int_{\Gamma_j} \beta_j [\![ \nabla_X u \cdot \mathbf{N} ]\!]^2 \, dA.
+\end{equation}
+If $\alpha_j \gg \beta_j$, we obtain a field which satisfies compatibility preferrentially, whereas if $\alpha_j \ll \beta_j$, we satisfy Laplace's equation. The importance of compatibility is to guarantee that the shape functions span a set of admissible solutions to the original BVP, whereas satisfaction of Laplace's equation guarantees uniqueness of the resulting shape functions.
+
+Alternatively, if we pose an objective functional
+\begin{equation}
+	\mathcal{F}(u,\lambda) = \frac{1}{2} \int_{\Omega_e} \nabla_X u \cdot \nabla_X u \, dV + \int_{\partial \Omega_e} \left[ u - \bar{u} \right] \lambda \, dA,
+\end{equation}
+it yields
+\begin{equation}
+	\int_{\Omega_e} \nabla_X u \cdot \nabla_X \delta u \, dV + \int_{\partial \Omega_e} \delta u \, \lambda \, dA = 0 \quad \forall \delta u,
+\end{equation}
+\begin{equation}
+	\int_{\partial \Omega_e} u \, \delta \lambda \, dA = \int_{\partial \Omega_e} \bar{u} \, \delta \lambda \, dA \quad \forall \delta \lambda.
+\end{equation}
+Suppose that we establish bases for $u$ and $\lambda$:
+\begin{equation}
+	u = \sum_{a=1}^{N} \varphi_a u_a, \quad \lambda = \sum_{a=1}^{M} \phi_a \lambda_a,
+\end{equation}
+such that
+\begin{equation}
+	\sum_{a=1}^N \left[ \int_{\Omega_e} \nabla_X \varphi_a \cdot \nabla_X \varphi_b \, dV \right] u_a + \sum_{c=1}^M \left[ \int_{\partial \Omega_e} \varphi_b \, \phi_c \, dA \right] \lambda_c = 0 \quad \forall b,
+\end{equation}
+\begin{equation}
+	\sum_{b=1}^N \left[ \int_{\partial \Omega_e} \phi_c \, \varphi_b \, dA \right] u_b = \int_{\partial \Omega_e} \bar{u} \, \phi_c \, dA \quad \forall c.
+\end{equation}
+If we suppose that the boundary conditions can be written in terms of yet another basis, i.e.
+\begin{equation}
+	\bar{u} = \sum_{a=1}^N \psi_a \bar{u}_a,
+\end{equation}
+then
+\begin{equation}
+	\sum_{b=1}^N \left[ \int_{\partial \Omega_e} \phi_c \, \varphi_b \, dA \right] u_b = \sum_{a=1}^M \left[ \int_{\partial \Omega_e} \psi_a \, \phi_c \, dA \right] \bar{u}_a \quad \forall c.
+\end{equation}
+Given an appropriate selection for the indicated bases, we must solve the saddle-point problem, in matrix format:
+\begin{equation}
+	\left[ \begin{array}{cc} \mathbf{K} & \mathbf{C} \\ \mathbf{C}^T & \mathbf{0} \end{array} \right] \left\{ \begin{array}{c} \mathbf{u} \\ \boldsymbol{\lambda} \end{array} \right\} = \left\{ \begin{array}{c} \mathbf{0} \\ \mathbf{B} \bar{\mathbf{u}} \end{array} \right\},
+\end{equation}
+where
+\begin{equation}
+	K_{ab} = \int_{\Omega_e} \nabla_X \varphi_a \cdot \nabla_X \varphi_b \, dV, \quad C_{bc} = \int_{\partial \Omega_e} \varphi_b \, \phi_c \, dA, \quad B_{ac} = \int_{\partial \Omega_e} \psi_a \, \phi_c \, dA.
+\end{equation}
+
+The generalized patch test requires that
+\begin{equation}
+	\lim_{h \rightarrow 0} \sum_e \int_{\Omega_e} \psi \, u \, \mathbf{n} \, dA = 0 \quad \forall \psi \in C^\infty_0.
+\end{equation}
+Let us momentarily consider the case when each element is bounded by some $d-1$ dimensional manifold, upon which we presume that the shape functions are well-defined as $\bar{u}$. Upon any given element domain, we insist that
+\begin{equation}
+	\lim_{h \rightarrow 0} \int_{\Omega_e} \psi \, [\![ u ]\!] \, \mathbf{n} \, dA = 0 \quad \forall \psi \in C^\infty
+\end{equation}
+must hold for the generalized patch test to be satisfied, where $[\![ u ]\!] = u - \bar{u}$. Suppose we define projection operators $\Pi : C^\infty(\Omega_e) \rightarrow P^k (\Omega_e)$ and $\pi : C^\infty(\Omega_e) \rightarrow C^\infty(\Omega_e) \backslash P^k (\Omega_e)$ such that
+\begin{equation}
+	u = \Pi u + \pi u, \quad \psi = \Pi \psi + \pi \psi,
+\end{equation}
+then
+\begin{eqnarray}
+	\int_{\Omega_e} \psi \, [\![ u ]\!] \, \mathbf{n} \, dA = \int_{\Omega_e} \Pi \psi \, \Pi [\![ u ]\!] \, \mathbf{n} \, dA + \int_{\Omega_e} \Pi \psi \, \pi [\![ u ]\!] \, \mathbf{n} \, dA \\ + \int_{\Omega_e} \pi \psi \, \Pi [\![ u ]\!] \, \mathbf{n} \, dA +
+\int_{\Omega_e} \pi \psi \, \pi [\![ u ]\!] \, \mathbf{n} \, dA.
+\end{eqnarray}
+It can be shown that
+\begin{equation}
+	\int_{\Omega_e} \Pi \psi \, \Pi [\![ u ]\!] \, \mathbf{n} \, dA = 0 \quad \forall \psi \in C^\infty
+\end{equation}
+if the function defined on the element's boundary is sufficiently smooth, and can represent polynomial fields up to order $k$. Consequently,
+\begin{eqnarray}
+	\int_{\Omega_e} \psi \, [\![ u ]\!] \, \mathbf{n} \, dA = \int_{\Omega_e} \Pi \psi \, \pi [\![ u ]\!] \, \mathbf{n} \, dA \\ + \int_{\Omega_e} \pi \psi \, \Pi [\![ u ]\!] \, \mathbf{n} \, dA +
+\int_{\Omega_e} \pi \psi \, \pi [\![ u ]\!] \, \mathbf{n} \, dA.
+\end{eqnarray}
+We effectively need to demonstrate passage of the E-1 and M-1 tests for convergence of nonconforming methods. Will need estimates for boundary integrals, or can demonstrate this numerically (preferred).
 
 \subsection*{Weak Compatibility}
 
@@ -175,15 +484,55 @@ The composition $\Sigma \circ \varphi$ of an interpolant $\varphi$ with a quadra
 \end{equation}
 
 \subsection{Partition-Based Quadrature Rules}
+
 		%quadrature rules are defined/linked to the chosen partition
 		%1-to-1 relation between partitioned cells and quadrature points
 		%use Lassere integration to get weights of polytopal domains
 		%employ low-order quadrature rules for the sake of efficiency
 		%FE/simplicial discretization allows high-order composite rules
 		
-	\subsubsection*{Composite Midpoint Quadrature}
+% need to integrate weak form terms on polytopes and their boundaries
+	% must account for nonlinear kinematic and material behavior
+	% must guarantee sufficient stability (inf-sup)
+	% must be sufficiently accurate (Galerkin exactness)
+If arbitrary polytopal shapes are to be used as elements in the PEM, then we must devise a means of integrating contributions to the weak form	, ostensibly through the use of quadrature rules on the elements' interiors and boundaries. Such rules must be sufficiently stable (utilizing a sufficient number of well-positioned quadrature points) and accurate (capable of exactly integrating low-order polynomials up to some specified degree).
 	
+% PEM approaches this task with the aid of partition-based quadrature rules
+	% Elements are partitioned/discretized into sub-domains
+		% Number of sub-domains should be sufficient to guarantee stability
+	% Quadrature rules are defined on each sub-domain
+	% Composite quadrature rules are assembled by considering these quadratures taken together
+Partitioned element methods proceed by partitioning the elements (and their boundaries) into a sufficient number of polytopal sub-domains which are used as integration cells. Low-order (i.e. 1-point) quadrature rules are defined on each of these sub-domains, and a composite quadrature rule for the element is assembled from the collection of all quadrature points in each sub-domain. In general, these quadrature rules will need to be modified to satisfy Galerkin exactness for certain low-order polynomial solutions.
 	
+% Quadrature rules are adjusted after-the-fact by considering an exact integration of low-order polynomial terms to guarantee Galerkin exactness
+	% may be viewed as a type of gradient correction measure
+	% applied to each quadrature (interior and boundary) separately
+% discuss particular in the following sub-sections:
+Methods for partitioning the elements into sub-domains which yield stable and efficient composite quadrature rules are discussed in the following section. Later discussion is given to the correction of these quadratures for the sake of satisfying Galerkin exactness (quadrature consistency).
+		
+	\subsubsection*{Composite Quadrature Rules}
+	
+	Given a partition of the elements into sub-domains (quadrature cells), one may utilize a low order quadrature rule over each sub-domain, thereby yielding a composite quadrature rule over the element as a whole, whose overall accuracy is determined by the order of accuracy used in each sub-domain.
+	
+	The simplest quadrature rule of this form is a composite mid-point scheme, where the quadrature points are located at the centroids of each sub-domain. Such a rule exactly integrates polynomials up to first order, and is otherwise reasonably accurate. The integration points are guaranteed to be interior to each sub-domain (and the element as a whole) provided each cell is convex.
+	
+	For simple sub-divisions (consisting of triangles or tetrahedra), composite quadrature rules may be extended to obtain high-order accuracy. For generic sub-divisions (consiting of arbitrary polytopes), the extension to high-order is not clear. For this reason, we will focus attention on composite mid-point rules.
+	
+	A number of different partitioning schemes are illustrated in Figure \ref{fig:partitioning_types}.
+	\begin{figure} [!ht]
+		\centering
+		\includegraphics[width = 6.0in]{figures/partition_types.pdf}
+		\caption{Various element partitioning schemes. From left to right: edge-based partition, node-based partition, voronoi partition.}
+		\label{fig:partitioning_types}
+	\end{figure}
+	In general, the resulting cells $\omega$ may possess arbitrary polytopal shape, whose centroids $\bar{\mathbf{X}}$ may be computed via
+	\begin{equation}
+		\bar{\mathbf{X}} = \frac{\int_{\omega} \mathbf{X} \, dV}{\int_{\omega} dV}.
+	\end{equation}
+	We may compute polynomial moments on any arbitrary polytope using the method proposed by Lasserre et al. in \cite{Chin:15}, such that
+	\begin{equation}
+		\int_{\omega} \mathbf{X}^\alpha \, dV = \frac{1}{d+|\alpha|} \int_{\partial \omega} (\mathbf{X} \cdot \mathbf{N}) \, \mathbf{X}^\alpha \, dA.
+	\end{equation}
 		
 	\subsubsection*{Selective Modal Quadrature}
 	

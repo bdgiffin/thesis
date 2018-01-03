@@ -111,24 +111,24 @@ December:
 		18th (Monday):    pem
 		19th (Tuesday):   pem
 		20th (Wednesday): pem
-		21st (Thursday):  implementation
+		21st (Thursday):  pem
 		22nd (Friday):    Christmas break
 		23rd (Saturday):  Christmas break
 		24th (Sunday):    Christmas break
 	25th-31st: implementation & New Year
 		25th (Monday):    Christmas break
-		26th (Tuesday):   implementation
-		28st (Thursday):  implementation
-		29nd (Friday):    implementation
-		30rd (Saturday):  implementation
+		26th (Tuesday):   pem
+		28st (Thursday):  pem
+		29nd (Friday):    pem
+		30rd (Saturday):  pem
 		31th (Sunday):    New Years' break
 
 January:
 	1st-7th:   impelementation, results, presentation
 		1st     (Monday): New Years' break
-		2nd    (Tuesday): implementation
-		3rd  (Wednesday): results
-		4th   (Thursday): results
+		2nd    (Tuesday): pem
+		3rd  (Wednesday): pem
+		4th   (Thursday): pem
 		5th     (Friday): Work on presentation
 		6th   (Saturday): Work on presentation
 		7th     (Sunday): Work on presentation
@@ -137,13 +137,13 @@ January:
 		9th    (Tuesday): Work on presentation
 		10th (Wednesday): Work on presentation
 		11th  (Thursday): Submit presentation to LLNL (BY NOON)
-		12th    (Friday): results
-		13th  (Saturday): results
-		14th    (Sunday): results
+		12th    (Friday): implementation
+		13th  (Saturday): implementation
+		14th    (Sunday): implementation
 	15th-21st: results, interview
-		15th    (Monday): results
-		16th   (Tuesday): results
-		17th (Wednesday): results
+		15th    (Monday): implementation
+		16th   (Tuesday): implementation
+		17th (Wednesday): implementation
 		18th  (Thursday): LLNL interview
 		19th    (Friday): results
 		20th  (Saturday): results
@@ -153,9 +153,9 @@ January:
 		23rd   (Tuesday): Sandia interview
 		24th (Wednesday): Sandia interview
 		25th  (Thursday): Fly home
-		26th    (Friday): conclusions
-		27th  (Saturday): conclusions
-		28th    (Sunday): conclusions
+		26th    (Friday): results
+		27th  (Saturday): results
+		28th    (Sunday): results
 	29th-4th:  Provide supplementary commentary and discussion in thesis
 		29th    (Monday): conclusions
 		30th   (Tuesday): conclusions
@@ -167,12 +167,45 @@ January:
 
 February:
 	5th-11th:  Send completed disseration to reviewers (other than Mark)
+		5th     (Monday): 
+		6th    (Tuesday): 
+		7th  (Wednesday): 
+		8th   (Thursday): 
+		9th     (Friday): 
+		10th  (Saturday): 
+		11th    (Sunday): 
 	12th-18th: Make revisions according to Mark's suggestions
+		12th    (Monday): Send thesis to comittee
+		13th   (Tuesday): 
+		14th (Wednesday): 
+		15th  (Thursday): 
+		16th    (Friday): 
+		17th  (Saturday): 
+		18th    (Sunday): 
 	19th-25th: Make typographical edits
+		19th    (Monday): 
+		20th   (Tuesday): 
+		21st (Wednesday): 
+		22nd  (Thursday): 
+		23rd    (Friday): 
+		24th  (Saturday): 
+		25th    (Sunday): 
 	26th-4th:  Make formatting and graphical edits
+		26th    (Monday): 
+		27th   (Tuesday): 
+		28th (Wednesday): 
+		1st   (Thursday): 
+		2nd     (Friday): 
+		3rd   (Saturday): 
+		4th     (Sunday): Submit thesis electronically
 
 March:
 	5th-9th: Handle meeting/submission logistics
+		5th     (Monday): Schedule submission
+		6th    (Tuesday): 
+		7th  (Wednesday): 
+		8th   (Thursday): 
+		9th     (Friday): Submit thesis in-person
 
 Things to avoid:
 	-Do not write an automated meshing utility; map/steal/make meshes by hand if you have to.

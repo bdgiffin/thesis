@@ -369,7 +369,7 @@ For an approximation method to achieve convergence, several conditions must be s
 
 By comparison, non-conforming finite element methods admit more general functions $\mathbf{u}^h \in \mathcal{S}^h \not\subset C^0$. Such spaces of functions must satisfy additional weak compatibility requirements. Namely, Stummel has proposed in \cite{Stummel:79} the necessary and sufficient conditions for convergence of a non-conforming finite element method, necessitating passage of the \textit{generalized patch test}:
 
-\textit{For a given patch $\mathcal{P} \subset \overline{\mathcal{B}}_0$ and an approximating sequence of functions $u^h \in H^k (\mathcal{B}_0)$: for every $\mathbf{X} \in P$ there exists an open neighborhood $O$ in $\mathbb{R}^d$ such that}
+\textit{For a given patch $\mathcal{P} \subset \overline{\mathcal{B}}_0$ and an approximating sequence of functions $u^h \in H^k (\mathcal{B}_0)$: for every $\mathbf{X} \in \mathcal{P}$ there exists an open neighborhood $O$ in $\mathbb{R}^d$ such that}
 \begin{equation}
   \lim_{h \rightarrow 0} \sum_{\forall \Omega_e} \int_{\partial \Omega_e} v \, D^\alpha u^h|_{\Omega_e} \mathbf{n} \, da = \mathbf{0}
 \end{equation}

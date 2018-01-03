@@ -15,27 +15,28 @@
 \contentsline {section}{\numberline {2.6}Requirements for Convergence of an \\ Approximation Method}{28}
 \contentsline {chapter}{\numberline {3}Partitioned Element Methods}{33}
 \contentsline {section}{\numberline {3.1}Overview}{33}
-\contentsline {section}{\numberline {3.2}Shape Functions as Unique Solutions to \\ Boundary Value Problems}{34}
-\contentsline {section}{\numberline {3.3}The Partitioned Element Framework}{37}
-\contentsline {subsection}{\numberline {3.3.1}Partition-Based Approximation Spaces}{38}
-\contentsline {subsection}{\numberline {3.3.2}Partition-Based Quadrature Rules}{38}
-\contentsline {subsection}{\numberline {3.3.3}Selection of an Appropriate Objective Functional}{41}
-\contentsline {section}{\numberline {3.4}Essential Requirements of the PEM}{41}
-\contentsline {section}{\numberline {3.5}Specific Formulations}{44}
-\contentsline {section}{\numberline {3.6}Enhancements to Improve Solution Accuracy}{44}
-\contentsline {chapter}{\numberline {4}An Implementational Framework for the PEM}{45}
-\contentsline {section}{\numberline {4.1}Generation of Arbitrary Polytopal Meshes}{45}
-\contentsline {section}{\numberline {4.2}Element Partitioning Schemes}{45}
-\contentsline {section}{\numberline {4.3}Abstract Data Structures and Generic Programming Concepts}{45}
-\contentsline {section}{\numberline {4.4}Hierarchial Construction of Appoximants}{45}
-\contentsline {section}{\numberline {4.5}Issues of Numerical Conditioning}{45}
-\contentsline {subsection}{\numberline {4.5.1}PEM Linear System Conditioning}{45}
-\contentsline {subsection}{\numberline {4.5.2}The Effect of Element Scaling}{45}
-\contentsline {subsection}{\numberline {4.5.3}On the Choice of an Appropriate PEM Basis}{45}
-\contentsline {chapter}{\numberline {5}A Numerical Evaluation of the PEM}{46}
-\contentsline {section}{\numberline {5.1}Convergence Analysis}{46}
-\contentsline {section}{\numberline {5.2}Parameter Sensitivity Analysis}{46}
-\contentsline {section}{\numberline {5.3}Computational Efficiency}{46}
-\contentsline {subsection}{\numberline {5.3.1}Performance Comparison}{46}
-\contentsline {section}{\numberline {5.4}Resistance to Locking Phenomena}{46}
-\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{47}
+\contentsline {section}{\numberline {3.2}Definition of Element Shape Functions}{34}
+\contentsline {section}{\numberline {3.3}Break}{38}
+\contentsline {section}{\numberline {3.4}The Partitioned Element Framework}{44}
+\contentsline {subsection}{\numberline {3.4.1}Partition-Based Approximation Spaces}{44}
+\contentsline {subsection}{\numberline {3.4.2}Partition-Based Quadrature Rules}{45}
+\contentsline {subsection}{\numberline {3.4.3}Selection of an Appropriate Objective Functional}{49}
+\contentsline {section}{\numberline {3.5}Essential Requirements of the PEM}{49}
+\contentsline {section}{\numberline {3.6}Specific Formulations}{52}
+\contentsline {section}{\numberline {3.7}Enhancements to Improve Solution Accuracy}{52}
+\contentsline {chapter}{\numberline {4}An Implementational Framework for the PEM}{53}
+\contentsline {section}{\numberline {4.1}Generation of Arbitrary Polytopal Meshes}{53}
+\contentsline {section}{\numberline {4.2}Element Partitioning Schemes}{53}
+\contentsline {section}{\numberline {4.3}Abstract Data Structures and Generic Programming Concepts}{53}
+\contentsline {section}{\numberline {4.4}Hierarchial Construction of Appoximants}{53}
+\contentsline {section}{\numberline {4.5}Issues of Numerical Conditioning}{53}
+\contentsline {subsection}{\numberline {4.5.1}PEM Linear System Conditioning}{53}
+\contentsline {subsection}{\numberline {4.5.2}The Effect of Element Scaling}{53}
+\contentsline {subsection}{\numberline {4.5.3}On the Choice of an Appropriate PEM Basis}{53}
+\contentsline {chapter}{\numberline {5}A Numerical Evaluation of the PEM}{54}
+\contentsline {section}{\numberline {5.1}Convergence Analysis}{54}
+\contentsline {section}{\numberline {5.2}Parameter Sensitivity Analysis}{54}
+\contentsline {section}{\numberline {5.3}Computational Efficiency}{54}
+\contentsline {subsection}{\numberline {5.3.1}Performance Comparison}{54}
+\contentsline {section}{\numberline {5.4}Resistance to Locking Phenomena}{54}
+\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{55}
