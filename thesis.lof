@@ -2,8 +2,8 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {2.1}{\ignorespaces A depiction of the motion of material points in a body $\Omega $.}}{16}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces A representative domain $\Omega \subset \mathbb {R}^2$, and it's corresponding partition into verticies, segments, and facets.}}{44}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Various element partitioning schemes. From left to right: edge-based partition, node-based partition, voronoi partition.}}{46}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces A representative domain $\Omega \subset \mathbb {R}^2$, and it's corresponding partition into verticies, segments, and facets.}}{46}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Various element partitioning schemes. From left to right: edge-based partition, node-based partition, voronoi partition.}}{49}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

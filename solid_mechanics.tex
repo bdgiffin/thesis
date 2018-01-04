@@ -225,8 +225,8 @@ In (\ref{eq:weaklagrangian}), the traction boundary condition has been replaced 
 Under the assumptions of small displacements and linear elasticity, equations (\ref{eq:weakeulerian}) and (\ref{eq:weaklagrangian}) are equivalent, and may be more succinctly expressed in terms of a bilinear form $a \colon \mathcal{S} \times \mathcal{V} \mapsto \mathbb{R}$ and a linear form $\ell : \mathcal{V} \mapsto \mathbb{R}$ such that
 \begin{equation}
   a(\mathbf{u}, \mathbf{v}) + \ell (\mathbf{v}) = 0 \quad \forall \mathbf{v} \in \mathcal{V}.
+  \label{eq:bilinear_form}
 \end{equation}
-
 
 \section{Galerkin Approximations to the Weak Form}
 
@@ -294,7 +294,7 @@ Elements consisting of regular shapes (tetrahedra, hexahedra) also provide a nat
 	\begin{equation}
 		\frac{\partial F_{lm}}{\partial u_{jb}} = \delta_{jl} \varphi_{b,m}.
 	\end{equation}
-	If a enhanced strain formulation is employed, only the gradient operator would need to be modified; the subsequent expressions pertaining to $\partial P_{ik} / \partial F_{lm}$ would remain unchanged.
+	If an enhanced strain formulation is employed, only the gradient operator would need to be modified; the subsequent expressions pertaining to $\partial P_{ik} / \partial F_{lm}$ would remain unchanged.
 
 	% Present consistent linearization for finite deformations
 	
@@ -386,21 +386,21 @@ By comparison, non-conforming finite element methods admit more general function
 
 	The LBB (inf-sup) conditions (introduced in \cite{Babuska:71}, \cite{Brezzi:74}) pertain to potentially differing choices for $\mathcal{S}^h$ and $\mathcal{V}^h$ with appropriately defined norms. For the model problem with bilinear form $a \colon \mathcal{S} \times \mathcal{V} \rightarrow \mathbb{R}$, \textit{uniqueness} of a given solution is contingent upon the inf-sup condition:
 	\begin{equation}
-		\inf_{u^h \in \mathcal{S}^h} \sup_{v^h \in 
-\mathcal{V}^h} \frac{a(u^h,v^h)}{||u^h|| \, ||v^h||} > 0.
+		\inf_{\mathbf{u}^h \in \mathcal{S}^h} \sup_{\mathbf{v}^h \in 
+\mathcal{V}^h} \frac{a(\mathbf{u}^h,\mathbf{v}^h)}{||\mathbf{u}^h|| \, ||\mathbf{v}^h||} > 0.
 	\end{equation}
 	If $a$ is symmetric and $\mathcal{S}^h = \mathcal{V}^h$, this condition is equivalent to the requirement that $a$ be ellipitic (coercive):
 	\begin{equation}
-		a(u^h,u^h) \geq C_c ||u^h||^2 \quad \forall u^h \in \mathcal{S}^h.
+		a(\mathbf{u}^h,\mathbf{u}^h) \geq C_c ||\mathbf{u}^h||^2 \quad \forall \mathbf{u}^h \in \mathcal{S}^h.
 	\end{equation}
 	\textit{Existence} of a solution further depends upon the condition that $a$ be bounded:
 	\begin{equation}
-		a(u^h,v^h) \leq C_b ||u^h|| \, ||v^h|| \quad \forall u^h \in \mathcal{S}^h, \, v^h \in \mathcal{V}^h,
+		a(\mathbf{u}^h,\mathbf{v}^h) \leq C_b ||\mathbf{u}^h|| \, ||\mathbf{v}^h|| \quad \forall \mathbf{u}^h \in \mathcal{S}^h, \, \mathbf{v}^h \in \mathcal{V}^h,
 	\end{equation}
 	and surjective:
 	\begin{equation}
-		\sup_{u^h \in 
-\mathcal{S}^h} a(u^h,v^h) > 0 \quad \forall v^h \in \mathcal{V}^h.
+		\sup_{\mathbf{u}^h \in 
+\mathcal{S}^h} a(\mathbf{u}^h,\mathbf{v}^h) > 0 \quad \forall \mathbf{v}^h \in \mathcal{V}^h.
 	\end{equation}
 	
 %	Heuristically, these conditions require that the elements utilize sufficiently accuate quadrature rules to integrate the weak form.
