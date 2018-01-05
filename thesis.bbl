@@ -140,6 +140,11 @@ Pushkar Joshi, Mark Meyer, Tony DeRose, Brian Green, and Tom Sanocki.
 \newblock Harmonic coordinates for character articulation.
 \newblock {\em ACM Transactions on Graphics}, 26, 2007.
 
+\bibitem{Juntunen&Stenberg:09}
+Mika Juntunen and Rolf Stenberg.
+\newblock Nitsche's method for general boundary conditions.
+\newblock {\em Mechanics of Computation}, 78(267):1353--1374, 2009.
+
 \bibitem{Lee&Bathe:93}
 Nam-Sua Lee and Klaus-J{\"{u}}rgen Bathe.
 \newblock Effects of element distortions on the performance of isoparametric

@@ -177,6 +177,9 @@ INPUT pem_formulation.tex
 INPUT figures/partition.png
 INPUT ./figures/partition.png
 INPUT ./figures/partition.png
+INPUT figures/partition_types.pdf
+INPUT ./figures/partition_types.pdf
+INPUT ./figures/partition_types.pdf
 OUTPUT implementation.aux
 INPUT implementation.tex
 INPUT implementation.tex

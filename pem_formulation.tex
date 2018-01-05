@@ -67,7 +67,7 @@ In the following sections, an abstract framework for the PEM is established, des
 	% Additionally, the PEM considers the boundary of each element to be partitioned into a collection of $2$-dimensional polygonal faces $\partial \Omega = \cup_{i = 1}^{N_F} F_i$, where a given face $F$ is either a shared interface between two elements $F = \partial \Omega_a \cap \partial \Omega_b \neq \emptyset$ ($a \neq b$), or else it is a part of the domain boundary $F \subset \partial \Omega_a \cap \partial \mathcal{B}_0 \neq \emptyset$.
 	% The boundary of each face $\partial F$ is likewise recursively partitioned into $1$-dimensional edges $\partial F = \cup_{i = 1}^{N_E} E_i$, whose end-points are the geometric verticies (the nodes) of the polyhedral element in question, which bear the primary degrees of freedom.
 	
-	The advantage of defining shape functions in this manner is that it affords a great deal of flexibility in the construction of arbitrary order interpolants, while maintaining $C^0$ continuity at inter-element interfaces. Moreover, given that the shape functions are uniquely defined at every point $\mathbf{X} \in \Omega$, they are amenable to post-processing and visualization-related tasks.
+	The advantage of defining shape functions in this manner is that it affords a great deal of flexibility in the construction of arbitrary order interpolants (or enhancement functions), while maintaining $C^0$ continuity at inter-element interfaces. Moreover, given that the shape functions are uniquely defined at every point $\mathbf{X} \in \Omega$, they are amenable to post-processing and visualization-related tasks.
 	
 %	In the following sections, we will explore a few specific choices for the differential operator $\mathcal{L}$ and the forcing functions $f$ defined on the element and its faces, etc.
 
@@ -106,7 +106,7 @@ In the following sections, an abstract framework for the PEM is established, des
 		-\nabla^2 \varphi = f_{\Omega} \quad \forall \mathbf{X} \in \Omega \quad \text{s.t.} \quad \varphi = \bar{\varphi} \quad \forall \mathbf{X} \in \partial \Omega,
 		\label{eq:pem_poisson}
 	\end{equation}
-	and we may introduce additional degrees of freedom through $f_{\Omega}$ belonging to edges, faces, or element domains. These degrees of freedom are not necessarily associated with nodal evaluations of $\varphi$, but instead may be designed to exhibit certain desirable characteristics (to recover a particular order of polynomial completeness). The solution $\varphi$ to (\ref{eq:pem_poisson}) is not harmonic; instead, we shall refer to such functions as \textit{generalized harmonic shape functions}.
+	and we may introduce additional degrees of freedom through $f_{\Omega}$ belonging to edges, faces, or element domains. These degrees of freedom are not necessarily associated with nodal evaluations of $\varphi$, but instead may be designed to exhibit certain desirable characteristics (to recover a particular order of polynomial completeness). The solution $\varphi$ to (\ref{eq:pem_poisson}) is not harmonic; instead, we shall refer to functions which satisfy (\ref{eq:pem_poisson}) as \textit{generalized harmonic shape functions}.
 	
 	Harmonic shape functions are not a new concept; Gordon and Wixom were among the first authors to propose the idea in \cite{Gordon:74}, and Martin et al. later considered their application to polyhedral finite elements in \cite{Martin:08}. However, obtaining exact solutions to (\ref{eq:pem_laplace}) is generally infeasible for arbitrary polyhedra. In practice, approximate solutions must be considered.
 	
@@ -114,7 +114,7 @@ In the following sections, an abstract framework for the PEM is established, des
 	
 	It herein becomes of interest to determine suitable approximations to harmonic shape functions on arbitrary polyhedra. A number of methods to achieve this end are subsequently discussed.
 	
-\subsection*{Shape Function Approximation Methods}
+\section{Shape Function Approximation Methods}
 	
 	The exact solution $\varphi \in \mathcal{U} (\Omega) = \left\{ \varphi \in H^1(\Omega) : \varphi = \bar{\varphi} \, \forall \mathbf{X} \in \partial \Omega \right\}$ to (the more general) Poisson's equation in (\ref{eq:pem_poisson}) also satisfies the equivalent weak form:
 	\begin{equation}
@@ -132,11 +132,11 @@ In the following sections, an abstract framework for the PEM is established, des
 		\int_\Omega \nabla \varphi^h \cdot \nabla \eta^h \, dV - \int_{\partial \Omega} \frac{\partial \varphi^h}{\partial N} \eta^h \, dA = \int_\Omega f \eta^h \, dV \quad \forall \eta^h \in \mathcal{U}^h_0 (\Omega),
 		\label{eq:approximate_bvp}
 	\end{equation}
-	where $\mathcal{U}^h (\Omega)$ and $\mathcal{U}^h_0 (\Omega)$ are taken to be finite-dimensional approximation spaces. Consequently, it is of interest to determine the minimum requirements placed upon a given approximation $\varphi^h$ for the purposes of evaluating weak form integrals.
+	where $\mathcal{U}^h (\Omega)$ and $\mathcal{U}^h_0 (\Omega)$ are taken to be finite-dimensional approximation spaces. Consequently, it is of interest to determine the essential requirements placed upon a given approximation $\varphi^h$ for the purposes of evaluating weak form integrals.
 	
-	Specifically, for a finite element approximation to the model problem given in (\ref{eq:bilinear_form}), consider the evaluation of an element's local bilinear form $a_{\Omega}(\mathbf{u},\mathbf{v})$, where $\mathbf{u} = \sum_{a=1}^N \varphi_a \mathbf{u}_a$ and $\mathbf{v} = \sum_{a=1}^N \varphi_a \mathbf{v}_a$ are written in terms of the element's shape functions $\left\{ \varphi_a \right\}_{a=1}^N$. An approximate evaluation of $a_{\Omega}(\mathbf{u},\mathbf{v})$ is obtained via $a_{\Omega}(\mathbf{u}^h,\mathbf{v}^h)$, where $\mathbf{u}^h = \sum_{a=1}^N \varphi^h_a \mathbf{u}_a$ and $\mathbf{v}^h = \sum_{a=1}^N \varphi^h_a \mathbf{v}_a$ are instead represented in terms of the approximations $\left\{ \varphi^h_a \right\}_{a=1}^N$ to the element's shape functions.
+	Specifically, for a finite element approximation to the model problem given in (\ref{eq:bilinear_form}), consider the evaluation of an element's local bilinear form $a_{\Omega}(\mathbf{u},\mathbf{v})$, where $\mathbf{u} = \sum_{a=1}^N \varphi_a \mathbf{u}_a$ and $\mathbf{v} = \sum_{a=1}^N \varphi_a \mathbf{v}_a$ are written in terms of the element's shape functions $\left\{ \varphi_a \right\}_{a=1}^N$. An approximate evaluation of $a_{\Omega}(\mathbf{u},\mathbf{v})$ is obtained by making the substitution $a_{\Omega}(\mathbf{u}^h,\mathbf{v}^h)$, where $\mathbf{u}^h = \sum_{a=1}^N \varphi^h_a \mathbf{u}_a$ and $\mathbf{v}^h = \sum_{a=1}^N \varphi^h_a \mathbf{v}_a$ are instead represented in terms of the approximations $\left\{ \varphi^h_a \right\}_{a=1}^N$ to the element's shape functions.
 	
-	According to the virtual element decomposition proposed in \cite{Veiga:13}, we may express a given function $\mathbf{u} = \Pi \mathbf{u} + (\mathbf{u} - \Pi \mathbf{u})$ in terms of a low-order polynomial part $\Pi \mathbf{u}$ and a non-polynomial part $\mathbf{u} - \Pi \mathbf{u}$, where $\Pi$ is a corresponding polynomial projection operator satisfying $a_{\Omega}(\Pi \mathbf{u},\mathbf{v} - \Pi \mathbf{v}) = 0 \, \, \forall \mathbf{u}, \mathbf{v}$, and thus
+	According to the virtual element decomposition proposed in \cite{Veiga:13}, we may express a given function $\mathbf{u} = \Pi \mathbf{u} + (\mathbf{u} - \Pi \mathbf{u})$ in terms of a low-order polynomial part $(\Pi \mathbf{u})$ and a non-polynomial part $(\mathbf{u} - \Pi \mathbf{u})$, where $\Pi$ is a corresponding polynomial projection operator satisfying $a_{\Omega}(\Pi \mathbf{u},\mathbf{v} - \Pi \mathbf{v}) = 0 \, \, \forall \mathbf{u}, \mathbf{v}$, and thus
 	\begin{equation}
 		a_{\Omega}(\mathbf{u},\mathbf{v}) = a_{\Omega}(\Pi \mathbf{u},\Pi \mathbf{v}) + a_{\Omega}(\mathbf{u} - \Pi \mathbf{u},\mathbf{v} - \Pi \mathbf{v}).
 		\label{eq:vem_decomposition}
@@ -151,16 +151,16 @@ In the following sections, an abstract framework for the PEM is established, des
 	\end{equation}
 	to the extent that the correct order of convergence is maintained, and the inf-sup condition is altogether satisfied. It is argued that these conditions are sufficient to guarantee convergence of the resulting method when the local approximations $\mathbf{u}^h$ and $\mathbf{v}^h$ are used in place of $\mathbf{u}$ and $\mathbf{v}$.
 	
-	It should be remarked that the evaluation of $a_{\Omega}(\mathbf{u},\mathbf{v})$ will be further approximated through the use of numerical quadrature on $\Omega$, denoted by $a^h_{\Omega}(\mathbf{u},\mathbf{v})$. Incidentally, the use of low-order quadrature rules may alternatively be viewed as an exact integration of corresponding low-order approximations to $\mathbf{u}$ and $\mathbf{v}$, i.e. $a^h_{\Omega}(\mathbf{u},\mathbf{v}) = a_{\Omega}(\mathbf{u}^h,\mathbf{v}^h)$, and subject to the conditions previously described.
+	It should be remarked that the evaluation of $a_{\Omega}(\mathbf{u},\mathbf{v})$ will be further approximated through the use of numerical quadrature on $\Omega$, denoted as $a^h_{\Omega}(\mathbf{u},\mathbf{v})$. Incidentally, the use of low-order quadrature rules may alternatively be viewed as an exact integration of corresponding low-order approximations to $\mathbf{u}$ and $\mathbf{v}$, i.e. $a^h_{\Omega}(\mathbf{u},\mathbf{v}) = a_{\Omega}(\mathbf{u}^h,\mathbf{v}^h)$, and subject to the conditions previously described.
 	
-	With the above considerations borne in mind, we propose a set of requirements on the approximation spaces $\mathcal{U}^h (\Omega)$ and $\mathcal{U}^h_0 (\Omega)$:
+	With the above considerations borne in mind, we propose a set of requirements on the approximation space $\mathcal{U}^h (\Omega)$ (and $\mathcal{U}^h_0 (\Omega)$):
 	\begin{itemize}
-		\item[(1)] If $\mathcal{U} (\Omega) \supset P^{k} (\Omega)$, then we require $\mathcal{U}^h (\Omega) \supset P^{k} (\Omega)$ to recover polynomial reproducibility of the shape functions up to order $k$.
-		\item[(2)] If $u^h = \sum_{a=1}^N \varphi^h_a u_a$ represents an approximation to a scalar function defined on $\Omega$, then for the sake of stability we require that $C \int_{\Omega} (u^h)^2 \, dV > \sum_{a=1}^N u^2_a$ hold for some $C > 0$, where the integral over $\Omega$ is carried out using the element's quadrature rule.
-		\item[(3)] We require that $\varphi^h \rightarrow \varphi$ in the limit as the dimensions of $\mathcal{U}^h (\Omega)$ and $\mathcal{U}^h_0 (\Omega)$ are systematically increased.
+		\item[(I)] If $\mathcal{U} (\Omega) \supset P^{k} (\Omega)$, then we require $\mathcal{U}^h (\Omega) \supset P^{k} (\Omega)$ to recover polynomial reproducibility of the shape functions up to order $k$.
+		\item[(II)] If $u^h = \sum_{a=1}^N \varphi^h_a u_a$ represents an approximation to a scalar-valued function defined on $\Omega$, then for some $C>0$ we require that $C \int_{\Omega} (u^h)^2 \, dV > \sum_{a=1}^N u^2_a$, where the integral over $\Omega$ is carried out using the element's quadrature rule.
+		\item[(III)] We require that $\varphi^h \rightarrow \varphi$ in the limit as the dimension of $\mathcal{U}^h (\Omega)$ (and $\mathcal{U}^h_0 (\Omega)$) is systematically increased.
 	\end{itemize}
 	
-\subsubsection*{Continuous Galerkin Approximations to Harmonic Shape Functions}
+\subsection*{Continuous Galerkin Approximations to \\ Harmonic Shape Functions}
 
 	Consider finite dimensional sub-spaces $\mathcal{U}^h (\Omega) \subset \mathcal{U} (\Omega)$ and $\mathcal{U}^h_0 (\Omega) \subset \mathcal{U}_0 (\Omega)$. The Galerkin approximation $\varphi^h \in \mathcal{U}^h (\Omega)$ to a given harmonic shape function $\varphi \in \mathcal{U} (\Omega)$ satisfies
 	\begin{equation}
@@ -168,61 +168,84 @@ In the following sections, an abstract framework for the PEM is established, des
 		\label{eq:weak_poisson}
 	\end{equation}
 	
-	Bishop has already explored such an approximation scheme using an FE discretization of a given polyheral element into sub-dividing tetrahedra. The corresponding shape function approximations $\varphi^h$ are obtained as the solutions to a set of local finite element problems defined on $\Omega$. Moreover, it was demonstrated in \cite{Bishop:14} that the resulting approximations preserve low-order polynomial completeness. If the elements are sufficiently discretized into tetrahedra, the method is observed to be both stable and convergent (provided a gradient correction scheme is adopted to account for the effects of integration error).
+	Bishop has already explored such an approximation scheme using an FE discretization of a given polyheral element into sub-dividing tetrahedra. The corresponding shape function approximations $\varphi^h \subset C^0 (\Omega)$ are obtained as the solutions to a set of local finite element problems defined on $\Omega$ (and its faces, edges). Moreover, it was demonstrated in \cite{Bishop:14} that the resulting approximations preserve low-order polynomial completeness -- a consequence of $\mathcal{U}^h (\Omega) \supset P^{1} (\Omega)$. If the elements are discretized into a sufficient number of tetrahedra, the method is observed to be both stable and convergent (provided a gradient correction scheme is employed to account for the effects of integration error).
 	
-	This approach can become computationally expensive if the elements are subdivided into a large number of tetrahedra, in an attempt to obtain more accurate approximations to the shape functions. However, initial numerical investigations have suggested that relatively coarse tetrahedral sub-divisions of the elements provide sufficiently accurate results; further subdivision does little to improve the overall accuracy of the method.
+	This approach can become computationally expensive if the elements are subdivided into an excessively large number of tetrahedra, provided more accurate approximations to the shape functions are desired. However, initial numerical investigations have suggested that relatively coarse tetrahedral sub-divisions of the elements provide sufficiently accurate results; further subdivision (tetrahedral $h-$refinement) does little to improve the overall accuracy of the elements.
 	
-	A natural extension of the method proposed by Bishop to higher-order serendipity elements would be to consider subdividing the element domains into quadratic tetrahedra (or cubic tetrahedra, etc.) to recover the proper order of polynomial completeness. This unfortunately bears a higher computational cost per element with increasing polynomial degree, though the underlying tetrahedral subdivisions would remain the same. Figure (K) provides a depiction of what the proposed shape function approximations would look like for an arbitrary polygonal element.
+	A natural extension of the method proposed by Bishop to higher-order serendipity elements would be to consider $p-$refinement of an element's tetrahedral subdivision to recover higher-order polynomial completeness, i.e. to guarantee $\mathcal{U}^h (\Omega) \supset P^{k} (\Omega)$ for some desired polynomial order $k$. Figure (K) provides a depiction of what the proposed shape function approximations would look like for an arbitrary polygonal element. Unfortunately, the construction of shape functions on a given element would likely bear a much higher computational cost with increasing polynomial degree. The specification of stable and accurate numerical quadratures would present an additional challenge.
 	
-	However, a particular complication arises for harmonic shape functions and their corresponding $C^0$ approximations under certain conditions: the solution to Laplace's equation may possess extremely sharp gradients if the geometry of the element contains reflex corners or nearly degenerate features (i.e. short edges). A consequence of this is poor conditioning of the element's local stiffness matrix, leading to excessively stiff modes of deformation (locking), and issues of numerical conditioning in the linear solution process. For this reason, it becomes of interest to consider non-conforming approximations $\varphi^h \in \mathcal{U}^h (\Omega) \not\subset \mathcal{U} (\Omega)$ which have the potential to overcome these issues.
+	However, a particular complication arises for harmonic shape functions and their corresponding $C^0 (\Omega)$ approximations on irregularly shaped elements: the solution to Laplace's equation may possess extremely sharp gradients if the geometry of the element contains reflex corners or nearly degenerate features (i.e. short edges). A consequence of this is poor conditioning of the element's local stiffness matrix, leading to excessively stiff modes of deformation (locking), and issues of numerical conditioning in the linear solution process. For this reason, it becomes of interest to consider non-conforming approximations $\varphi^h \in \mathcal{U}^h (\Omega) \not\subset \mathcal{U} (\Omega)$ which have the potential to overcome these issues.
 	
-\subsubsection*{Non-conforming Galerkin Approximations to Harmonic Shape Functions}
+\subsection*{Non-conforming Galerkin Approximations to \\ Harmonic Shape Functions}
 
-	If one should like to relax the strict enforcement of the boundary conditions imposed upon a given shape function to the extent that $\varphi^h \neq \bar{\varphi}$ on $\partial \Omega$, one observes that $\mathcal{U}^h (\Omega) \not\subset \mathcal{U} (\Omega)$, and one must resort to the use of a non-conforming approximation method.
+	If the boundary conditions imposed upon a given shape function are relaxed to the extent that $\varphi^h \neq \bar{\varphi}$ on $\partial \Omega$, then clearly $\mathcal{U}^h (\Omega) \not\subset \mathcal{U} (\Omega)$, and one must resort to the use of non-conforming approximation methods. In such cases, the boundary conditions must be imposed in a weak sense, such that $\varphi^h$ still converges to $\varphi$ as the dimension of the non-conforming approximation space $\mathcal{U}^h (\Omega)$ is increased. A number of potential weak enforcement strategies are suggested in the following sections.
 	
-	One approach would be to consider a Lagrange multiplier method to weakly enforce the boundary condition $\varphi = \bar{\varphi}$ on $\partial \Omega$ via
+	\subsubsection*{Weak Enforcement of Boundary Conditions via a Lagrange Multiplier Method}
+	
+	One possible approach would be to consider a Lagrange multiplier method, to weakly enforce the boundary condition $\varphi = \bar{\varphi}$ on $\partial \Omega$ via
 	\begin{equation}
 		\min_{\varphi, \, \lambda} \mathcal{L}(\varphi,\lambda),
 	\end{equation}
 	\begin{equation}
 	\mathcal{L}(\varphi,\lambda) \equiv \frac{1}{2} \int_{\Omega} \nabla \varphi \cdot \nabla \varphi \, dV - \int_{\Omega} f \varphi \, dV + \int_{\partial \Omega} \left[ \varphi - \bar{\varphi} \right] \lambda \, dA,
 \end{equation}
-	which involves the Lagrange multiplier field $\lambda \in \Lambda (\partial \Omega) = \left\{ \lambda \in L^2 (\partial \Omega) \right\}$. This yields two sets of equations in terms of the approximations $\varphi^h \in \mathcal{U}^h (\Omega)$ and $\lambda^h \in \Lambda^h (\partial \Omega) \subset \Lambda (\partial \Omega)$:
+	involving the specification of a Lagrange multiplier field $\lambda \in \Lambda (\partial \Omega) = \left\{ \lambda \in L^2 (\partial \Omega) \right\}$, and it's corresponding approximation $\lambda^h \in \Lambda^h (\partial \Omega) \subset \Lambda (\partial \Omega)$. Differentiation of the Lagrangian yields two sets of equations in terms of the approximations $\varphi^h \in \mathcal{U}^h (\Omega)$ and $\lambda^h \in \Lambda^h (\partial \Omega)$:
 	\begin{equation}
 		\int_{\Omega} \nabla \varphi^h \cdot \nabla \eta^h \, dV - \int_\Omega f \eta^h \, dV + \int_{\partial \Omega} \lambda^h \eta^h \, dA = 0 \quad \forall \eta^h \in \mathcal{U}^h (\Omega),
 	\end{equation}
 	\begin{equation}
 		\int_{\partial \Omega} (\varphi^h - \bar{\varphi}) \, \mu^h \, dA = 0 \quad \forall \mu^h \in \Lambda^h (\partial \Omega).
 	\end{equation}
-	Suppose that we establish bases for $\varphi^h$ and $\lambda^h$:
+	Suppose finite-dimensional bases are established for $\mathcal{U}^h (\Omega)$ and $\Lambda^h (\partial \Omega)$, i.e.
 \begin{equation}
-	\varphi^h (\mathbf{X}) = \sum_{a=1}^{N} \psi_a (\mathbf{X}) \varphi_a, \quad \lambda^h (\mathbf{X}) = \sum_{a=1}^{M} \Psi_a (\mathbf{X}) \lambda_a,
+	\varphi^h (\mathbf{X}) = \sum_{a=1}^{N} \psi_a (\mathbf{X}) \varphi_a, \quad \lambda^h (\mathbf{X}) = \sum_{a=1}^{M} \chi_a (\mathbf{X}) \lambda_a,
 \end{equation}
 such that
 \begin{equation}
-	\sum_{a=1}^N \left[ \int_{\Omega} \nabla \varphi_a \cdot \nabla \varphi_b \, dV \right] u_a + \sum_{c=1}^M \left[ \int_{\partial \Omega} \varphi_b \, \phi_c \, dA \right] \lambda_c = 0 \quad \forall b,
+	\sum_{a=1}^N \left[ \int_{\Omega} \nabla \psi_a \cdot \nabla \psi_b \, dV \right] \varphi_a + \sum_{c=1}^M \left[ \int_{\partial \Omega} \psi_b \, \chi_c \, dA \right] \lambda_c = \int_{\partial \Omega} f \, \psi_b \, dA \quad \forall b,
 \end{equation}
 \begin{equation}
-	\sum_{b=1}^N \left[ \int_{\partial \Omega} \phi_c \, \varphi_b \, dA \right] u_b = \int_{\partial \Omega} \bar{u} \, \phi_c \, dA \quad \forall c.
+	\sum_{b=1}^N \left[ \int_{\partial \Omega} \chi_c \, \psi_b \, dA \right] \varphi_b = \int_{\partial \Omega} \bar{\varphi} \, \chi_c \, dA \quad \forall c.
 \end{equation}
-If we suppose that the boundary conditions can be written in terms of yet another basis, i.e.
+Given an appropriate selection for the indicated bases, the determination of the unknowns ($\varphi_a$ and $\lambda_a$) entails the solution of a saddle-point system of equations, written in matrix-vector format:
 \begin{equation}
-	\bar{u} = \sum_{a=1}^N \psi_a \bar{u}_a,
-\end{equation}
-then
-\begin{equation}
-	\sum_{b=1}^N \left[ \int_{\partial \Omega_e} \phi_c \, \varphi_b \, dA \right] u_b = \sum_{a=1}^M \left[ \int_{\partial \Omega_e} \psi_a \, \phi_c \, dA \right] \bar{u}_a \quad \forall c.
-\end{equation}
-Given an appropriate selection for the indicated bases, we must solve the saddle-point problem, in matrix format:
-\begin{equation}
-	\left[ \begin{array}{cc} \mathbf{K} & \mathbf{C} \\ \mathbf{C}^T & \mathbf{0} \end{array} \right] \left\{ \begin{array}{c} \mathbf{u} \\ \boldsymbol{\lambda} \end{array} \right\} = \left\{ \begin{array}{c} \mathbf{0} \\ \mathbf{B} \bar{\mathbf{u}} \end{array} \right\},
+	\left[ \begin{array}{cc} \mathbf{A} & \mathbf{B} \\ \mathbf{B}^T & \mathbf{0} \end{array} \right] \left\{ \begin{array}{c} \boldsymbol{\varphi} \\ \boldsymbol{\lambda} \end{array} \right\} = \left\{ \begin{array}{c} \mathbf{f} \\ \bar{\boldsymbol{\varphi}} \end{array} \right\},
 \end{equation}
 where
 \begin{equation}
-	K_{ab} = \int_{\Omega_e} \nabla_X \varphi_a \cdot \nabla_X \varphi_b \, dV, \quad C_{bc} = \int_{\partial \Omega_e} \varphi_b \, \phi_c \, dA, \quad B_{ac} = \int_{\partial \Omega_e} \psi_a \, \phi_c \, dA.
+	A_{ab} = \int_{\Omega} \nabla \psi_a \cdot \nabla \psi_b \, dV, \quad B_{bc} = \int_{\partial \Omega} \psi_b \, \chi_c \, dA,
 \end{equation}
+\begin{equation}
+	f_{b} = \int_{\partial \Omega} f \, \psi_b \, dA, \quad \bar{\varphi}_{c} = \int_{\partial \Omega} \bar{\varphi} \, \chi_c \, dA.
+\end{equation}
+
+	The main advantage of this approach is that virtually any space of functions may be selected for $\mathcal{U}^h (\Omega)$, such that the resulting approximations $\varphi^h \in \mathcal{U}^h (\Omega)$ deliberately do not contain sharp gradients.
 	
-\section{Break}
+	Arguably the simplest (and most efficient) choice is $\mathcal{U}^h (\Omega) = P^{k} (\Omega)$, resembling certain formulations of the VETFEM (\cite{Rashid:00}, \cite{Rashid:06}) where the basis functions for the Lagrange multiplier field $\chi_c (\mathbf{X}) = \delta (\mathbf{X} - \mathbf{X}_c) \, \, \forall c = 1, \ldots, N_v$ are Dirac delta functions associated with the individual nodes of the element. A potential shortcoming of this particular choice for $\chi_c$ is that the resulting shape functions may yield sharp gradients along short element edges.
+	
+	Various other choices for the Lagrange multiplier basis are possible which may yield less spurious solutions (for instance $\Lambda^h (\partial \Omega) = P^{k} (\partial \Omega)$), though these may lead to ill-posedness of the saddle-point problem. More sophisticated solution methodologies are required in these cases.
+
+	\subsubsection*{Weak Enforcement of Boundary Conditions via Nitsche's Method}
+	
+	As a viable alternative to the Lagrange multiplier method presented in the previous section, one may instead consider using Nitsche's method (refer to \cite{Juntunen&Stenberg:09}) as a means of weakly enforcing the boundary conditions for a given shape function, i.e.
+	\begin{eqnarray}
+		\int_{\Omega} \nabla \varphi^h \cdot \nabla \eta^h \, dV - \int_{\partial \Omega} \left[ \frac{\partial \varphi^h}{\partial N} \eta^h + \varphi^h \frac{\partial \eta^h}{\partial N} \right] \, dA + \frac{1}{\gamma |\partial \Omega|} \int_{\partial \Omega} \varphi^h \eta^h \, dA \nonumber \\ = \int_\Omega f \eta^h \, dV - \int_{\partial \Omega} \bar{\varphi} \frac{\partial \eta^h}{\partial N} \, dA + \frac{1}{\gamma |\partial \Omega|} \int_{\partial \Omega} \bar{\varphi} \eta^h \, dA \quad \forall \eta^h \in \mathcal{U}^h (\Omega),
+	\end{eqnarray}
+	where $\gamma > 0$ is a stabilization parameter, and $| \partial \Omega |$ denotes the surface area of $\partial \Omega$.
+	
+	Provided the stabilization parameter $\gamma$ is appropriately specified, the Galerkin approximation $\varphi^h$ to Nitsche's method can be obtained as the solution to the symmetric, positive-definite system of equations $\mathbf{A} \boldsymbol{\varphi} = \mathbf{f}$, where
+	\begin{equation}
+		A_{ab} = \int_{\Omega} \nabla \psi_a \cdot \nabla \psi_b \, dV - \int_{\partial \Omega} \left[ \frac{\partial \psi_a}{\partial N} \psi_b + \psi_a \frac{\partial \psi_b}{\partial N} \right] \, dA + \frac{1}{\gamma |\partial \Omega|} \int_{\partial \Omega} \psi_a \, \psi_b \, dA,
+	\end{equation}
+	\begin{equation}
+		f_{b} = \int_{\Omega} f \, \psi_b \, dV - \int_{\partial \Omega} \bar{\varphi} \frac{\partial \psi_b}{\partial N} \, dA + \frac{1}{\gamma |\partial \Omega|} \int_{\partial \Omega} \bar{\varphi} \, \psi_b \, dA.
+	\end{equation}
+	
+	A rather natural choice for the space of approximating functions is $\mathcal{U}^h (\Omega) = P^{k} (\Omega)$. However, experimental evidence suggests that for certain element geometries (particularly for non-convex shapes) the resulting shape function approximations may succumb to Runge's phenomenon. Figure (L) depicts the results for increasing $k$.
+	
+	These considerations have led to the conclusion that lower-order approximation methods (e.g. FEM, DG, etc.) should generally be preferred over high-order polynomial approximation methods. It is precisely these ideas which have motivated the use of partitioned element methods in lieu of the VETFEM and its variants.
+	
+\section{Piece-wise Approximation Methods}
 	
 	Ultimately, one must show either that $\mathcal{S}^h$ and $\mathcal{V}^h$ and sub-spaces of $\mathcal{S}$ and $\mathcal{V}$, or else that any exterior approximation methods converge to the exact solution under cell refinement. Moreover, we must show that any approximation to the exact solution will yield elements that exhibit convergence under mesh (element) refinement -- and interesting embedded convergence problem.
 		
@@ -307,45 +330,6 @@ If $[\![ \nabla_X u \cdot \mathbf{N} ]\!] = 0$, the above conditions are trivial
 	\mathcal{F} = \sum_j \int_{\Gamma_j} \alpha_j [\![ u]\!]^2 \, dA + \sum_j \int_{\Gamma_j} \beta_j [\![ \nabla_X u \cdot \mathbf{N} ]\!]^2 \, dA.
 \end{equation}
 If $\alpha_j \gg \beta_j$, we obtain a field which satisfies compatibility preferrentially, whereas if $\alpha_j \ll \beta_j$, we satisfy Laplace's equation. The importance of compatibility is to guarantee that the shape functions span a set of admissible solutions to the original BVP, whereas satisfaction of Laplace's equation guarantees uniqueness of the resulting shape functions.
-
-Alternatively, if we pose an objective functional
-\begin{equation}
-	\mathcal{F}(u,\lambda) = \frac{1}{2} \int_{\Omega_e} \nabla_X u \cdot \nabla_X u \, dV + \int_{\partial \Omega_e} \left[ u - \bar{u} \right] \lambda \, dA,
-\end{equation}
-it yields
-\begin{equation}
-	\int_{\Omega_e} \nabla_X u \cdot \nabla_X \delta u \, dV + \int_{\partial \Omega_e} \delta u \, \lambda \, dA = 0 \quad \forall \delta u,
-\end{equation}
-\begin{equation}
-	\int_{\partial \Omega_e} u \, \delta \lambda \, dA = \int_{\partial \Omega_e} \bar{u} \, \delta \lambda \, dA \quad \forall \delta \lambda.
-\end{equation}
-Suppose that we establish bases for $u$ and $\lambda$:
-\begin{equation}
-	u = \sum_{a=1}^{N} \varphi_a u_a, \quad \lambda = \sum_{a=1}^{M} \phi_a \lambda_a,
-\end{equation}
-such that
-\begin{equation}
-	\sum_{a=1}^N \left[ \int_{\Omega_e} \nabla_X \varphi_a \cdot \nabla_X \varphi_b \, dV \right] u_a + \sum_{c=1}^M \left[ \int_{\partial \Omega_e} \varphi_b \, \phi_c \, dA \right] \lambda_c = 0 \quad \forall b,
-\end{equation}
-\begin{equation}
-	\sum_{b=1}^N \left[ \int_{\partial \Omega_e} \phi_c \, \varphi_b \, dA \right] u_b = \int_{\partial \Omega_e} \bar{u} \, \phi_c \, dA \quad \forall c.
-\end{equation}
-If we suppose that the boundary conditions can be written in terms of yet another basis, i.e.
-\begin{equation}
-	\bar{u} = \sum_{a=1}^N \psi_a \bar{u}_a,
-\end{equation}
-then
-\begin{equation}
-	\sum_{b=1}^N \left[ \int_{\partial \Omega_e} \phi_c \, \varphi_b \, dA \right] u_b = \sum_{a=1}^M \left[ \int_{\partial \Omega_e} \psi_a \, \phi_c \, dA \right] \bar{u}_a \quad \forall c.
-\end{equation}
-Given an appropriate selection for the indicated bases, we must solve the saddle-point problem, in matrix format:
-\begin{equation}
-	\left[ \begin{array}{cc} \mathbf{K} & \mathbf{C} \\ \mathbf{C}^T & \mathbf{0} \end{array} \right] \left\{ \begin{array}{c} \mathbf{u} \\ \boldsymbol{\lambda} \end{array} \right\} = \left\{ \begin{array}{c} \mathbf{0} \\ \mathbf{B} \bar{\mathbf{u}} \end{array} \right\},
-\end{equation}
-where
-\begin{equation}
-	K_{ab} = \int_{\Omega_e} \nabla_X \varphi_a \cdot \nabla_X \varphi_b \, dV, \quad C_{bc} = \int_{\partial \Omega_e} \varphi_b \, \phi_c \, dA, \quad B_{ac} = \int_{\partial \Omega_e} \psi_a \, \phi_c \, dA.
-\end{equation}
 
 The generalized patch test requires that
 \begin{equation}
