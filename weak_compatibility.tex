@@ -1,0 +1,125 @@
+An equivalent set of weakened boundary conditions may be written as
+\begin{equation}
+	\int_{\partial \Omega_e} \left[ u - \bar{u} \right] \lambda \, dA = 0 \quad \forall \lambda \in H^{1/2} (\partial \Omega_e),
+\end{equation}
+where $\lambda$ denotes a Lagrange multiplier field, and
+\begin{equation}
+	H^{1/2} (\partial \Omega_e) \equiv \left\{ \lambda \in L^2 (\partial \Omega_e) \, | \, \exists \, \lambda' \in H^1 (\Omega_e) \, \colon \lambda = \text{tr} (\lambda') \right\}.
+\end{equation}
+A weak statement of the above equations can be written as
+\begin{equation}
+	\int_{\Omega_e} \nabla_X u \cdot \nabla_X v \, dV = 0 \quad \forall v \in H^1_0(\Omega_e).
+\end{equation}
+If we partition $\Omega_e$ into cells $\cup_i K_i$, we observe that
+\begin{equation}
+	\int_{\Omega_e} \nabla_X u \cdot \nabla_X v \, dV = \sum_j \int_{\Gamma_j} v [\![ \nabla_X u \cdot \mathbf{N} ]\!] \, dA = 0 \quad \forall v \in H^1_0(\Omega_e).
+\end{equation}
+If $[\![ \nabla_X u \cdot \mathbf{N} ]\!] = 0$, the above conditions are trivially satisfied. By contrast, to trivially satisfy compatibility in a weak sense, we insist that $[\![ u ]\!] = 0$ everywhere. We can consider enforcing both of these conditions in a weighted sense, resulting in the common PEM formulation in current usage:
+\begin{equation}
+	\mathcal{F} = \sum_j \int_{\Gamma_j} \alpha_j [\![ u]\!]^2 \, dA + \sum_j \int_{\Gamma_j} \beta_j [\![ \nabla_X u \cdot \mathbf{N} ]\!]^2 \, dA.
+\end{equation}
+If $\alpha_j \gg \beta_j$, we obtain a field which satisfies compatibility preferrentially, whereas if $\alpha_j \ll \beta_j$, we satisfy Laplace's equation. The importance of compatibility is to guarantee that the shape functions span a set of admissible solutions to the original BVP, whereas satisfaction of Laplace's equation guarantees uniqueness of the resulting shape functions.
+
+The generalized patch test requires that
+\begin{equation}
+	\lim_{h \rightarrow 0} \sum_e \int_{\Omega_e} \psi \, u \, \mathbf{n} \, dA = 0 \quad \forall \psi \in C^\infty_0.
+\end{equation}
+Let us momentarily consider the case when each element is bounded by some $d-1$ dimensional manifold, upon which we presume that the shape functions are well-defined as $\bar{u}$. Upon any given element domain, we insist that
+\begin{equation}
+	\lim_{h \rightarrow 0} \int_{\Omega_e} \psi \, [\![ u ]\!] \, \mathbf{n} \, dA = 0 \quad \forall \psi \in C^\infty
+\end{equation}
+must hold for the generalized patch test to be satisfied, where $[\![ u ]\!] = u - \bar{u}$. Suppose we define projection operators $\Pi : C^\infty(\Omega_e) \rightarrow P^k (\Omega_e)$ and $\pi : C^\infty(\Omega_e) \rightarrow C^\infty(\Omega_e) \backslash P^k (\Omega_e)$ such that
+\begin{equation}
+	u = \Pi u + \pi u, \quad \psi = \Pi \psi + \pi \psi,
+\end{equation}
+then
+\begin{eqnarray}
+	\int_{\Omega_e} \psi \, [\![ u ]\!] \, \mathbf{n} \, dA = \int_{\Omega_e} \Pi \psi \, \Pi [\![ u ]\!] \, \mathbf{n} \, dA + \int_{\Omega_e} \Pi \psi \, \pi [\![ u ]\!] \, \mathbf{n} \, dA \\ + \int_{\Omega_e} \pi \psi \, \Pi [\![ u ]\!] \, \mathbf{n} \, dA +
+\int_{\Omega_e} \pi \psi \, \pi [\![ u ]\!] \, \mathbf{n} \, dA.
+\end{eqnarray}
+It can be shown that
+\begin{equation}
+	\int_{\Omega_e} \Pi \psi \, \Pi [\![ u ]\!] \, \mathbf{n} \, dA = 0 \quad \forall \psi \in C^\infty
+\end{equation}
+if the function defined on the element's boundary is sufficiently smooth, and can represent polynomial fields up to order $k$. Consequently,
+\begin{eqnarray}
+	\int_{\Omega_e} \psi \, [\![ u ]\!] \, \mathbf{n} \, dA = \int_{\Omega_e} \Pi \psi \, \pi [\![ u ]\!] \, \mathbf{n} \, dA \\ + \int_{\Omega_e} \pi \psi \, \Pi [\![ u ]\!] \, \mathbf{n} \, dA +
+\int_{\Omega_e} \pi \psi \, \pi [\![ u ]\!] \, \mathbf{n} \, dA.
+\end{eqnarray}
+We effectively need to demonstrate passage of the E-1 and M-1 tests for convergence of nonconforming methods. Will need estimates for boundary integrals, or can demonstrate this numerically (preferred).
+
+\subsection*{Weak Compatibility}
+
+Consider the necessary and sufficient conditions for compatibility of a deformation gradient field $\mathbf{F}$ stated in equation (\ref{eq:compatibility}), reiterated:
+\begin{equation}
+	\nabla_X \times \mathbf{F} = \mathbf{0} \quad \forall \mathbf{X} \in \mathcal{B}_0.
+\end{equation}
+If the deformation gradient is computed from a set of basis functions $\left\{ \varphi_a \right\}_{a=1}^N$ for the displacement field via
+\begin{equation}
+	\mathbf{F} = \sum_{a=1}^N \mathbf{x}_{a} \otimes \nabla_X \varphi_{a},
+\end{equation}
+we arrive at a set of equivalent conditions on the basis functions:
+\begin{equation}
+	\nabla_X \times \nabla_X \varphi = \mathbf{0} \quad \forall \mathbf{X} \in \mathcal{B}_0, \, \varphi \in \left\{ \varphi_a \right\}_{a=1}^N.
+	\label{eq:strong_compatibility}
+\end{equation}
+These equations are trivially satisfied when the basis functions are $C^2 (\mathcal{B}_0)$ continuous, and may therefore be used to construct admissible trial solutions to the strong form statement of equilibrium described in section \ref{sec:strongform}.
+
+In general, the construction of basis functions $\varphi \in C^2 (\mathcal{B}_0)$ is not trivial. Moreover, we seek solutions to the weak form such that $\mathbf{u} \in H^1 (\Omega)$. In what follows, we shall consider the space of functions $\varphi \in C^0 (\mathcal{B}_0)$ satisfying a weakened statement of compatibility:
+\begin{equation}
+	\int_{\mathcal{B}_0} (\nabla_X \times \nabla_X \varphi) \cdot \mathbf{v} \, dV = 0 \quad \forall \mathbf{v} \in C^\infty_0 (\mathcal{B}_0).
+\end{equation}
+Through repeated application of integration by parts, the condition that the test functions satisfy compatibility ($\nabla_X \times \nabla_X \mathbf{v} = \mathbf{0} \, \forall \mathbf{v} \in C^\infty_0 (\mathcal{B}_0)$), and the divergence theorem, we determine
+% e_{ijk} \varphi_{,ji} v_{k} = (e_{ijk} \varphi_{,j} v_{k})_{,i} + e_{ijk} \varphi_{,j} v_{i,k}
+% e_{ijk} \varphi_{,j} v_{i,k} = (e_{ijk} \varphi v_{i,k})_{,j} - e_{ijk} \varphi v_{i,kj} = (e_{ijk} \varphi v_{i,k})_{,j}
+% e_{ijk} \varphi_{,ji} v_{k} = (e_{ijk} \varphi_{,j} v_{k})_{,i} + (e_{ijk} \varphi v_{k,j})_{,i} = (e_{ijk} (\varphi v_{k})_{,j})_{,i}
+ \begin{equation}
+	\int_{\mathcal{B}_0} \nabla_X \cdot (\nabla_X \varphi \times \mathbf{v}) \, dV + \int_{\mathcal{B}_0} \nabla_X \varphi \cdot (\nabla_X \times \mathbf{v}) \, dV = 0,
+\end{equation}
+\begin{equation}
+	\int_{\mathcal{B}_0} \nabla_X \cdot (\nabla_X \times (\varphi \mathbf{v})) \, dV = \int_{\partial \mathcal{B}_0} (\nabla_X \times (\varphi \mathbf{v})) \cdot d\mathbf{A} = 0.
+\end{equation}
+
+If we consider a partition $\mathcal{T}^h = \left\{ \Omega_e \right\}_{e=1}^{N_e}$ of $\mathcal{B}_0$ into polytopal elements $\Omega_e \subset \mathcal{B}_0$ whose shape functions are assumed to be piece-wise smooth and continuous on element interiors, then we may impose the equivalent condition:
+\begin{equation}
+	\sum_{e = 1}^{N_e} \int_{\partial \Omega_e} (\nabla_X \times (\varphi|_{\Omega_e} \mathbf{v})) \cdot d\mathbf{A} = 0 \quad \forall \varphi, \, \mathbf{v} \in C^\infty_0 (\mathcal{B}_0).
+\end{equation}
+It it evident that if $[\![ \varphi ]\!] = \varphi|_{\Omega_a} - \varphi|_{\Omega_b} = 0 \, \forall \partial \Omega_a \cap \partial \Omega_b \neq \emptyset$, then the above condition is trivially satisfied. Such is the case for $C^0 (\mathcal{B}_0)$ conforming finite element methods.
+
+If $\varphi \not\subset C^0 (\mathcal{B}_0)$, we require
+\begin{equation}
+	\lim_{h \rightarrow 0} \sum_{e = 1}^{N_e} \int_{\partial \Omega_e} (\nabla_X \times (\varphi|_{\Omega_e} \mathbf{v})) \cdot d\mathbf{A} = 0 \quad \forall \varphi, \, \mathbf{v} \in C^\infty_0 (\mathcal{B}_0),
+\end{equation}
+which is equivalent to
+\begin{equation}
+	\lim_{h \rightarrow 0} \sum_{e = 1}^{N_e} \int_{\partial \Omega_e} (\varphi|_{\Omega_e} (\nabla_X \times \mathbf{v}) + \nabla_X \varphi|_{\Omega_e} \times \mathbf{v}) \cdot d\mathbf{A} = 0 \quad \forall \varphi, \, \mathbf{v} \in C^\infty_0 (\mathcal{B}_0).
+\end{equation}
+Equivalently, we may enforce this condition over each individual face $\Gamma = \Omega_a \cap \Omega_b \neq \emptyset$, such that
+\begin{equation}
+	\lim_{h \rightarrow 0} \int_{\Gamma} ([\![ \varphi ]\!] (\nabla_X \times \mathbf{v}) + \nabla_X [\![ \varphi ]\!] \times \mathbf{v}) \cdot d\mathbf{A} = 0 \quad \forall \Gamma, \, \mathbf{v} \in C^\infty_0 (\mathcal{B}_0).
+\end{equation}
+We may expand $[\![ \varphi ]\!] = a_0 + \mathbf{a}_1 \cdot \mathbf{X} + O(\mathbf{X}^2)$ and $\mathbf{v} = \mathbf{b}_0 + \mathbf{B}_1 \mathbf{X} + O(\mathbf{X}^2)$ in terms of low-order polynomials to illustrate
+\begin{equation}
+	\lim_{h \rightarrow 0} \int_{\Gamma} ((a_0 + \mathbf{a}_1 \cdot \mathbf{X}) \mathbf{B}_1 + \mathbf{a}_1 \times (\mathbf{b}_0 + \mathbf{B}_1 \mathbf{X})) \cdot d\mathbf{A} = 0 \quad \forall \Gamma, \, \mathbf{v} \in C^\infty_0 (\mathcal{B}_0).
+\end{equation}
+
+\begin{equation}
+	\lim_{h \rightarrow 0} \sum_{e = 1}^{N_e} \int_{\partial \Omega_e} (\varphi|_{\Omega_e} (\nabla_X \times \mathbf{v})) \cdot d\mathbf{A} - \sum_{e = 1}^{N_e} \int_{\Omega_e} \nabla_X \varphi|_{\Omega_e} \cdot (\nabla_X \times \mathbf{v}) \, dV = 0 \quad \forall \varphi, \, \mathbf{v} \in C^\infty_0 (\mathcal{B}_0),
+\end{equation}
+and because $\nabla_X \times : C^\infty_0 (\mathcal{B}_0) \mapsto C^\infty_0 (\mathcal{B}_0)$, we have
+\begin{equation}
+	\lim_{h \rightarrow 0} \sum_{e = 1}^{N_e} \int_{\partial \Omega_e} \varphi|_{\Omega_e} \mathbf{v} \cdot d\mathbf{A} - \sum_{e = 1}^{N_e} \int_{\Omega_e} \mathbf{v} \cdot \nabla_X \varphi|_{\Omega_e} \, dV = 0 \quad \forall \varphi, \, \mathbf{v} \in C^\infty_0 (\mathcal{B}_0).
+\end{equation}
+Recognizing that
+\begin{equation}
+	\int_{\Omega_e} \mathbf{v} \cdot \nabla_X \varphi|_{\Omega_e} \, dV \leq  || \nabla_X \varphi|_{\Omega_e} ||^2_{\Omega_e},
+\end{equation}
+
+If we insist on
+\begin{equation}
+	\sum_{e = 1}^{N_e} \int_{\partial \Omega_e} (\nabla_X \times (\varphi|_{\Omega_e} \mathbf{v})) \cdot d\mathbf{A} = 0 \quad \forall \varphi, \, \mathbf{v} \in P^1 (\mathcal{B}_0),
+\end{equation}
+i.e. if we expand $\mathbf{v} = \mathbf{v}_0 + \mathbf{V}_1 \mathbf{x}$ and 
+\begin{equation}
+	\sum_{e = 1}^{N_e} \int_{\partial \Omega_e} (\nabla_X \times (\varphi|_{\Omega_e} \mathbf{v})) \cdot d\mathbf{A} = 0 \quad \forall \varphi, \, \mathbf{v} \in P^1 (\mathcal{B}_0),
+\end{equation}

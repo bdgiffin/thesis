@@ -25,10 +25,12 @@ This chapter defines a general class of polytopal element formulations referred 
 		% are certain approximation methods more suitable than others?
 			% FEM? DG? VEM?
 
-Partitioned element methods are finite element-like methods which approach the task of constructing shape functions on arbitrary polytopal element domains by partitioning each element into sub-domains (quadrature cells). The element partition serves a dual purpose: it is used to establish a composite quadrature rule for the element, and to define a finite dimensional function space, from which the element's shape functions are selected as the solutions to corresponding boundary value problems defined locally on the element.
+Partitioned element methods are finite element-like methods which approach the task of constructing shape functions on arbitrary polytopal element domains by partitioning each element into sub-domains (quadrature cells). The element partition serves a dual purpose: it is used to establish a composite quadrature rule for the element, and to define a finite dimensional function space, from which the element's shape functions are selected as the solutions to corresponding boundary value problems, defined locally on the element.
 
 	% want efficient and stable quadrature rules
-Partitioned element methods are motivated by the idea that it is generally easier and more efficient to define complicated functions over arbitrary domains if the functions are defined in a piece-wise polynomial fashion over simpler sub-domains. This is precisely the mentality which likewise motivates the finite element method. The PEM is driven by the need for establishing stable and efficient quadrature rules on arbitrary polytopes. Unlike virtual element methods which typically circumvent the use of quadrature altogether, partitioned element methods recognize the necessity of using domain quadrature rules to evaluate nonlinear residual and stiffness contributions. The use of sufficient quadrature also yields a stable integration of the weak form which does not rely upon unphysical stabilization parameters.
+Partitioned element methods are motivated by the idea that it is generally easier and more efficient to define complicated functions over arbitrary domains if the functions are defined in a piece-wise polynomial fashion over simpler sub-domains. This is precisely the mentality which likewise motivates the finite element method and other related numerical approximation methods.
+
+The PEM is driven by the need for establishing stable and efficient quadrature rules on arbitrary polytopes. Unlike virtual element methods which typically circumvent the use of quadrature altogether, partitioned element methods recognize the necessity of using domain quadrature rules to evaluate nonlinear residual and stiffness contributions. The use of sufficient quadrature also yields a stable integration of the weak form which does not rely upon unphysical stabilization parameters.
 
 	% depart from the idea of shape functions defined pointwise
 In contrast with most traditional perspectives which regard the shape functions as being continuously defined on element domains (i.e. generalized barycentric coordinates), the PEM exploits the fact that the shape functions and their gradients only need to be evaluated at a discrete number of quadrature points. With this in mind, PEM approximation spaces are deliberately centered around the quadrature cell partition of the element, and consequently resemble finite element approximation spaces.
@@ -155,7 +157,7 @@ In the following sections, an abstract framework for the PEM is established, des
 	
 	With the above considerations borne in mind, we propose a set of requirements on the approximation space $\mathcal{U}^h (\Omega)$ (and $\mathcal{U}^h_0 (\Omega)$):
 	\begin{itemize}
-		\item[(I)] If $\mathcal{U} (\Omega) \supset P^{k} (\Omega)$, then we require $\mathcal{U}^h (\Omega) \supset P^{k} (\Omega)$ to recover polynomial reproducibility of the shape functions up to order $k$.
+		\item[(I)] If $\mathcal{U} (\Omega) \supset P^{k} (\Omega)$, then we require $\mathcal{U}^h (\Omega) \supset P^{k} (\Omega)$ in order to recover polynomial reproducibility of the shape functions up to order $k$.
 		\item[(II)] If $u^h = \sum_{a=1}^N \varphi^h_a u_a$ represents an approximation to a scalar-valued function defined on $\Omega$, then for some $C>0$ we require that $C \int_{\Omega} (u^h)^2 \, dV > \sum_{a=1}^N u^2_a$, where the integral over $\Omega$ is carried out using the element's quadrature rule.
 		\item[(III)] We require that $\varphi^h \rightarrow \varphi$ in the limit as the dimension of $\mathcal{U}^h (\Omega)$ (and $\mathcal{U}^h_0 (\Omega)$) is systematically increased.
 	\end{itemize}
@@ -168,11 +170,13 @@ In the following sections, an abstract framework for the PEM is established, des
 		\label{eq:weak_poisson}
 	\end{equation}
 	
-	Bishop has already explored such an approximation scheme using an FE discretization of a given polyheral element into sub-dividing tetrahedra. The corresponding shape function approximations $\varphi^h \subset C^0 (\Omega)$ are obtained as the solutions to a set of local finite element problems defined on $\Omega$ (and its faces, edges). Moreover, it was demonstrated in \cite{Bishop:14} that the resulting approximations preserve low-order polynomial completeness -- a consequence of $\mathcal{U}^h (\Omega) \supset P^{1} (\Omega)$. If the elements are discretized into a sufficient number of tetrahedra, the method is observed to be both stable and convergent (provided a gradient correction scheme is employed to account for the effects of integration error).
+	Bishop has already explored such an approximation scheme using an FE discretization of a given polyheral element into sub-dividing tetrahedra. The corresponding shape function approximations $\varphi^h \subset C^0 (\Omega)$ are obtained as the solutions to a set of local finite element problems defined on $\Omega$ (and its faces, edges). Moreover, it was demonstrated in \cite{Bishop:14} that the resulting approximations preserve low-order polynomial completeness -- a consequence of $\mathcal{U}^h (\Omega) \supset P^{1} (\Omega)$. If the elements are discretized into a sufficient number of tetrahedra, the method is observed to be both stable and consistent (provided a gradient correction scheme is employed to account for the effects of integration error).
 	
-	This approach can become computationally expensive if the elements are subdivided into an excessively large number of tetrahedra, provided more accurate approximations to the shape functions are desired. However, initial numerical investigations have suggested that relatively coarse tetrahedral sub-divisions of the elements provide sufficiently accurate results; further subdivision (tetrahedral $h-$refinement) does little to improve the overall accuracy of the elements.
+	This approach can become computationally expensive if the elements are subdivided into an excessively large number of tetrahedra, in the event that more accurate approximations to the shape functions are desired. However, initial numerical investigations have suggested that relatively coarse tetrahedral sub-divisions of the elements provide sufficiently accurate results; further subdivision (tetrahedral $h-$refinement) does little to improve the overall accuracy of the approach.
 	
 	A natural extension of the method proposed by Bishop to higher-order serendipity elements would be to consider $p-$refinement of an element's tetrahedral subdivision to recover higher-order polynomial completeness, i.e. to guarantee $\mathcal{U}^h (\Omega) \supset P^{k} (\Omega)$ for some desired polynomial order $k$. Figure (K) provides a depiction of what the proposed shape function approximations would look like for an arbitrary polygonal element. Unfortunately, the construction of shape functions on a given element would likely bear a much higher computational cost with increasing polynomial degree. The specification of stable and accurate numerical quadratures would present an additional challenge.
+	
+	Yet another generalization would be to consider subdividing the elements into arbitrary polyhedra, and solving (\ref{eq:weak_poisson}) by means of the virtual element method. This would allow for a more natural collocation of quadrature cells with the specified subdivision, akin to the partitioned element method proposed in \cite{Rashid:12}.
 	
 	However, a particular complication arises for harmonic shape functions and their corresponding $C^0 (\Omega)$ approximations on irregularly shaped elements: the solution to Laplace's equation may possess extremely sharp gradients if the geometry of the element contains reflex corners or nearly degenerate features (i.e. short edges). A consequence of this is poor conditioning of the element's local stiffness matrix, leading to excessively stiff modes of deformation (locking), and issues of numerical conditioning in the linear solution process. For this reason, it becomes of interest to consider non-conforming approximations $\varphi^h \in \mathcal{U}^h (\Omega) \not\subset \mathcal{U} (\Omega)$ which have the potential to overcome these issues.
 	
@@ -223,7 +227,7 @@ where
 	
 	Arguably the simplest (and most efficient) choice is $\mathcal{U}^h (\Omega) = P^{k} (\Omega)$, resembling certain formulations of the VETFEM (\cite{Rashid:00}, \cite{Rashid:06}) where the basis functions for the Lagrange multiplier field $\chi_c (\mathbf{X}) = \delta (\mathbf{X} - \mathbf{X}_c) \, \, \forall c = 1, \ldots, N_v$ are Dirac delta functions associated with the individual nodes of the element. A potential shortcoming of this particular choice for $\chi_c$ is that the resulting shape functions may yield sharp gradients along short element edges.
 	
-	Various other choices for the Lagrange multiplier basis are possible which may yield less spurious solutions (for instance $\Lambda^h (\partial \Omega) = P^{k} (\partial \Omega)$), though these may lead to ill-posedness of the saddle-point problem. More sophisticated solution methodologies are required in these cases.
+	Various other choices for the Lagrange multiplier basis are possible which may yield less spurious solutions (for instance $\Lambda^h (\partial \Omega) = P^{k} (\partial \Omega)$), though these may lead to ill-posedness of the saddle-point problem. More sophisticated linear solution methodologies are required in these cases.
 
 	\subsubsection*{Weak Enforcement of Boundary Conditions via Nitsche's Method}
 	
@@ -241,13 +245,15 @@ where
 		f_{b} = \int_{\Omega} f \, \psi_b \, dV - \int_{\partial \Omega} \bar{\varphi} \frac{\partial \psi_b}{\partial N} \, dA + \frac{1}{\gamma |\partial \Omega|} \int_{\partial \Omega} \bar{\varphi} \, \psi_b \, dA.
 	\end{equation}
 	
-	A rather natural choice for the space of approximating functions is $\mathcal{U}^h (\Omega) = P^{k} (\Omega)$. However, experimental evidence suggests that for certain element geometries (particularly for non-convex shapes) the resulting shape function approximations may succumb to Runge's phenomenon. Figure (L) depicts the results for increasing $k$.
+	As discussed in the previous section, a rather natural choice for the space of approximating functions is $\mathcal{U}^h (\Omega) = P^{k} (\Omega)$. The resulting method yields reasonably well-conditioned stiffness matricies for convex shapes, even when the elements possess degenerate edges. However, experimental evidence suggests that for non-convex shapes, the resulting shape function approximations may succumb to Runge's phenomenon. Figure (L) depicts the results for increasing $k$.
 	
-	These considerations have led to the conclusion that lower-order approximation methods (e.g. FEM, DG, etc.) should generally be preferred over high-order polynomial approximation methods. It is precisely these ideas which have motivated the use of partitioned element methods in lieu of the VETFEM and its variants.
+	These considerations have led to the idea that piecewise approximation methods may provide a preferred means for constructing more well-behaved approximations. The remainder of our discussion will focus upon such methods.
 	
-\section{Piece-wise Approximation Methods}
+\section{Piecewise Approximation Methods}
+
+Partitioned element methods are precisely those which consider the approximation to a given element's shape functions via piecewise polynomials defined over a partition of the element's domain. In this regard, the approach proposed by Bishop in \cite{Bishop:14} is in fact a partitioned element method. The eponymous partitioned element method introduced in \cite{Rashid:12} solves (\ref{eq:approximate_bvp}) by empolying a methodology which closely resembles the modified weak Galerkin method presented in \cite{Wang:14}.
 	
-	Ultimately, one must show either that $\mathcal{S}^h$ and $\mathcal{V}^h$ and sub-spaces of $\mathcal{S}$ and $\mathcal{V}$, or else that any exterior approximation methods converge to the exact solution under cell refinement. Moreover, we must show that any approximation to the exact solution will yield elements that exhibit convergence under mesh (element) refinement -- and interesting embedded convergence problem.
+%	Ultimately, one must show either that $\mathcal{S}^h$ and $\mathcal{V}^h$ and sub-spaces of $\mathcal{S}$ and $\mathcal{V}$, or else that any exterior approximation methods converge to the exact solution under cell refinement. Moreover, we must show that any approximation to the exact solution will yield elements that exhibit convergence under mesh (element) refinement -- an interesting embedded convergence problem.
 		
 	% Present the BVP (Laplace's equation) for polytopes with BCs
 	% Various methods have sought solutions to the above using FEM, etc.
@@ -297,146 +303,6 @@ where
 		% Problem is how to set this parameter
 			% Ostensibly will be more sensitive for degenerate geometries
 
-Harmonic shape functions $\varphi$ satisfy the following partial differential equation on each polytopal element domain $\Omega_e$:
-\begin{equation}
-	\nabla^2_X \varphi = 0 \quad \forall \mathbf{X} \in \Omega_e,
-\end{equation}
-subject to the Dirichlet boundary conditions:
-\begin{equation}
-	\varphi = \bar{\varphi} \quad \forall \mathbf{X} \in \partial \Omega_e,
-\end{equation}
-where it is supposed that the boundary conditions are informed by the values of the shape functions defined at the elements' nodes. Harmonic shape functions which satisfy the above are uniquely defined, and possess a number of desirable properties: smoothness, $C^0$ continuity at element boundaries, partition of unity, and polynomial reproducibility.
-
-The notion that the shape functions define a set of smooth and continuous interpolants on an element is an appealing concept, though it can frequently lead to numerical complications (nearly-singular solutions), particularly if the elements possess degenerate geometric features. Herein we postulate a number of alternative boundary value problems for constructing shape functions on arbitrary polytopes. These formulations are informed by the conditions of \textit{weak compatibility}, discussed in the following section.
-
-An equivalent set of weakened boundary conditions may be written as
-\begin{equation}
-	\int_{\partial \Omega_e} \left[ u - \bar{u} \right] \lambda \, dA = 0 \quad \forall \lambda \in H^{1/2} (\partial \Omega_e),
-\end{equation}
-where $\lambda$ denotes a Lagrange multiplier field, and
-\begin{equation}
-	H^{1/2} (\partial \Omega_e) \equiv \left\{ \lambda \in L^2 (\partial \Omega_e) \, | \, \exists \, \lambda' \in H^1 (\Omega_e) \, \colon \lambda = \text{tr} (\lambda') \right\}.
-\end{equation}
-A weak statement of the above equations can be written as
-\begin{equation}
-	\int_{\Omega_e} \nabla_X u \cdot \nabla_X v \, dV = 0 \quad \forall v \in H^1_0(\Omega_e).
-\end{equation}
-If we partition $\Omega_e$ into cells $\cup_i K_i$, we observe that
-\begin{equation}
-	\int_{\Omega_e} \nabla_X u \cdot \nabla_X v \, dV = \sum_j \int_{\Gamma_j} v [\![ \nabla_X u \cdot \mathbf{N} ]\!] \, dA = 0 \quad \forall v \in H^1_0(\Omega_e).
-\end{equation}
-If $[\![ \nabla_X u \cdot \mathbf{N} ]\!] = 0$, the above conditions are trivially satisfied. By contrast, to trivially satisfy compatibility in a weak sense, we insist that $[\![ u ]\!] = 0$ everywhere. We can consider enforcing both of these conditions in a weighted sense, resulting in the common PEM formulation in current usage:
-\begin{equation}
-	\mathcal{F} = \sum_j \int_{\Gamma_j} \alpha_j [\![ u]\!]^2 \, dA + \sum_j \int_{\Gamma_j} \beta_j [\![ \nabla_X u \cdot \mathbf{N} ]\!]^2 \, dA.
-\end{equation}
-If $\alpha_j \gg \beta_j$, we obtain a field which satisfies compatibility preferrentially, whereas if $\alpha_j \ll \beta_j$, we satisfy Laplace's equation. The importance of compatibility is to guarantee that the shape functions span a set of admissible solutions to the original BVP, whereas satisfaction of Laplace's equation guarantees uniqueness of the resulting shape functions.
-
-The generalized patch test requires that
-\begin{equation}
-	\lim_{h \rightarrow 0} \sum_e \int_{\Omega_e} \psi \, u \, \mathbf{n} \, dA = 0 \quad \forall \psi \in C^\infty_0.
-\end{equation}
-Let us momentarily consider the case when each element is bounded by some $d-1$ dimensional manifold, upon which we presume that the shape functions are well-defined as $\bar{u}$. Upon any given element domain, we insist that
-\begin{equation}
-	\lim_{h \rightarrow 0} \int_{\Omega_e} \psi \, [\![ u ]\!] \, \mathbf{n} \, dA = 0 \quad \forall \psi \in C^\infty
-\end{equation}
-must hold for the generalized patch test to be satisfied, where $[\![ u ]\!] = u - \bar{u}$. Suppose we define projection operators $\Pi : C^\infty(\Omega_e) \rightarrow P^k (\Omega_e)$ and $\pi : C^\infty(\Omega_e) \rightarrow C^\infty(\Omega_e) \backslash P^k (\Omega_e)$ such that
-\begin{equation}
-	u = \Pi u + \pi u, \quad \psi = \Pi \psi + \pi \psi,
-\end{equation}
-then
-\begin{eqnarray}
-	\int_{\Omega_e} \psi \, [\![ u ]\!] \, \mathbf{n} \, dA = \int_{\Omega_e} \Pi \psi \, \Pi [\![ u ]\!] \, \mathbf{n} \, dA + \int_{\Omega_e} \Pi \psi \, \pi [\![ u ]\!] \, \mathbf{n} \, dA \\ + \int_{\Omega_e} \pi \psi \, \Pi [\![ u ]\!] \, \mathbf{n} \, dA +
-\int_{\Omega_e} \pi \psi \, \pi [\![ u ]\!] \, \mathbf{n} \, dA.
-\end{eqnarray}
-It can be shown that
-\begin{equation}
-	\int_{\Omega_e} \Pi \psi \, \Pi [\![ u ]\!] \, \mathbf{n} \, dA = 0 \quad \forall \psi \in C^\infty
-\end{equation}
-if the function defined on the element's boundary is sufficiently smooth, and can represent polynomial fields up to order $k$. Consequently,
-\begin{eqnarray}
-	\int_{\Omega_e} \psi \, [\![ u ]\!] \, \mathbf{n} \, dA = \int_{\Omega_e} \Pi \psi \, \pi [\![ u ]\!] \, \mathbf{n} \, dA \\ + \int_{\Omega_e} \pi \psi \, \Pi [\![ u ]\!] \, \mathbf{n} \, dA +
-\int_{\Omega_e} \pi \psi \, \pi [\![ u ]\!] \, \mathbf{n} \, dA.
-\end{eqnarray}
-We effectively need to demonstrate passage of the E-1 and M-1 tests for convergence of nonconforming methods. Will need estimates for boundary integrals, or can demonstrate this numerically (preferred).
-
-\subsection*{Weak Compatibility}
-
-Consider the necessary and sufficient conditions for compatibility of a deformation gradient field $\mathbf{F}$ stated in equation (\ref{eq:compatibility}), reiterated:
-\begin{equation}
-	\nabla_X \times \mathbf{F} = \mathbf{0} \quad \forall \mathbf{X} \in \mathcal{B}_0.
-\end{equation}
-If the deformation gradient is computed from a set of basis functions $\left\{ \varphi_a \right\}_{a=1}^N$ for the displacement field via
-\begin{equation}
-	\mathbf{F} = \sum_{a=1}^N \mathbf{x}_{a} \otimes \nabla_X \varphi_{a},
-\end{equation}
-we arrive at a set of equivalent conditions on the basis functions:
-\begin{equation}
-	\nabla_X \times \nabla_X \varphi = \mathbf{0} \quad \forall \mathbf{X} \in \mathcal{B}_0, \, \varphi \in \left\{ \varphi_a \right\}_{a=1}^N.
-	\label{eq:strong_compatibility}
-\end{equation}
-These equations are trivially satisfied when the basis functions are $C^2 (\mathcal{B}_0)$ continuous, and may therefore be used to construct admissible trial solutions to the strong form statement of equilibrium described in section \ref{sec:strongform}.
-
-In general, the construction of basis functions $\varphi \in C^2 (\mathcal{B}_0)$ is not trivial. Moreover, we seek solutions to the weak form such that $\mathbf{u} \in H^1 (\Omega)$. In what follows, we shall consider the space of functions $\varphi \in C^0 (\mathcal{B}_0)$ satisfying a weakened statement of compatibility:
-\begin{equation}
-	\int_{\mathcal{B}_0} (\nabla_X \times \nabla_X \varphi) \cdot \mathbf{v} \, dV = 0 \quad \forall \mathbf{v} \in C^\infty_0 (\mathcal{B}_0).
-\end{equation}
-Through repeated application of integration by parts, the condition that the test functions satisfy compatibility ($\nabla_X \times \nabla_X \mathbf{v} = \mathbf{0} \, \forall \mathbf{v} \in C^\infty_0 (\mathcal{B}_0)$), and the divergence theorem, we determine
-% e_{ijk} \varphi_{,ji} v_{k} = (e_{ijk} \varphi_{,j} v_{k})_{,i} + e_{ijk} \varphi_{,j} v_{i,k}
-% e_{ijk} \varphi_{,j} v_{i,k} = (e_{ijk} \varphi v_{i,k})_{,j} - e_{ijk} \varphi v_{i,kj} = (e_{ijk} \varphi v_{i,k})_{,j}
-% e_{ijk} \varphi_{,ji} v_{k} = (e_{ijk} \varphi_{,j} v_{k})_{,i} + (e_{ijk} \varphi v_{k,j})_{,i} = (e_{ijk} (\varphi v_{k})_{,j})_{,i}
- \begin{equation}
-	\int_{\mathcal{B}_0} \nabla_X \cdot (\nabla_X \varphi \times \mathbf{v}) \, dV + \int_{\mathcal{B}_0} \nabla_X \varphi \cdot (\nabla_X \times \mathbf{v}) \, dV = 0,
-\end{equation}
-\begin{equation}
-	\int_{\mathcal{B}_0} \nabla_X \cdot (\nabla_X \times (\varphi \mathbf{v})) \, dV = \int_{\partial \mathcal{B}_0} (\nabla_X \times (\varphi \mathbf{v})) \cdot d\mathbf{A} = 0.
-\end{equation}
-
-If we consider a partition $\mathcal{T}^h = \left\{ \Omega_e \right\}_{e=1}^{N_e}$ of $\mathcal{B}_0$ into polytopal elements $\Omega_e \subset \mathcal{B}_0$ whose shape functions are assumed to be piece-wise smooth and continuous on element interiors, then we may impose the equivalent condition:
-\begin{equation}
-	\sum_{e = 1}^{N_e} \int_{\partial \Omega_e} (\nabla_X \times (\varphi|_{\Omega_e} \mathbf{v})) \cdot d\mathbf{A} = 0 \quad \forall \varphi, \, \mathbf{v} \in C^\infty_0 (\mathcal{B}_0).
-\end{equation}
-It it evident that if $[\![ \varphi ]\!] = \varphi|_{\Omega_a} - \varphi|_{\Omega_b} = 0 \, \forall \partial \Omega_a \cap \partial \Omega_b \neq \emptyset$, then the above condition is trivially satisfied. Such is the case for $C^0 (\mathcal{B}_0)$ conforming finite element methods.
-
-If $\varphi \not\subset C^0 (\mathcal{B}_0)$, we require
-\begin{equation}
-	\lim_{h \rightarrow 0} \sum_{e = 1}^{N_e} \int_{\partial \Omega_e} (\nabla_X \times (\varphi|_{\Omega_e} \mathbf{v})) \cdot d\mathbf{A} = 0 \quad \forall \varphi, \, \mathbf{v} \in C^\infty_0 (\mathcal{B}_0),
-\end{equation}
-which is equivalent to
-\begin{equation}
-	\lim_{h \rightarrow 0} \sum_{e = 1}^{N_e} \int_{\partial \Omega_e} (\varphi|_{\Omega_e} (\nabla_X \times \mathbf{v}) + \nabla_X \varphi|_{\Omega_e} \times \mathbf{v}) \cdot d\mathbf{A} = 0 \quad \forall \varphi, \, \mathbf{v} \in C^\infty_0 (\mathcal{B}_0).
-\end{equation}
-Equivalently, we may enforce this condition over each individual face $\Gamma = \Omega_a \cap \Omega_b \neq \emptyset$, such that
-\begin{equation}
-	\lim_{h \rightarrow 0} \int_{\Gamma} ([\![ \varphi ]\!] (\nabla_X \times \mathbf{v}) + \nabla_X [\![ \varphi ]\!] \times \mathbf{v}) \cdot d\mathbf{A} = 0 \quad \forall \Gamma, \, \mathbf{v} \in C^\infty_0 (\mathcal{B}_0).
-\end{equation}
-We may expand $[\![ \varphi ]\!] = a_0 + \mathbf{a}_1 \cdot \mathbf{X} + O(\mathbf{X}^2)$ and $\mathbf{v} = \mathbf{b}_0 + \mathbf{B}_1 \mathbf{X} + O(\mathbf{X}^2)$ in terms of low-order polynomials to illustrate
-\begin{equation}
-	\lim_{h \rightarrow 0} \int_{\Gamma} ((a_0 + \mathbf{a}_1 \cdot \mathbf{X}) \mathbf{B}_1 + \mathbf{a}_1 \times (\mathbf{b}_0 + \mathbf{B}_1 \mathbf{X})) \cdot d\mathbf{A} = 0 \quad \forall \Gamma, \, \mathbf{v} \in C^\infty_0 (\mathcal{B}_0).
-\end{equation}
-
-\begin{equation}
-	\lim_{h \rightarrow 0} \sum_{e = 1}^{N_e} \int_{\partial \Omega_e} (\varphi|_{\Omega_e} (\nabla_X \times \mathbf{v})) \cdot d\mathbf{A} - \sum_{e = 1}^{N_e} \int_{\Omega_e} \nabla_X \varphi|_{\Omega_e} \cdot (\nabla_X \times \mathbf{v}) \, dV = 0 \quad \forall \varphi, \, \mathbf{v} \in C^\infty_0 (\mathcal{B}_0),
-\end{equation}
-and because $\nabla_X \times : C^\infty_0 (\mathcal{B}_0) \mapsto C^\infty_0 (\mathcal{B}_0)$, we have
-\begin{equation}
-	\lim_{h \rightarrow 0} \sum_{e = 1}^{N_e} \int_{\partial \Omega_e} \varphi|_{\Omega_e} \mathbf{v} \cdot d\mathbf{A} - \sum_{e = 1}^{N_e} \int_{\Omega_e} \mathbf{v} \cdot \nabla_X \varphi|_{\Omega_e} \, dV = 0 \quad \forall \varphi, \, \mathbf{v} \in C^\infty_0 (\mathcal{B}_0).
-\end{equation}
-Recognizing that
-\begin{equation}
-	\int_{\Omega_e} \mathbf{v} \cdot \nabla_X \varphi|_{\Omega_e} \, dV \leq  || \nabla_X \varphi|_{\Omega_e} ||^2_{\Omega_e},
-\end{equation}
-
-If we insist on
-\begin{equation}
-	\sum_{e = 1}^{N_e} \int_{\partial \Omega_e} (\nabla_X \times (\varphi|_{\Omega_e} \mathbf{v})) \cdot d\mathbf{A} = 0 \quad \forall \varphi, \, \mathbf{v} \in P^1 (\mathcal{B}_0),
-\end{equation}
-i.e. if we expand $\mathbf{v} = \mathbf{v}_0 + \mathbf{V}_1 \mathbf{x}$ and 
-\begin{equation}
-	\sum_{e = 1}^{N_e} \int_{\partial \Omega_e} (\nabla_X \times (\varphi|_{\Omega_e} \mathbf{v})) \cdot d\mathbf{A} = 0 \quad \forall \varphi, \, \mathbf{v} \in P^1 (\mathcal{B}_0),
-\end{equation}
-
-\section{The Partitioned Element Framework}
-
 \subsection*{The Element Partition}
 
 	%consider an arbitrary element domain
@@ -485,25 +351,25 @@ i.e. if we expand $\mathbf{v} = \mathbf{v}_0 + \mathbf{V}_1 \mathbf{x}$ and
 			%New/speculated approach
 			%less sensitive to conditioning problems
 
-Traditional approximation methods typically consider the independent specification of two principal transformations: an interpolation scheme, which is necessary to represent field variables according to known point-values; and a quadrature rule, for the purposes of integrating such fields over the domain on which they are defined.
+%Traditional approximation methods typically consider the independent specification of two principal transformations: an interpolation scheme, which is necessary to represent field variables according to known point-values; and a quadrature rule, for the purposes of integrating such fields over the domain on which they are defined.
 
-In mathematical terms, an interpolant $\varphi$ is a linear operator which maps vectors $\mathbf{u} \in \mathbb{R}^k$ containing point-wise data regarding a field into scalar functions $f \in V^k (\Omega)$, i.e.
-\begin{equation}
-  \varphi \colon \mathbb{R}^k \mapsto V^k (\Omega)
-\end{equation}
-where $\mathbb{R}^k$ is a $k$-dimensional real space, and $V^k (\Omega)$ is a $k$-dimensional function space defined on $\Omega$.
+%In mathematical terms, an interpolant $\varphi$ is a linear operator which maps vectors $\mathbf{u} \in \mathbb{R}^k$ containing point-wise data regarding a field into scalar functions $f \in V^k (\Omega)$, i.e.
+%\begin{equation}
+%  \varphi \colon \mathbb{R}^k \mapsto V^k (\Omega)
+%\end{equation}
+%where $\mathbb{R}^k$ is a $k$-dimensional real space, and $V^k (\Omega)$ is a $k$-dimensional function space defined on $\Omega$.
 
-By constrast, a quadrature rule $\Sigma$ is a linear operator which maps scalar functions $f \in V^k (\Omega)$ to vectors $\mathbf{q} \in \mathbb{R}^p$ identifying point-wise samples of $f$, i.e.
-\begin{equation}
-  \Sigma \colon V^k (\Omega) \mapsto \mathbb{R}^p
-\end{equation}
+%By constrast, a quadrature rule $\Sigma$ is a linear operator which maps scalar functions $f \in V^k (\Omega)$ to vectors $\mathbf{q} \in \mathbb{R}^p$ identifying point-wise samples of $f$, i.e.
+%\begin{equation}
+%  \Sigma \colon V^k (\Omega) \mapsto \mathbb{R}^p
+%\end{equation}
 
-The composition $\Sigma \circ \varphi$ of an interpolant $\varphi$ with a quadrature rule $\Sigma$ yields a linear operator
-\begin{equation}
-  \Sigma \circ \varphi \colon \mathbb{R}^k \mapsto \mathbb{R}^p
-\end{equation}
+%The composition $\Sigma \circ \varphi$ of an interpolant $\varphi$ with a quadrature rule $\Sigma$ yields a linear operator
+%\begin{equation}
+%  \Sigma \circ \varphi \colon \mathbb{R}^k \mapsto \mathbb{R}^p
+%\end{equation}
 
-\subsection{Partition-Based Quadrature Rules}
+\section{Partition-Based Quadrature Rules}
 
 		%quadrature rules are defined/linked to the chosen partition
 		%1-to-1 relation between partitioned cells and quadrature points
@@ -515,79 +381,93 @@ The composition $\Sigma \circ \varphi$ of an interpolant $\varphi$ with a quadra
 	% must account for nonlinear kinematic and material behavior
 	% must guarantee sufficient stability (inf-sup)
 	% must be sufficiently accurate (Galerkin exactness)
-If arbitrary polytopal shapes are to be used as elements in the PEM, then we must devise a means of integrating contributions to the weak form	, ostensibly through the use of quadrature rules on the elements' interiors and boundaries. Such rules must be sufficiently stable (utilizing a sufficient number of well-positioned quadrature points) and accurate (capable of exactly integrating low-order polynomials up to some specified degree).
+If arbitrary polytopal shapes are to be used as elements in the PEM, then there arises a need for devising a means of integrating contributions to the weak form, ostensibly through the use of domain quadrature rules. Such rules must be sufficiently stable (utilizing a sufficient number of well-positioned quadrature points) and accurate (capable of exactly integrating low-order polynomials up to some specified degree).
 	
 % PEM approaches this task with the aid of partition-based quadrature rules
 	% Elements are partitioned/discretized into sub-domains
 		% Number of sub-domains should be sufficient to guarantee stability
 	% Quadrature rules are defined on each sub-domain
 	% Composite quadrature rules are assembled by considering these quadratures taken together
-Partitioned element methods proceed by partitioning the elements (and their boundaries) into a sufficient number of polytopal sub-domains which are used as integration cells. Low-order (i.e. 1-point) quadrature rules are defined on each of these sub-domains, and a composite quadrature rule for the element is assembled from the collection of all quadrature points in each sub-domain. In general, these quadrature rules will need to be modified to satisfy Galerkin exactness for certain low-order polynomial solutions.
+Partitioned element methods approach this task by partitioning the elements (and their boundaries) into a sufficient number of polytopal sub-domains which are used as integration cells. Low-order (i.e. 1-point) quadrature rules are defined on each of these sub-domains, and a composite quadrature rule for the element is constructed from the resulting sets of quadrature points. In general, these rules will need to be modified to satisfy Galerkin exactness for certain low-order polynomial solutions.
 	
 % Quadrature rules are adjusted after-the-fact by considering an exact integration of low-order polynomial terms to guarantee Galerkin exactness
 	% may be viewed as a type of gradient correction measure
 	% applied to each quadrature (interior and boundary) separately
 % discuss particular in the following sub-sections:
-Methods for partitioning the elements into sub-domains which yield stable and efficient composite quadrature rules are discussed in the following section. Later discussion is given to the correction of these quadratures for the sake of satisfying Galerkin exactness (quadrature consistency).
+Methods for partitioning the elements into sub-domains which yield stable and efficient composite quadrature rules are discussed in the following section. A discussion is given later on to the correction of these quadratures for the sake of satisfying Galerkin exactness (quadrature consistency).
 		
-	\subsubsection*{Composite Quadrature Rules}
+	\subsection*{Composite Quadrature Rules}
 	
-	Given a partition of the elements into sub-domains (quadrature cells), one may utilize a low order quadrature rule over each sub-domain, thereby yielding a composite quadrature rule over the element as a whole, whose overall accuracy is determined by the order of accuracy used in each sub-domain.
+	Given a partition of an element into polytopal sub-domains (quadrature cells), one may utilize low order quadrature rules over each sub-domain, thereby yielding a composite quadrature rule over the element as a whole, whose overall accuracy is determined by the order of accuracy used in each sub-domain.
 	
-	The simplest quadrature rule of this form is a composite mid-point scheme, where the quadrature points are located at the centroids of each sub-domain. Such a rule exactly integrates polynomials up to first order, and is otherwise reasonably accurate. The integration points are guaranteed to be interior to each sub-domain (and the element as a whole) provided each cell is convex.
+	The simplest quadrature rule of this form is the composite mid-point scheme, where the quadrature points are located at the centroids of each sub-domain. Such a rule exactly integrates polynomials up to first order, and is reasonably accurate, otherwise. The integration points are guaranteed to be interior to each sub-domain (and the element as a whole), provided each cell is convex.
 	
-	For simple sub-divisions (consisting of triangles or tetrahedra), composite quadrature rules may be extended to obtain high-order accuracy. For generic sub-divisions (consiting of arbitrary polytopes), the extension to high-order is not clear. For this reason, we will focus attention on composite mid-point rules.
+	For simple sub-divisions (consisting of triangles or tetrahedra), composite quadrature rules may be extended rather naturally to obtain higher-order accuracy. For generic sub-divisions (consiting of arbitrary polytopes), the extension to high-order is not as straight-forward. For this reason, subsequent discussions will be concerned almost exclusively with composite mid-point rules.
 	
-	A number of different partitioning schemes are illustrated in Figure \ref{fig:partitioning_types}.
+	Numerous different composite rules may constructed according to the chosen partition of the element; a number of simple partitioning schemes include:
+	\begin{itemize}
+		\item \textbf{Edge-based}: For star-convex shapes -- the vertex-averaged centroid is used to subdivide the element into triangles (in 2D) or tetrahedra (in 3D) which are associated with each linear edge of the element.
+		\item \textbf{Node-based}: For arbitrary shapes -- the element is sub-divided into quadrature cells corresponding to the tributary area surrounding each node.
+		\item \textbf{Voronoi}: For arbitrary shapes -- the element is sub-divided into Voronoi cells, whose corresponding point set is obtained via a maximal poisson-disk sampling process, as described in \cite{Ebeida:11}.
+	\end{itemize}
+	The aforementioned approaches are further illustrated in Figure \ref{fig:partitioning_types}.
 	\begin{figure} [!ht]
 		\centering
 		\includegraphics[width = 6.0in]{figures/partition_types.pdf}
 		\caption{Various element partitioning schemes. From left to right: edge-based partition, node-based partition, voronoi partition.}
 		\label{fig:partitioning_types}
 	\end{figure}
-	In general, the resulting cells $\omega$ may possess arbitrary polytopal shape, whose centroids $\bar{\mathbf{X}}$ may be computed via
+	
+	The weights and locations of a composite mid-point quadrature rule correspond to the volumes and geometric centroids of each cell. In general, a given quadrature cell $\omega$ may be an arbitrary polyhedron, whose volume $|\omega|$ and centroid $\bar{\mathbf{X}}$ may be computed using the $0$-th and $1$-st order moments of $\omega$, i.e.
 	\begin{equation}
-		\bar{\mathbf{X}} = \frac{\int_{\omega} \mathbf{X} \, dV}{\int_{\omega} dV}.
+		|\omega| = \int_{\omega} dV, \quad \bar{\mathbf{X}} = \frac{\int_{\omega} \mathbf{X} \, dV}{\int_{\omega} dV}.
 	\end{equation}
-	We may compute polynomial moments on any arbitrary polytope using the method proposed by Lasserre et al. in \cite{Chin:15}, such that
+	Using the method proposed by Lasserre et al. in \cite{Chin:15}, the computation of monomial moments of arbitrary degree $|\alpha|$ may be effected via an integral over the boundary of $\omega$:
 	\begin{equation}
-		\int_{\omega} \mathbf{X}^\alpha \, dV = \frac{1}{d+|\alpha|} \int_{\partial \omega} (\mathbf{X} \cdot \mathbf{N}) \, \mathbf{X}^\alpha \, dA.
+		\int_{\omega} \mathbf{X}^\alpha \, dV = \frac{1}{d+|\alpha|} \int_{\partial \omega} (\mathbf{X} \cdot \mathbf{N}) \, \mathbf{X}^\alpha \, dA,
 	\end{equation}
+	for any arbitrary polytope $\omega \subset \mathbb{R}^d$. If $\partial \omega$ may be partitioned into a collection of $d-1$ dimensional faces $f \subset \partial \omega$, then
+	\begin{equation}
+		\int_{\partial \omega} (\mathbf{X} \cdot \mathbf{N}) \, \mathbf{X}^\alpha \, dA = \frac{1}{d-1+|\alpha|} \sum_{i = 1}^{N_f} (\mathbf{X}_i \cdot \mathbf{N}_i) \, \mathbf{N}_i \cdot \int_{\partial f_i} (\mathbf{X} \times \boldsymbol{\lambda}) \, \mathbf{X}^\alpha \, dS,
+	\end{equation}
+	where $\mathbf{N}_i$ is the outward normal associated with face $f_i$, and $\mathbf{X}_i$ is any reference location positioned on the hyperplane which contains $f_i$, such that $(\mathbf{X}_i \cdot \mathbf{N}_i)$ is recognized to be constant over each face. This process may be applied recursively to ultimately reduce the monomial integrals over $\omega$ to weighted vertex evaluations (or edge integrals, as one prefers).
+	
+	Similarly defined composite rules may be defined on each polygonal face of a given polyhedral element, or on each edge of a polygonal element. However, while composite mid-point quadrature rules are able to provide reasonable accuracy, they will not necessarily lead to quadrature consistency, as expressed in (\ref{eq:quadrature_consistency}). For this reason, a gradient correction scheme (such as the one proposed by Bishop in \cite{Bishop:14}, or by Talischi in \cite{Talischi:15}) must be employed. Alternatively, a novel approach to restore quadrature consistency is presented in the following section.
 		
-	\subsubsection*{Selective Modal Quadrature}
+	\subsection*{Selective Modal Quadrature}
 	
 	Consider all functions $f \in L^2 (\Omega)$ represented over an arbitrary polytopal element domain $\Omega \subset \mathbb{R}^d$. Standard quadrature rules approximate the integral of $f$ over $\Omega$ as
 	\begin{equation}
-		\int_\Omega f \, dv \approx \sum_{q=1}^{N_{qp}} w_q f(\mathbf{x}_q).
+		\int_\Omega f \, dV \approx \sum_{q=1}^{N_{qp}} w_q f(\mathbf{x}_q).
 	\end{equation}
-	Consider an $L^2 (\Omega)$ polynomial projection operator $\Pi : L^2 \mapsto P^k$ which may be used to decompose $f = f_p + f_n$ into polynomial and non-polynomial parts:
+	Borrowing from notation typical of the VEM, consider an $L^2 (\Omega)$ polynomial projection operator $\Pi : L^2 (\Omega) \mapsto P^k (\Omega)$ which may be used to decompose $f = f_p + f_n$ into polynomial and non-polynomial parts:
 	\begin{equation}
 		f_p = \Pi f, \quad f_n = f - \Pi f = \pi f,
 	\end{equation}
-	where $\pi : L^2 \mapsto L^2 \backslash P^k$. Consequently, we observe that $\Pi f$ is $L^2$ orthogonal to any $\pi g$ for all $g \in L^2$, to the extent that
+	where $\pi : L^2 (\Omega) \mapsto L^2 (\Omega) \backslash P^k (\Omega)$. Consequently, we observe that $\Pi f$ is $L^2 (\Omega)$ orthogonal to any $\pi g$ for all $g \in L^2 (\Omega)$, to the extent that
 	\begin{equation}
-		\int_{\Omega} (\Pi f) (g - \Pi g) \, dv = \langle \Pi f, g - \Pi g \rangle_{\Omega} = 0 \quad \forall f, \, g \in L^2.
+		\int_{\Omega} (\Pi f) (g - \Pi g) \, dv = \langle \Pi f, g - \Pi g \rangle_{\Omega} = 0 \quad \forall f, \, g \in L^2 (\Omega).
 	\end{equation}
 	
 	We propose a quadrature rule of the form:
 	\begin{equation}
-		\int_\Omega f \, dv \approx \int_\Omega f_p \, dv + \sum_{q=1}^{N_{qp}} w_q f_n(\mathbf{x}_q),
+		\int_\Omega f \, dV \approx \int_\Omega f_p \, dV + \sum_{q=1}^{N_{qp}} w_q f_n(\mathbf{x}_q),
 	\end{equation}
-	where it is supposed that $\int_\Omega f_p \, dv$ may be computed exactly using the methodology proposed by Lasserre in \cite{Chin:15}. Further, if we wish to integrate the product $f g$ where $f, \, g \in H^1 (\Omega)$, we may write
+	where it is supposed that the projection operators $\Pi$ and $\pi$ are well-defined on $\Omega$, and $\int_\Omega f_p \, dV$ may be computed exactly using the methodology proposed by Lasserre et al. in \cite{Chin:15}. Furthermore, if we wish to integrate the product $f g$ where $f, \, g \in L^2 (\Omega)$, we may write
 	\begin{equation}
-		\int_\Omega f g \, dv = \langle f, g \rangle_{\Omega} = \langle \Pi f + \pi f, \Pi g + \pi  g \rangle_{\Omega},
+		\int_\Omega f g \, dV = \langle f, g \rangle_{\Omega} = \langle \Pi f + \pi f, \Pi g + \pi  g \rangle_{\Omega},
 	\end{equation}
-	which, by the linearity of the $L_2$ inner product, and by the orthogonality of $\Pi f$ and $\pi g$ (and of $\pi f$ and $\Pi g$), yields
+	which, by the linearity of the $L^2 (\Omega)$ inner product, and by the orthogonality of $\Pi f$ and $\pi g$ (and of $\pi f$ and $\Pi g$), yields
 	\begin{equation}
-		\int_\Omega f g \, dv = \langle \Pi f, \Pi g \rangle_{\Omega} + \langle \pi f, \pi g \rangle_{\Omega},
+		\int_\Omega f g \, dV = \langle \Pi f, \Pi g \rangle_{\Omega} + \langle \pi f, \pi g \rangle_{\Omega},
 	\end{equation}
 	and thus
 	\begin{equation}
-		\int_\Omega f g \, dv \approx \int_\Omega f_p g_p \, dv + \sum_{q=1}^{N_{qp}} w_q f_n(\mathbf{x}_q) g_n(\mathbf{x}_q).
+		\int_\Omega f g \, dV \approx \int_\Omega f_p g_p \, dV + \sum_{q=1}^{N_{qp}} w_q f_n(\mathbf{x}_q) g_n(\mathbf{x}_q).
 	\end{equation}
-	This is effectively equivalent to integrating the product of all low-order polynomials exactly, while integrating the product of all non-polynomial ``remainders'' only approximately, using a quadrature rule.
+	This is effectively equivalent to integrating the product of all low-order polynomials exactly, while integrating the product of all non-polynomial ``remainders'' approximately, using a quadrature rule.
 	
-	If we are only given point evaluations of a function $f$ at $\left\{ \mathbf{x}_q \right\}_{q=1}^{N_{qp}}$, then we must construct a low-order polynomial projection operator by considering the least-squares problem:
+	If we are only given evaluations of a function $f$ at a set of discrete (quadrature) points $\left\{ \mathbf{x}_q \right\}_{q=1}^{N_{qp}}$, then we must construct a low-order polynomial projection operator by considering the least-squares problem:
 	\begin{equation}
 		\min_{f_p \in P^k (\Omega)} \frac{1}{2} || f_p - f ||^2_\Omega,
 	\end{equation}
@@ -605,18 +485,18 @@ Methods for partitioning the elements into sub-domains which yield stable and ef
 		\sum_{a=1}^{K} \sum_{q=1}^{N_{qp}} w_q z_b (\mathbf{x}_q) z_a (\mathbf{x}_q) c_a =
 		\sum_{q=1}^{N_{qp}} w_q z_b (\mathbf{x}_q) f(\mathbf{x}_q) \quad \forall b = 1, \, \ldots, \, K,
 	\end{equation}
-	which may be written in matrix form as $\mathbf{Z}^T \mathbf{W} \mathbf{Z} \mathbf{c} = \mathbf{Z}^T \mathbf{W} \mathbf{f}$, where we denote $f_i = f(\mathbf{x}_i)$, $W_{ii} = w_i, \, W_{ij} = 0 \, \forall i \neq j$, and $Z_{ij} = z_j (\mathbf{x}_i)$. The discrete polynomial projection operator $\mathbf{\Pi} : \mathbb{R}^{N_{qp}} \mapsto \mathbb{R}^K$ is computed as $\boldsymbol{\Pi} = (\mathbf{Z}^T \mathbf{W} \mathbf{Z})^{-1} \mathbf{Z}^T \mathbf{W}$, and the complement operator $\boldsymbol{\pi} : \mathbb{R}^{N_{qp}} \mapsto \mathbb{R}^{N_{qp}}$ is $\boldsymbol{\pi} = \mathbf{1}_{N_{qp}} - \boldsymbol{\Pi}^\dagger \boldsymbol{\Pi}$. Consequently,
+	The above may be written in matrix-vector format as $\mathbf{Z}^T \mathbf{W} \mathbf{Z} \mathbf{c} = \mathbf{Z}^T \mathbf{W} \mathbf{f}$, where we denote $f_i = f(\mathbf{x}_i)$, $W_{ii} = w_i, \, W_{ij} = 0 \, \forall i \neq j$, and $Z_{ij} = z_j (\mathbf{x}_i)$. The discrete polynomial projection operator $\mathbf{\Pi} : \mathbb{R}^{N_{qp}} \mapsto \mathbb{R}^K$ is computed as $\boldsymbol{\Pi} = (\mathbf{Z}^T \mathbf{W} \mathbf{Z})^{-1} \mathbf{Z}^T \mathbf{W}$, and the complement operator $\boldsymbol{\pi} : \mathbb{R}^{N_{qp}} \mapsto \mathbb{R}^{N_{qp}}$ is $\boldsymbol{\pi} = \mathbf{1}_{N_{qp}} - \boldsymbol{\Pi}^\dagger \boldsymbol{\Pi}$. Consequently,
 	\begin{equation}
-		\langle \Pi f, \Pi g \rangle_{\Omega} = \langle \mathbf{z}^T \boldsymbol{\Pi} \mathbf{f}, \mathbf{z}^T \boldsymbol{\Pi} \mathbf{g} \rangle_{\Omega} = \mathbf{f}^T \left[ \boldsymbol{\Pi}^T \left( \int_{\Omega} \mathbf{z} \otimes \mathbf{z} \, dv \right) \boldsymbol{\Pi} \right] \mathbf{g} = \mathbf{f}^T \mathbf{W}_p \mathbf{g},
+		\langle \Pi f, \Pi g \rangle_{\Omega} = \langle \mathbf{z}^T \boldsymbol{\Pi} \mathbf{f}, \mathbf{z}^T \boldsymbol{\Pi} \mathbf{g} \rangle_{\Omega} = \mathbf{f}^T \left[ \boldsymbol{\Pi}^T \left( \int_{\Omega} \mathbf{z} \otimes \mathbf{z} \, dV \right) \boldsymbol{\Pi} \right] \mathbf{g} = \mathbf{f}^T \mathbf{W}_p \mathbf{g},
 	\end{equation}
 	\begin{equation}
 		\langle \pi f, \pi g \rangle_{\Omega} \approx \sum_{q=1}^{N_{qp}} w_q f_n(\mathbf{x}_q) g_n(\mathbf{x}_q) = \mathbf{f}^T \left[ \boldsymbol{\pi}^T \mathbf{W} \boldsymbol{\pi} \right] \mathbf{g} = \mathbf{f}^T \mathbf{W}_n \mathbf{g},
 	\end{equation}
 	\begin{equation}
-		\int_\Omega f g \, dv \approx \mathbf{f}^T (\mathbf{W}_p + \mathbf{W}_n) \mathbf{g} = \mathbf{f}^T \mathbf{M} \mathbf{g} = \sum_{q = 1}^{N_{qp}} \sum_{p = 1}^{N_{qp}} M (\mathbf{x}_q,\mathbf{x}_p) \, f (\mathbf{x}_q) \, g (\mathbf{x}_p).
+		\int_\Omega f g \, dV \approx \mathbf{f}^T (\mathbf{W}_p + \mathbf{W}_n) \mathbf{g} = \mathbf{f}^T \mathbf{M} \mathbf{g} = \sum_{q = 1}^{N_{qp}} \sum_{p = 1}^{N_{qp}} M (\mathbf{x}_q,\mathbf{x}_p) \, f (\mathbf{x}_q) \, g (\mathbf{x}_p).
 	\end{equation}
 	
-	We shall refer to this form of integration as \textit{selective modal quadrature}, in that particular low-order polynomial modes are integrated exactly, and any higher modes are approximated using the element's quadrature rules. The advantage of modal quadrature is that we may exactly integrate any terms which directly impact quadrature consistency, and hence, virtually any stable quadrature may be used to integrate the higher-order part.
+	We shall refer to this form of integration as \textit{selective modal quadrature}, given that particular low-order polynomial modes are integrated exactly, and any higher-order modes are approximated using the element's quadrature rules. The advantage of modal quadrature is that we may exactly integrate any terms which directly impact quadrature consistency. Consequently, nearly any stable numerical integration scheme (e.g. composite mid-point quadrature) may be used to integrate the higher-order part.
 	
 	Rather than storing the independent quadrature weights $w_q = w (\mathbf{x}_q)$, selective modal quadrature requires the storage of a generalized quadrature weighting matrix $M (\mathbf{x}_q,\mathbf{x}_p)$. Alternatively, for the sake of efficiency, if the function $g$ is known a priori (e.g. if $g$ is a test function for a weighted residual method), then we need only store the ``augmented'' test function values:
 	\begin{equation}
@@ -624,11 +504,17 @@ Methods for partitioning the elements into sub-domains which yield stable and ef
 	\end{equation}		
 	and all integrals involving $f$ and $g$ may be carried out via
 	\begin{equation}
-		\int_\Omega f g \, dv \approx \sum_{q = 1}^{N_{qp}} \, w_q \, \tilde{g} (\mathbf{x}_q) \, f (\mathbf{x}_q),
+		\int_\Omega f g \, dV \approx \sum_{q = 1}^{N_{qp}} \, w_q \, \tilde{g} (\mathbf{x}_q) \, f (\mathbf{x}_q).
 	\end{equation}
-	which is effectively equivalent to a gradient correction scheme, similar to the method proposed in \cite{Talischi:15}.
+	
+	The resulting expression resembles a gradient correction scheme in some respects, although it should be noted that the above procedure would need to be applied separately to each term appearing in the weak form (including boundary integrals). Specifically, the corresponding approximate integration of the residual equations appearing in (\ref{eq:residual}) would be written as
+	\begin{equation}
+  R_{ia} (\mathbf{u}^h) \approx \sum_{q=1}^{N_{qp}} w_q \rho_0 (\mathbf{x}_q) b_i (\mathbf{x}_q) \tilde{\phi}_a (\mathbf{x}_q) + \sum_{b=1}^{N_{bp}} w_b  \bar{p}_i (\mathbf{x}_b) \tilde{\phi}_a (\mathbf{x}_b) - \sum_{q=1}^{N_{qp}} w_q P_{ij} (\mathbf{x}_q) \tilde{\phi}_{a,j} (\mathbf{x}_q) = 0 \quad \forall i, \, a,
+  \label{eq:residual_approx}
+	\end{equation}
+	where $\tilde{\phi}_a$ and $\tilde{\phi}_{a,j}$ denote the ``augmented'' test functions are their corresponding gradients.
 
-\subsection{Selection of an Appropriate Objective Functional}
+%\subsection{Selection of an Appropriate Objective Functional}
 
 	%PEM BOUNDARY VALUE PROBLEMS
 		%setup: define a space of approximating functions over the element (basis)
@@ -653,70 +539,70 @@ Methods for partitioning the elements into sub-domains which yield stable and ef
 			%many things to explore in this regard...
 			%biharmonic? (for higher-order completeness? C^1 hard)
 
-Once we have specified a given approximation space of functions, our goal is then to select the function from this space which best represents the nodal data that we are attempting to interpolate over the element. The essential question is this: by what metric should we objectively assess the appropriateness of a given approximating function?
+%Once we have specified a given approximation space of functions, our goal is then to select the function from this space which best represents the nodal data that we are attempting to interpolate over the element. The essential question is this: by what metric should we objectively assess the appropriateness of a given approximating function?
 
-\subsection*{Construction of Element Appoximants}
+%\subsection*{Construction of Element Appoximants}
 
-\section{Essential Requirements of the PEM}
+%\section{Essential Requirements of the PEM}
 
-\subsection*{Reproducibility}
+%\subsection*{Reproducibility}
 
-Fundamentally, the approximation power of the PEM depends directly upon the degree of completeness of the underlying approximation space. In particular, the finite-dimensional trial solution space $\mathcal{S}^h$ should contain as a subspace $\mathbb{P}_k \subset \mathcal{S}^h$ for some $k \geq 0$, where $\mathbb{P}_k$ denotes the subspace of polynomial functions with maximal degree $k$. This guarantees that the PEM approximation space will be capable of exactly reproducing any polynomial function up to some specified order.
+%Fundamentally, the approximation power of the PEM depends directly upon the degree of completeness of the underlying approximation space. In particular, the finite-dimensional trial solution space $\mathcal{S}^h$ should contain as a subspace $\mathbb{P}_k \subset \mathcal{S}^h$ for some $k \geq 0$, where $\mathbb{P}_k$ denotes the subspace of polynomial functions with maximal degree $k$. This guarantees that the PEM approximation space will be capable of exactly reproducing any polynomial function up to some specified order.
 
 	%driven by completeness requirements
 	%handled by BVP/functional specification
 	%alternatively enforced via constraints
 
-\subsubsection*{Requirements of the Approximation Space}
-\subsection*{Compatibility}
+%\subsubsection*{Requirements of the Approximation Space}
+%\subsection*{Compatibility}
 
 	%driven by the generalized patch test
 	%handled by constraints on approximation spaces/BVP
 
 
 
-\subsubsection*{Weak Compatibility}
-\subsection*{Stability}
+%\subsubsection*{Weak Compatibility}
+%\subsection*{Stability}
 
 		%driven by the inf-sup conditions
 		%handled via sufficient quadrature arrangement
 
-\subsubsection*{Restrictions on the Element Partition}
-\subsection*{Variational Consistency}
-\subsubsection*{Weak Enforcement of Consistency}
+%\subsubsection*{Restrictions on the Element Partition}
+%\subsection*{Variational Consistency}
+%\subsubsection*{Weak Enforcement of Consistency}
 
 		%driven by Galerkin exactness
 		%enforced by quadrature accuracy
 		%alternatively via lagrange multiplier constraint
 
-Recall the $\alpha$-th order variational consistency requirements:
-\begin{equation}
-  \int_\Omega \mathbf{x}^{\alpha} \varphi_{a,i} \, dv + \int_\Omega \mathbf{x}^{\alpha}_{,i} \varphi_a \, dv = \int_{\partial \Omega} \mathbf{x}^{\alpha} n_i \varphi_a \, da \quad \forall i, a.
-\end{equation}
-This degree of consistency is required for all $| \alpha | \leq k-1$ if the bi-linear form $a : \mathcal{S} \times \mathcal{V} \mapsto \mathbb{R}$ is to determine uniqueness of any exact polynomial solutions up to order $k$ contained within $\mathcal{S}^h \supset P_k$. Moreover, the above expression implies that any solution may be reasonably well approximated by low-order polynomials in the locality of the selected domain $\Omega$.
+%Recall the $\alpha$-th order variational consistency requirements:
+%\begin{equation}
+%  \int_\Omega \mathbf{x}^{\alpha} \varphi_{a,i} \, dv + \int_\Omega \mathbf{x}^{\alpha}_{,i} \varphi_a \, dv = \int_{\partial \Omega} \mathbf{x}^{\alpha} n_i \varphi_a \, da \quad \forall i, a.
+%\end{equation}
+%This degree of consistency is required for all $| \alpha | \leq k-1$ if the bi-linear form $a : \mathcal{S} \times \mathcal{V} \mapsto \mathbb{R}$ is to determine uniqueness of any exact polynomial solutions up to order $k$ contained within $\mathcal{S}^h \supset P_k$. Moreover, the above expression implies that any solution may be reasonably well approximated by low-order polynomials in the locality of the selected domain $\Omega$.
 
-Consequently, we may consider an application of the above consistency requirements to the entire problem domain $\Omega$, or -- more practically -- we may enforce consistency up to the desired order on each element domain $\Omega_e$. The element-local $\alpha$-th order consistency equations follow:
-\begin{equation}
-  \int_{\Omega_e} \mathbf{x}^{\alpha} \varphi_{a,i} \, dv + \int_{\Omega_e} \mathbf{x}^{\alpha}_{,i} \varphi_a \, dv = \int_{\partial \Omega_e} \mathbf{x}^{\alpha} n_i \varphi_a \, da \quad \forall i, a.
-  \label{eq:consistency3}
-\end{equation}
+%Consequently, we may consider an application of the above consistency requirements to the entire problem domain $\Omega$, or -- more practically -- we may enforce consistency up to the desired order on each element domain $\Omega_e$. The element-local $\alpha$-th order consistency equations follow:
+%\begin{equation}
+%  \int_{\Omega_e} \mathbf{x}^{\alpha} \varphi_{a,i} \, dv + \int_{\Omega_e} \mathbf{x}^{\alpha}_{,i} \varphi_a \, dv = \int_{\partial \Omega_e} \mathbf{x}^{\alpha} n_i \varphi_a \, da \quad \forall i, a.
+%  \label{eq:consistency3}
+%\end{equation}
 
-In most practical situations, it may not be possible to evaluate the integral expressions exactly. Instead, numerical quadrature rules must be defined, both on the element's interior, and on its boundary, such that
-\begin{equation}
-  \int_{\Omega_e} f(\mathbf{x}) dv \approx \sum_{q=1}^{N_q} w_q f(\mathbf{x}_q), \quad \int_{\partial \Omega_e} f(\mathbf{x}) da \approx \sum_{b=1}^{N_b} w_b f(\mathbf{x}_b).
-\end{equation}
-This yields yet another form of consistency, henceforth referred to as ``quadrature consistency,'' expressed as:
-\begin{equation}
-  \sum_{q=1}^{N_q} w_q \left[ \mathbf{x}_q^{\alpha} \varphi^{(q)}_{a,i} + \mathbf{x}^{\alpha}_{q,i} \varphi^{(q)}_a \right] = \sum_{b=1}^{N_b} w_b \mathbf{x}_b^{\alpha} n^{(b)}_i \varphi^{(b)}_a \quad \forall i, a.
-  \label{eq:quadrature_consistency3}
-\end{equation}
-Moving forward in our developments, quadrature consistency will be the only form of consistency of practical interest, as it appropriately reflects the discrete data quantities at our disposal.
+%In most practical situations, it may not be possible to evaluate the integral expressions exactly. Instead, numerical quadrature rules must be defined, both on the element's interior, and on its boundary, such that
+%\begin{equation}
+%  \int_{\Omega_e} f(\mathbf{x}) dv \approx \sum_{q=1}^{N_q} w_q f(\mathbf{x}_q), \quad \int_{\partial \Omega_e} f(\mathbf{x}) da \approx \sum_{b=1}^{N_b} w_b f(\mathbf{x}_b).
+%\end{equation}
+%This yields yet another form of consistency, henceforth referred to as ``quadrature consistency,'' expressed as:
+%\begin{equation}
+%  \sum_{q=1}^{N_q} w_q \left[ \mathbf{x}_q^{\alpha} \varphi^{(q)}_{a,i} + \mathbf{x}^{\alpha}_{q,i} \varphi^{(q)}_a \right] = \sum_{b=1}^{N_b} w_b \mathbf{x}_b^{\alpha} n^{(b)}_i \varphi^{(b)}_a \quad \forall i, a.
+%  \label{eq:quadrature_consistency3}
+%\end{equation}
+%Moving forward in our developments, quadrature consistency will be the only form of consistency of practical interest, as it appropriately reflects the discrete data quantities at our disposal.
 
-A brief remark should be made regarding the lack of equivalence between the exact evaluation of consistency in equation (\ref{eq:consistency3}) and its numerical approximation in equation (\ref{eq:quadrature_consistency3}). In general, we cannot claim that satisfaction of one guarantees the other. There is only one occasion when we may say that (\ref{eq:quadrature_consistency3}) holds if and only if (\ref{eq:consistency3}) is satisfied, which occurs only when sufficiently accurate quadrature rules are used on the element and its boundary. In the vast majority of situations, however, this is an impractical constraint, as the construction of high-order quadrature rules on arbitrary polyhedra (though possible) proves to be somewhat computationally intensive (see the literature by Sukumar, etc.). Moreover, without a precise representation of the test functions over the element domain, it becomes infeasible to consider an exact integration of such functions.
+%A brief remark should be made regarding the lack of equivalence between the exact evaluation of consistency in equation (\ref{eq:consistency3}) and its numerical approximation in equation (\ref{eq:quadrature_consistency3}). In general, we cannot claim that satisfaction of one guarantees the other. There is only one occasion when we may say that (\ref{eq:quadrature_consistency3}) holds if and only if (\ref{eq:consistency3}) is satisfied, which occurs only when sufficiently accurate quadrature rules are used on the element and its boundary. In the vast majority of situations, however, this is an impractical constraint, as the construction of high-order quadrature rules on arbitrary polyhedra (though possible) proves to be somewhat computationally intensive (see the literature by Sukumar, etc.). Moreover, without a precise representation of the test functions over the element domain, it becomes infeasible to consider an exact integration of such functions.
 
-\subsection*{Numerical Quadrature Consistency}
+%\subsection*{Numerical Quadrature Consistency}
 
-Beyond consistency with the weak form for a specified subspace of polynomial functions used to represent the solution, we also require that the numerical quadrature scheme utilized be sufficiently accurate to the extent that: Galerkin exactness is satisfied for certain classes of solutions, and that the quadrature error has a bound which is of a lower order than that of the approximation error.
+%Beyond consistency with the weak form for a specified subspace of polynomial functions used to represent the solution, we also require that the numerical quadrature scheme utilized be sufficiently accurate to the extent that: Galerkin exactness is satisfied for certain classes of solutions, and that the quadrature error has a bound which is of a lower order than that of the approximation error.
 
 \subsubsection*{Bubnov-Galerkin and Petrov-Galerkin Approaches}
 

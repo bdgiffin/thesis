@@ -90,6 +90,12 @@ C.~R. Dohrmann and M.~M. Rashid.
 \newblock {\em International Journal for Numerical Methods in Engineering},
   53:945--958, 2002.
 
+\bibitem{Ebeida:11}
+Mohamed~S. Ebeida and Scott~A. Mitchell.
+\newblock Uniform random voronoi meshes.
+\newblock {\em Proceedings of the 20th International Meshing Roundtable}, pages
+  273--290, 2011.
+
 \bibitem{Ebeida:17}
 Mohamed~Salah Ebeida.
 \newblock Vorocrust v. 1.0, Jul 2017.
