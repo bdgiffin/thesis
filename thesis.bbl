@@ -242,6 +242,13 @@ J.-F. Remacle, J.~Lambrechts, B.~Seny, E.~Marchandise, A.~Johnen, and
 \newblock {\em International Journal for Numerical Methods in Engineering},
   89:1102--1119, 2012.
 
+\bibitem{Riviere:08}
+B\'{e}atrice Rivi\`{e}re.
+\newblock {\em Discontinuous Galerkin Methods for Solving Elliptic and
+  Parabolic Equations: Theory and Implementation}.
+\newblock Society for Industrial and Applied Mathematics, 3600 Market Street,
+  6th Floor, Philadelphia, PA 19104-2688 USA, 2008.
+
 \bibitem{Selimotic:08}
 Mili Selimoti{\'{c}}.
 \newblock {\em Polyhedral Finite-Element Approximants in 3D Solid Mechanics}.

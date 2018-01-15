@@ -2,8 +2,11 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {2.1}{\ignorespaces A depiction of the motion of material points in a body $\Omega $.}}{16}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces A representative domain $\Omega \subset \mathbb {R}^2$, and it's corresponding partition into verticies, segments, and facets.}}{43}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Various element partitioning schemes. From left to right: edge-based partition, node-based partition, voronoi partition.}}{45}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces A representative polyhedral element $\Omega \subset \mathbb {R}^3$, and it's corresponding sets of faces, edges, and nodes.}}{35}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces The harmonic shape function corresponding to a given node, defined hierarchially on each edge, face, and the element.}}{36}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces The finite element approximation to a given harmonic shape function, defined hierarchially on each edge, face, and the element.}}{40}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces A representative polyhedral element $\Omega \subset \mathbb {R}^3$, and it's corresponding partition into cells, facets, segments, and verticies.}}{44}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Polygonal element partitioning schemes, from left to right: edge-based partition, node-based partition, voronoi partition.}}{45}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
