@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.8.23)  14 JAN 2018 18:02
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.8.23)  16 JAN 2018 19:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -358,7 +358,13 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \openout3 = `thesis.toc'.
 
  [4]
-(./thesis.lof)
+(./thesis.lof
+Overfull \hbox (17.26523pt too wide) in paragraph at lines 11--11
+ \OT1/cmr/m/n/12 lo-cal node ID or-der-ing for the face $\OML/cmm/m/it/12 F[]$ 
+\OT1/cmr/m/n/12 shown would be $[][] = []$. []  
+ []
+
+)
 \tf@lof=\write4
 \openout4 = `thesis.lof'.
 
@@ -403,7 +409,7 @@ Chapter 2.
 
 
 
-] <figures/kinematics.png, id=87, 417.17857pt x 278.05882pt>
+] <figures/kinematics.png, id=89, 417.17857pt x 278.05882pt>
 File: figures/kinematics.png Graphic file (type png)
 
 <use figures/kinematics.png>
@@ -463,16 +469,43 @@ Package pdftex.def Info: figures/partition_types.pdf used on input line 310.
 
  (./implementation.tex
 Chapter 4.
-) [54
+[54
 
 
 
 ]
+
+LaTeX Warning: Reference `fig:fig:polyhedron_data' on page 55 undefined on inpu
+t line 27.
+
+<figures/polyhedron_data.pdf, id=665, 1560.96959pt x 707.7658pt>
+File: figures/polyhedron_data.pdf Graphic file (type pdf)
+
+<use figures/polyhedron_data.pdf>
+Package pdftex.def Info: figures/polyhedron_data.pdf used on input line 30.
+(pdftex.def)             Requested size: 433.62pt x 196.60712pt.
+ [55 <./figures/polyhedron_data.pdf>]
+<figures/partitioning_algorithm.pdf, id=714, 3073.91527pt x 629.78133pt>
+File: figures/partitioning_algorithm.pdf Graphic file (type pdf)
+
+<use figures/partitioning_algorithm.pdf>
+Package pdftex.def Info: figures/partitioning_algorithm.pdf used on input line 
+62.
+(pdftex.def)             Requested size: 433.62pt x 88.83185pt.
+ [56]
+<figures/entity_tree.pdf, id=718, 3843.75941pt x 1075.54826pt>
+File: figures/entity_tree.pdf Graphic file (type pdf)
+
+<use figures/entity_tree.pdf>
+Package pdftex.def Info: figures/entity_tree.pdf used on input line 79.
+(pdftex.def)             Requested size: 361.34999pt x 101.11139pt.
+ [57 <./figures/partitioning_algorithm.pdf>])
+[58 <./figures/entity_tree.pdf>] [59]
 \openout2 = `results.aux'.
 
  (./results.tex
 Chapter 5.
-) [55
+) [60
 
 
 
@@ -481,7 +514,7 @@ Chapter 5.
 
  (./future_work.tex
 Chapter 6.
-) [56
+) [61
 
 
 
@@ -492,10 +525,10 @@ Missing character: There is no Ã in font cmti12!
 Missing character: There is no © in font cmti12!
 Missing character: There is no Ã in font cmti12!
 Missing character: There is no © in font cmti12!
- [57
+ [62
 
 
-] [58] [59] [60]) [61] [1] [2] (./thesis.aux
+] [63] [64] [65]) [66] [1] [2] (./thesis.aux
 (./introduction.aux) (./solid_mechanics.aux) (./pem_formulation.aux)
 (./implementation.aux) (./results.aux) (./future_work.aux))
 
@@ -505,12 +538,15 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+
+LaTeX Warning: There were undefined references.
+
  ) 
 Here is how much of TeX's memory you used:
- 5153 strings out of 494985
- 69825 string characters out of 6180356
- 169488 words of memory out of 5000000
- 8204 multiletter control sequences out of 15000+600000
+ 5172 strings out of 494985
+ 70369 string characters out of 6180356
+ 169521 words of memory out of 5000000
+ 8220 multiletter control sequences out of 15000+600000
  15430 words of font info for 56 fonts, out of 8000000 for 9000
  40 hyphenation exceptions out of 8191
  38i,14n,26p,1430b,361s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -518,23 +554,24 @@ Here is how much of TeX's memory you used:
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on thesis.pdf (72 pages, 1584764 bytes).
+xmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on thesis.pdf (77 pages, 1980647 bytes).
 PDF statistics:
- 752 PDF objects out of 1000 (max. 8388607)
- 493 compressed objects within 5 object streams
+ 928 PDF objects out of 1000 (max. 8388607)
+ 597 compressed objects within 6 object streams
  0 named destinations out of 1000 (max. 500000)
- 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 46 words of extra memory for PDF output out of 10000 (max. 10000000)
 

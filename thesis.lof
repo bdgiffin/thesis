@@ -8,5 +8,8 @@
 \contentsline {figure}{\numberline {3.4}{\ignorespaces A representative polyhedral element $\Omega \subset \mathbb {R}^3$, and it's corresponding partition into cells, facets, segments, and verticies.}}{44}
 \contentsline {figure}{\numberline {3.5}{\ignorespaces Polygonal element partitioning schemes, from left to right: edge-based partition, node-based partition, voronoi partition.}}{45}
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Illustration of the data used to describe an arbitrary polyhedron $\Omega _e$. The local node ID ordering for the face $F_1$ shown would be $\left \{ n_i \right \}_{i=1}^{N^c_V} = \left \{ 14, \tmspace +\thinmuskip {.1667em} 1, \tmspace +\thinmuskip {.1667em} 9, \tmspace +\thinmuskip {.1667em} 8, \tmspace +\thinmuskip {.1667em} 13 \right \}$.}}{55}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces The resulting segment, facet, and cell decomposition for the proposed edge-based partitioning algorithm.}}{57}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces A representative entity tree diagram for a $2$-dimensional facet $\sigma $.}}{58}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

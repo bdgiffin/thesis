@@ -539,7 +539,6 @@ Methods for partitioning the elements into sub-domains which yield stable and ef
 	\begin{equation}
 		\int_{\gamma} \mathbf{X}^\alpha \, dS = \frac{1}{d-2+|\alpha|} \left[ \sum_{v \in \partial \gamma} \big( (\mathbf{X}_v-\mathbf{X}_\gamma) \cdot \mathbf{N}_{v} \big) \mathbf{X}^\alpha_v + \mathbf{X}_\gamma \cdot \int_{\gamma} \nabla \mathbf{X}^\alpha \, dS \right].
 	\end{equation}
-	This process may be applied recursively to ultimately reduce the monomial integrals over $\omega$ to weighted vertex evaluations (or edge integrals, as one prefers).
 	
 	Similarly defined composite rules may be defined on each polygonal face of a given polyhedral element, or on each edge of a polygonal element. However, while composite mid-point quadrature rules are able to provide reasonable accuracy, they will not necessarily lead to quadrature consistency, as expressed in (\ref{eq:quadrature_consistency}). For this reason, a gradient correction scheme (such as the one proposed by Bishop in \cite{Bishop:14}, or by Talischi in \cite{Talischi:15}) must be employed. Alternatively, a novel approach to restore quadrature consistency is presented in the following section.
 		
