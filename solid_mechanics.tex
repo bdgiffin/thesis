@@ -13,7 +13,7 @@ Consider a body $\mathcal{B}_0 \subset \mathbb{R}^d$ consisting of a set of mate
 The displacement $\mathbf{u}$ of a given material point may be expressed as $\mathbf{u} = \mathbf{x} - \mathbf{X}$, and it's corresponding velocity is denoted $\mathbf{v} = \dot{\mathbf{x}} = \partial \mathbf{x} / \partial t$. Figure \ref{fig:kinematics} provides a visual interpretation of the situation described.
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=0.6\textwidth]{figures/kinematics.png}
+  \includegraphics[width=6.0in]{figures/kinematics.pdf}
   \caption{A depiction of the motion of material points in a body $\Omega$.}
   \label{fig:kinematics}
 \end{figure}
@@ -437,11 +437,11 @@ The above conditions are sufficient for satisfaction of the Irons patch test up 
 
 In most practical situations, however, the integral expressions in (\ref{eq:weakform}) are evaluated only approximately; numerical quadrature rules are defined on the elements and on their boundaries, such that
 \begin{equation}
-  \int_{\Omega_e} f(\mathbf{X}) dV \approx \sum_{q=1}^{N_q} w_q f(\mathbf{X}_q), \quad \int_{\partial \Omega_e} f(\mathbf{X}) dA \approx \sum_{b=1}^{N_b} w_b f(\mathbf{X}_b).
+  \int_{\Omega_e} f(\mathbf{X}) dV \approx \sum_{q=1}^{N_{qp}} w_q f(\mathbf{X}_q), \quad \int_{\partial \Omega_e} f(\mathbf{X}) dA \approx \sum_{b=1}^{N_{bp}} w_b f(\mathbf{X}_b).
 \end{equation}
 This yields a discrete form of (\ref{eq:consistency}), henceforth referred to as \textit{quadrature consistency}:
 \begin{equation}
-  \sum_{q=1}^{N_q} w_q \left[ \mathbf{X}_q^{\alpha} \phi^{(q)}_{a,i} + \mathbf{X}^{\alpha}_{q,i} \phi^{(q)}_a \right] = \sum_{b=1}^{N_b} w_b \mathbf{X}_b^{\alpha} N^{(b)}_i \phi^{(b)}_a \quad \forall i, \, a, \, | \alpha | \leq k-1, \, \Omega_e \subset \mathcal{B}_0.
+  \sum_{q=1}^{N_{qp}} w_q \left[ \mathbf{X}_q^{\alpha} \phi^{(q)}_{a,i} + \mathbf{X}^{\alpha}_{q,i} \phi^{(q)}_a \right] = \sum_{b=1}^{N_{bp}} w_b \mathbf{X}_b^{\alpha} N^{(b)}_i \phi^{(b)}_a \quad \forall i, \, a, \, | \alpha | \leq k-1, \, \Omega_e \subset \mathcal{B}_0.
   \label{eq:quadrature_consistency}
 \end{equation}
 These conditions effectively impose a set constraints on the accuracy of the chosen quadrature rules, and/or on the choice of test functions. Failure to satisfy the above conditions results in issues of integration error, and correspondingly, loss of convergence.

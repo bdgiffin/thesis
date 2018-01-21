@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.8.23)  16 JAN 2018 19:11
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.8.23)  20 JAN 2018 19:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -358,32 +358,26 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \openout3 = `thesis.toc'.
 
  [4]
-(./thesis.lof
-Overfull \hbox (17.26523pt too wide) in paragraph at lines 11--11
- \OT1/cmr/m/n/12 lo-cal node ID or-der-ing for the face $\OML/cmm/m/it/12 F[]$ 
-\OT1/cmr/m/n/12 shown would be $[][] = []$. []  
- []
+(./thesis.lof [5
 
-)
+])
 \tf@lof=\write4
 \openout4 = `thesis.lof'.
 
- [5
-
-] (./thesis.lot)
+ [6] (./thesis.lot)
 \tf@lot=\write5
 \openout5 = `thesis.lot'.
 
- [6
+ [7
 
 ]
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/sc' undefined
 (Font)              using `OT1/cmr/bx/n' instead on input line 113.
 
-[7
+[8
 
-] [8]
+] [9]
 \openout2 = `introduction.aux'.
 
  (./introduction.tex
@@ -409,13 +403,13 @@ Chapter 2.
 
 
 
-] <figures/kinematics.png, id=89, 417.17857pt x 278.05882pt>
-File: figures/kinematics.png Graphic file (type png)
+] <figures/kinematics.pdf, id=92, 417.27335pt x 276.14058pt>
+File: figures/kinematics.pdf Graphic file (type pdf)
 
-<use figures/kinematics.png>
-Package pdftex.def Info: figures/kinematics.png used on input line 16.
-(pdftex.def)             Requested size: 273.1835pt x 182.08955pt.
- [16 <./figures/kinematics.png>] [17] [18] [19]
+<use figures/kinematics.pdf>
+Package pdftex.def Info: figures/kinematics.pdf used on input line 16.
+(pdftex.def)             Requested size: 433.62pt x 286.97295pt.
+ [16 <./figures/kinematics.pdf>] [17] [18] [19]
 [20] [21] [22] [23] [24] [25] [26] [27] [28] [29] [30] [31]) [32]
 \openout2 = `pem_formulation.aux'.
 
@@ -426,7 +420,7 @@ Chapter 3.
 
 
 
-] <figures/polyhedron_decomposition.pdf, id=156, 2128.65257pt x 614.1085pt>
+] <figures/polyhedron_decomposition.pdf, id=160, 2128.65257pt x 614.1085pt>
 File: figures/polyhedron_decomposition.pdf Graphic file (type pdf)
 
 <use figures/polyhedron_decomposition.pdf>
@@ -434,14 +428,14 @@ Package pdftex.def Info: figures/polyhedron_decomposition.pdf used on input lin
 e 51.
 (pdftex.def)             Requested size: 433.62pt x 125.09656pt.
  [34] [35 <./figures/polyhedron_decomposition.pdf>] <figures/harmonic_sfs.pdf, 
-id=209, 2340.85626pt x 607.79366pt>
+id=212, 2340.85626pt x 607.79366pt>
 File: figures/harmonic_sfs.pdf Graphic file (type pdf)
 
 <use figures/harmonic_sfs.pdf>
 Package pdftex.def Info: figures/harmonic_sfs.pdf used on input line 115.
 (pdftex.def)             Requested size: 433.62pt x 112.57918pt.
  [36 <./figures/harmonic_sfs.pdf>] [37] [38]
-<figures/harmonic_fem_sfs.pdf, id=293, 2438.58244pt x 650.83704pt>
+<figures/harmonic_fem_sfs.pdf, id=296, 2438.58244pt x 650.83704pt>
 File: figures/harmonic_fem_sfs.pdf Graphic file (type pdf)
 
 <use figures/harmonic_fem_sfs.pdf>
@@ -449,72 +443,161 @@ Package pdftex.def Info: figures/harmonic_fem_sfs.pdf used on input line 198.
 (pdftex.def)             Requested size: 433.62pt x 115.72548pt.
  [39] [40 <./figures/harmonic_fem_sfs.pdf>]
 [41] [42] [43]
-<figures/polyhedron_partition.pdf, id=328, 2157.86964pt x 605.79118pt>
+<figures/polyhedron_partition.pdf, id=331, 2157.86964pt x 605.79118pt>
 File: figures/polyhedron_partition.pdf Graphic file (type pdf)
 
 <use figures/polyhedron_partition.pdf>
 Package pdftex.def Info: figures/polyhedron_partition.pdf used on input line 29
 0.
 (pdftex.def)             Requested size: 433.62pt x 121.72919pt.
- [44 <./figures/polyhedron_partition.pdf>] <figures/partition_types.pdf, id=629
-, 748.47893pt x 278.24588pt>
+ [44 <./figures/polyhedron_partition.pdf>] <figures/partition_types.pdf, id=632
+, 759.01573pt x 288.47208pt>
 File: figures/partition_types.pdf Graphic file (type pdf)
 
 <use figures/partition_types.pdf>
 Package pdftex.def Info: figures/partition_types.pdf used on input line 310.
-(pdftex.def)             Requested size: 433.62pt x 161.1959pt.
+(pdftex.def)             Requested size: 433.62pt x 164.80493pt.
  [45 <./figures/partition_types.pdf>] [46]
-[47] [48] [49] [50] [51] [52]) [53]
+[47] [48] [49]
+Overfull \hbox (0.1667pt too wide) in paragraph at lines 547--548
+\OT1/cmr/m/n/12 Consider an el-e-ment $
+ \OMS/cmsy/m/n/12 ^^Z \U/msb/m/n/12 R[]$ \OT1/cmr/m/n/12 upon which is spec-i-f
+ied a do-main quadra-ture rule $[][]$
+ []
+
+
+Overfull \hbox (2.11343pt too wide) in paragraph at lines 550--552
+\OT1/cmr/m/n/12 Additionally, sup-pose that each face $\OML/cmm/m/it/12 F \OMS/
+cmsy/m/n/12 ^^Z \OML/cmm/m/it/12 @\OT1/cmr/m/n/12 
+$ pos-sesses a quadra-ture rule $[][]$
+ []
+
+[50] [51] [52] [53]) [54]
 \openout2 = `implementation.aux'.
 
  (./implementation.tex
 Chapter 4.
-[54
+<figures/canonical_orderings.pdf, id=669, 514.3407pt x 223.6409pt>
+File: figures/canonical_orderings.pdf Graphic file (type pdf)
+
+<use figures/canonical_orderings.pdf>
+Package pdftex.def Info: figures/canonical_orderings.pdf used on input line 12.
+
+(pdftex.def)             Requested size: 289.07999pt x 125.69872pt.
+ [55
 
 
 
-]
-
-LaTeX Warning: Reference `fig:fig:polyhedron_data' on page 55 undefined on inpu
-t line 27.
-
-<figures/polyhedron_data.pdf, id=665, 1560.96959pt x 707.7658pt>
+] [56 <./figures/canonical_orderings.pdf>] <figures/polyhedron_data.pdf, id=678
+, 1560.96959pt x 707.7658pt>
 File: figures/polyhedron_data.pdf Graphic file (type pdf)
 
 <use figures/polyhedron_data.pdf>
-Package pdftex.def Info: figures/polyhedron_data.pdf used on input line 30.
+Package pdftex.def Info: figures/polyhedron_data.pdf used on input line 38.
 (pdftex.def)             Requested size: 433.62pt x 196.60712pt.
- [55 <./figures/polyhedron_data.pdf>]
-<figures/partitioning_algorithm.pdf, id=714, 3073.91527pt x 629.78133pt>
+
+<figures/polyhedron_data_quadratic.pdf, id=679, 1594.75204pt x 713.83392pt>
+File: figures/polyhedron_data_quadratic.pdf Graphic file (type pdf)
+
+<use figures/polyhedron_data_quadratic.pdf>
+Package pdftex.def Info: figures/polyhedron_data_quadratic.pdf used on input li
+ne 52.
+(pdftex.def)             Requested size: 433.62pt x 194.08836pt.
+ [57 <./figures/polyhedron_data.pdf>] [58 <./figures/polyhedron_data_quadratic.
+pdf>] [59] [60]
+<figures/partitioning_algorithm.pdf, id=902, 3073.91527pt x 629.78133pt>
 File: figures/partitioning_algorithm.pdf Graphic file (type pdf)
 
 <use figures/partitioning_algorithm.pdf>
 Package pdftex.def Info: figures/partitioning_algorithm.pdf used on input line 
-62.
+114.
 (pdftex.def)             Requested size: 433.62pt x 88.83185pt.
- [56]
-<figures/entity_tree.pdf, id=718, 3843.75941pt x 1075.54826pt>
+
+<figures/partitioning_algorithm_quadratic.pdf, id=903, 3073.91527pt x 629.78133
+pt>
+File: figures/partitioning_algorithm_quadratic.pdf Graphic file (type pdf)
+ <use figures/partitioning_algorithm_quadratic.pdf>
+Package pdftex.def Info: figures/partitioning_algorithm_quadratic.pdf used on i
+nput line 122.
+(pdftex.def)             Requested size: 433.62pt x 88.83185pt.
+ [61 <./figures/partitioning_algorithm.pdf> <./figures/partitioning_algorithm_q
+uadratic.pdf
+
+pdfTeX warning: pdflatex (file ./figures/partitioning_algorithm_quadratic.pdf):
+ PDF inclusion: multiple pdfs with page group included in a single page
+>] <figures/entity_tree.pdf, id=1089, 3843.75941pt x 1075.54826pt>
 File: figures/entity_tree.pdf Graphic file (type pdf)
 
 <use figures/entity_tree.pdf>
-Package pdftex.def Info: figures/entity_tree.pdf used on input line 79.
+Package pdftex.def Info: figures/entity_tree.pdf used on input line 138.
 (pdftex.def)             Requested size: 361.34999pt x 101.11139pt.
- [57 <./figures/partitioning_algorithm.pdf>])
-[58 <./figures/entity_tree.pdf>] [59]
+ [62 <./figures/entity_tree.pdf>]
+<figures/sub_element.pdf, id=1109, 1965.45058pt x 607.08919pt>
+File: figures/sub_element.pdf Graphic file (type pdf)
+
+<use figures/sub_element.pdf>
+Package pdftex.def Info: figures/sub_element.pdf used on input line 160.
+(pdftex.def)             Requested size: 433.62pt x 133.93057pt.
+
+Overfull \hbox (4.12396pt too wide) in paragraph at lines 157--164
+\OT1/cmr/m/n/12 clas-si-fied as a $2\OMS/cmsy/m/n/12 ^^@$\OT1/cmr/m/n/12 dimens
+ional sub-element, whose par-ti-tion $\OMS/cmsy/m/n/12 T[]\OT1/cmr/m/n/12 (\OML
+/cmm/m/it/12 F\OT1/cmr/m/n/12 )$ con-sists of $2\OMS/cmsy/m/n/12 ^^@$\OT1/cmr/m
+/n/12 dimensional
+ []
+
+[63] [64 <./figures/sub_element.pdf>] [65] [66] [67] [68] [69] [70] [71]
+[72] [73]) [74]
 \openout2 = `results.aux'.
 
  (./results.tex
 Chapter 5.
-) [60
+<figures/plate_with_hole.pdf, id=1200, 583.53358pt x 406.87007pt>
+File: figures/plate_with_hole.pdf Graphic file (type pdf)
+
+<use figures/plate_with_hole.pdf>
+Package pdftex.def Info: figures/plate_with_hole.pdf used on input line 9.
+(pdftex.def)             Requested size: 289.07999pt x 201.55962pt.
+ [75
 
 
 
-]
+ <./figures/plate_with_hole.pdf>]
+<figures/plate_with_hole_meshes.pdf, id=1221, 1066.58607pt x 882.79451pt>
+File: figures/plate_with_hole_meshes.pdf Graphic file (type pdf)
+
+<use figures/plate_with_hole_meshes.pdf>
+Package pdftex.def Info: figures/plate_with_hole_meshes.pdf used on input line 
+32.
+(pdftex.def)             Requested size: 433.62pt x 358.9038pt.
+ [76 <./figures/plate_with_hole_meshes.pdf>] [77] <figures/l2_error_plot.pdf, i
+d=1255, 1948.99567pt x 972.31027pt>
+File: figures/l2_error_plot.pdf Graphic file (type pdf)
+
+<use figures/l2_error_plot.pdf>
+Package pdftex.def Info: figures/l2_error_plot.pdf used on input line 116.
+(pdftex.def)             Requested size: 433.62pt x 216.3124pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<figures/h1_error_plot.pdf, id=1256, 1946.70157pt x 969.21277pt>
+File: figures/h1_error_plot.pdf Graphic file (type pdf)
+
+<use figures/h1_error_plot.pdf>
+Package pdftex.def Info: figures/h1_error_plot.pdf used on input line 124.
+(pdftex.def)             Requested size: 433.62pt x 215.8747pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[78] [79 <./figures/l2_error_plot.pdf>] [80 <./figures/h1_error_plot.pdf>]
+[81] [82]) [83]
 \openout2 = `future_work.aux'.
 
  (./future_work.tex
 Chapter 6.
-) [61
+) [84
 
 
 
@@ -525,10 +608,10 @@ Missing character: There is no Ã in font cmti12!
 Missing character: There is no © in font cmti12!
 Missing character: There is no Ã in font cmti12!
 Missing character: There is no © in font cmti12!
- [62
+ [85
 
 
-] [63] [64] [65]) [66] [1] [2] (./thesis.aux
+] [86] [87] [88]) [89] [1] [2] (./thesis.aux
 (./introduction.aux) (./solid_mechanics.aux) (./pem_formulation.aux)
 (./implementation.aux) (./results.aux) (./future_work.aux))
 
@@ -538,15 +621,12 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: There were undefined references.
-
  ) 
 Here is how much of TeX's memory you used:
- 5172 strings out of 494985
- 70369 string characters out of 6180356
- 169521 words of memory out of 5000000
- 8220 multiletter control sequences out of 15000+600000
+ 5227 strings out of 494985
+ 71985 string characters out of 6180356
+ 171691 words of memory out of 5000000
+ 8268 multiletter control sequences out of 15000+600000
  15430 words of font info for 56 fonts, out of 8000000 for 9000
  40 hyphenation exceptions out of 8191
  38i,14n,26p,1430b,361s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -559,19 +639,20 @@ st/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
 c/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on thesis.pdf (77 pages, 1980647 bytes).
+fonts/cmextra/cmmib8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on thesis.pdf (101 pages, 3590431 bytes).
 PDF statistics:
- 928 PDF objects out of 1000 (max. 8388607)
- 597 compressed objects within 6 object streams
+ 1392 PDF objects out of 1440 (max. 8388607)
+ 874 compressed objects within 9 object streams
  0 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 86 words of extra memory for PDF output out of 10000 (max. 10000000)
 

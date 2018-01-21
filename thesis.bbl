@@ -1,5 +1,16 @@
 \begin{thebibliography}{10}
 
+\bibitem{Arnold:02}
+D.~N. Arnold, D.~Boffi, and R.~S. Falk.
+\newblock Approximation by quadrilateral finite elements.
+\newblock {\em Mathematics of Computation}, 71(239):909--922, 2002.
+
+\bibitem{Arnold:01}
+D.~N. Arnold, D.~Boffi, R.~S. Falk, and L.~Gastaldi.
+\newblock Finite element approximation on quadrilateral meshes.
+\newblock {\em Communications in Numerical Methods in Engineering},
+  17(11):805--812, 2001.
+
 \bibitem{Babuska:71}
 Ivo Babu{\u{s}}ka.
 \newblock Error-bounds for finite element method.
@@ -329,6 +340,10 @@ X.~Wang, N.S. Malluwawadu, F.~Gao, and T.C. McMillan.
 \newblock A modified weak galerkin finite element method.
 \newblock {\em Journal of Computational and Applied Mathematics}, 271:319--329,
   2014.
+
+\bibitem{Wikiversity:17}
+Wikiversity.
+\newblock Introduction to elasticity/plate with hole in tension, 2017.
 
 \bibitem{Winkler:10}
 Robert Winkler.

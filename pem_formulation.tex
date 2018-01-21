@@ -25,7 +25,7 @@ This chapter defines a general class of polytopal element formulations referred 
 		% are certain approximation methods more suitable than others?
 			% FEM? DG? VEM?
 
-Partitioned element methods are finite element-like methods which approach the task of constructing shape functions on arbitrary polytopal element domains by partitioning each element into sub-domains (quadrature cells). The element partition serves a dual purpose: it is used to establish a composite quadrature rule for the element, and to define a finite dimensional function space, from which the element's shape functions are selected as the solutions to corresponding boundary value problems, defined locally on the element.
+Partitioned element methods are finite element-like methods which approach the task of constructing approximations to an arbitrary polytopal element's nodal shape functions by partitioning the element into sub-domains (quadrature cells). The element partition serves a dual purpose: it is used to establish a composite quadrature rule for the element, and to define a finite dimensional function space, from which the element's shape functions are selected as the solutions to corresponding boundary value problems, defined locally on the element.
 
 	% want efficient and stable quadrature rules
 Partitioned element methods are motivated by the idea that it is generally easier and more efficient to define complicated functions over arbitrary domains if the functions are defined in a piecewise polynomial fashion over simpler sub-domains. This is precisely the mentality which likewise motivates the finite element method and other related numerical approximation methods.
@@ -36,7 +36,7 @@ The PEM is driven by the need for establishing stable and efficient quadrature r
 In contrast with traditional perspectives which regard the shape functions as being continuously defined on element domains (i.e. generalized barycentric coordinates), the PEM exploits the fact that the shape functions and their gradients only need to be evaluated at a discrete number of quadrature points. With this in mind, PEM approximation spaces are deliberately constructed around the quadrature cell partition of the element, and consequently resemble finite element approximation spaces.
 
 	% enforce constraints to attain reproducibility & consistency
-The resulting shape functions on each element are altogether subject to the conditions of approximability, compatibility, stability, and quadrature consistency, as discussed in chapter \ref{ch:solid_mechanics}. Together, these conditions impose a number of unique requirements upon the element's partition, it's corresponding quadrature rules, and the associated cell-based approximation spaces.
+The resulting approximations to the element's shape functions are altogether subject to the conditions of approximability, compatibility, stability, and quadrature consistency, as discussed in chapter \ref{ch:solid_mechanics}. Together, these conditions impose a number of unique requirements upon the element's partition, it's corresponding quadrature rules, and the associated cell-based approximation spaces.
 
 In the following sections, an abstract framework for the PEM is established, describing the shape function boundary value problems defined on an element, and their corresponding approximations. We further enumerate several specific partitioned element methods, and provide an assessment of their potential strengths and weaknesses.
 
@@ -279,9 +279,9 @@ where
 	
 \section{Piecewise Polynomial Approximations to \\ Generalized Harmonic Shape Functions}
 
-Partitioned element methods consider the approximation to a given element's shape functions via piecewise polynomials defined over a partition of the element's domain. In this regard, the approach proposed by Bishop in \cite{Bishop:14} is properly regarded as a partitioned element method.
+Partitioned element methods consider the approximation to a given element's shape functions via piecewise polynomials defined over a partition of the element's domain. In this regard, the approach proposed by Bishop in \cite{Bishop:14} is properly regarded as a partitioned element method which utilizes an FE partition of the elements to approximate their shape functions; henceforth, this scheme is given the moniker FE-PEM. The eponymous partitioned element method introduced in \cite{Rashid:12} solves (\ref{eq:approximate_bvp}) by empolying an approximation scheme which closely resembles a stabilized virtual element method, hence it shall be labeled VE-PEM.
 
-The eponymous partitioned element method introduced in \cite{Rashid:12} solves (\ref{eq:approximate_bvp}) by empolying an approximation scheme which closely resembles a stabilized virtual element method. Herein we propose an alternative approach based upon the interior penalty discontinuous Galerkin finite element method.
+Herein we propose a novel alternative approach based upon the interior penalty discontinuous Galerkin finite element method (henceforth, the DG-PEM).
 
 \subsection*{The Element Partition}
 
@@ -540,15 +540,48 @@ Methods for partitioning the elements into sub-domains which yield stable and ef
 		\int_{\gamma} \mathbf{X}^\alpha \, dS = \frac{1}{d-2+|\alpha|} \left[ \sum_{v \in \partial \gamma} \big( (\mathbf{X}_v-\mathbf{X}_\gamma) \cdot \mathbf{N}_{v} \big) \mathbf{X}^\alpha_v + \mathbf{X}_\gamma \cdot \int_{\gamma} \nabla \mathbf{X}^\alpha \, dS \right].
 	\end{equation}
 	
-	Similarly defined composite rules may be defined on each polygonal face of a given polyhedral element, or on each edge of a polygonal element. However, while composite mid-point quadrature rules are able to provide reasonable accuracy, they will not necessarily lead to quadrature consistency, as expressed in (\ref{eq:quadrature_consistency}). For this reason, a gradient correction scheme (such as the one proposed by Bishop in \cite{Bishop:14}, or by Talischi in \cite{Talischi:15}) must be employed. Alternatively, a novel approach to restore quadrature consistency is presented in the following section.
+	Similarly defined composite rules may be defined on each polygonal face of a given polyhedral element, or on each edge of a polygonal element. However, while composite mid-point quadrature rules are able to provide reasonable accuracy, they will not necessarily lead to quadrature consistency, as expressed in (\ref{eq:quadrature_consistency}). For this reason, a gradient correction scheme (such as the one proposed by Bishop in \cite{Bishop:14}, or by Talischi in \cite{Talischi:15}) must be employed, as discussed in the following section.
+	
+	\subsection*{Gradient Correction Scheme}
+	
+	Consider an element $\Omega \subset \mathbb{R}^d$ upon which is specified a domain quadrature rule $\left\{ \mathbf{X}_q, \, w_q \right\}_{q=1}^{N_{qp}}$ such that the integral of a scalar function $f \in L^2 (\Omega)$ over $\Omega$ is approximated by
+	\begin{equation}
+		\int_\Omega f \, dV \approx \sum_{q=1}^{N_{qp}} w_q f(\mathbf{X}_q).
+	\end{equation}
+	Additionally, suppose that each face $F \subset \partial \Omega$ possesses a quadrature rule $\left\{ \mathbf{X}_b, \, w_b, \, \mathbf{N}^{(b)} \right\}_{b=1}^{N^{F}_{bp}}$ where $\mathbf{N}^{(b)}$ denotes the unit normal to the face $F$ evaluated at $\mathbf{X}_b \in F$. The integral of a scalar function $f \in L^2 (\partial \Omega)$ (or of a vector-valued function $f \mathbf{N}$) over $\partial \Omega$ is approximated by
+	\begin{equation}
+		\int_{\partial \Omega} f \, dA \approx \sum_{F \in \partial \Omega} \sum_{b=1}^{N^F_{bp}} w_b f(\mathbf{X}_b), \quad \int_{\partial \Omega} f \, \mathbf{N} \, dA \approx \sum_{F \in \partial \Omega} \sum_{b=1}^{N^F_{bp}} w_b f(\mathbf{X}_b) \mathbf{N}^{(b)}.
+	\end{equation}
+	
+	Suppose that the aforementioned quadrature rules (on a given polyhedral element $\Omega$ and on each of its polygonal faces $F \subset \partial \Omega$) are constructed using the composite mid-point quadrature scheme discussed in the previous section. A simple gradient correction scheme is obtained by introducing an auxiliary field $\boldsymbol{\xi} = \nabla \phi - \nabla \varphi$, such that a given trial function $\varphi$ and its corresponding test function $\phi$ differ (minimally), to the extent that the quadrature consistency conditions hold:
+    \begin{equation}
+          \sum_{q=1}^{N_{qp}} w_q \left[ \mathbf{X}_q^{\alpha} \, \nabla \phi (\mathbf{X}_q) + \nabla \mathbf{X}^{\alpha}_{q} \, \phi (\mathbf{X}_q) \right] = \sum_{F \in \partial \Omega} \sum_{b=1}^{N^F_{bp}} w_b \mathbf{X}_b^{\alpha} \phi (\mathbf{X}_b) \mathbf{N}^{(b)} \quad \forall | \alpha | \leq k-1,
+          \label{eq:gradient_constraint}
+    \end{equation}
+    for every test function $\phi$, where $k$ represents the degree of polynomial completeness exhibited by the space of trial solutions. Given the discrete conditions:
+    \begin{equation}
+		\phi(\mathbf{X}_b) = \varphi(\mathbf{X}_b) \, \forall b, \quad \phi(\mathbf{X}_q) = \varphi(\mathbf{X}_q) \, \forall q, \quad \nabla \phi(\mathbf{X}_q) = \nabla \varphi (\mathbf{X}_q) + \boldsymbol{\xi} (\mathbf{X}_q) \, \forall q,
+    	\end{equation}
+    	we obtain $\boldsymbol{\xi} (\mathbf{X}_q)$ as the solution to the quadratic minimization problem:
+    	\begin{equation}
+    		\min_{\boldsymbol{\xi}} || \boldsymbol{\xi} ||_{\Omega},
+    	\end{equation}
+    	subject to (\ref{eq:gradient_constraint}), where $|| \boldsymbol{\xi} ||_{\Omega}$ is deliberately approximated using the element's quadrature rule, i.e.
+    	\begin{equation}
+    		|| \boldsymbol{\xi} ||_{\Omega} \approx \sum_{q=1}^{N_{qp}} w_q \, \left[ \boldsymbol{\xi} (\mathbf{X}_q) \cdot \boldsymbol{\xi} (\mathbf{X}_q) \right].
+    	\end{equation}
+    	
+    	Suppose two adjacent elements $\Omega_{L}$ and $\Omega_{R}$ share a given face $F = \partial \Omega_{L} \cap \partial \Omega_{R}$. If the shape functions and quadrature rules defined on $F_L \subset \partial \Omega_L$ and $F_R \subset \partial \Omega_R$ (where $F_L = F_R$) are identical, then the aforementioned gradient correction scheme will automatically lead to satisfaction of finite element patch tests. However, if $\Omega_{L}$ and $\Omega_{R}$ provide separate quadrature rules on $F_L$ and $F_R$ (arising from different partitions of the shared face), or if the elements' shape functions are not defined identically on $F_L$ and $F_R$, then we require that an additional condition be met:
+    	\begin{equation}
+    		\sum_{l=1}^{N^{F_L}_{bp}} w_l \mathbf{X}^{\alpha}_l \phi_l \, \mathbf{N}^{(l)} = - \sum_{r=1}^{N^{F_R}_{bp}} w_r \mathbf{X}^{\alpha}_r \phi_r \, \mathbf{N}^{(r)} \quad \forall \, | \alpha | \leq k-1,
+    	\end{equation}
+    	for every shared face $\partial \Omega_L \subset F_L = F_R \subset \partial \Omega_R$.
+		
+	 As an alternative to using a gradient correction scheme, a novel approach to restore quadrature consistency (inspired by the virtual element method) is presented in the following section.
 		
 	\subsection*{Selective Modal Quadrature}
 	
-	Consider all functions $f \in L^2 (\Omega)$ represented over an arbitrary polytopal element domain $\Omega \subset \mathbb{R}^d$. Standard quadrature rules approximate the integral of $f$ over $\Omega$ as
-	\begin{equation}
-		\int_\Omega f \, dV \approx \sum_{q=1}^{N_{qp}} w_q f(\mathbf{x}_q).
-	\end{equation}
-	Borrowing from notation typical of the VEM, consider an $L^2 (\Omega)$ polynomial projection operator $\Pi^{\Omega}_k : L^2 (\Omega) \mapsto P^k (\Omega)$ which may be used to decompose $f = f_p + f_n$ into polynomial and non-polynomial parts:
+	Consider all functions $f \in L^2 (\Omega)$ represented over an arbitrary polytopal element domain $\Omega \subset \mathbb{R}^d$. Borrowing from notation typical of the VEM, consider an $L^2 (\Omega)$ polynomial projection operator $\Pi^{\Omega}_k : L^2 (\Omega) \mapsto P^k (\Omega)$ which may be used to decompose $f = f_p + f_n$ into polynomial and non-polynomial parts:
 	\begin{equation}
 		f_p = \Pi^{\Omega}_k f, \quad f_n = f - \Pi^{\Omega}_k f = \pi^{\Omega}_k f,
 	\end{equation}

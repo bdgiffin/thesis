@@ -3,4 +3,8 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces Computed $L^2$ displacement error norms.}}{78}
+\contentsline {table}{\numberline {5.2}{\ignorespaces Computed $L^2$ displacement error norm convergence rates.}}{78}
+\contentsline {table}{\numberline {5.3}{\ignorespaces Computed $H^1$ energy error semi-norms.}}{78}
+\contentsline {table}{\numberline {5.4}{\ignorespaces Computed $H^1$ energy error semi-norm convergence rates.}}{79}
 \addvspace {10\p@ }

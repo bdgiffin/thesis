@@ -1,0 +1,159 @@
+\documentclass[12pt]{article}
+
+\usepackage{graphicx}
+
+\begin{document}
+
+\section*{Demonstration of convergence for quadratic PEM elements}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.75\textwidth]{plate_with_hole.png}
+  \caption{Infinite plate with a circular hole placed in uniaxial tension.}
+  \label{fig:plate_with_hole_problem}
+\end{figure}
+To demonstrate optimal convergence of the PEM for higher-order elements, we will choose to investigate the 2D elastostatics problem of an infinite plate with a circular hole in uniaxial tension (depicted in figure \ref{fig:plate_with_hole_problem}), for which there exist analytical solutions of the resulting displacement and stress fields (obtained from reference \cite{plate_with_hole_exact_solution}):
+\begin{equation}
+  u_1 (r,\theta) = \frac{Ta}{8\mu} \left[ \frac{r}{a} (\kappa + 1) \cos \theta + \frac{2a}{r} ((1+\kappa) \cos \theta + \cos 3 \theta) - \frac{2a^3}{r^3} \cos 3 \theta \right]
+\end{equation}
+\begin{equation}
+  u_2 (r,\theta) = \frac{Ta}{8\mu} \left[ \frac{r}{a} (\kappa - 3) \sin \theta + \frac{2a}{r} ((1-\kappa) \sin \theta + \sin 3 \theta) - \frac{2a^3}{r^3} \sin 3 \theta \right]
+\end{equation}
+\begin{equation}
+  \sigma_{11} (r, \theta) = T - T \frac{a^2}{r^2} \bigg( \frac{3}{2} \cos 2 \theta + \cos 4 \theta \bigg) + T \frac{3a^4}{2r^4} \cos 4 \theta
+\end{equation}
+\begin{equation}
+  \sigma_{22} (r, \theta) = - T \frac{a^2}{r^2} \bigg( \frac{1}{2} \cos 2 \theta - \cos 4 \theta \bigg) - T \frac{3a^4}{2r^4} \cos 4 \theta
+\end{equation}
+\begin{equation}
+  \sigma_{12} (r, \theta) = - T \frac{a^2}{r^2} \bigg( \frac{1}{2} \sin 2 \theta + \sin 4 \theta \bigg) + T \frac{3a^4}{2r^4} \sin 4 \theta
+\end{equation}
+where $T$ is the far-field value of the applied tensile stress, $a$ is the radius of the circular hole centered at $r=0$, $\kappa = 4 - 3\nu$ (under plane-strain conditions), and $\nu$ and $\mu$ are the the Poisson's ratio and shear modulus of the material, respectively.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.75\textwidth]{plate_with_hole_meshes.png}
+  \caption{Quadrilateral meshes with varying levels of refinement.}
+  \label{fig:plate_with_hole_meshes}
+\end{figure}
+A convergence study was carried out using a series of quadrilateral meshes with varying levels of refinement discretizing the restricted problem domain $x_i \in [ -1, +1]$ (see figure \ref{fig:plate_with_hole_meshes}.) The meshes consisted of either 4-node quadrilateral or 8-node serendipity quadrilateral elements, and employed either an isoparametric formulation, or a sufficiently high-order PEM formulation (i.e. $k=1$ for 4-node quadrilaterals, and $k=2$ for 8-node quadrilaterals.) Displacement boundary conditions were prescribed to be consistent with the exact solution on the restricted boundary. $L_2$ displacement error norms and $H_1$ energy error semi-norms were computed with reference to the exact solution, with the numerical results summarized in tables \ref{tab:l2_error}-\ref{tab:h1_rates}. The convergence rates in the $L_2$ and $H_1$ error norms are depicted in figures \ref{fig:l2_error} and \ref{fig:h1_error}, respectively.
+\newpage
+\begin{table}[!ht]
+  \begin{center}
+    \begin{tabular}{| c | c | c | c | c |}
+    \hline
+    $h$ & 4-node FEM & 4-node PEM & 8-node FEM & 8-node PEM \\ \hline
+    1.2500 & 1.3133E-006 & 1.4901E-006 & 9.8369E-007 & 2.9990E-006 \\ \hline
+    0.8006 & 6.9557E-007 & 9.8453E-007 & 4.8165E-007 & 1.3918E-006 \\ \hline
+    0.4488 & 2.8755E-007 & 4.2859E-007 & 2.2034E-007 & 3.3673E-007 \\ \hline
+    0.2371 & 1.0460E-007 & 1.3672E-007 & 8.1971E-008 & 4.8942E-008 \\ \hline
+    0.1218 & 3.1430E-008 & 3.7296E-008 & 2.4628E-008 & 6.7201E-009 \\ \hline
+    0.0617 & 8.3877E-009 & 9.5661E-009 & 6.5479E-009 & 1.6002E-009 \\
+    \hline
+    \end{tabular}
+    \caption{Computed $L_2$ displacement error norms.}
+    \vspace{-5pt}
+    \label{tab:l2_error}
+    \vspace{-25pt}
+  \end{center}
+\end{table}
+\begin{table}[!ht]
+  \begin{center}
+    \begin{tabular}{| c | c | c | c | c |}
+    \hline
+    $h$ & 4-node FEM & 4-node PEM & 8-node FEM & 8-node PEM \\ \hline
+    1.2500 &	-	&	-	&	-	&       -      \\ \hline
+    0.8006 &	1.4265	&	0.9302	&	1.6028	&	1.7230 \\ \hline
+    0.4488 &	1.5262	&	1.4369	&	1.3512	&	2.4518 \\ \hline
+    0.2371 &	1.5848	&	1.7906	&	1.5496	&	3.0225 \\ \hline
+    0.1218 &	1.8051	&	1.9502	&	1.8053	&	2.9808 \\ \hline
+    0.0617 &	1.9424	&	2.0007	&	1.9479	&	2.1100 \\
+    \hline
+    \end{tabular}
+    \caption{Computed $L_2$ displacement error norm convergence rates.}
+    \vspace{-5pt}
+    \label{tab:l2_rates}
+    \vspace{-25pt}
+  \end{center}
+\end{table}
+\begin{table}[!ht]
+  \begin{center}
+    \begin{tabular}{| c | c | c | c | c |}
+    \hline
+    $h$ & 4-node FEM & 4-node PEM & 8-node FEM & 8-node PEM \\ \hline
+    1.2500 & 2.1468E-001 & 2.8913E-001 & 1.8275E-001 & 5.3700E-001 \\ \hline
+    0.8006 & 1.8622E-001 & 2.5620E-001 & 1.5959E-001 & 3.0529E-001 \\ \hline
+    0.4488 & 1.3786E-001 & 1.7930E-001 & 1.2495E-001 & 1.5310E-001 \\ \hline
+    0.2371 & 9.2075E-002 & 1.1251E-001 & 7.9144E-002 & 5.8671E-002 \\ \hline
+    0.1218 & 5.2124E-002 & 6.2223E-002 & 4.2868E-002 & 1.5541E-002 \\ \hline
+    0.0617 & 2.7048E-002 & 3.2135E-002 & 2.1789E-002 & 3.3672E-003 \\
+    \hline
+    \end{tabular}
+    \caption{Computed $H_1$ energy error semi-norms.}
+    \vspace{-5pt}
+    \label{tab:h1_error}
+    \vspace{-25pt}
+  \end{center}
+\end{table}
+\begin{table}[!ht]
+  \begin{center}
+    \begin{tabular}{| c | c | c | c | c |}
+    \hline
+    $h$ & 4-node FEM & 4-node PEM & 8-node FEM & 8-node PEM \\ \hline
+    1.2500 &	-	&	-	&	-	&       -      \\ \hline
+    0.8006 &	0.3192	&	0.2714	&	0.3042	&	1.2675 \\ \hline
+    0.4488 &	0.5195	&	0.6166	&	0.4228	&	1.1924 \\ \hline
+    0.2371 &	0.6326	&	0.7303	&	0.7156	&	1.5031 \\ \hline
+    0.1218 &	0.8542	&	0.8892	&	0.9205	&	1.9944 \\ \hline
+    0.0617 &	0.9646	&	0.9716	&	0.9950	&	2.2488 \\
+    \hline
+    \end{tabular}
+    \caption{Computed $H_1$ energy error semi-norm convergence rates.}
+    \vspace{-5pt}
+    \label{tab:h1_rates}
+    \vspace{-25pt}
+  \end{center}
+\end{table}
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=1.0\textwidth]{l2_error_plot.png}
+  \caption{$L_2$ error convergence plots for (a) FEM and (b) PEM formulations.}
+  \label{fig:l2_error}
+  \vspace{-10pt}
+\end{figure}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=1.0\textwidth]{h1_error_plot.png}
+  \caption{$H_1$ error convergence plots for (a) FEM and (b) PEM formulations.}
+  \label{fig:h1_error}
+\end{figure}
+
+\newpage
+
+A number of observations should be made regarding the resulting data. In particular, it is worthwhile to note that part of the incurred solution error may be attributable to the inexact representation of the problem geometry, especially for the coarse meshes. This may in part explain why the observed convergence rates are lower at coarser levels of refinement, but approach the expected rates as the mesh is further refined.
+
+Additionally, we remark that isoparametric serendipity quadrilateral elements converge at sub-optimal rates if the elements are distorted in a non-affine fashion (as is the case for our meshes). This is an altogether expected result, and has been discussed in references \cite{serendipity_convergence_rates1} and \cite{serendipity_convergence_rates2}.
+
+Conversely, we observe that the PEM quadrilateral elements converge at the optimal rates in both the $L_2$ and $H_1$ error norms, as we would hope.
+
+Further work will seek to investigate the measured error and convergence rates of the PEM when the elements take on arbitrary shape, and for a variety of different formulations and penalization parameter settings.
+
+\begin{thebibliography}{9}
+\bibitem{plate_with_hole_exact_solution}
+Wikiversity,
+\textit{Introduction to Elasticity/Plate with Hole in Tension},
+en.wikiversity.org/wiki/Introduction\_to\_Elasticity/Plate\_with\_hole\_in\_tension.
+ 
+\bibitem{serendipity_convergence_rates1}
+D. N. Arnold, D. Boffi, R. S. Falk, L. Gastaldi,
+\textit{Finite element approximation on quadrilateral meshes},
+Communications in Numerical Methodsin Engineering 17 (11) (2001) 805–812.
+
+\bibitem{serendipity_convergence_rates2}
+D. N. Arnold, D. Boffi, R. S. Falk,
+\textit{Approximation by quadrilateral finite elements},
+Mathematics of Computation 71 (239) (2002) 909–922.
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="plate_with_hole.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="385.54574"
+     inkscape:cy="548.83592"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1301"
+     inkscape:window-height="744"
+     inkscape:window-x="65"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       sodipodi:type="arc"
+       style="opacity:0.78600823;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3.7560389;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="path2985"
+       sodipodi:cx="320.21835"
+       sodipodi:cy="388.69196"
+       sodipodi:rx="111.11678"
+       sodipodi:ry="111.11678"
+       d="m 431.33514,388.69196 a 111.11678,111.11678 0 1 1 -222.23357,0 111.11678,111.11678 0 1 1 222.23357,0 z"
+       transform="matrix(0.75081367,0,0,0.75081367,137.22969,193.46725)"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.82008553;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 145.48021,243.75874 c -9.04762,29.72788 -21.32653,42.65305 -18.09524,73.02719 3.2313,30.37414 25.20407,98.87753 21.97279,122.78908 -3.23129,23.91155 -16.80273,61.39454 -16.80273,93.70745 0,32.31292 24.55782,45.23809 24.55782,86.59862 0,41.36052 -23.2653,92.41493 -23.2653,92.41493"
+       id="path3759"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.82008553;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 601.6262,723.03617 c -29.72787,-9.04762 -42.65305,-21.32653 -73.02719,-18.09524 -30.37414,3.2313 -98.87752,25.20408 -122.78907,21.97278 -23.91156,-3.23129 -61.39454,-16.80271 -93.70746,-16.80271 -32.31293,0 -45.23809,24.55782 -86.59862,24.55782 -41.36052,0 -92.41494,-23.2653 -92.41494,-23.2653"
+       id="path3759-3"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.82008553;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 601.54824,723.20228 c 9.04763,-29.72786 21.32653,-42.65305 18.09524,-73.0272 -3.23129,-30.37414 -25.20407,-98.87752 -21.97278,-122.78908 3.23129,-23.91155 16.80271,-61.39453 16.80271,-93.70745 0,-32.31293 -24.55781,-45.2381 -24.55781,-86.59863 0,-41.36052 23.2653,-92.41492 23.2653,-92.41492"
+       id="path3759-3-7"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.82008553;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 144.46065,242.44256 c 29.72788,9.04761 42.65306,21.32652 73.02723,18.09523 30.37413,-3.23129 98.87752,-25.20407 122.78907,-21.97278 23.91155,3.23129 61.39454,16.80272 93.70746,16.80272 32.31292,0 45.23809,-24.55783 86.59862,-24.55783 41.36053,0 92.41493,23.2653 92.41493,23.2653"
+       id="path3759-3-7-5"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.88005698;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 497.40998,484.33167 -117.50356,0 0,-113.47487"
+       id="path3822"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.88005698;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 380.57787,482.98877 91.9885,-65.13054"
+       id="path3824"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.94002849px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 499.08861,484.33167 -14.42248,-6.48034 0,13.53055 z"
+       id="path3826"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.94002849px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 380.26404,363.38159 6.48034,14.42248 -13.53055,0 z"
+       id="path3826-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.94002849px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 475.70242,415.27975 -7.75464,13.77927 -8.0359,-10.8858 z"
+       id="path3826-3-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.88005698;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 415.28232,482.24774 c 0,0 0.48006,-5.44154 -0.75538,-9.48422 -1.41523,-4.63096 -4.44835,-8.47705 -4.44835,-8.47705"
+       id="path3868"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csc"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="opacity:0.78600823;fill:#e7e7e7;fill-opacity:1;stroke:none"
+       d="m 215.07578,732.2139 c -17.50984,-1.40083 -45.35297,-8.43634 -67.65702,-17.09584 -5.61434,-2.17975 -10.2079,-4.27186 -10.2079,-4.64913 0,-0.37725 2.08104,-6.20829 4.62454,-12.95785 10.52378,-27.92649 17.22261,-58.19321 17.21201,-77.76749 -0.005,-8.43921 -2.04208,-21.0078 -4.6991,-28.98685 -1.13044,-3.39473 -4.98094,-12.36818 -8.55665,-19.94103 -9.76451,-20.67979 -10.98815,-25.30757 -10.79633,-40.8316 0.18682,-15.12043 2.02205,-26.46018 9.28782,-57.38908 2.82962,-12.04511 5.65953,-24.87034 6.28871,-28.50051 2.24893,-12.97571 -0.0397,-29.32545 -10.50178,-75.02392 -11.03694,-48.20943 -12.37356,-57.24998 -10.5217,-71.16588 1.10185,-8.27994 2.70197,-13.24894 12.58823,-39.09142 3.78187,-9.88572 5.47359,-13.25235 6.50261,-12.94055 0.76498,0.23178 8.86875,3.30107 18.00838,6.82064 22.2184,8.55606 27.42777,9.80909 40.8316,9.82149 14.53987,0.0135 17.39454,-0.50036 72.64227,-13.07481 31.87665,-7.25517 39.55658,-8.48499 53.17604,-8.51528 10.78194,-0.024 13.96703,0.36777 25.16366,3.09501 42.21207,10.28189 55.47773,12.58525 73.59184,12.77802 14.95499,0.15915 19.80016,-1.12872 40.35683,-10.72705 17.6032,-8.2193 22.90983,-10.13406 32.92701,-11.88092 15.07873,-2.6295 31.61841,-1.35225 54.90841,4.24024 19.72047,4.73536 49.85253,15.26413 49.85253,17.41952 0,0.54092 -1.13132,3.79452 -2.51406,7.23022 -11.74271,29.17731 -19.32609,61.9015 -19.32609,83.39695 0,17.86381 2.52593,27.34642 13.64329,51.21812 8.91764,19.14837 10.28934,24.14381 10.25092,37.332 -0.0413,14.14744 -1.98543,27.08197 -7.85028,52.22647 -8.24128,35.33305 -8.67415,38.03614 -8.13545,50.80211 0.54602,12.9391 2.81323,25.30927 11.64883,63.55733 8.21309,35.55327 10.07193,46.38615 10.03174,58.46269 -0.0404,12.15175 -1.69985,18.99675 -9.46672,39.04974 -3.1104,8.0306 -6.15835,16.1803 -6.77321,18.11045 -0.84958,2.66692 -1.50327,3.37454 -2.72306,2.94774 -0.88282,-0.30889 -9.81392,-3.7065 -19.84689,-7.55022 -21.21558,-8.12789 -28.33014,-9.8331 -40.93118,-9.81039 -13.09326,0.0237 -18.30145,0.95213 -65.69579,11.71235 -29.89499,6.78723 -38.78809,8.51269 -52.35709,10.15845 -11.07624,1.34341 -14.22693,0.89928 -45.38451,-6.39757 -30.25252,-7.08489 -40.97484,-8.88712 -56.57114,-9.50859 -16.84044,-0.67104 -23.22233,0.8358 -43.36344,10.23862 -17.19978,8.02966 -28.54799,11.94501 -36.86815,12.72019 -12.28797,1.14486 -13.90898,1.17813 -22.78973,0.46763 l 0,0 z M 398.42227,567.90179 c 10.68163,-2.53829 23.77833,-9.03794 32.74334,-16.24992 17.66889,-14.21389 29.49136,-36.55506 31.44022,-59.41325 l 0.58695,-6.8844 10.30597,0 10.30595,0 0,3.80783 0,3.80781 8.64516,-4.34186 c 4.75483,-2.38803 8.49377,-4.47577 8.30876,-4.63944 -0.4899,-0.43335 -16.01769,-7.18049 -16.52513,-7.18049 -0.23584,0 -0.42879,1.28193 -0.42879,2.84872 l 0,2.84872 -10.33467,0 -10.33467,0 -0.68573,-6.40961 c -1.00699,-9.41261 -4.73676,-21.28997 -9.70827,-30.91572 -3.53563,-6.84562 -4.12136,-8.63113 -3.03844,-9.2622 0.73785,-0.42998 4.27489,-2.90975 7.86009,-5.5106 l 6.51854,-4.72882 2.09021,2.43002 2.09022,2.43001 4.46015,-7.87231 c 2.4531,-4.32977 4.31898,-8.0135 4.14642,-8.18606 -0.17257,-0.17257 -4.23752,0.39127 -9.03324,1.25298 -8.72343,1.56744 -10.23264,2.6122 -7.29513,5.05011 0.78339,0.65017 1.42436,1.51558 1.42436,1.92315 0,0.40757 -3.52528,3.26105 -7.83397,6.34107 l -7.83397,5.60003 -3.55202,-4.5285 c -11.81359,-15.06131 -34.69635,-27.02153 -56.9832,-29.78369 l -4.51047,-0.55901 0,-10.38711 0,-10.38711 3.32349,0 c 1.82794,0 3.32351,-0.24753 3.32351,-0.55005 0,-1.08853 -7.10952,-16.54225 -7.61031,-16.54225 -0.49004,0 -8.53241,15.67625 -8.53241,16.63147 0,0.25345 1.49557,0.46083 3.3235,0.46083 l 3.3235,0 0,10.4453 0,10.44528 -3.19912,0 c -5.41216,0 -19.36594,2.75777 -26.41484,5.22051 -12.19035,4.25905 -21.1132,9.98748 -31.46367,20.19956 -29.40324,29.01005 -33.09618,75.53326 -8.72352,109.89811 5.57886,7.86606 16.69657,18.16913 25.00643,23.1741 8.24177,4.96397 22.7484,10.13318 31.99542,11.40107 8.97582,1.23071 23.13083,0.41802 32.81938,-1.88428 l 0,0 z"
+       id="path3889"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <text
+       xml:space="preserve"
+       style="font-size:37.60113907px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Serif;-inkscape-font-specification:Serif"
+       x="503.38782"
+       y="493.36685"
+       id="text3945"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128"><tspan
+         sodipodi:role="line"
+         id="tspan3947"
+         x="503.38782"
+         y="493.36685">x<tspan
+   style="font-size:65.00091553%;baseline-shift:sub"
+   id="tspan5729">1</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:37.60113907px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Serif;-inkscape-font-specification:Serif"
+       x="368.79443"
+       y="356.2084"
+       id="text3945-1"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128"><tspan
+         sodipodi:role="line"
+         id="tspan3947-3"
+         x="368.79443"
+         y="356.2084">x<tspan
+   style="font-size:65.00091553%;baseline-shift:sub"
+   id="tspan5733">2</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:37.60113907px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Serif;-inkscape-font-specification:Serif"
+       x="481.89355"
+       y="414.18314"
+       id="text3945-3"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128"><tspan
+         sodipodi:role="line"
+         id="tspan3947-9"
+         x="481.89355"
+         y="414.18314">r</tspan></text>
+    <path
+       style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:4.70014238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 627.01124,269.02678 55.20481,0"
+       id="path3991"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:1.40892434px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 692.93961,268.55415 -21.61657,-9.71279 0,20.27973 z"
+       id="path3826-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:4.70014238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 626.863,318.7364 55.20481,0"
+       id="path3991-5"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:1.40892434px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 692.79137,318.26377 -21.61656,-9.7128 0,20.27974 z"
+       id="path3826-7-4"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:4.70014238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 626.75207,367.14224 55.20481,0"
+       id="path3991-4"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:1.40892434px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 692.68044,366.66962 -21.61656,-9.7128 0,20.27973 z"
+       id="path3826-7-9"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:4.70014238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 626.88165,414.43743 55.20481,0"
+       id="path3991-6"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:1.40892434px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 692.81003,413.9648 -21.61657,-9.7128 0,20.27973 z"
+       id="path3826-7-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:4.70014238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 626.73342,464.14705 55.20481,0"
+       id="path3991-5-2"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:1.40892434px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 692.66179,463.67442 -21.61656,-9.7128 0,20.27973 z"
+       id="path3826-7-4-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:4.70014238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 626.62249,512.5529 55.20481,0"
+       id="path3991-4-0"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:1.40892434px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 692.55086,512.08027 -21.61657,-9.71279 0,20.27973 z"
+       id="path3826-7-9-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:4.70014238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 626.54593,556.44887 55.20481,0"
+       id="path3991-3"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:1.40892434px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 692.4743,555.97625 -21.61656,-9.7128 0,20.27973 z"
+       id="path3826-7-77"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:4.70014238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 626.3977,606.15849 55.20481,0"
+       id="path3991-5-6"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:1.40892434px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 692.32607,605.68586 -21.61657,-9.71279 0,20.27973 z"
+       id="path3826-7-4-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:4.70014238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 626.28677,654.56435 55.2048,0"
+       id="path3991-4-9"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:1.40892434px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 692.21514,654.09172 -21.61657,-9.7128 0,20.27973 z"
+       id="path3826-7-9-10"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:4.70014238;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 626.41635,701.52381 55.20481,0"
+       id="path3991-4-9-4"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <path
+       style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:1.40892434px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 692.34472,701.05118 -21.61657,-9.7128 0,20.27974 z"
+       id="path3826-7-9-10-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128" />
+    <g
+       id="g4187"
+       transform="matrix(-0.94002848,0,0,0.94002848,795.41691,35.597618)"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3991-1"
+         d="m 726.83829,247.5892 58.72674,0"
+         style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path3826-7-8"
+         d="m 796.97273,247.08642 -22.99565,-10.33245 0,21.57353 z"
+         style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:1.49881029px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3991-5-64"
+         d="m 726.6806,300.47017 58.72674,0"
+         style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path3826-7-4-34"
+         d="m 796.81504,299.96739 -22.99565,-10.33245 0,21.57353 z"
+         style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:1.49881029px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3991-4-7"
+         d="m 726.56259,351.9642 58.72674,0"
+         style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path3826-7-9-7"
+         d="m 796.69703,351.46142 -22.99565,-10.33245 0,21.57353 z"
+         style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:1.49881029px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3991-6-0"
+         d="m 726.70044,402.2767 58.72674,0"
+         style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path3826-7-7-7"
+         d="m 796.83488,401.77392 -22.99565,-10.33245 0,21.57353 z"
+         style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:1.49881029px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3991-5-2-4"
+         d="m 726.54275,455.15767 58.72674,0"
+         style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path3826-7-4-1-5"
+         d="m 796.67719,454.65489 -22.99565,-10.33245 0,21.57353 z"
+         style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:1.49881029px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3991-4-0-3"
+         d="m 726.42474,506.6517 58.72674,0"
+         style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path3826-7-9-1-0"
+         d="m 796.55918,506.14892 -22.99565,-10.33245 0,21.57353 z"
+         style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:1.49881029px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3991-3-7"
+         d="m 726.3433,553.34813 58.72674,0"
+         style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path3826-7-77-2"
+         d="m 796.47774,552.84535 -22.99565,-10.33245 0,21.57353 z"
+         style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:1.49881029px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3991-5-6-9"
+         d="m 726.18561,606.2291 58.72674,0"
+         style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path3826-7-4-3-9"
+         d="m 796.32005,605.72632 -22.99565,-10.33245 0,21.57353 z"
+         style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:1.49881029px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3991-4-9-3"
+         d="m 726.0676,657.72313 58.72674,0"
+         style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path3826-7-9-10-0"
+         d="m 796.20204,657.22035 -22.99565,-10.33245 0,21.5735 z"
+         style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:1.49881029px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3991-4-9-4-2"
+         d="m 726.20545,707.6785 58.72674,0"
+         style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path3826-7-9-10-1-7"
+         d="m 796.33989,707.1757 -22.99565,-10.3324 0,21.5735 z"
+         style="fill:#da3636;fill-opacity:1;stroke:#da3636;stroke-width:1.49881029px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:37.60113907px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#da3636;fill-opacity:1;stroke:none;font-family:Serif;-inkscape-font-specification:Serif"
+       x="10.055001"
+       y="478.72803"
+       id="text3945-1-9"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128"><tspan
+         sodipodi:role="line"
+         id="tspan3947-3-9"
+         x="10.055001"
+         y="478.72803">T</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:37.60113907px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#da3636;fill-opacity:1;stroke:none;font-family:Serif;-inkscape-font-specification:Serif"
+       x="706.91125"
+       y="476.40704"
+       id="text3945-1-9-3"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128"><tspan
+         sodipodi:role="line"
+         id="tspan3947-3-9-5"
+         x="706.91125"
+         y="476.40704">T</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:37.60113907px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Serif;-inkscape-font-specification:Serif"
+       x="425.87515"
+       y="479.38504"
+       id="text3945-4"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/bdgiffin/Desktop/doc/plate_with_hole.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128"><tspan
+         sodipodi:role="line"
+         id="tspan3947-6"
+         x="425.87515"
+         y="479.38504">θ</tspan></text>
+  </g>
+</svg>
