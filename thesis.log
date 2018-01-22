@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.8.23)  20 JAN 2018 19:07
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.8.23)  21 JAN 2018 17:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -547,31 +547,31 @@ ional sub-element, whose par-ti-tion $\OMS/cmsy/m/n/12 T[]\OT1/cmr/m/n/12 (\OML
  []
 
 [63] [64 <./figures/sub_element.pdf>] [65] [66] [67] [68] [69] [70] [71]
-[72] [73]) [74]
+[72] [73] [74] [75]) [76]
 \openout2 = `results.aux'.
 
  (./results.tex
 Chapter 5.
-<figures/plate_with_hole.pdf, id=1200, 583.53358pt x 406.87007pt>
+<figures/plate_with_hole.pdf, id=1207, 583.53358pt x 406.87007pt>
 File: figures/plate_with_hole.pdf Graphic file (type pdf)
 
 <use figures/plate_with_hole.pdf>
 Package pdftex.def Info: figures/plate_with_hole.pdf used on input line 9.
 (pdftex.def)             Requested size: 289.07999pt x 201.55962pt.
- [75
+ [77
 
 
 
  <./figures/plate_with_hole.pdf>]
-<figures/plate_with_hole_meshes.pdf, id=1221, 1066.58607pt x 882.79451pt>
+<figures/plate_with_hole_meshes.pdf, id=1227, 1066.58607pt x 882.79451pt>
 File: figures/plate_with_hole_meshes.pdf Graphic file (type pdf)
 
 <use figures/plate_with_hole_meshes.pdf>
 Package pdftex.def Info: figures/plate_with_hole_meshes.pdf used on input line 
 32.
 (pdftex.def)             Requested size: 433.62pt x 358.9038pt.
- [76 <./figures/plate_with_hole_meshes.pdf>] [77] <figures/l2_error_plot.pdf, i
-d=1255, 1948.99567pt x 972.31027pt>
+ [78 <./figures/plate_with_hole_meshes.pdf>] [79] <figures/l2_error_plot.pdf, i
+d=1261, 1948.99567pt x 972.31027pt>
 File: figures/l2_error_plot.pdf Graphic file (type pdf)
 
 <use figures/l2_error_plot.pdf>
@@ -581,7 +581,7 @@ Package pdftex.def Info: figures/l2_error_plot.pdf used on input line 116.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<figures/h1_error_plot.pdf, id=1256, 1946.70157pt x 969.21277pt>
+<figures/h1_error_plot.pdf, id=1262, 1946.70157pt x 969.21277pt>
 File: figures/h1_error_plot.pdf Graphic file (type pdf)
 
 <use figures/h1_error_plot.pdf>
@@ -591,13 +591,13 @@ Package pdftex.def Info: figures/h1_error_plot.pdf used on input line 124.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[78] [79 <./figures/l2_error_plot.pdf>] [80 <./figures/h1_error_plot.pdf>]
-[81] [82]) [83]
+[80] [81 <./figures/l2_error_plot.pdf>] [82 <./figures/h1_error_plot.pdf>]
+[83] [84]) [85]
 \openout2 = `future_work.aux'.
 
  (./future_work.tex
 Chapter 6.
-) [84
+) [86
 
 
 
@@ -608,10 +608,10 @@ Missing character: There is no Ã in font cmti12!
 Missing character: There is no © in font cmti12!
 Missing character: There is no Ã in font cmti12!
 Missing character: There is no © in font cmti12!
- [85
+ [87
 
 
-] [86] [87] [88]) [89] [1] [2] (./thesis.aux
+] [88] [89] [90]) [91] [1] [2] (./thesis.aux
 (./introduction.aux) (./solid_mechanics.aux) (./pem_formulation.aux)
 (./implementation.aux) (./results.aux) (./future_work.aux))
 
@@ -623,10 +623,10 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 5227 strings out of 494985
- 71985 string characters out of 6180356
- 171691 words of memory out of 5000000
- 8268 multiletter control sequences out of 15000+600000
+ 5229 strings out of 494985
+ 72027 string characters out of 6180356
+ 171714 words of memory out of 5000000
+ 8270 multiletter control sequences out of 15000+600000
  15430 words of font info for 56 fonts, out of 8000000 for 9000
  40 hyphenation exceptions out of 8191
  38i,14n,26p,1430b,361s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -649,10 +649,10 @@ ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on thesis.pdf (101 pages, 3590431 bytes).
+Output written on thesis.pdf (103 pages, 3596832 bytes).
 PDF statistics:
- 1392 PDF objects out of 1440 (max. 8388607)
- 874 compressed objects within 9 object streams
+ 1399 PDF objects out of 1440 (max. 8388607)
+ 879 compressed objects within 9 object streams
  0 named destinations out of 1000 (max. 500000)
  86 words of extra memory for PDF output out of 10000 (max. 10000000)
 
