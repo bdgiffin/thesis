@@ -1,8 +1,8 @@
 \chapter{An Implementational Framework \\ for the DG-PEM} \label{ch:implementation}
 %
-The implementation of a given partitioned element method must address two primary challenges: the subdivision of an element into cells, and the solution of shape function boundary value problems by way of the chosen PEM formulation. The first of these two tasks may be accomplished in various ways, some of them more complicated than others. Herein we propose a relatively simple element partitioning algorithm which necessitates that the elements and their faces be simply connected, and star-convex.
+The implementation of a given partitioned element method must address two primary challenges: the subdivision of an element into cells, and the solution of shape function boundary value problems by way of the chosen PEM formulation. The first of these two tasks may be accomplished by various means. However, careful attention must be paid to the stability requirements of the PEM, such that the resulting quadrature cell partition yields a stable integration rule. Specifying such a discretization is not trivial for arbitrary shapes. For this reason, we will confine our attention to strictly star-convex elements, for which we propose a relatively simple element partitioning algorithm.
 
-The present implementational framework is directed at obtaining DG-PEM approximations to harmonic shape functions on arbitrary polytopes -- i.e. solving (\ref{eq:dg_poisson}) on an appropriately defined partition of the element.
+The present implementational framework is directed at obtaining DG-PEM approximations to harmonic shape functions on arbitrary polytopes -- i.e. solving (\ref{eq:dg_poisson}) on an appropriately defined partition of the element. Some discussion is given regarding the data structures and solution methods necessary for obtaining these solutions on elements (and their faces, edges).
 
 \section{Arbitrary Polytopal Meshes}
 
@@ -90,7 +90,9 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 	
 \section{Element Partitioning Schemes}
 
-	In order to construct an arbitrary element's shape functions and quadrature rule.
+	The process of obtaining a suitable partition for a given element constitutes the greatest challenge facing partitioned element methods. The primary complication arises from the conditions of stability: the shape function approximations, and the corresponding quadrature rules defined on the element's partition must guarantee a sufficiently stable integration of the weak form. For relatively simple shapes, a number of stable partitioning schemes exist. However, for arbitrary shapes, it becomes difficult -- if not impossible -- for a heuristically-driven discretization scheme to guarantee that a the resulting partition will satisfy the aforementioned stabilily requirements.
+
+	For this reason, we will limit our subsequent discussion to star-convex element geometries. For such shapes, a relatively simple partitioning scheme is suggested, resembling the decomposition used in the edge-based smoothed finite element method. In the absence of degenerate features, the resulting partition is verified to provide sufficiently stable shape function approximations and quadrature rules.
 
 \subsection*{Edge-Based Partitioning for Star-Convex Elements}
 
@@ -116,7 +118,7 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 		\label{fig:partitioning_algorithm}
 	\end{figure}
 	
-	The algorithm can also be naturally extended to accomodate serendipity polyhedral elements with additional nodes belonging to element edges, as depicted in Figure \ref{fig:partitioning_algorithm_quadratic}.
+	The algorithm can also be naturally extended to accomodate serendipity polyhedral elements, with additional nodes belonging to element edges, as depicted in Figure \ref{fig:partitioning_algorithm_quadratic}.
 	\begin{figure} [!ht]
 		\centering
 		\includegraphics[width = 6.0in]{figures/partitioning_algorithm_quadratic.pdf}
@@ -158,7 +160,7 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 	\begin{figure} [!ht]
 		\centering
 		\includegraphics[width = 6.0in]{figures/sub_element.pdf}
-		\caption{A representative sub-element tree diagram for a $2$-dimensional face $F$ and its children.}
+		\caption{A representative $2$-dimensional sub-element $F \subset \partial \Omega$ (a polygonal face), and its corresponding sub-element tree diagram. The partition of $F$ consists of polygonal facets $\sigma_i \in \mathcal{T}_{\sigma} (F) \, \, \forall i = 1, \ldots, 5$.}
 		\label{fig:sub_element}
 	\end{figure}
 	
@@ -184,7 +186,7 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 			\varphi^h|_\varepsilon (\mathbf{X}) = \sum_{a=1}^{N^\varepsilon_{bf}} \psi^\varepsilon_a (\mathbf{X}) \, \varphi_a.
 		\end{equation}
 		
-		To guarantee $P^k (\mathcal{E}) \subset \mathcal{U}^h (\mathcal{E})$ for some desired degree of polynomial completeness $k$, it is necessary for a given entity's local basis $\left\{ \psi^\varepsilon_a \right\}_{a=1}^{N^\varepsilon_{bf}}$ to span $P^k (\varepsilon)$. Arguably the simplest such basis consists of the monomials through order $k$ defined on each entity $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$. However, the use of monomial bases can lead to ill-conditioning of the DG-PEM problem, particularly as the maximal polynomial degree $k$ is increased. For this reason, other (well-scaled) polynomial bases are reccomended (e.g. the Lagrange polynomials).
+		To guarantee $P^k (\mathcal{E}) \subset \mathcal{U}^h (\mathcal{E})$ for some desired degree of polynomial completeness $k$, it is necessary for a given entity's local basis $\left\{ \psi^\varepsilon_a \right\}_{a=1}^{N^\varepsilon_{bf}}$ to span $P^k (\varepsilon)$. Arguably the simplest such basis consists of the monomials through order $k$ defined on each entity $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$. However, the use of monomial bases can lead to ill-conditioning of the DG-PEM problem, particularly as the maximal polynomial degree $k$ is increased. For this reason, other (well-scaled) polynomial bases are reccomended (e.g. the Lagrange polynomials defined on a given entity).
 		
 		Regardless of the chosen basis, each basis function $\psi (\mathbf{X})$ may be expressed as a low-order polynomial (of maximal degree $k$), and can be represented as a linear combination of (possibly shifted) monomials:
 		\begin{equation}
@@ -202,7 +204,7 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 		\sum_{A=1}^{N^\mathcal{E}_{bf}} J_{AB} \, \varphi_A = F_B \quad \forall B = 1, \ldots, N^\mathcal{E}_{bf},
 		\label{eq:linearization_dgpem}
 	\end{equation}
-	where $J_{AB}$ and $F_B$ are computed via an entity-wise assembly process (akin to the methodology employed for assembling finite element systems of equations). However, in addition to assembling local contributions $J^\varepsilon_{ab}$ and $F^\varepsilon_b$ from all $d$-dimensional entities $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$, here it is also necessary to assemble appropriate contributions from all $(d-1)$-dimensional interfaces $\zeta \in \Gamma_\varepsilon \cup \partial \mathcal{E}$, as well.
+	where $J_{AB}$ and $F_B$ are computed via an entity-wise assembly process (akin to the methodology employed for assembling finite element systems of equations). However, in addition to assembling local contributions $J^\varepsilon_{ab}$ and $F^\varepsilon_b$ to $J_{AB}$ and $F_B$ from all $d$-dimensional entities $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$, here it is also necessary to assemble appropriate contributions from all $(d-1)$-dimensional interfaces $\zeta \in \Gamma_\varepsilon \cup \partial \mathcal{E}$, as well.
 
 	Specifically, each $d$-dimensional entity $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$ contributes the following local arrays:
 	\begin{equation}
@@ -229,17 +231,17 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 	
 	For a given $d$-dimensional sub-element $\mathcal{E}$, the assembly of the above terms entails an entity-wise integration of products between basis functions (and their gradients) over $d$-dimensional entities $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$ and their $(d-1)$-dimensional children $\zeta \in \Gamma_\varepsilon \cup \partial \mathcal{E}$. This may be effected through the use of appropriately defined quadrature rules on each entity, or by pre-computing the monomial integrals over each entity up to some sufficiently high degree (nominally $2k$).
 	
-	Additionally, it is remarked that the boundary condition $\bar{\varphi}$ is defined independently on every $(d-1)$-dimensional sub-element $e \subset \partial \mathcal{E}$, such that its restriction $\bar{\varphi}|_\zeta$ may be written in terms of the local basis functions $\left\{ \psi^{\zeta}_c \right\}_{c=1}^{N^\zeta_{bf}}$ belonging to a given boundary entity $\zeta \in \partial \mathcal{E}$, i.e.
+	Additionally, it is remarked that the boundary condition $\bar{\varphi}$ is defined independently on every $(d-1)$-dimensional sub-element $e \subset \partial \mathcal{E}$, such that its restriction $\bar{\varphi}|_\zeta$ may be written in terms of the local basis functions $\left\{ \psi^{\zeta}_c \right\}_{c=1}^{N^\zeta_{bf}}$ belonging to a given boundary entity $\zeta \in \mathcal{T}_{\zeta} (e)$, i.e.
 	\begin{equation}
 			\bar{\varphi}|_\zeta (\mathbf{X}) = \sum_{c=1}^{N^\zeta_{bf}} \psi^\zeta_c (\mathbf{X}) \, \bar{\varphi}_c.
 	\end{equation}
 	For a given $\zeta \in \partial \mathcal{E}$, this yields:
 	\begin{equation}
-		F^{\varepsilon}_b = \sum_{c=1}^{N^\zeta_{bf}} \bar{J}_{bc} \, \bar{\varphi}_c \quad \forall b = 1, \ldots, N^{\varepsilon}_{bf},
+		F^{\varepsilon}_b = \sum_{c=1}^{N^\zeta_{bf}} \bar{J}^{\varepsilon}_{bc} \, \bar{\varphi}_c \quad \forall b = 1, \ldots, N^{\varepsilon}_{bf},
 	\end{equation}
-	in lieu of (\ref{eq:boundary_term}), where
+	which may be used in lieu of (\ref{eq:boundary_term}), where
 	\begin{equation}
-		\bar{J}_{bc} = - \int_{\zeta} \psi^\zeta_c \, \nabla \psi_b^{\varepsilon} \cdot \mathbf{N}_{\zeta} \, d \zeta + \frac{\alpha_{\zeta0}}{|\zeta|^{\beta_0}} \int_{\zeta} \psi^\zeta_c \, \psi_b^{\varepsilon} \, d \zeta \quad \forall b = 1, \ldots, N^{\varepsilon}_{bf}, \, c = 1, \ldots, N^\zeta_{bf}.
+		\bar{J}^{\varepsilon}_{bc} = - \int_{\zeta} \psi^\zeta_c \, \nabla \psi_b^{\varepsilon} \cdot \mathbf{N}_{\zeta} \, d \zeta + \frac{\alpha_{\zeta0}}{|\zeta|^{\beta_0}} \int_{\zeta} \psi^\zeta_c \, \psi_b^{\varepsilon} \, d \zeta \quad \forall b = 1, \ldots, N^{\varepsilon}_{bf}, \, c = 1, \ldots, N^\zeta_{bf}.
 	\end{equation}
 	Consequently, we may re-write the right-hand side of (\ref{eq:linearization_dgpem}) as a linear mapping from the basis coefficients $\bar{\varphi}_C$ which determine the boundary function $\bar{\varphi} (\mathbf{X}) = \sum_{C=1}^{N^{\partial \mathcal{E}}_{bf}} \psi_C (\mathbf{X}) \, \bar{\varphi}_C$:
 	\begin{equation}
@@ -250,23 +252,54 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 		\mathbf{J} \, \boldsymbol{\varphi} = \bar{\mathbf{J}} \, \bar{\boldsymbol{\varphi}}.
 	\end{equation}
 	
-	The above system of equations can be solved to obtain a linear mapping from $\bar{\boldsymbol{\varphi}}$ to $\boldsymbol{\varphi}$, denoted $\mathbf{M} = \mathbf{J}^{-1} \bar{\mathbf{J}} : \mathbb{R}^{N^{\partial \mathcal{E}}_{bf}} \mapsto \mathbb{R}^{N^{\mathcal{E}}_{bf}}$. This mapping may be utilized to define the shape functions in a recursive fashion (over the children of each sub-element, in succession), ultimately yielding a representation for the shape functions on $\mathcal{E}$ in terms of only nodal evaluations $\varphi|_{V}$. This process is discussed in greater detail in the following section.
+	The above system of equations can be solved to obtain a linear mapping from $\bar{\boldsymbol{\varphi}}$ to $\boldsymbol{\varphi}$, denoted $\mathbf{M}^{\partial \mathcal{E} \mapsto \mathcal{E}} = \mathbf{J}^{-1} \bar{\mathbf{J}} : \mathbb{R}^{N^{\partial \mathcal{E}}_{bf}} \mapsto \mathbb{R}^{N^{\mathcal{E}}_{bf}}$. This mapping may be utilized to define the shape functions in a recursive fashion (over the children of each sub-element, in succession), ultimately yielding a representation for the shape functions on $\mathcal{E}$ in terms of only nodal evaluations $\varphi|_{V}$. This process is discussed in greater detail in the following section.
 	
-\section{Hierarchial Construction of Shape Functions}
+\subsection*{Hierarchial Construction of Shape Functions}
 
 	For a given polyhedral element $\Omega \subset \mathbb{R}^d$, we presume that each shape function $\varphi_A$ is associated with a particular node $V_A$ of the element, such that
 	\begin{equation}
 		\varphi_A |_{V_B} = \delta_{AB} \quad \forall A, \, B = 1, \ldots, N_V.
 	\end{equation}
 	
-	Additionally, for the sake of simplicity and computational efficiency, it is suggested that the shape functions along each linear edge $E$ be constructed from the Lagrange polynomials which interpolate the nodal values of that edge, i.e.
+	Additionally, for the sake of simplicity (and computational efficiency), it is suggested that the shape functions along each linear edge $E$ be constructed from the Lagrange polynomials which interpolate the nodal values of that edge, i.e.
 	\begin{equation}
 		\varphi_A |_{E} (\mathbf{X}) = \sum_{b = 1}^{N^E_V} \psi_b (\mathbf{X}) \, \varphi_A |_{V_b}.
 	\end{equation}
 
-\section{Construction of Quadrature Rules}
+	For each polygonal face $F$, linear mappings $\mathbf{M}^{\partial F \mapsto F} : \mathbb{R}^{N^{F}_{V}} \mapsto \mathbb{R}^{N^{F}_{bf}}$ may be constructed according to the process described in the previous section, yielding 
+	\begin{equation}
+		\varphi_A |_{F} (\mathbf{X}) = \sum_{b = 1}^{N^F_{bf}} \sum_{c = 1}^{N^F_{V}} \psi_b (\mathbf{X}) \, M^{\partial F \mapsto F}_{bc} \varphi_A |_{V_c}.
+	\end{equation}
 
+	Subsequently, a mapping $\mathbf{M}^{\partial \Omega \mapsto \Omega} : \mathbb{R}^{N^{\partial \Omega}_{bf}} \mapsto \mathbb{R}^{N^{\Omega}_{bf}}$ is constructed to determine the representation for the shape functions on the interior of the element, which may be composed with the mappings $\mathbf{M}^{\partial F \mapsto F}$ for each face to determine a final mapping $\mathbf{M}^{V \mapsto \Omega} : \mathbb{R}^{N^{\Omega}_{V}} \mapsto \mathbb{R}^{N^{\Omega}_{bf}}$ which yields
+	\begin{equation}
+		\varphi_A |_{\Omega} (\mathbf{X}) = \sum_{b = 1}^{N^\Omega_{bf}} \sum_{c = 1}^{N^\Omega_{V}} \psi_b (\mathbf{X}) \, M^{V \mapsto \Omega}_{bc} \varphi_A |_{V_c}.
+	\end{equation}
 
+	Once the above representations for the element's have been obtained, the discrete data for the element (evaluations of the shape functions and their gradients at a discrete number of quadrature points $\left\{ \mathbf{X}_q \right\}_{q=1}^{N_{qp}}$ can be obtained directly from
+	\begin{equation}
+		\varphi_A |_{\Omega} (\mathbf{X}_q) = \sum_{b = 1}^{N^\Omega_{bf}} \sum_{c = 1}^{N^\Omega_{V}} \psi_b (\mathbf{X}_q) \, M^{V \mapsto \Omega}_{bc} \varphi_A |_{V_c},
+	\end{equation}
+	and
+	\begin{equation}
+		\nabla \varphi_A |_{\Omega} (\mathbf{X}_q) = \sum_{b = 1}^{N^\Omega_{bf}} \sum_{c = 1}^{N^\Omega_{V}} \nabla \psi_b (\mathbf{X}_q) \, M^{V \mapsto \Omega}_{bc} \varphi_A |_{V_c}.
+	\end{equation}
+	Once the discrete quadrature point evaluations for the shape functions have been obtained, there is no need to retain any information regarding the DG-PEM basis functions, or the transitional mappings; these objects and their corresponding data structures may therefore be discarded.
+
+	The specification of the element's quadrature rule is discussed in the following section.
+
+\subsection*{Construction of Quadrature Rules}
+
+	The quadrature rule for an element $\left\{ \mathbf{X}_q, \, w_q \right\}_{q=1}^{N_{qp}}$ nominally consists of quadrature points $\mathbf{X}_q$ located at the centroids of each cell $\omega \in \mathcal{T}_\omega (\Omega)$, whose corresponding quadrature weights $w_q$ are equal to the volumes of each respective cell $|\omega|$. This results in the composite mid-point rule discussed in chapter \ref{ch:pem}.
+
+	As presviously discussed, the volumes $|\omega|$ and centroids $\bar{\mathbf{X}}_\omega$ of each cell may be obtained via the exact integration formulas provided by Chin et al. in \cite{Chin:15}. Alternatively, we may exploit the geometric simplicity of the chosen edge-based partitioning to compute these quantities more easily, by considering the fact that each edge-centered cell $\omega$ consists of two tetrahedral sub-domains (i.e. $T_1 \cup T_2 = \omega$). Volumes and centroids for each tetrahedron can be easily computed using standard formulas, and the resulting quantities of interest may be expressed as
+	\begin{equation}
+		|\omega| = |T_1| + |T_2|, \quad \bar{\mathbf{X}}_\omega = \frac{|T_1| \bar{\mathbf{X}}_{T_1} + |T_2| \bar{\mathbf{X}}_{T_2}}{|\omega|}.
+	\end{equation}
+
+	Straightforward integration rules $\left\{ \mathbf{X}_q, \, w_q \right\}_{q=1}^{N^F_{qp}}$ for each face $F \subset \partial \Omega$ are more more easily obtained by considering the corresponding areas $|\sigma|$ and centroids $\bar{\mathbf{X}}_\sigma$ of each (strictly triangular) facet $\sigma \in \mathcal{T}_{\sigma} (F)$. Outward unit normals $\mathbf{N}_\sigma$ to each facet may also be readily computed and stored, as needed.
+
+	With these quantities in hand, the element's shape functions (and their gradients) may be evaluated at the quadrature points of the element and it's faces. Subsequently, a consistent integration scheme (as discussed in \ref{ch:pem}) may be constructed from the discrete data stored at the element's quadrature points. If a gradient correction scheme is adopted, the corrected test function gradients $\nabla \phi_A (\mathbf{X}_q)$ at all quadrature points may be computed and stored according to the methodology previously described.
 
 \section{Numerical Conditioning of the \\ DG-PEM Systems of Equations}
 

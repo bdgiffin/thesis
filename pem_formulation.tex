@@ -190,6 +190,25 @@ In the following sections, an abstract framework for the PEM is established, des
 		\int_\Omega \nabla \varphi^h \cdot \nabla \eta^h \, dV = \int_\Omega f_{\Omega} \, \eta^h \, dV \quad \forall \eta^h \in \mathcal{U}^h_0 (\Omega).
 		\label{eq:weak_poisson}
 	\end{equation}
+
+	If $f_\Omega \equiv 0$ (yielding the harmonic shape functions), we may invoke the Galerkin orthogonality property to determine that the error $e = \varphi^h - \varphi$ in approximating $\varphi$ is orthogonal to $\mathcal{U}^h (\Omega)$, such that
+	\begin{equation}
+		\langle e, \eta^h \rangle = 0 \quad \forall \eta^h \in \mathcal{U}^h (\Omega),
+	\end{equation}
+	where $\langle u, v \rangle \equiv \int_\Omega \nabla u \cdot \nabla v \, dV$. Further, it may be remarked that for any two shape functions $\varphi_a, \varphi_b$, we obtain
+	\begin{equation}
+		\langle \varphi_a, \varphi_b \rangle = \langle \varphi^h_a + e_a, \varphi^h_b + e_b \rangle = \langle \varphi^h_a, \varphi^h_b \rangle + \langle e_a, e_b \rangle,
+	\end{equation}
+	owing to $\langle e_a, \varphi^h_b \rangle = \langle \varphi^h_a, e_b \rangle = 0$.
+
+	In effect, we may consider a given approximant $\varphi^h$ to be the $L^2(\Omega)$ projection of $\varphi$ onto $\mathcal{U}^h (\Omega)$ (a direct consequence of Galerkin orthogonality), which further implies that the evaluation of weak form integrals $a_\Omega (\mathbf{u}, \mathbf{v})$ are sufficiently well-approximated by their counterparts $a_\Omega (\mathbf{u}^h, \mathbf{v}^h)$. Indeed, if we make the substitution
+	\begin{equation}
+		a_\Omega (\mathbf{u}^h, \mathbf{v}^h) = \sum_{a=1}^N \sum_{b=1}^N  \mathbf{u}_a a_\Omega (  \varphi^h_a, \varphi^h_b ) \mathbf{v}_b,
+	\end{equation}
+	we would need to verify that $a_\Omega (  \varphi^h_a, \varphi^h_b )$ yields a sufficiently stable discrete operator. Satisfaction of the completeness requirements is guaranteed, so long as $\mathcal{U}^h (\Omega) \supset P^k(\Omega)$. It is not difficult to show that
+	\begin{equation}
+		a_\Omega (  \varphi^h_a, \varphi^h_a ) \leq a_\Omega (  \varphi_a, \varphi_a ).
+	\end{equation}
 	
 	Bishop has already explored such an approach for constructing approximations to harmonic shape functions using an FE discretization of a given polyheral element into sub-dividing tetrahedra. The corresponding shape function approximations $\varphi^h \subset C^0 (\Omega)$ are obtained as the solutions to a set of local finite element problems defined on $\Omega$ (and its faces, edges -- refer to Figure \ref{fig:harmonic_fem_sfs}). Moreover, it was demonstrated in \cite{Bishop:14} that the resulting approximations preserve low-order polynomial completeness -- a consequence of $\mathcal{U}^h (\Omega) \supset P^1 (\Omega)$. If the elements are discretized into a sufficient number of tetrahedra, the method is observed to be both stable and consistent (provided a gradient correction scheme is employed to account for the effects of integration error).
 	

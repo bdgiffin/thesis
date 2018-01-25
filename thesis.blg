@@ -1,6 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
-Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
-The top-level auxiliary file: thesis.aux
+This is BibTeX, Version 0.99dThe top-level auxiliary file: thesis.aux
 The style file: plain.bst
 A level-1 auxiliary file: introduction.aux
 A level-1 auxiliary file: solid_mechanics.aux
@@ -15,45 +13,4 @@ Name 3 in "D. N. Arnold and D. Boffi and R. S. Falk," has a comma at the end for
 while executing---line 1049 of file plain.bst
 Name 3 in "D. N. Arnold and D. Boffi and R. S. Falk," has a comma at the end for entry Arnold:02
 while executing---line 1090 of file plain.bst
-You've used 57 entries,
-            2118 wiz_defined-function locations,
-            878 strings with 12956 characters,
-and the built_in function-call counts, 18535 in all, are:
-= -- 1894
-> -- 818
-< -- 1
-+ -- 341
-- -- 266
-* -- 1327
-:= -- 3152
-add.period$ -- 169
-call.type$ -- 57
-change.case$ -- 299
-chr.to.int$ -- 0
-cite$ -- 57
-duplicate$ -- 626
-empty$ -- 1435
-format.name$ -- 266
-if$ -- 3752
-int.to.chr$ -- 0
-int.to.str$ -- 57
-missing$ -- 58
-newline$ -- 286
-num.names$ -- 114
-pop$ -- 230
-preamble$ -- 1
-purify$ -- 247
-quote$ -- 0
-skip$ -- 429
-stack$ -- 0
-substring$ -- 1482
-swap$ -- 66
-text.length$ -- 1
-text.prefix$ -- 0
-top$ -- 0
-type$ -- 220
-warning$ -- 0
-while$ -- 205
-width$ -- 59
-write$ -- 620
 (There were 2 error messages)
