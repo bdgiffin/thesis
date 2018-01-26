@@ -15,10 +15,10 @@
 \contentsline {section}{\numberline {2.6}Requirements for Convergence of an \\ Approximation Method}{28}
 \contentsline {chapter}{\numberline {3}Partitioned Element Methods}{33}
 \contentsline {section}{\numberline {3.1}Overview}{33}
-\contentsline {section}{\numberline {3.2}Definition of Element Shape Functions}{34}
+\contentsline {section}{\numberline {3.2}Definition of Polytopal Element Shape Functions}{34}
 \contentsline {section}{\numberline {3.3}Shape Function Approximation Methods}{37}
-\contentsline {section}{\numberline {3.4}Piecewise Polynomial Approximations to \\ Generalized Harmonic Shape Functions}{44}
-\contentsline {section}{\numberline {3.5}Partition-Based Quadrature Rules}{48}
+\contentsline {section}{\numberline {3.4}Piecewise Polynomial Approximations to \\ Generalized Harmonic Shape Functions}{42}
+\contentsline {section}{\numberline {3.5}Partition-Based Quadrature Rules}{49}
 \contentsline {chapter}{\numberline {4}An Implementational Framework \\ for the DG-PEM}{56}
 \contentsline {section}{\numberline {4.1}Arbitrary Polytopal Meshes}{56}
 \contentsline {section}{\numberline {4.2}Element Partitioning Schemes}{61}

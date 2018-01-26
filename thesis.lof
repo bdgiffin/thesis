@@ -2,13 +2,13 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {2.1}{\ignorespaces A depiction of the motion of material points in a body $\Omega $.}}{16}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces A representative polyhedral element $\Omega \subset \mathbb {R}^3$, and it's corresponding sets of faces, edges, and nodes.}}{35}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces The harmonic shape function corresponding to a given node, defined hierarchially on each edge, face, and the element.}}{36}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces The finite element approximation to a given harmonic shape function, defined hierarchially on each edge, face, and the element.}}{40}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces A representative polyhedral element $\Omega \subset \mathbb {R}^3$, and it's corresponding partition into cells, facets, segments, and verticies.}}{45}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Polygonal element partitioning schemes, from left to right: edge-based partition, node-based partition, voronoi partition.}}{46}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces A representative polyhedral element $\Omega \subset \mathbb {R}^3$, a polygonal face $F \subset \partial \Omega $, a linear edge $E \subset \partial F$, and a node $V$.}}{35}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces The harmonic shape function corresponding to the indicated node $V$, defined hierarchially on each edge, face, and the element.}}{36}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces A representative polyhedral element $\Omega \subset \mathbb {R}^3$, and it's corresponding partition into cells, facets, segments, and verticies.}}{42}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Polygonal element partitioning schemes, from left to right: edge-based partition, node-based partition, random voronoi partition.}}{44}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces The FE-PEM approximation to a given harmonic shape function, defined hierarchially on the element's faces and edges.}}{45}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Canonical node numbering schemes for a linear tetrahedral element (left) and a linear hexahedral element (right).}}{57}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Canonical node numbering schemes for a linear tetrahedral element (left) and a linear hexahedral element (right). Each of these standard orderings induce corresponding nodal orderings for each triangular or quadrilateral face of the element, as well.}}{57}
 \contentsline {figure}{\numberline {4.2}{\ignorespaces Illustration of the data necessary to describe an arbitrary polyhedral element $\Omega _e$. The local node ID ordering for the face $F_1$ shown would be $\left \{ n_i \right \}_{i=1}^{5} = \left \{ 14, \tmspace +\thinmuskip {.1667em} 1, \tmspace +\thinmuskip {.1667em} 9, \tmspace +\thinmuskip {.1667em} 8, \tmspace +\thinmuskip {.1667em} 13 \right \}$.}}{58}
 \contentsline {figure}{\numberline {4.3}{\ignorespaces Illustration of the data necessary to describe a quadratic serendipity polyhedral element $\Omega _e$. The local node ID ordering for the face $F_1$ shown would be $\left \{ n_i \right \}_{i=1}^{10} = \left \{ 14, \tmspace +\thinmuskip {.1667em} 34, \tmspace +\thinmuskip {.1667em} 1, \tmspace +\thinmuskip {.1667em} 18, \tmspace +\thinmuskip {.1667em} 9, \tmspace +\thinmuskip {.1667em} 26, \tmspace +\thinmuskip {.1667em} 8, \tmspace +\thinmuskip {.1667em} 32, \tmspace +\thinmuskip {.1667em} 13, \tmspace +\thinmuskip {.1667em} 33 \right \}$.}}{59}
 \contentsline {figure}{\numberline {4.4}{\ignorespaces The resulting segment, facet, and cell decomposition for the proposed edge-based partitioning algorithm.}}{63}

@@ -1,36 +1,36 @@
 \chapter{An Implementational Framework \\ for the DG-PEM} \label{ch:implementation}
 %
-The implementation of a given partitioned element method must address two primary challenges: the subdivision of an element into cells, and the solution of shape function boundary value problems by way of the chosen PEM formulation. The first of these two tasks may be accomplished by various means. However, careful attention must be paid to the stability requirements of the PEM, such that the resulting quadrature cell partition yields a stable integration rule. Specifying such a discretization is not trivial for arbitrary shapes. For this reason, we will confine our attention to strictly star-convex elements, for which we propose a relatively simple element partitioning algorithm.
+The implementation of a given partitioned element method must address two primary challenges: the subdivision of an element into cells, and the solution of shape function boundary value problems by way of the chosen PEM formulation. The first of these two tasks may be accomplished by various means. However, careful attention must be paid to the stability requirements of the PEM, such that the resulting quadrature cell partition yields stable approximations to harmonic shape functions, and a stable integration rule for the element. Specifying such a discretization is not trivial for arbitrary shapes. For this reason, we will confine our attention to strictly star-convex elements, for which we propose a relatively simple (edge-based) element partitioning algorithm.
 
-The present implementational framework is directed at obtaining DG-PEM approximations to harmonic shape functions on arbitrary polytopes -- i.e. solving (\ref{eq:dg_poisson}) on an appropriately defined partition of the element. Some discussion is given regarding the data structures and solution methods necessary for obtaining these solutions on elements (and their faces, edges).
+The present implementational framework is directed at obtaining DG-PEM approximations to harmonic shape functions on arbitrary polytopes -- i.e. solving (\ref{eq:dg_poisson}) on an appropriately defined partition of the element. A discussion of the pertinent data structures and solution methods is provided.
 
 \section{Arbitrary Polytopal Meshes}
 
-	Traditional finite element methods typically only permit the elements to take the form of certain canonical shapes with fixed topology (most commonly tetrahedra or hexahedra). This yields several benefits with regard to the data and storage requirements necessary to represent a given element in a computational setting. Frequently, it suffices to describe the geometry of a canonical shape (such as a hexahedron) by providing a list of the element's nodal coordinates, along with an ordered sequence of the element's node IDs which fully determines its resulting topology (and its faces, edges) according to some conventional node numbering scheme (refer to Figure \ref{fig:canonical_orderings} as a representative example.)
+	Traditional finite element methods typically permit the elements to only take the form of certain canonical shapes with fixed topology (most commonly tetrahedra or hexahedra). This yields several benefits with regard to the data and storage requirements necessary to represent a given element in a computational setting. Frequently, it suffices to describe the geometry of a canonical shape (such as a hexahedron) by providing a list of the element's nodal coordinates, along with an ordered sequence of the element's nodal IDs, which fully determines its resulting topology according to some conventional node numbering scheme (refer to Figure \ref{fig:canonical_orderings} as a representative example.)
 	\begin{figure} [!ht]
 		\centering
 		\includegraphics[width = 4.0in]{figures/canonical_orderings.pdf}
-		\caption{Canonical node numbering schemes for a linear tetrahedral element (left) and a linear hexahedral element (right).}
+		\caption{Canonical node numbering schemes for a linear tetrahedral element (left) and a linear hexahedral element (right). Each of these standard orderings induce corresponding nodal orderings for each triangular or quadrilateral face of the element, as well.}
 		\label{fig:canonical_orderings}
 	\end{figure}
 	
-	Polytopal elements with arbitrary topology (with a variable number of nodes, edges, and faces) cannot be represented in this fashion. As a consequence, more descriptive data structures are necessary to fully determine a given element's nodal connectivity. A particular scheme to represent an arbitrary polyhedron in a finite element mesh is described in the following section.
+	Polytopal elements with arbitrary topology (with a variable number of nodes, edges, and faces) cannot be represented in this fashion. As a consequence, more descriptive data structures are necessary to fully determine a polytopal element's nodal connectivity. A particular scheme to represent an arbitrary polyhedron in a finite element mesh is described in the following section.
 
 \subsection*{Geometric Data Structures for Arbitrary Polytopes}
 
-	There are multiple ways in which the geometry of a given polyhedral element $\Omega$ may be represented within a finite element code. Ideally, however, the chosen data structure should be made as compact as possible, for the purposes of minimizing the storage requirements of a single element. This section describes a few basic data structures for storing arbitrary polgonal and polyhedral shapes within an unstructured finite element mesh.
+	There are multiple ways in which the geometry of a given polyhedral element $\Omega$ may be represented within a finite element code. Ideally, however, the chosen data structure should be made as compact as possible, for the sake of minimizing the storage requirements of a single element. This section describes a few basic data structures for storing arbitrary polygonal and polyhedral shapes within an unstructured finite element mesh.
 	
-	It is assumed that the mesh geometry for a finite element discretiztion of the model problem described in chapter \ref{ch:solid_mechanics} may be generically characterized by:
+	The geometric data used to describe a typical finite element mesh consists of the following:
 	\begin{itemize}
-		\item A list of all nodal coordinates $\left\{ \mathbf{X}_a \right\}_{a=1}^{N_V}$. The sub-index $a \in 1, \ldots, N_V$ induces a \textit{global node ID} ascribed to each node.
-		\item A list of all elements $\left\{ \Omega_{e} \right\}_{e = 1}^{N_\Omega}$ where $\Omega_{e} \subset \mathcal{B}_0$. The sub-index $e \in 1, \ldots, N_\Omega$ induces an associated \textit{element ID}.
-		\item A list of all faces $\left\{ F_{b} \right\}_{b = 1}^{N_F}$ where $F_{b} \subset \Gamma^N_0$ to which traction boundary conditions are assigned. Likewise, the sub-index $b \in 1, \ldots, N_F$ induces a \textit{boundary face ID}.
+		\item A list of the spatial coordinates $\left\{ \mathbf{X}_a \right\}_{a=1}^{N^{\mathcal{B}_0}_V}$ for all nodes in the mesh. The sub-index $a \in 1, \ldots, N^{\mathcal{B}_0}_V$ induces a \textit{global node ID} ascribed to each node.
+		\item A list of all elements $\left\{ \Omega_{e} \right\}_{e = 1}^{N^{\mathcal{B}_0}_\Omega}$ where $\Omega_{e} \subset \mathcal{B}_0$. The sub-index $e \in 1, \ldots, N^{\mathcal{B}_0}_\Omega$ induces an associated \textit{element ID}.
+		\item A list of all faces $\left\{ F_{b} \right\}_{b = 1}^{N^{\Gamma^N_0}_F}$ where $F_{b} \subset \Gamma^N_0$ to which traction boundary conditions are assigned. Likewise, the sub-index $b \in 1, \ldots, N^{\Gamma^N_0}_F$ induces a \textit{boundary face ID}.
 	\end{itemize}
 	
 	In a finite element mesh consisting of arbitrary polyhedral elements, it is suggested that each element $\Omega_e$ be represented by the following data:
 	\begin{itemize}
-		\item A list of the global node IDs $\left\{ a_i \right\}_{i=1}^{N^e_V}$ comprising the set of nodes belonging to $\Omega_e$. The sub-index $i \in 1, \ldots, N^e_V$ induces a \textit{local node ID}, particular to the element $\Omega_e$.
-		\item A list of the polygonal faces $\left\{ F_{j} \right\}_{j=1}^{N^e_F}$ which belong to $\partial \Omega_e$; each polygonal face $F_j$ is in turn represented by a cycle of local node IDs denoted $\left\{ n_i \right\}_{i=1}^{N^j_V}$, which further determine each face's outward orientation with respect to the element $\Omega_e$.
+		\item A list of the global node IDs $\left\{ a_i \right\}_{i=1}^{N^{\Omega_e}_V}$ comprising the set of nodes belonging to $\Omega_e$. The sub-index $i \in 1, \ldots, N^{\Omega_e}_V$ induces a \textit{local node ID}, particular to the element $\Omega_e$.
+		\item A list of the polygonal faces $\left\{ F_{j} \right\}_{j=1}^{N^{\Omega_e}_F}$ which belong to $\partial \Omega_e$; each polygonal face $F_j$ is in turn represented by a cycle of local node IDs denoted $\left\{ n_i \right\}_{i=1}^{N^{F_j}_V}$, which further determine each face's outward orientation with respect to the element $\Omega_e$.
 	\end{itemize}
 	An illustration of this collection of data for a given polyhedron $\Omega_e$ is provided in Figure \ref{fig:polyhedron_data}.
 	\begin{figure} [!ht]
@@ -42,8 +42,8 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 	
 	A given polygonal face $F_b \subset \Gamma^N_0$ will similarly be represented by:
 	\begin{itemize}
-		\item A list of the global node IDs $\left\{ a_i \right\}_{i=1}^{N^b_V}$ which belong to $F_b$.
-		\item A list of the linear edges $\left\{ E_{c} \right\}_{c=1}^{N^b_E}$ which belong to $\partial F_b$; each linear edge $E_c$ is in turn represented as an ordered list of local node IDs $\left\{ n_i \right\}_{i=1}^{N^c_V}$.
+		\item A list of the global node IDs $\left\{ a_i \right\}_{i=1}^{N^{F_b}_V}$ which belong to $F_b$.
+		\item A list of the linear edges $\left\{ E_{c} \right\}_{c=1}^{N^{F_b}_E}$ which belong to $\partial F_b$; each linear edge $E_c$ is in turn represented as an ordered list of local node IDs $\left\{ n_i \right\}_{i=1}^{N^{E_c}_V}$.
 	\end{itemize}
 	
 	Unlike canonical finite element shapes, the ordering of the element's nodal IDs is effectively arbitrary, and does not induce a topology. Rather, the element's topology is determined by virtue of its polygonal faces, and their respective (conventionally clockwise) local node orderings. Consequently, each edge of a given polyhedron is defined implicitly as the intersection of two adjacent faces' ordered node sets. Such a scheme may be easily generalized to accomodate serendipity elements containing additional nodes along element edges, as illustrated in Figure \ref{fig:polyhedron_data_quadratic}.
@@ -60,7 +60,7 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 	\begin{itemize}
 		\item A list of quadrature weights $\left\{ w_q \right\}_{q=1}^{N^{\Omega_e}_{qp}}$ associated with the quadrature points of the element. The sub-index $q$ induces a local \textit{quadrature point ID}.
 		\item Evaluations of the element's nodal shape functions $\left\{ \varphi_a (\mathbf{X}_q) \right\}_{q=1}^{N^{\Omega_e}_{qp}} \, \, \forall a = 1, \ldots, N^{\Omega_e}_V$ at each quadrature point location $\mathbf{X}_q$.
-		\item Gradients (with respect to the element's reference coordinates $\mathbf{X}$ at $t = 0$) of the element's nodal shape functions $\left\{ \nabla_X \varphi_a (\mathbf{X}_q) \right\}_{q=1}^{N^{\Omega_e}_{qp}} \, \, \forall a = 1, \ldots, N^{\Omega_e}_V$.
+		\item Gradients (with respect to the element's reference coordinates $\mathbf{X}$ at time $t = 0$) of the element's nodal shape functions $\left\{ \nabla_X \varphi_a (\mathbf{X}_q) \right\}_{q=1}^{N^{\Omega_e}_{qp}} \, \, \forall a = 1, \ldots, N^{\Omega_e}_V$.
 		\item (Optionally) if the element relies upon some form of gradient correction scheme (or more generally, if a Petrov-Galerkin method is employed): evaluations and/or gradients of the element's test functions $\left\{ \phi_a (\mathbf{X}_q), \, \nabla_X \phi_a (\mathbf{X}_q) \right\}_{q=1}^{N^{\Omega_e}_{qp}} \, \, \forall a = 1, \ldots, N^{\Omega_e}_V$ must be stored, as well.
 	\end{itemize}
 	For solid mechanics applications, material state data (e.g. material properties, internal variables, Cauchy stress) would also need to be stored at each quadrature point location.
@@ -90,7 +90,7 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 	
 \section{Element Partitioning Schemes}
 
-	The process of obtaining a suitable partition for a given element constitutes the greatest challenge facing partitioned element methods. The primary complication arises from the conditions of stability: the shape function approximations, and the corresponding quadrature rules defined on the element's partition must guarantee a sufficiently stable integration of the weak form. For relatively simple shapes, a number of stable partitioning schemes exist. However, for arbitrary shapes, it becomes difficult -- if not impossible -- for a heuristically-driven discretization scheme to guarantee that a the resulting partition will satisfy the aforementioned stabilily requirements.
+	The process of obtaining a suitable partition for a given element constitutes the greatest challenge facing partitioned element methods. The primary complication arises from the conditions of stability: the shape function approximations, and the corresponding quadrature rules defined on the element's partition must guarantee a sufficiently stable integration of the weak form. For relatively simple shapes, a number of stable partitioning schemes exist. However, for arbitrary shapes, it becomes difficult -- if not impossible -- for a heuristically-driven discretization scheme to guarantee that the resulting partition will satisfy the aforementioned stabilily requirements.
 
 	For this reason, we will limit our subsequent discussion to star-convex element geometries. For such shapes, a relatively simple partitioning scheme is suggested, resembling the decomposition used in the edge-based smoothed finite element method. In the absence of degenerate features, the resulting partition is verified to provide sufficiently stable shape function approximations and quadrature rules.
 
@@ -103,7 +103,7 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 		\bar{\mathbf{X}}^{\Omega}_0 = \frac{1}{N^{\Omega}_V} \sum_{i = 1}^{N^{\Omega}_V} \mathbf{X}_{i}, \quad \text{and} \quad \bar{\mathbf{X}}^{F_j}_0 = \frac{1}{N^{F_j}_V} \sum_{i = 1}^{N^{F_j}_V} \mathbf{X}_{i}.
 	\end{equation}
 	
-	For a given polyhedral element $\Omega_e$, the algorithm proceeds in several steps:
+	For a given polyhedral element $\Omega$, the algorithm proceeds in several steps:
 	\begin{itemize}
 		\item[1.)] Identify all edges of the polyhedron, and subdivide them into linear segements; each segment should join two adjacent nodes of a given edge.
 		\item[2.)] For each face, compute its vertex-averaged centroid $\bar{\mathbf{X}}^{F_j}_0$, and subdivide the face into triangular facets which emanate from $\bar{\mathbf{X}}^{F_j}_0$; each facet should share at most two segments (at least one segment) with $\partial F_j$.
@@ -128,11 +128,11 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 
 \section{Abstract Geometric Data Structures}
 
-	Because partitioned element methods consist of solving a set of 1D, 2D, and 3D problems on each edge, face, and element, there arise a number of similarities between these problems of variable dimension. Namely, the geometric data describing each cell, facet, segment and vertex may be abstracted through the use of generic parent-child (tree-based) data structures. Instead of requiring a separate implementation for the solution of each 1D, 2D, 3D problem, the use of generic programming paradigms are exploited to facilitate a single, unified implementation which is agnostic to the dimensionality of the problem being solved. A number of definitions for the abstract data structures used henceforth are given in the following sections.
+	Because partitioned element methods consist of solving a set of 1D, 2D, and 3D problems on each edge, face, and element, there arise a number of similarities between these problems of variable dimension. Namely, the geometric data describing each cell, facet, segment and vertex may be abstracted through the use of generic parent-child (tree-based) data structures. Instead of requiring a separate implementation for the solution of each 1D, 2D, 3D problem, generic programming paradigms are exploited to facilitate a single, unified implementation which is agnostic to the dimensionality of the problem being solved. A number of definitions for the abstract data structures used henceforth are given in the following sections.
 	
 \subsection*{Geometric Entities}
 
-	\textit{Entities} are defined as the atomic units of the element's geometric partition. An entity may be: a polyhedral cell, a polygonal facet, a linear segment, or a vertex. Entities are defined in terms of their topology -- their relationship to other geometric entities. Specifically, a $3-$dimensional entity (a polyhedral cell $\omega$) is uniquely defined in terms of its $2$-dimensional facets $\sigma \subset \partial \omega$ (termed the ``children'' of $\omega$). Each facet $\sigma$ is in turn considered a $2$-dimensional entity, defined in terms of its $1$-dimensional children (its bounding segements $\gamma \subset \partial \sigma$). An entity of dimension $0$ (a vertex) is identified as having no children.
+	\textit{Geometric entities} (or simply \textit{entities}) are defined as the atomic units of the element's geometric partition. An entity may be: a polyhedral cell, a polygonal facet, a linear segment, or a vertex. Entities are defined in terms of their relationship to other geometric entities. Specifically, a $3-$dimensional entity (a polyhedral cell $\omega$) is uniquely defined in terms of its $2$-dimensional facets $\sigma \subset \partial \omega$ (termed the ``children'' of $\omega$). Each facet $\sigma$ is in turn considered a $2$-dimensional entity, defined in terms of its $1$-dimensional children (its bounding segements $\gamma \subset \partial \sigma$). An entity of dimension $0$ (a vertex) is identified as having no children.
 	
 	Each geometric entity may be viewed as a ``node'' in a corresponding tree diagram, as illustrated in Figure \ref{fig:entity_tree}, where the height of a given entity within the tree structure indicates its dimensionality $d$.
 	\begin{figure} [!ht]
@@ -144,19 +144,19 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 	
 	Henceforth, we denote by $\varepsilon$ any generic $d-$dimensional entity, and by $\zeta$ any $(d-1)$-dimensional child of $\varepsilon$ (such that $\zeta \subset \partial \varepsilon$). The data stored on a given entity $\varepsilon$ consists of:
 	\begin{itemize}
-		\item Information (pointers or IDs) refering to the $(d-1)$-dimensional children of $\varepsilon$, and/or information (pointers or IDs) refering to the $(d+1)$-dimensional parents of $\varepsilon$.
-		\item An optional orientation/unit direction $\mathbf{N}_\varepsilon$.
-		\item A quadrature rule $\left\{ \mathbf{X}_q, w_q \right\}_{q=1}^{N^{\varepsilon}_{qp}}$ defined on $\varepsilon$, or pre-computed monomial integrals $\int_{\varepsilon} \mathbf{X}^\alpha \, d \varepsilon$ for all $|\alpha| \leq k$ (alternatively, the shifted monomial moments $\int_{\varepsilon} (\mathbf{X}-\mathbf{X}_{\varepsilon})^\alpha \, d \varepsilon$ may be stored, instead.)
-		\item A list of the basis function IDs which are associated with $\varepsilon$.
+		\item Information (pointers or entity IDs) refering to the $(d-1)$-dimensional children of $\varepsilon$, and/or information (pointers or entity IDs) refering to the $(d+1)$-dimensional parents of $\varepsilon$.
+		\item An (optional) orientation/unit direction $\mathbf{N}_\varepsilon$.
+		\item A quadrature rule $\left\{ \mathbf{X}_q, w_q \right\}_{q=1}^{N^{\varepsilon}_{qp}}$ defined on $\varepsilon$, or pre-computed monomial integrals $\int_{\varepsilon} \mathbf{X}^\alpha \, d \varepsilon$ for all $|\alpha| \leq k$ (alternatively, the shifted monomial moments $\int_{\varepsilon} (\mathbf{X}-\mathbf{X}_{\varepsilon})^\alpha \, d \varepsilon$ may be computed and stored, instead.)
+		\item A list of the DG-PEM basis function IDs which are associated with $\varepsilon$.
 	\end{itemize}
 	
 	The advantage of defining entities in this fashion is that it affords greater flexibility in solving the DG-PEM problem (\ref{eq:dg_poisson}) on elements with arbitrary dimensionality.
 	
 \subsection*{Sub-Elements}
 
-	Herein, a \textit{sub-element} (generically denoted as $\mathcal{E}$) is defined as a $d-$dimensional polytope (a polyhedral element, a polygonal face, a linear edge, or a node) upon which nodal shape functions are locally constructed and defined. Sub-elements consist of a partition $\mathcal{T}_{\varepsilon} (\mathcal{E})$ of $\mathcal{E}$ into $d-$dimensional entities $\varepsilon$. The boundary of each sub-element $\mathcal{E}$ is comprised of $(d-1)-$dimensional sub-elements, denoted $e \subset \partial \mathcal{E}$ (termed the ``children'' of $\mathcal{E}$, in analog to the definition for geometric entities). A sub-element of dimension $0$ (a node) refers to a single vertex, and possesses no children.
+	Herein, a \textit{sub-element} (generically denoted as $\mathcal{E}$) is defined as a $d-$dimensional polytope (a polyhedral element, a polygonal face, a linear edge, or a node) upon which nodal shape functions are locally constructed and defined as the solution to a $d-$dimensional boundary value problem. Sub-elements consist of a partition $\mathcal{T}_{\varepsilon} (\mathcal{E})$ of $\mathcal{E}$ into $d-$dimensional entities $\varepsilon$. The boundary of each sub-element $\mathcal{E}$ is comprised of $(d-1)-$dimensional sub-elements, denoted $e \subset \partial \mathcal{E}$ (called the ``children'' of $\mathcal{E}$, in analog to the terminology used for geometric entities). A sub-element of dimension $0$ (a node) refers to a single vertex, and possesses no children.
 	
-	As a representative example, consider the face $F \subset \partial \Omega$ shown in Figure \ref{fig:sub_element}, which is classified as a $2-$dimensional sub-element, whose partition $\mathcal{T}_\sigma (F)$ consists of $2-$dimensional facets $\sigma \subset F$. The boundary/children of $F$ are comprised of $1-$dimensional sub-elements (edges $E \subset \partial F$); in turn, the children of each edge $E$ are the nodes of the element. As with geometric entities, the parent-child relationships between different sub-elements induces a tree-like data stucture, where the height of a given sub-element within the tree corresponds to its dimensionality $d$.
+	As a representative example, consider the face $F \subset \partial \Omega$ shown in Figure \ref{fig:sub_element}, which is classified as a $2-$dimensional sub-element, whose partition $\mathcal{T}_\sigma (F)$ consists of $2-$dimensional facets $\sigma \subset F$. The children of $F$ are comprised of $1-$dimensional sub-elements -- edges $E \subset \partial F$; in turn, the children of each edge $E$ are the nodes of the element. As with geometric entities, the parent-child relationships between different sub-elements induces a tree-like data stucture, where the height of a given sub-element within the tree corresponds to its dimensionality $d$.
 	\begin{figure} [!ht]
 		\centering
 		\includegraphics[width = 6.0in]{figures/sub_element.pdf}
@@ -166,29 +166,32 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 	
 	The data stored for a given sub-element $\mathcal{E}$ consists of:
 	\begin{itemize}
-		\item Information (pointers or IDs) refering to the $(d-1)$-dimensional entities $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$ belonging to the partition of $\mathcal{E}$.
-		\item Information (pointers or IDs) refering to the $(d-1)$-dimensional children of $\mathcal{E}$ (the sub-elements $e \subset \partial \mathcal{E}$ which constitute the boundary of $\mathcal{E}$).
-		\item A list of the basis function IDs which are associated with all entities $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$.
+		\item Information (pointers or entity IDs) refering to the $d$-dimensional entities $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$ belonging to the partition of $\mathcal{E}$.
+		\item Information (pointers or sub-element IDs) refering to the $(d-1)$-dimensional children of $\mathcal{E}$ (the sub-elements $e \subset \partial \mathcal{E}$ which constitute the boundary of $\mathcal{E}$).
+		\item A list of the DG-PEM basis function IDs which are defined on $\mathcal{T}_\varepsilon (\mathcal{E})$.
 	\end{itemize}
+	
+	A more through discussion is dedicated to the subject of DG-PEM basis functions in the following section.
 	
 \section{Partition-Based Approximation Spaces}
 
 		As discussed in chapter \ref{ch:pem}, partitioned element methods consider a weak formulation of a given PDE (e.g. Laplace's equation), whose solution is approximated through the specification of a finite dimensional function space $\mathcal{U}^h (\mathcal{E})$ defined on the partition $\mathcal{T}_{\varepsilon} (\mathcal{E})$ of a given sub-element $\mathcal{E}$. The (sub-)element's shape functions are selected as the ``best approximations'' to (harmonic) functions which are contained within the chosen approximation space $\mathcal{U}^h (\mathcal{E})$.
 		
-		Herein, we consider $\mathcal{U}^h (\mathcal{E})$ to be spanned by a set of basis functions $\left\{ \psi_A \right\}_{A=1}^{N_{bf}}$, such that each basis function $\psi \in \mathcal{U}^h (\mathcal{E})$ is compactly supported over a given geometric entity $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$ (or patch of entities).
+		Herein, we consider $\mathcal{U}^h (\mathcal{E})$ to be spanned by a set of basis functions $\left\{ \psi_A \right\}_{A=1}^{N^{\mathcal{E}}_{bf}}$, such that each basis function $\psi \in \mathcal{U}^h (\mathcal{E})$ is compactly supported over a given geometric entity $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$ (or patch of entities).
 		
 		Any function $\varphi^h \in \mathcal{U}^h (\mathcal{E})$ may be written as a linear combination of the basis functions which span $\mathcal{U}^h (\mathcal{E})$, i.e.
 		\begin{equation}
-			\varphi^h (\mathbf{X}) = \sum_{A=1}^{N_{bf}} \psi_A (\mathbf{X}) \, \varphi_A.
+			\varphi^h (\mathbf{X}) = \sum_{A=1}^{N^{\mathcal{E}}_{bf}} \psi_A (\mathbf{X}) \, \varphi_A \quad \forall \mathbf{X} \in \mathcal{E}.
 		\end{equation}
-		The restriction of $\varphi^h$ to a given geometric entity $\varepsilon$ may be written in terms of only those basis functions $\left\{ \psi^\varepsilon_a \right\}_{a=1}^{N^\varepsilon_{bf}}$ which possess compact support over $\varepsilon$, such that
+		The restriction of $\varphi^h$ to a given geometric entity $\varepsilon$ may be written in terms of only those basis functions $\left\{ \psi_{A^\varepsilon_a} \right\}_{a=1}^{N^\varepsilon_{bf}}$ which possess compact support over $\varepsilon$, such that
 		\begin{equation}
-			\varphi^h|_\varepsilon (\mathbf{X}) = \sum_{a=1}^{N^\varepsilon_{bf}} \psi^\varepsilon_a (\mathbf{X}) \, \varphi_a.
+			\varphi^h|_\varepsilon (\mathbf{X}) = \sum_{a=1}^{N^\varepsilon_{bf}} \psi_{A^\varepsilon_a} (\mathbf{X}) \, \varphi_{A^\varepsilon_a} \quad \forall \mathbf{X} \in \varepsilon,
 		\end{equation}
+		where $\left\{ A^\varepsilon_a \right\}_{a=1}^{N^\varepsilon_{bf}}$ denotes the IDs of all basis function which are supported over $\varepsilon$.
 		
-		To guarantee $P^k (\mathcal{E}) \subset \mathcal{U}^h (\mathcal{E})$ for some desired degree of polynomial completeness $k$, it is necessary for a given entity's local basis $\left\{ \psi^\varepsilon_a \right\}_{a=1}^{N^\varepsilon_{bf}}$ to span $P^k (\varepsilon)$. Arguably the simplest such basis consists of the monomials through order $k$ defined on each entity $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$. However, the use of monomial bases can lead to ill-conditioning of the DG-PEM problem, particularly as the maximal polynomial degree $k$ is increased. For this reason, other (well-scaled) polynomial bases are reccomended (e.g. the Lagrange polynomials defined on a given entity).
+		To guarantee $P^k (\mathcal{E}) \subset \mathcal{U}^h (\mathcal{E})$ for some desired degree of polynomial completeness $k$, it is necessary for a given entity's local basis $\left\{ \psi_{A^\varepsilon_a} \right\}_{a=1}^{N^\varepsilon_{bf}}$ to span $P^k (\varepsilon)$. Arguably the simplest such basis consists of the monomials through order $k$ defined on each entity $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$. However, the use of monomial bases can lead to ill-conditioning of the DG-PEM problem, particularly as the maximal polynomial degree $k$ is increased. For this reason, other (well-scaled) polynomial bases are reccomended (e.g. the Lagrange polynomials defined on a given entity).
 		
-		Regardless of the chosen basis, each basis function $\psi (\mathbf{X})$ may be expressed as a low-order polynomial (of maximal degree $k$), and can be represented as a linear combination of (possibly shifted) monomials:
+		Regardless of the chosen basis, each basis function $\psi (\mathbf{X})$ may be expressed as a low-order polynomial (of maximal degree $k$) via a linear combination of (possibly shifted) monomials:
 		\begin{equation}
 			\psi (\mathbf{X}) = \sum_{|\alpha| \leq k} c_\alpha (\mathbf{X}-\mathbf{X}_0)^{\alpha},
 		\end{equation}
@@ -208,7 +211,7 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 
 	Specifically, each $d$-dimensional entity $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$ contributes the following local arrays:
 	\begin{equation}
-			J^{\varepsilon}_{ab} = \int_{\varepsilon} \nabla \psi_a^{\varepsilon} \, \cdot \nabla \psi_b^{\varepsilon} \, d \varepsilon, \quad \forall a, \, b = 1, \ldots, N^{\varepsilon}_{bf},
+			J^{\varepsilon}_{ab} = \int_{\varepsilon} \nabla \psi_{A^{\varepsilon}_a} \, \cdot \nabla \psi_{A^{\varepsilon}_b} \, d \varepsilon, \quad \forall a, \, b = 1, \ldots, N^{\varepsilon}_{bf},
 	\end{equation}
 	\begin{equation}
 			F^{\varepsilon}_b = \int_{\varepsilon} f_{\mathcal{E}} \, \psi_b^{\varepsilon} \, d \varepsilon \quad \forall b = 1, \ldots, N^{\varepsilon}_{bf},
