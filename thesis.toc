@@ -24,14 +24,14 @@
 \contentsline {section}{\numberline {4.2}Element Partitioning Schemes}{61}
 \contentsline {section}{\numberline {4.3}Abstract Geometric Data Structures}{63}
 \contentsline {section}{\numberline {4.4}Partition-Based Approximation Spaces}{66}
-\contentsline {section}{\numberline {4.5}Linearization and Assembly of the \\ DG-PEM Systems of Equations}{67}
-\contentsline {section}{\numberline {4.6}Numerical Conditioning of the \\ DG-PEM Systems of Equations}{71}
-\contentsline {subsection}{\numberline {4.6.1}The Effect of Element Scaling}{79}
-\contentsline {subsection}{\numberline {4.6.2}On the Choice of an Appropriate PEM Basis}{79}
-\contentsline {chapter}{\numberline {5}A Numerical Evaluation of the PEM}{80}
-\contentsline {section}{\numberline {5.1}Convergence Analysis}{80}
-\contentsline {section}{\numberline {5.2}Parameter Sensitivity Analysis}{85}
-\contentsline {section}{\numberline {5.3}Computational Efficiency}{85}
-\contentsline {subsection}{\numberline {5.3.1}Performance Comparison}{85}
-\contentsline {section}{\numberline {5.4}Resistance to Locking Phenomena}{85}
-\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{89}
+\contentsline {section}{\numberline {4.5}Linearization and Assembly of the \\ DG-PEM Systems of Equations}{68}
+\contentsline {section}{\numberline {4.6}Numerical Conditioning of the \\ DG-PEM Systems of Equations}{72}
+\contentsline {subsection}{\numberline {4.6.1}The Effect of Element Scaling}{80}
+\contentsline {subsection}{\numberline {4.6.2}On the Choice of an Appropriate PEM Basis}{80}
+\contentsline {chapter}{\numberline {5}A Numerical Evaluation of the PEM}{81}
+\contentsline {section}{\numberline {5.1}Convergence Analysis}{81}
+\contentsline {section}{\numberline {5.2}Parameter Sensitivity Analysis}{86}
+\contentsline {section}{\numberline {5.3}Computational Efficiency}{86}
+\contentsline {subsection}{\numberline {5.3.1}Performance Comparison}{86}
+\contentsline {section}{\numberline {5.4}Resistance to Locking Phenomena}{86}
+\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{90}

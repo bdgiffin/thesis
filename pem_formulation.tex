@@ -337,9 +337,9 @@ Herein we propose a novel alternative approach based upon the interior penalty d
 
 \subsection*{Discontinuous Galerkin Approximations to \\ Generalized Harmonic Shape Functions}
 
-	Consider the broken Sobolev space $\mathcal{D}^h_k (\Omega) = \left\{ \varphi \in L^2 (\Omega) : \varphi|_{\omega} \in P^k (\omega) \, \forall \omega \in \mathcal{T}_\omega (\Omega) \right\}$ consisting of (discontinuous) piecewise polynomials defined over the partition of the element. The symmetric interior penalty discontinuous Galerkin method (SIPG) described in \cite{Riviere:08} is applied to (\ref{eq:weak_bvp}) to obtain approximations $\varphi^h \in \mathcal{D}^h_k (\Omega) \not\subset \mathcal{U} (\Omega)$ to generalized harmonic shape functions $\varphi \in \mathcal{U} (\Omega)$, satisfying
+	Consider the broken Sobolev space $\mathcal{D}^h_k (\Omega) = \left\{ \varphi \in L^2 (\Omega) : \varphi|_{\omega} \in P^k (\omega) \, \forall \omega \in \mathcal{T}_\omega (\Omega) \right\}$ consisting of (discontinuous) piecewise polynomials defined over the partition of the element. The interior penalty discontinuous Galerkin method described in \cite{Riviere:08} is applied to (\ref{eq:weak_bvp}) to obtain approximations $\varphi^h \in \mathcal{D}^h_k (\Omega) \not\subset \mathcal{U} (\Omega)$ to generalized harmonic shape functions $\varphi \in \mathcal{U} (\Omega)$, satisfying
 	\begin{eqnarray}
-		\sum_{\omega \in \mathcal{T}_\omega (\Omega)} \int_{\omega} \nabla \varphi^h \cdot \nabla \eta^h \, dV - \sum_{\sigma \in \Gamma_\omega \cup \partial \Omega} \int_{\sigma} \bigg( \left\{ \frac{\partial \varphi^h}{\partial N_{\sigma}} \right\} [\![ \eta^h ]\!] + [\![ \varphi^h ]\!] \left\{ \frac{\partial \eta^h}{\partial N_{\sigma}} \right\}  \bigg) \, dA \nonumber \\ + J_0 (\varphi^h,\eta^h) + J_1 (\varphi^h,\eta^h) = \int_{\Omega} f_{\Omega} \, \eta^h \, dV + \sum_{\sigma \in \partial \Omega} \int_{\sigma} \left(\frac{\alpha_{\sigma0}}{|\sigma|^{\beta_0}} \eta^h - \frac{\partial \eta^h}{\partial N_{\sigma}} \right) \bar{\varphi} \, dA
+		\sum_{\omega \in \mathcal{T}_\omega (\Omega)} \int_{\omega} \nabla \varphi^h \cdot \nabla \eta^h \, dV + \sum_{\sigma \in \Gamma_\omega \cup \partial \Omega} \int_{\sigma} \bigg( \epsilon \left\{ \frac{\partial \varphi^h}{\partial N_{\sigma}} \right\} [\![ \eta^h ]\!] - [\![ \varphi^h ]\!] \left\{ \frac{\partial \eta^h}{\partial N_{\sigma}} \right\}  \bigg) \, dA \nonumber \\ + J_0 (\varphi^h,\eta^h) + J_1 (\varphi^h,\eta^h) = \int_{\Omega} f_{\Omega} \, \eta^h \, dV + \sum_{\sigma \in \partial \Omega} \int_{\sigma} \left(\frac{\alpha_{\sigma0}}{|\sigma|^{\beta_0}} \eta^h + \epsilon \frac{\partial \eta^h}{\partial N_{\sigma}} \right) \bar{\varphi} \, dA
 		\label{eq:dg_poisson}
 	\end{eqnarray}
 	for all $\eta^h \in \mathcal{D}^h_k (\Omega)$, where
@@ -356,7 +356,12 @@ Herein we propose a novel alternative approach based upon the interior penalty d
 	\begin{equation}
 		J_1 (\varphi^h,\eta^h) = \sum_{\sigma \in \Gamma_\omega} \frac{\alpha_{\sigma1}}{|\sigma|^{\beta_1}} \int_{\sigma} \left[\!\!\left[ \frac{\partial \varphi^h}{\partial N_{\sigma}} \right]\!\!\right] \, \left[\!\!\left[ \frac{\partial \eta^h}{\partial N_{\sigma}} \right]\!\!\right] \, dA.
 	\end{equation}
-	$J_0 (\varphi^h,\eta^h)$ and $J_1 (\varphi^h,\eta^h)$ are supplementary bilinear forms which penalize jumps in the indicated functions' values and their normal derivatives at cell boundaries. The parameters $\alpha_{\sigma0}$, $\beta_0$, must be appropriately specified such that $\alpha_{\sigma0} > 0$ is sufficiently large, and $\beta_0 (d-1) \geq 1$ where $\Omega \subset \mathbb{R}^d$, $d \geq 2$; the specification of $\alpha_{\sigma1}$, $\beta_1$ is less strict, allowing for $\alpha_{\sigma1} \geq 0 \, \, \forall \sigma$.
+	$J_0 (\varphi^h,\eta^h)$ and $J_1 (\varphi^h,\eta^h)$ are supplementary bilinear forms which penalize jumps in the indicated functions' values and their normal derivatives at cell boundaries. The parameters $\alpha_{\sigma0}$, $\beta_0$, must be appropriately specified such that $\alpha_{\sigma0} > 0$ is sufficiently large, and $\beta_0 (d-1) \geq 1$ where $\Omega \subset \mathbb{R}^d$, $d \geq 2$; the specification of $\alpha_{\sigma1}$, $\beta_1$ is less strict, allowing for $\alpha_{\sigma1} \geq 0 \, \, \forall \sigma$. The parameter $\epsilon \in \left\{ -1, \, 0, \, +1 \right\}$ determines which interior penalty method is employed:
+	\begin{itemize}
+		\item[] $\epsilon = -1$: The symmetric interior penalty Galerkin (SIPG) method.
+		\item[] $\epsilon = 0$: The incomplete interior penalty Galerkin (IIPG) method.
+		\item[] $\epsilon = +1$: The nonsymmetric interior penalty Galerkin (NIPG) method.
+	\end{itemize}
 	
 	If one considers a non-dimensional analysis where $\mathbf{X} = h_\Omega \mathbf{X}'$, and $h_\Omega$ denotes a characteristic length scale corresponding to the diameter of the element $\Omega$, the following quantities may be expressed in terms of their non-dimensional counterparts:
     \begin{equation}
@@ -364,8 +369,8 @@ Herein we propose a novel alternative approach based upon the interior penalty d
     \end{equation}
     It is presumed that $\alpha_{\sigma0}$, $\alpha_{\sigma1}$ are defined independently of $h_\Omega$. Consequently,
     \begin{align}
-		h_\Omega^{d-2} & \left[ \sum_{\omega' \in \mathcal{T}_{\omega'} (\Omega')} \int_{\omega'} \nabla' \varphi^h \cdot \nabla' \eta^h \, dV' - \int_{\Omega'} f_{\Omega'} \, \eta^h \, dV' + \sum_{\sigma' \in \partial \Omega'} \int_{\sigma'} \frac{\partial \eta^h}{\partial N_{\sigma'}} \, \bar{\varphi} \, dA' \right. \nonumber \\ 
-		& \left. - \sum_{\sigma' \in \Gamma_{\omega'} \cup \partial \Omega'} \int_{\sigma'} \bigg( \left\{ \frac{\partial \varphi^h}{\partial N_{\sigma'}} \right\} [\![ \eta^h ]\!] + [\![ \varphi^h ]\!] \left\{ \frac{\partial \eta^h}{\partial N_{\sigma'}} \right\}  \bigg) \, dA' \right] \nonumber \\ 
+		h_\Omega^{d-2} & \left[ \sum_{\omega' \in \mathcal{T}_{\omega'} (\Omega')} \int_{\omega'} \nabla' \varphi^h \cdot \nabla' \eta^h \, dV' - \int_{\Omega'} f_{\Omega'} \, \eta^h \, dV' - \sum_{\sigma' \in \partial \Omega'} \int_{\sigma'} \epsilon \frac{\partial \eta^h}{\partial N_{\sigma'}} \, \bar{\varphi} \, dA' \right. \nonumber \\ 
+		& \left. + \sum_{\sigma' \in \Gamma_{\omega'} \cup \partial \Omega'} \int_{\sigma'} \bigg( \epsilon \left\{ \frac{\partial \varphi^h}{\partial N_{\sigma'}} \right\} [\![ \eta^h ]\!] - [\![ \varphi^h ]\!] \left\{ \frac{\partial \eta^h}{\partial N_{\sigma'}} \right\}  \bigg) \, dA' \right] \nonumber \\ 
 		+ \, h_\Omega^{(d-1)(1-\beta_0)} & \left[ \sum_{\sigma' \in \Gamma_{\omega'} \cup \partial \Omega'} \frac{\alpha_{\sigma0}}{|\sigma'|^{\beta_0}} \int_{\sigma'} [\![ \varphi^h ]\!] \, [\![ \eta^h ]\!] \, dA' - \sum_{\sigma' \in \partial \Omega'} \frac{\alpha_{\sigma0}}{|\sigma'|^{\beta_0}} \int_{\sigma'} \eta^h \, \bar{\varphi} \, dA' \right] \nonumber \\ 
 		+ \, h_\Omega^{(d-1)(1-\beta_1)-2} & \left[ \sum_{\sigma' \in \Gamma_{\omega'}} \frac{\alpha_{\sigma1}}{|\sigma'|^{\beta_1}} \int_{\sigma'} \left[\!\!\left[ \frac{\partial \varphi^h}{\partial N_{\sigma'}} \right]\!\!\right] \, \left[\!\!\left[ \frac{\partial \eta^h}{\partial N_{\sigma'}} \right]\!\!\right] \, dA' \right] = 0 \quad \forall \eta^h \in \mathcal{D}^h_k (\Omega). 
 		\label{eq:dg_nondim}

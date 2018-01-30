@@ -27,6 +27,12 @@ Ivo Babu{\u{s}}ka and Manil Suri.
 \newblock On locking and robustness in the finite element method.
 \newblock {\em SIAM Journal on Numerical Analysis}, 29(5):1261--1293, 1992.
 
+\bibitem{Bassi:12}
+F.~Bassi, L.~Botti, A.~Colombo, D.A.~Di Pietro, and P.~Tesini.
+\newblock On the flexibility of agglomeration based physical space
+  discontinuous galerkin discretizations.
+\newblock {\em Journal of Computational Physics}, 231(1):45 -- 65, 2012.
+
 \bibitem{Bishop:14}
 J.~E. Bishop.
 \newblock A displacement-based finite element formulation for general polyhedra
@@ -73,6 +79,12 @@ Zhong ci~Shi.
 \newblock The f-e-m-test for convergence of nonconforming finite elements.
 \newblock {\em Mathematics of Computation}, 49(180):391--405, 1987.
 
+\bibitem{Cicuttin:17}
+M.~Cicuttin, D.A.~Di Pietro, and A.~Ern.
+\newblock Implementation of discontinuous skeletal methods on
+  arbitrary-dimensional, polytopal meshes using generic programming.
+\newblock {\em Journal of Computational and Applied Mathematics}, 2017.
+
 \bibitem{Veiga:13}
 L.~Beir{\~{a}}o da~Veiga, F.~Brezzi, A.~Cangiani, G.~Manzini, L.~D. Marini, and
   A.~Russo.
@@ -100,6 +112,13 @@ C.~R. Dohrmann and M.~M. Rashid.
   geometries.
 \newblock {\em International Journal for Numerical Methods in Engineering},
   53:945--958, 2002.
+
+\bibitem{Dunavant:85}
+D.~A. Dunavant.
+\newblock High degree efficient symmetrical gaussian quadrature rules for the
+  triangle.
+\newblock {\em International Journal for Numerical Methods in Engineering},
+  21(6):1129--1148, 1985.
 
 \bibitem{Ebeida:11}
 Mohamed~S. Ebeida and Scott~A. Mitchell.
@@ -145,6 +164,18 @@ Xifeng Gao, Wenzel Jakob, Marco Tarini, and Daniele Panozzo.
 William~J. Gordon and James~A. Wixom.
 \newblock Pseudo-harmonic interpolation on convex domains.
 \newblock {\em SIAM Journal on Numerical Analysis}, 11(5):909--933, 1974.
+
+\bibitem{Grundmann:78}
+Axel Grundmann and H.~M. M{\"{o}}ller.
+\newblock Invariant integration formulas for the n-simplex by combinatorial
+  methods.
+\newblock {\em SIAM Journal on Numerical Analysis}, 15(2):282--290, 1978.
+
+\bibitem{Hesthaven:10}
+Jan~S. Hesthaven and Tim Warburton.
+\newblock {\em Nodal Discontinuous Galerkin Methods: Algorithms, Analysis, and
+  Applications}.
+\newblock Springer Publishing Company, Incorporated, 1st edition, 2010.
 
 \bibitem{Hughes:00}
 Thomas J.~R. Hughes.

@@ -14,10 +14,10 @@
 \contentsline {figure}{\numberline {4.4}{\ignorespaces The resulting segment, facet, and cell decomposition for the proposed edge-based partitioning algorithm.}}{63}
 \contentsline {figure}{\numberline {4.5}{\ignorespaces The resulting segment, facet, and cell decomposition for the proposed edge-based partitioning algorithm, applied to a quadratic serendipity polyhedral element.}}{63}
 \contentsline {figure}{\numberline {4.6}{\ignorespaces A representative entity tree diagram for a $2$-dimensional facet $\sigma $ and its children.}}{64}
-\contentsline {figure}{\numberline {4.7}{\ignorespaces A representative $2$-dimensional sub-element $F \subset \partial \Omega $ (a polygonal face), and its corresponding sub-element tree diagram. The partition of $F$ consists of polygonal facets $\sigma _i \in \mathcal {T}_{\sigma } (F) \tmspace +\thinmuskip {.1667em} \tmspace +\thinmuskip {.1667em} \forall i = 1, \ldots , 5$.}}{65}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces A representative $2$-dimensional sub-element $F \subset \partial \Omega $ (a polygonal face), and its corresponding sub-element tree diagram. The partition of $F$ consists of polygonal facets $\sigma _i \in \mathcal {T}_{\sigma } (F) \tmspace +\thinmuskip {.1667em} \tmspace +\thinmuskip {.1667em} \forall i = 1, \ldots , 5$.}}{66}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Infinite plate with a circular hole placed in uniaxial tension.}}{80}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Quadrilateral meshes with varying levels of refinement.}}{81}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces $L^2$ error convergence plots for (a) FEM and (b) PEM formulations.}}{84}
-\contentsline {figure}{\numberline {5.4}{\ignorespaces $H^1$ error convergence plots for (a) FEM and (b) PEM formulations.}}{85}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Infinite plate with a circular hole placed in uniaxial tension.}}{81}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Quadrilateral meshes with varying levels of refinement.}}{82}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces $L^2$ error convergence plots for (a) FEM and (b) PEM formulations.}}{85}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces $H^1$ error convergence plots for (a) FEM and (b) PEM formulations.}}{86}
 \addvspace {10\p@ }

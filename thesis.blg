@@ -1,4 +1,6 @@
-This is BibTeX, Version 0.99dThe top-level auxiliary file: thesis.aux
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: thesis.aux
 The style file: plain.bst
 A level-1 auxiliary file: introduction.aux
 A level-1 auxiliary file: solid_mechanics.aux
@@ -9,8 +11,45 @@ A level-1 auxiliary file: future_work.aux
 Database file #1: bibliography.bib
 Warning--entry type for "Wikiversity:17" isn't style-file defined
 --line 522 of file bibliography.bib
-Name 3 in "D. N. Arnold and D. Boffi and R. S. Falk," has a comma at the end for entry Arnold:02
-while executing---line 1049 of file plain.bst
-Name 3 in "D. N. Arnold and D. Boffi and R. S. Falk," has a comma at the end for entry Arnold:02
-while executing---line 1090 of file plain.bst
-(There were 2 error messages)
+You've used 62 entries,
+            2118 wiz_defined-function locations,
+            911 strings with 13836 characters,
+and the built_in function-call counts, 20119 in all, are:
+= -- 2047
+> -- 897
+< -- 1
++ -- 372
+- -- 292
+* -- 1445
+:= -- 3425
+add.period$ -- 184
+call.type$ -- 62
+change.case$ -- 327
+chr.to.int$ -- 0
+cite$ -- 62
+duplicate$ -- 681
+empty$ -- 1557
+format.name$ -- 292
+if$ -- 4076
+int.to.chr$ -- 0
+int.to.str$ -- 62
+missing$ -- 64
+newline$ -- 311
+num.names$ -- 124
+pop$ -- 255
+preamble$ -- 1
+purify$ -- 270
+quote$ -- 0
+skip$ -- 465
+stack$ -- 0
+substring$ -- 1580
+swap$ -- 71
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 238
+warning$ -- 0
+while$ -- 219
+width$ -- 64
+write$ -- 674
+(There was 1 warning)
