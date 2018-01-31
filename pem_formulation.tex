@@ -76,7 +76,7 @@ In the following sections, an abstract framework for the PEM is established, des
 	% Additionally, the PEM considers the boundary of each element to be partitioned into a collection of $2$-dimensional polygonal faces $\partial \Omega = \cup_{i = 1}^{N_F} F_i$, where a given face $F$ is either a shared interface between two elements $F = \partial \Omega_a \cap \partial \Omega_b \neq \emptyset$ ($a \neq b$), or else it is a part of the domain boundary $F \subset \partial \Omega_a \cap \partial \mathcal{B}_0 \neq \emptyset$.
 	% The boundary of each face $\partial F$ is likewise recursively partitioned into $1$-dimensional edges $\partial F = \cup_{i = 1}^{N_E} E_i$, whose end-points are the geometric verticies (the nodes) of the polyhedral element in question, which bear the primary degrees of freedom.
 	
-	The advantage of defining shape functions in this manner is that it affords a great deal of flexibility in the construction of arbitrary order interpolants (or enhancement functions), while maintaining $C^0 (\mathcal{B}_0)$ continuity at inter-element interfaces. Moreover, given that the shape functions are uniquely defined at every point $\mathbf{X} \in \Omega$, they are amenable to post-processing and visualization-related tasks.
+	The advantage of defining shape functions in this manner is that it affords a great deal of flexibility in the construction of arbitrary order interpolants (or enhancement functions), while maintaining $C^0 (\mathcal{B}_0)$ continuity at inter-element interfaces. Moreover, given that the shape functions are uniquely defined at every point $\mathbf{X} \in \Omega$, they can be made amenable to post-processing and visualization-related tasks, if so desired.
 	
 %	In the following sections, we will explore a few specific choices for the differential operator $\mathcal{L}$ and the forcing functions $f$ defined on the element and its faces, etc.
 
@@ -108,7 +108,7 @@ In the following sections, an abstract framework for the PEM is established, des
 		\nabla^2 \varphi = 0 \quad \forall \mathbf{X} \in \Omega \quad \text{s.t.} \quad \varphi = \bar{\varphi} \quad \forall \mathbf{X} \in \partial \Omega,
 		\label{eq:pem_laplace}
 	\end{equation}
-	whose solution $\varphi$ is harmonic on $\Omega$ (and likewise on each face $F$ and edge $E$ -- refer to Figure \ref{fig:harmonic_sfs}). Harmonic shape functions form a partition of unity, satisfy linear completeness, and arise from degrees of freedom borne only by the nodes of each element (i.e. the nodal values $\varphi|_V$); therefore, they satisfy the kronecker delta property. As such, harmonic shape functions conform to the requirements of generalized barycentric coordinates.
+	whose solution $\varphi$ is harmonic on $\Omega$ (and likewise on each face $F$ and edge $E$ -- refer to Figure \ref{fig:harmonic_sfs}). Harmonic shape functions form a partition of unity, satisfy linear completeness, and arise from degrees of freedom borne only by the nodes of each element (i.e. the nodal values $\varphi|_V$); therefore, they satisfy the kronecker delta property. As such, harmonic shape functions constitute a class of generalized barycentric coordinates.
 	
 \begin{figure} [!ht]
 	\centering
@@ -122,7 +122,7 @@ In the following sections, an abstract framework for the PEM is established, des
 		-\nabla^2 \varphi = f_{\Omega} \quad \forall \mathbf{X} \in \Omega \quad \text{s.t.} \quad \varphi = \bar{\varphi} \quad \forall \mathbf{X} \in \partial \Omega,
 		\label{eq:pem_poisson}
 	\end{equation}
-	and we may introduce additional degrees of freedom through $f_{\Omega}$ belonging to the element (or its edges, faces). These degrees of freedom are not necessarily associated with nodal evaluations of $\varphi$, but instead may be designed to exhibit certain desirable characteristics (to recover a particular order of polynomial completeness). The corresponding solution to (\ref{eq:pem_poisson}) is not harmonic; instead, we shall refer to functions which satisfy (\ref{eq:pem_poisson}) as \textit{generalized harmonic shape functions}.
+	and we may introduce additional degrees of freedom through $f_{\Omega}$ belonging to the element (or its edges, faces). These degrees of freedom are effectively equivalent to bubble functions; they are not directly associated with nodal evaluations of $\varphi$, but may be designed to exhibit certain desirable characteristics (to recover a particular order of polynomial completeness). The corresponding solution to (\ref{eq:pem_poisson}) is not harmonic; instead, we shall refer to functions which satisfy (\ref{eq:pem_poisson}) as \textit{generalized harmonic shape functions}.
 	
 	Harmonic shape functions are not a new concept; Gordon and Wixom were among the first authors to propose the idea in \cite{Gordon:74}, and Martin et al. later considered their application to polyhedral finite elements in \cite{Martin:08}. However, obtaining exact solutions to (\ref{eq:pem_laplace}) is generally infeasible for arbitrary polyhedra. In practice, approximate solutions must be considered.
 	
@@ -130,22 +130,22 @@ In the following sections, an abstract framework for the PEM is established, des
 	
 	It herein becomes of interest to determine suitable approximations to harmonic shape functions on arbitrary polyhedra. A number of methods to achieve this end are subsequently discussed.
 	
-\section{Shape Function Approximation Methods}
+\section{Shape Function Approximation Methods} \label{sec:approximations}
 	
-	The exact solution $\varphi \in \mathcal{U} (\Omega) = \left\{ \varphi \in H^1(\Omega) : \varphi = \bar{\varphi} \, \forall \mathbf{X} \in \partial \Omega \right\}$ to Poisson's equation in (\ref{eq:pem_poisson}) also satisfies the equivalent weak form:
+	The exact solution $\varphi \in \mathcal{U} (\Omega) = \left\{ \varphi \in H^1(\Omega) : \varphi = \bar{\varphi} \, \forall \mathbf{X} \in \partial \Omega \right\}$ to Poisson's equation in (\ref{eq:pem_poisson}) (or Laplace's equation in (\ref{eq:pem_laplace}) when $f_\Omega \equiv 0$) also satisfies the equivalent weak form:
 	\begin{equation}
 		\int_\Omega (\nabla^2 \varphi + f_{\Omega}) \eta \, dV = 0 \quad \forall \eta \in \mathcal{U}_0 (\Omega),
 	\end{equation}
 	or
 	\begin{equation}
-		\int_\Omega \nabla \varphi \cdot \nabla \eta \, dV - \int_{\partial \Omega} \frac{\partial \varphi}{\partial N} \eta \, dA = \int_\Omega f_{\Omega} \, \eta \, dV \quad \forall \eta \in \mathcal{U}_0 (\Omega),
+		\int_\Omega \nabla \varphi \cdot \nabla \eta \, dV = \int_\Omega f_{\Omega} \, \eta \, dV \quad \forall \eta \in \mathcal{U}_0 (\Omega),
 		\label{eq:weak_bvp}
 	\end{equation}
 	where $\mathcal{U}_0 (\Omega) = \left\{ \eta \in H^1(\Omega) : \eta = 0 \, \forall \mathbf{X} \in \partial \Omega \right\}$ denotes an appropriately defined space of admissible variations -- test functions.
 	
 	A vast array of different variational methods may be employed to obtain an approximate solution $\varphi^h \in \mathcal{U}^h (\Omega)$ satisfying
 	\begin{equation}
-		\int_\Omega \nabla \varphi^h \cdot \nabla \eta^h \, dV - \int_{\partial \Omega} \frac{\partial \varphi^h}{\partial N} \eta^h \, dA = \int_\Omega f_{\Omega} \, \eta^h \, dV \quad \forall \eta^h \in \mathcal{U}^h_0 (\Omega),
+		\int_\Omega \nabla \varphi^h \cdot \nabla \eta^h \, dV = \int_\Omega f_{\Omega} \, \eta^h \, dV \quad \forall \eta^h \in \mathcal{U}^h_0 (\Omega),
 		\label{eq:approximate_bvp}
 	\end{equation}
 	where $\mathcal{U}^h (\Omega)$ and $\mathcal{U}^h_0 (\Omega)$ are taken to be finite-dimensional approximation spaces. Consequently, it is of interest to determine the essential requirements placed upon a given approximation $\varphi^h$ for the purposes of evaluating weak form integrals.
@@ -175,30 +175,34 @@ In the following sections, an abstract framework for the PEM is established, des
 	\end{equation}
 	It is argued that these conditions are necessary and sufficient to guarantee convergence of the resulting method when the local approximations $\mathbf{u}^h$ and $\mathbf{v}^h$ are used in place of $\mathbf{u}$ and $\mathbf{v}$.
 	
-	It should be remarked that the evaluation of $a_{\Omega}(\mathbf{u},\mathbf{v})$ will be further approximated through the use of numerical quadrature on $\Omega$, denoted as $a^h_{\Omega}(\mathbf{u},\mathbf{v})$. Incidentally, the use of low-order quadrature rules may alternatively be viewed as an exact integration of corresponding low-order approximations to $\mathbf{u}$ and $\mathbf{v}$, i.e. $a^h_{\Omega}(\mathbf{u},\mathbf{v}) = a_{\Omega}(\mathbf{u}^h,\mathbf{v}^h)$, and is therefore subject to the conditions previously described.
+	It should be remarked that the evaluation of $a_{\Omega}(\mathbf{u},\mathbf{v})$ will be further approximated through the use of numerical quadrature on $\Omega$, herein denoted as $a^h_{\Omega}(\mathbf{u},\mathbf{v})$. Alternatively, the use of low-order quadrature rules may be viewed as an exact integration of corresponding low-order approximations to $\mathbf{u}$ and $\mathbf{v}$, i.e. $\exists \, \mathbf{u}^h,\mathbf{v}^h$ such that $a^h_{\Omega}(\mathbf{u},\mathbf{v}) = a_{\Omega}(\mathbf{u}^h,\mathbf{v}^h)$. The use of a numerical quadrature scheme is therefore subject to the conditions previously described.
 	
-	With the above considerations borne in mind, we propose a set of requirements on the approximation space $\mathcal{U}^h (\Omega)$ (and $\mathcal{U}^h_0 (\Omega)$):
+	With the above considerations borne in mind, we propose a set of minimal requirements on the resulting approximations $\mathbf{u}^h$ and $\mathbf{v}^h$, and their corresponding integration via an appropriately defined quadrature rule:
 	\begin{itemize}
-		\item[(I)] $\Pi^{\Omega}_k \varphi = \Pi^{\Omega}_k \varphi^h \, \, \forall \varphi \in \mathcal{U}(\Omega)$, and therefore $\mathcal{U}^h (\Omega) \supset P^k (\Omega)$.
-		\item[(II)] $a_* a_{\Omega} (\mathbf{v},\mathbf{v}) \leq a_{\Omega} (\mathbf{v}^h,\mathbf{v}^h) \leq a^* a_{\Omega} (\mathbf{v},\mathbf{v}) \quad \forall \mathbf{v} \in \mathcal{V}^h (\Omega).$
+		\item[(I)] $a^h_{\Omega}(\Pi^{\Omega}_k \mathbf{u}^h,\mathbf{v}^h) = a_{\Omega}(\Pi^{\Omega}_k \mathbf{u},\mathbf{v}) \quad \forall \mathbf{v} \in \mathcal{V}^h (\Omega)$.
+		\item[(II)] $a_* a_{\Omega} (\mathbf{v},\mathbf{v}) \leq a^h_{\Omega} (\mathbf{v}^h,\mathbf{v}^h) \leq a^* a_{\Omega} (\mathbf{v},\mathbf{v}) \quad \forall \mathbf{v} \in \mathcal{V}^h (\Omega).$
 	\end{itemize}
 	
-	An important distinction should be made regarding the requirements placed upon such approximation methods: it is not required that the approximations $\varphi^h$ converge to $\varphi$ as the dimension of $\mathcal{U}^h (\Omega)$ is systematically increased.
+	An important distinction should be made with regard to the requirements placed upon a given variational method used to construct approximations $\varphi^h$ to (generalized) harmonic shape functions $\varphi$: it is not strictly necessary for the approximations to converge to $\varphi$ as the dimension of $\mathcal{U}^h (\Omega)$ is systematically increased. Provided the above conditions are met, convergence of the overarching finite element method is altogether achieved, even if relatively coarse/low-order approximations to the shape functions are utilized. Moreover, relaxing the requirements placed upon the approximations (particularly with regard to continuity) can have advantageous side-effects: the resulting finite element solution is made less sensitive to the choice of discretization, and issues pertaining to elements with non-convex or degenerate features can be partially ameliorated.
 	
-\subsection*{Non-conforming Galerkin Approximations to \\ Generalized Harmonic Shape Functions}
+	The above considerations have prompted an investigation into the use of (discontinuous) low-order polynomial approximations to harmonic shape functions. These approximations are discussed in the following section.
+	
+\section*{Non-conforming Galerkin Approximations to \\ (Generalized) Harmonic Shape Functions} \label{sec:nonconforming}
 
-	If the boundary conditions imposed upon a given shape function are relaxed to the extent that $\varphi^h \neq \bar{\varphi}$ on $\partial \Omega$, then clearly $\mathcal{U}^h (\Omega) \not\subset \mathcal{U} (\Omega)$, and one must resort to the use of non-conforming approximation methods. In such cases, the boundary conditions must be imposed in a weak sense, such that $\varphi^h$ still converges to $\varphi$ as the dimension of the non-conforming approximation space $\mathcal{U}^h (\Omega)$ is increased. A number of potential weak enforcement strategies are suggested in the following sections.
+	If the boundary conditions imposed upon a given shape function are relaxed to the extent that $\varphi^h \neq \bar{\varphi}$ on $\partial \Omega$, then clearly $\mathcal{U}^h (\Omega) \not\subset \mathcal{U} (\Omega)$, and one must resort to the use of non-conforming approximation methods to obtain suitable approximations $\varphi^h$. In such cases, the boundary conditions must be imposed in a weak sense, such that $\varphi^h$ still yields satisfaction of conditions (I) and (II), as developed in the previous section.
+	
+	A number of weak enforcement strategies for the Dirichlet boundary condition ($\varphi = \bar{\varphi}$ on $\partial \Omega$) are suggested in the following sections.
 	
 	\subsubsection*{Weak Enforcement of Boundary Conditions via a Lagrange Multiplier Method}
 	
-	One possible approach would be to consider a Lagrange multiplier method, to weakly enforce the boundary condition $\varphi = \bar{\varphi}$ on $\partial \Omega$ via
+	One approach to weakly enforce the boundary condition $\varphi = \bar{\varphi}$ on $\partial \Omega$ would be to consider a Lagrange multiplier method, wherein
 	\begin{equation}
 		\min_{\varphi, \, \lambda} \mathcal{L}(\varphi,\lambda),
 	\end{equation}
 	\begin{equation}
 	\mathcal{L}(\varphi,\lambda) \equiv \frac{1}{2} \int_{\Omega} \nabla \varphi \cdot \nabla \varphi \, dV - \int_{\Omega} f_{\Omega} \, \varphi \, dV + \int_{\partial \Omega} \left[ \varphi - \bar{\varphi} \right] \lambda \, dA,
 \end{equation}
-	involving the specification of a Lagrange multiplier field $\lambda \in \Lambda (\partial \Omega) = \left\{ \lambda \in L^2 (\partial \Omega) \right\}$, and it's corresponding approximation $\lambda^h \in \Lambda^h (\partial \Omega) \subset \Lambda (\partial \Omega)$. Differentiation of the Lagrangian yields two sets of equations in terms of the approximations $\varphi^h \in \mathcal{U}^h (\Omega)$ and $\lambda^h \in \Lambda^h (\partial \Omega)$:
+	involving the specification of a Lagrange multiplier field $\lambda \in \Lambda (\partial \Omega) = \left\{ \lambda \in L^2 (\partial \Omega) \right\}$, and it's corresponding discrete approximation $\lambda^h \in \Lambda^h (\partial \Omega) \subset \Lambda (\partial \Omega)$. Differentiation of the Lagrangian yields two sets of equations in terms of the approximations $\varphi^h \in \mathcal{U}^h (\Omega)$ and $\lambda^h \in \Lambda^h (\partial \Omega)$:
 	\begin{equation}
 		\int_{\Omega} \nabla \varphi^h \cdot \nabla \eta^h \, dV - \int_\Omega f_\Omega \eta^h \, dV + \int_{\partial \Omega} \lambda^h \eta^h \, dA = 0 \quad \forall \eta^h \in \mathcal{U}^h (\Omega),
 	\end{equation}
@@ -228,70 +232,70 @@ where
 	f_{b} = \int_{\partial \Omega} f_\Omega \, \psi_b \, dA, \quad \bar{\varphi}_{c} = \int_{\partial \Omega} \bar{\varphi} \, \chi_c \, dA.
 \end{equation}
 
-	The main advantage of this approach is that virtually any space of functions may be selected for $\mathcal{U}^h (\Omega)$, such that the resulting approximations $\varphi^h \in \mathcal{U}^h (\Omega)$ deliberately do not contain sharp gradients.
+	The main advantage of this approach is that virtually any space of functions may be selected for $\mathcal{U}^h (\Omega)$, such that the resulting approximations $\varphi^h \in \mathcal{U}^h (\Omega)$ can be made less sensitive to degenerate geometric features of the element (namely, short edges).
 	
-	Arguably the simplest (and most efficient) choice is $\mathcal{U}^h (\Omega) = P^{k} (\Omega)$, resembling certain formulations of the VETFEM (\cite{Rashid:00}, \cite{Rashid:06}) where the basis functions for the Lagrange multiplier field $\chi_c (\mathbf{X}) = \delta (\mathbf{X} - \mathbf{X}_c) \, \, \forall c = 1, \ldots, N_v$ are Dirac delta functions associated with the individual nodes of the element. A potential shortcoming of this particular choice for $\chi_c$ is that the resulting shape functions may nonetheless yield sharp gradients along short element edges.
+	Arguably the simplest (and most efficient) choice is $\mathcal{U}^h (\Omega) = P^{m} (\Omega)$ where $m \geq k$, resembling certain formulations of the VETFEM (\cite{Rashid:00}, \cite{Rashid:06}), where the basis functions for the Lagrange multiplier field are Dirac delta functions $\chi_c (\mathbf{X}) = \delta (\mathbf{X} - \mathbf{X}_c) \, \, \forall c = 1, \ldots, N_v$ associated with the individual nodes of the element. A potential shortcoming of this particular choice for $\chi_c$ is that the resulting shape functions may nonetheless possess sharp gradients in the vicinity of short element edges, leading to undesirable behavior -- poor numerical conditioning of the element's local stiffness matrix.
 	
-	Various other choices for the Lagrange multiplier basis are possible which may yield less spurious solutions (for instance $\Lambda^h (\partial \Omega) = P^{k} (\partial \Omega)$), though these may lead to ill-posedness of the saddle-point problem. More sophisticated linear solution methodologies are required in these cases.
+	Various other choices for the Lagrange multiplier basis are possible which may yield less spurious approximations (for instance $\Lambda^h (\partial \Omega) = P^{m} (\partial \Omega)$). However, careful attention must be paid to the selection of $\mathcal{U}^h (\Omega)$ and $\Lambda^h (\partial \Omega)$, as poorly chosen bases can lead to ill-posedness of the saddle-point problem. More sophisticated linear solution methodologies may be required in these cases.
 
 	\subsubsection*{Weak Enforcement of Boundary Conditions via Nitsche's Method}
 	
 	As a viable alternative to the Lagrange multiplier method presented in the previous section, one may instead consider using Nitsche's method (refer to \cite{Juntunen&Stenberg:09}) as a means of weakly enforcing the boundary conditions for a given shape function, i.e.
 	\begin{eqnarray}
-		\int_{\Omega} \nabla \varphi^h \cdot \nabla \eta^h \, dV - \int_{\partial \Omega} \left[ \frac{\partial \varphi^h}{\partial N} \eta^h + \varphi^h \frac{\partial \eta^h}{\partial N} \right] \, dA + \frac{1}{\gamma |\partial \Omega|^{\beta}} \int_{\partial \Omega} \varphi^h \eta^h \, dA \nonumber \\ = \int_\Omega f_\Omega \, \eta^h \, dV - \int_{\partial \Omega} \bar{\varphi} \frac{\partial \eta^h}{\partial N} \, dA + \frac{1}{\gamma |\partial \Omega|^{\beta}} \int_{\partial \Omega} \bar{\varphi} \eta^h \, dA \quad \forall \eta^h \in \mathcal{U}^h (\Omega),
+		\int_{\Omega} \nabla \varphi^h \cdot \nabla \eta^h \, dV + \int_{\partial \Omega} \left[ \epsilon \, \frac{\partial \varphi^h}{\partial N} \eta^h - \varphi^h \frac{\partial \eta^h}{\partial N} \right] \, dA + \frac{\alpha}{|\partial \Omega|^{\beta}} \int_{\partial \Omega} \varphi^h \eta^h \, dA \nonumber \\ = \int_\Omega f_\Omega \, \eta^h \, dV + \epsilon \int_{\partial \Omega} \bar{\varphi} \frac{\partial \eta^h}{\partial N} \, dA + \frac{\alpha}{|\partial \Omega|^{\beta}} \int_{\partial \Omega} \bar{\varphi} \eta^h \, dA \quad \forall \eta^h \in \mathcal{U}^h (\Omega),
 	\end{eqnarray}
-	where $\gamma > 0$ is a stabilization parameter, $| \partial \Omega |$ denotes the surface area of $\partial \Omega$, and $\beta = (d-1)^{-1}$ for $\Omega \subset \mathbb{R}^d$, $d \geq 2$.
+	where $\alpha > 0$ is a stabilization parameter, $| \partial \Omega |$ denotes the surface area of $\partial \Omega$, and $\beta = (d-1)^{-1}$ for $\Omega \subset \mathbb{R}^d$, $d \geq 2$. The parameter $\epsilon$ is canonically set equal to either $-1$ (yielding symmetry of the corresponding bilinear form on $\varphi^h$ and $\eta^h$) or $+1$ (yielding coercivity).
 	
-	Provided the stabilization parameter $\gamma$ is specified appropriately, the Galerkin approximation $\varphi^h$ can be obtained as the solution to a symmetric, positive-definite system of equations: $\mathbf{A} \boldsymbol{\varphi} = \mathbf{f}$, where
+	Provided the stabilization parameter $\alpha$ is specified appropriately, the Galerkin approximation $\varphi^h$ can be obtained as the solution to a positive-definite system of equations: $\mathbf{A} \boldsymbol{\varphi} = \mathbf{f}$, where
 	\begin{equation}
-		A_{ab} = \int_{\Omega} \nabla \psi_a \cdot \nabla \psi_b \, dV - \int_{\partial \Omega} \left[ \frac{\partial \psi_a}{\partial N} \psi_b + \psi_a \frac{\partial \psi_b}{\partial N} \right] \, dA + \frac{1}{\gamma |\partial \Omega|^{\beta}} \int_{\partial \Omega} \psi_a \, \psi_b \, dA,
+		A_{ab} = \int_{\Omega} \nabla \psi_a \cdot \nabla \psi_b \, dV + \int_{\partial \Omega} \left[ \epsilon \, \frac{\partial \psi_a}{\partial N} \psi_b - \psi_a \frac{\partial \psi_b}{\partial N} \right] \, dA + \frac{\alpha}{|\partial \Omega|^{\beta}} \int_{\partial \Omega} \psi_a \, \psi_b \, dA,
 	\end{equation}
 	\begin{equation}
-		f_{b} = \int_{\Omega} f_\Omega \, \psi_b \, dV - \int_{\partial \Omega} \bar{\varphi} \frac{\partial \psi_b}{\partial N} \, dA + \frac{1}{\gamma |\partial \Omega|^{\beta}} \int_{\partial \Omega} \bar{\varphi} \, \psi_b \, dA.
+		f_{b} = \int_{\Omega} f_\Omega \, \psi_b \, dV + \epsilon \int_{\partial \Omega} \bar{\varphi} \frac{\partial \psi_b}{\partial N} \, dA + \frac{\alpha}{|\partial \Omega|^{\beta}} \int_{\partial \Omega} \bar{\varphi} \, \psi_b \, dA.
 	\end{equation}
 	
-	As discussed in the previous section, a rather natural choice for the space of approximating functions is $\mathcal{U}^h (\Omega) = P^{k} (\Omega)$. The resulting method yields reasonably well-conditioned stiffness matricies for convex shapes, even when the elements possess degenerate edges. However, experimental evidence suggests that for non-convex shapes, the resulting shape function approximations may succumb to Runge's phenomenon. A more thorough investigation of this behavior is presented in chapter \ref{ch:results}.
+	As discussed in the previous section, a rather natural choice for the space of approximating functions is $\mathcal{U}^h (\Omega) = P^{m} (\Omega)$ with $m \geq k$. The resulting method yields reasonably well-conditioned stiffness matricies for convex shapes, even when the elements possess degenerate edges. However, experimental evidence suggests that for non-convex shapes, the resulting shape function approximations may succumb to Runge's phenomenon, yielding highly oscillatory approximations. A more thorough investigation of this behavior is presented in chapter \ref{ch:results}.
 	
-	These considerations have led to the conclusion that approximations consisting of piecewise polynomials may yield more well-behaved solutions. The remainder of our discussion will focus upon such methods.
+	These observations have led to the conclusion that approximations consisting of piecewise polynomials may yield more well-behaved (less oscillatory) solutions for $\varphi^h$. The remainder of our discussion will focus upon such methods.
 	
-\section{Piecewise Polynomial Approximations to \\ Generalized Harmonic Shape Functions}
+\section{Piecewise Polynomial Approximations to \\ (Generalized) Harmonic Shape Functions}
 
-Partitioned element methods consider the approximation to a given element's shape functions via piecewise polynomials defined over a partition of the element's domain. In this regard, the approach proposed by Bishop in \cite{Bishop:14} is properly regarded as a partitioned element method which utilizes an FE partition of the elements to approximate their shape functions; henceforth, this scheme is given the moniker FE-PEM. The eponymous partitioned element method introduced in \cite{Rashid:12} solves (\ref{eq:approximate_bvp}) by empolying an approximation scheme which closely resembles a stabilized virtual element method, hence it shall be labeled VE-PEM.
+Partitioned element methods consider the approximation to a given element's shape functions via piecewise polynomials defined over a partition of the element's domain. In this regard, the approach proposed by Bishop in \cite{Bishop:14} is properly regarded as a partitioned element method which utilizes $C^0$ FE approximations to harmonic shape functions. In like fashion, the eponymous partitioned element method introduced in \cite{Rashid:12} utilizes weakly continuous piecewise polynomial approximations to harmonic shape functions. Herein we propose a novel alternative approach based upon the interior penalty discontinuous Galerkin finite element method (henceforth, the DG-PEM).
 
-Herein we propose a novel alternative approach based upon the interior penalty discontinuous Galerkin finite element method (henceforth, the DG-PEM).
+A few preliminary definitions regarding the element's partition are given, followed by a more thorough discussion of several partition-based approximation methods.
 
 \subsection*{The Element Partition}
 
 \begin{figure} [!ht]
 	\centering
 	\includegraphics[width = 6.0in]{figures/polyhedron_partition.pdf}
-	\caption{A representative polyhedral element $\Omega \subset \mathbb{R}^3$, and it's corresponding partition into cells, facets, segments, and verticies.}
+	\caption{A representative polyhedral element $\Omega \subset \mathbb{R}^3$, and it's hierarchial partition into cells, facets, segments, and verticies.}
 	\label{fig:partitioned_element}
 \end{figure}
 
 	Consider a partition $\mathcal{T}_\omega (\Omega)$ of a given polyhedral element $\Omega$ into polyhedral cells $\omega \subset \Omega$. The boundary of each cell consists of polygonal facets $\sigma \subset \partial \omega$. Further, denote by $\Gamma_\omega$ the set of all interior cell interfaces (facets) shared by two adjacent cells, such that a given polygonal facet $\sigma$ belongs either to $\Gamma_\omega$, or to the boundary of the element $\partial \Omega$.
 	
-	In turn, let $\mathcal{T}_{\sigma} (F)$ denote the partition of a given face $F \subset \partial \Omega$ into polygonal facets $\sigma \subset F$. The boundary of each facet consists of linear segments $\gamma \subset \partial \sigma$. For each face $F$, $\Gamma_\sigma$ shall denote the set of all interior facet interfaces (segments) shared by two facets belonging to $F$, such that a given linear segment $\gamma$ belongs either to $\Gamma_\sigma$ or $\partial F$.
+	In turn, let $\mathcal{T}_{\sigma} (F)$ denote the partition of a given face $F \subset \partial \Omega$ into polygonal facets $\sigma \subset F$. The boundary of each facet consists of linear segments $\gamma \subset \partial \sigma$. For a given face $F$, let $\Gamma_\sigma$ denote the set of all interior facet interfaces (segments) shared by two facets belonging to $F$, such that a given linear segment $\gamma$ belongs either to $\Gamma_\sigma$ or $\partial F$.
 	
-	Finally, $\mathcal{T}_{\gamma} (E)$ denotes the partition of a given edge $E \subset \partial F$ into linear segments $\gamma \subset E$. The endpoints of each segment are called verticies, denoted $v$. For each edge $E$, $\Gamma_\gamma$ denotes the set of all interior segment interfaces (verticies) shared by two segments belonging to $E$, such that a given vertex $v$ belongs either to $\Gamma_\gamma$ or $\partial E$. Not all verticies are nodes, but each node is coincident with a corresponding vertex.
+	Finally, $\mathcal{T}_{\gamma} (E)$ denotes the partition of a given edge $E \subset \partial F$ into linear segments $\gamma \subset E$. The endpoints of each segment are called verticies, denoted $v$. For a given edge $E$, denote by $\Gamma_\gamma$ the set of all interior segment interfaces (verticies) shared by two segments belonging to $E$, such that a given vertex $v$ belongs either to $\Gamma_\gamma$ or $\partial E$. As well, each node $V$ corresponds to a single vertex $v$, though not all verticies coincide a node.
 	
-	Several simple partitioning schemes are proposed:
-	\begin{itemize}
-		\item \textbf{Edge-based}: For star-convex shapes -- the vertex-averaged centroid is used to subdivide the element into triangles (in 2D) or tetrahedra (in 3D) which are associated with each linear edge of the element.
-		\item \textbf{Node-based}: For arbitrary shapes -- the element is sub-divided into quadrature cells corresponding to the tributary area surrounding each node.
-		\item \textbf{Random Voronoi}: For arbitrary shapes -- the element is sub-divided into Voronoi cells, whose corresponding voronoi sites are generated via a constrained maximal poisson-disk sampling process, as described in \cite{Ebeida:11}.
-	\end{itemize}
-	The aforementioned approaches are further illustrated in Figure \ref{fig:partitioning_types}.
+	A number of simple partitioning schemes (as illustrated in Figure \ref{fig:partitioning_types}) are proposed:
 	\begin{figure} [!ht]
 		\centering
-		\includegraphics[width = 6.0in]{figures/partition_types.pdf}
-		\caption{Polygonal element partitioning schemes, from left to right: edge-based partition, node-based partition, random voronoi partition.}
+		\includegraphics[width = 4.0in]{figures/partition_types.pdf}
+		\caption{Polygonal element partitioning schemes: (top-left) edge-based partition, (top-right) node-based partition, (bottom-left) random Delaunay partition, (bottom-right) random Voronoi partition.}
 		\label{fig:partitioning_types}
 	\end{figure}
+	\begin{itemize}
+		\item \textbf{Edge-based}: For star-convex shapes -- the vertex-averaged centroid is used to subdivide the element into triangles (in 2D) or tetrahedra (in 3D) and associated with each linear edge of the element.
+		\item \textbf{Node-based}: For arbitrary shapes -- the element is sub-divided into quadrature cells corresponding to the tributary area surrounding each node.
+		\item \textbf{Random Delaunay}: For arbitrary shapes -- the element is sub-divided into a Delaunay triangulation (in 2D) or tetrahedralization (in 3D), whose corresponding verticies are generated via a random point sampling process.
+		\item \textbf{Random Voronoi}: For arbitrary shapes -- the element is sub-divided into Voronoi cells, whose corresponding voronoi sites are generated via a constrained maximal poisson-disk sampling process, as described in \cite{Ebeida:11}.
+	\end{itemize}
 	
-	We denote the volume of a given cell as $|\omega|$, the area of a facet as $|\sigma|$, and the length of a segment as $|\gamma|$. Each facet possesses an associated normal direction $\mathbf{N}_\sigma$, whose orientation is outward from $\Omega$ for all $\sigma \in \partial \Omega$. The orientation of $\mathbf{N}_\sigma$ is otherwise arbitrary for all $\sigma \in \Gamma_\omega$. Likewise, 
+	We denote the volume of a given cell as $|\omega|$, the area of a facet as $|\sigma|$, and the length of a segment as $|\gamma|$. Each facet likewise possesses an associated normal direction $\mathbf{N}_\sigma$, whose orientation is outward from $\Omega$ for all $\sigma \in \partial \Omega$. The orientation of $\mathbf{N}_\sigma$ is otherwise arbitrary for all $\sigma \in \Gamma_\omega$ (for a given facet $\sigma$ shared by two cells $\omega_1$ and $\omega_2$, $\mathbf{N}_\sigma$ may be defined as being outward with respect to either $\omega_1$ or $\omega_2$.)
 	
-\subsection*{Continuous Galerkin Approximations to \\ Generalized Harmonic Shape Functions}
+\subsection*{Continuous Galerkin Approximations to \\ (Generalized) Harmonic Shape Functions}
 
 	Consider finite dimensional sub-spaces $\mathcal{U}^h (\Omega) \subset \mathcal{U} (\Omega)$ and $\mathcal{U}^h_0 (\Omega) \subset \mathcal{U}_0 (\Omega)$. The Galerkin approximation $\varphi^h \in \mathcal{U}^h (\Omega)$ to a given (generalized) harmonic shape function $\varphi \in \mathcal{U} (\Omega)$ satisfies
 	\begin{equation}
@@ -299,26 +303,26 @@ Herein we propose a novel alternative approach based upon the interior penalty d
 		\label{eq:weak_poisson}
 	\end{equation}
 
-	If $f_\Omega \equiv 0$ (yielding the harmonic shape functions), we may invoke the Galerkin orthogonality property to determine that the error $e = \varphi^h - \varphi$ in approximating $\varphi$ is orthogonal to $\mathcal{U}^h (\Omega)$, such that
-	\begin{equation}
-		\langle e, \eta^h \rangle = 0 \quad \forall \eta^h \in \mathcal{U}^h (\Omega),
-	\end{equation}
-	where $\langle u, v \rangle \equiv \int_\Omega \nabla u \cdot \nabla v \, dV$. Further, it may be remarked that for any two shape functions $\varphi_a, \varphi_b$, we obtain
-	\begin{equation}
-		\langle \varphi_a, \varphi_b \rangle = \langle \varphi^h_a + e_a, \varphi^h_b + e_b \rangle = \langle \varphi^h_a, \varphi^h_b \rangle + \langle e_a, e_b \rangle,
-	\end{equation}
-	owing to $\langle e_a, \varphi^h_b \rangle = \langle \varphi^h_a, e_b \rangle = 0$.
-
-	In effect, we may consider a given approximant $\varphi^h$ to be the $L^2(\Omega)$ projection of $\varphi$ onto $\mathcal{U}^h (\Omega)$ (a direct consequence of Galerkin orthogonality), which further implies that the evaluation of weak form integrals $a_\Omega (\mathbf{u}, \mathbf{v})$ are sufficiently well-approximated by their counterparts $a_\Omega (\mathbf{u}^h, \mathbf{v}^h)$. Indeed, if we make the substitution
-	\begin{equation}
-		a_\Omega (\mathbf{u}^h, \mathbf{v}^h) = \sum_{a=1}^N \sum_{b=1}^N  \mathbf{u}_a a_\Omega (  \varphi^h_a, \varphi^h_b ) \mathbf{v}_b,
-	\end{equation}
-	we would need to verify that $a_\Omega (  \varphi^h_a, \varphi^h_b )$ yields a sufficiently stable discrete operator. Satisfaction of the completeness requirements is guaranteed, so long as $\mathcal{U}^h (\Omega) \supset P^k(\Omega)$. It is not difficult to show that
-	\begin{equation}
-		a_\Omega (  \varphi^h_a, \varphi^h_a ) \leq a_\Omega (  \varphi_a, \varphi_a ).
-	\end{equation}
+%	If $f_\Omega \equiv 0$ (yielding the harmonic shape functions), we may invoke the Galerkin orthogonality property to determine that the error $e = \varphi^h - \varphi$ in approximating $\varphi$ is orthogonal to $\mathcal{U}^h (\Omega)$, such that
+%	\begin{equation}
+%		\langle e, \eta^h \rangle = 0 \quad \forall \eta^h \in \mathcal{U}^h (\Omega),
+%	\end{equation}
+%	where $\langle u, v \rangle \equiv \int_\Omega \nabla u \cdot \nabla v \, dV$. Further, it may be remarked that for any two shape functions $\varphi_a, \varphi_b$, we obtain
+%	\begin{equation}
+%		\langle \varphi_a, \varphi_b \rangle = \langle \varphi^h_a + e_a, \varphi^h_b + e_b \rangle = \langle \varphi^h_a, \varphi^h_b \rangle + \langle e_a, e_b \rangle,
+%	\end{equation}
+%	owing to $\langle e_a, \varphi^h_b \rangle = \langle \varphi^h_a, e_b \rangle = 0$.
+%
+%	In effect, we may consider a given approximant $\varphi^h$ to be the $L^2(\Omega)$ projection of $\varphi$ onto $\mathcal{U}^h (\Omega)$ (a direct consequence of Galerkin orthogonality), which further implies that the evaluation of weak form integrals $a_\Omega (\mathbf{u}, \mathbf{v})$ are sufficiently well-approximated by their counterparts $a_\Omega (\mathbf{u}^h, \mathbf{v}^h)$. Indeed, if we make the substitution
+%	\begin{equation}
+%		a_\Omega (\mathbf{u}^h, \mathbf{v}^h) = \sum_{a=1}^N \sum_{b=1}^N  \mathbf{u}_a a_\Omega (  \varphi^h_a, \varphi^h_b ) \mathbf{v}_b,
+%	\end{equation}
+%	we would need to verify that $a_\Omega (  \varphi^h_a, \varphi^h_b )$ yields a sufficiently stable discrete operator. Satisfaction of the completeness requirements is guaranteed, so long as $\mathcal{U}^h (\Omega) \supset P^k(\Omega)$. It is not difficult to show that
+%	\begin{equation}
+%		a_\Omega (  \varphi^h_a, \varphi^h_a ) \leq a_\Omega (  \varphi_a, \varphi_a ).
+%	\end{equation}
 	
-	Bishop has already explored such an approach for constructing approximations to harmonic shape functions using an FE discretization of a given polyheral element into sub-dividing tetrahedra. The corresponding shape function approximations $\varphi^h \subset C^0 (\Omega)$ are obtained as the solutions to a set of local finite element problems defined on $\Omega$ (and its faces, edges -- refer to Figure \ref{fig:harmonic_fem_sfs}). Moreover, it was demonstrated in \cite{Bishop:14} that the resulting approximations preserve low-order polynomial completeness -- a consequence of $\mathcal{U}^h (\Omega) \supset P^1 (\Omega)$. If the elements are discretized into a sufficient number of tetrahedra, the method is observed to be both stable and consistent (provided a gradient correction scheme is employed to account for the effects of integration error).
+	Bishop has already explored such an approach in \cite{Bishop:14} for constructing approximations to harmonic shape functions using a partition of a given polyheral element into sub-dividing tetrahedra. The approximation space $\mathcal{U}^h (\Omega)$ is spanned by the $C^0 (\Omega)$ finite element basis functions defined on the tetrahedral partition of $\Omega$. The corresponding shape function approximations $\varphi^h \in \mathcal{U}^h (\Omega)$ are obtained as the solutions to a set of local finite element problems defined on $\Omega$ (and its faces, edges -- refer to Figure \ref{fig:harmonic_fem_sfs}).
 	
 \begin{figure} [!ht]
 	\centering
@@ -327,15 +331,19 @@ Herein we propose a novel alternative approach based upon the interior penalty d
 	\label{fig:harmonic_fem_sfs}
 \end{figure}
 	
-	This approach can become computationally expensive if the elements are subdivided into an excessively large number of tetrahedra, in the event that more accurate approximations to the shape functions are desired. However, initial numerical investigations have suggested that relatively coarse tetrahedral sub-divisions of the elements provide sufficiently accurate results; further subdivision (tetrahedral $h-$refinement) does little to improve the overall accuracy of the approach.
+	It was demonstrated that the resulting approximations $\varphi^h$ preserve low-order polynomial completeness -- a consequence of $\mathcal{U}^h (\Omega) \supset P^1 (\Omega)$. If the elements are discretized into a sufficient number of tetrahedra, the method is observed to be both stable and consistent (provided a supplementary gradient correction scheme is employed to account for the effects of integration error).
 	
-	A natural extension of the method proposed by Bishop to higher-order serendipity elements would be to consider $p-$refinement of an element's tetrahedral subdivision to recover higher-order polynomial completeness, i.e. to guarantee $\mathcal{U}^h (\Omega) \supset P^k (\Omega)$ for some desired polynomial order $k$. Unfortunately, the construction of shape functions on a given element would likely bear a much higher computational cost with increasing polynomial degree. The specification of stable and accurate numerical quadratures would present an additional challenge.
+	For coarse tetrahedral sub-divisions, the local FE problems that must be solved on each element are relatively small, in some cases entailing only a single degree of freedom (assocaited with an interior vertex) that must be solved for. Otherwise, the approach can become computationally expensive if the elements are subdivided into an excessively large number of tetrahedra (in the event that more accurate/refined approximations to the shape functions are desired). However, initial numerical investigations have suggested that relatively coarse tetrahedral sub-divisions of the elements provide sufficiently accurate results; further subdivision (tetrahedral $h-$refinement) does little to improve the overall accuracy of the method.
 	
-	Yet another generalization would be to consider subdividing the elements into arbitrary polyhedra, and solving (\ref{eq:weak_poisson}) by means of the virtual element method. This would allow for a more natural collocation of quadrature cells with the specified subdivision, akin to the partitioned element method proposed in \cite{Rashid:12}.
+	A natural extension of the method to higher-order serendipity elements would be to consider $p-$refinement of an element's tetrahedral subdivision to recover higher-order polynomial completeness, i.e. to guarantee $\mathcal{U}^h (\Omega) \supset P^k (\Omega)$ for some desired polynomial order $k$. However, the construction of shape functions on a given element would likely bear a much higher computational cost with increasing polynomial degree, owing to the increased size of the local FE problems on $\Omega$. Moreover, the specification of stable and accurate numerical quadratures would present an additional challenge.
 	
-	However, a particular complication arises for harmonic shape functions and their corresponding $C^0 (\Omega)$ approximations on irregularly shaped elements: the solution to Laplace's equation may possess extremely sharp gradients if the geometry of the element contains reflex corners or nearly degenerate features (i.e. short edges). A consequence of this is poor conditioning of the element's local stiffness matrix, leading to excessively stiff modes of deformation (locking), and issues of numerical conditioning in the linear solution process. For this reason, it becomes of interest to consider non-conforming approximations $\varphi^h \in \mathcal{U}^h (\Omega) \not\subset \mathcal{U} (\Omega)$ which have the potential to overcome these issues.	
+	A separate generalization would be to consider subdividing the elements into arbitrary polyhedra, and solving (\ref{eq:weak_poisson}) by means of the virtual element method. This would allow for a more natural collocation of quadrature cells with the specified subdivision, resembling the partitioned element method proposed in \cite{Rashid:12}.
+	
+	As will be discussed in chapter \ref{ch:results}, a particular complication arises for harmonic shape functions and their corresponding $C^0 (\Omega)$ approximations on irregularly shaped elements: the solution to Laplace's equation may possess extremely sharp gradients if the geometry of the element contains reflex corners or nearly degenerate features (i.e. short edges). A consequence of this is poor conditioning of the element's local stiffness matrix, leading to excessively stiff modes of deformation (locking), and issues of numerical conditioning in the linear solution process.
+	
+	As discussed previously, it becomes of interest to consider non-conforming approximations $\varphi^h \in \mathcal{U}^h (\Omega) \not\subset \mathcal{U} (\Omega)$ which have the potential to overcome these issues. A particular solution is henceforth explored in the form of discontinuous Galerkin finite element approximations to harmonic shape functions.
 
-\subsection*{Discontinuous Galerkin Approximations to \\ Generalized Harmonic Shape Functions}
+\subsection*{Discontinuous Galerkin Approximations to \\ (Generalized) Harmonic Shape Functions}
 
 	Consider the broken Sobolev space $\mathcal{D}^h_k (\Omega) = \left\{ \varphi \in L^2 (\Omega) : \varphi|_{\omega} \in P^k (\omega) \, \forall \omega \in \mathcal{T}_\omega (\Omega) \right\}$ consisting of (discontinuous) piecewise polynomials defined over the partition of the element. The interior penalty discontinuous Galerkin method described in \cite{Riviere:08} is applied to (\ref{eq:weak_bvp}) to obtain approximations $\varphi^h \in \mathcal{D}^h_k (\Omega) \not\subset \mathcal{U} (\Omega)$ to generalized harmonic shape functions $\varphi \in \mathcal{U} (\Omega)$, satisfying
 	\begin{eqnarray}
@@ -362,6 +370,7 @@ Herein we propose a novel alternative approach based upon the interior penalty d
 		\item[] $\epsilon = 0$: The incomplete interior penalty Galerkin (IIPG) method.
 		\item[] $\epsilon = +1$: The nonsymmetric interior penalty Galerkin (NIPG) method.
 	\end{itemize}
+	As a matter of terminology, the above methods will henceforth collectively be referred to by the acronym DG-PEM (discontinuous Galerkin partitioned element methods).
 	
 	If one considers a non-dimensional analysis where $\mathbf{X} = h_\Omega \mathbf{X}'$, and $h_\Omega$ denotes a characteristic length scale corresponding to the diameter of the element $\Omega$, the following quantities may be expressed in terms of their non-dimensional counterparts:
     \begin{equation}
@@ -385,13 +394,18 @@ Herein we propose a novel alternative approach based upon the interior penalty d
 		J_0 (\varphi^h,\eta^h) + J_1 (\varphi^h,\eta^h) = \sum_{\sigma \in \partial \Omega} \frac{\alpha_{\sigma0}}{|\sigma|^{\beta_0}} \int_{\sigma} \eta^h \,  \bar{\varphi} \, dA \quad \forall \eta^h \in \mathcal{D}^h_k (\Omega).
 		\label{eq:pure_penalty}
 	\end{eqnarray}
-	Under certain conditions (for particular choices of $\mathcal{T}_\omega (\Omega)$ and $\mathcal{D}^h_k (\Omega)$), the above weak form may in fact yield a unique solution $\varphi^h$. However, the bilinear form arising from the penalty terms $J_0$ and $J_1$ alone is not guaranteed to be elliptic, in general.
+	The above is henceforth refered to as the \textit{pure penalty} DG-PEM. Under certain conditions (for particular choices of $\mathcal{T}_\omega (\Omega)$ and $\mathcal{D}^h_k (\Omega)$), the pure penalty variant of the DG-PEM may in fact yield unique solutions $\varphi^h$ which altogether satisfy conditions of consistency and stability detailed in section \ref{sec:approximations}. However, the bilinear form arising from the penalty terms $J_0$ and $J_1$ alone is not guaranteed to be elliptic, in general. Additional (higher order flux) penalty terms may be necessary, i.e.
+	\begin{equation}
+		J_s (\varphi^h,\eta^h) = \sum_{\sigma \in \Gamma_\omega} \frac{\alpha_{\sigma s}}{|\sigma|^{\beta_s}} \int_{\sigma} \left[\!\!\left[ \frac{\partial^s \varphi^h}{\partial N^s_{\sigma}} \right]\!\!\right] \, \left[\!\!\left[ \frac{\partial^s \eta^h}{\partial N^s_{\sigma}} \right]\!\!\right] \, dA
+		\label{eq:flux_penalty}
+	\end{equation}
+	for $s \leq k$, $\alpha_{sigma s} > 0$, and $\beta_s = (1-2s)/(d-1)$. These may be used to supplement the stability of the pure penalty approach, particularly when $k > 1$.
 	
 	The majority of our subsequent analyses will explore the family of 3-parameter methods arising from
 	\begin{equation}
 		\alpha_{\sigma 0} = \alpha_{0}|_{\partial \Omega} \, \, \forall \sigma \in \partial \Omega, \quad \alpha_{\sigma 0} = \alpha_{0}|_{\Gamma_{\omega}} \, \, \forall \sigma \in \Gamma_{\omega}, \quad \alpha_{\sigma 1} = \alpha_{1}|_{\Gamma_{\omega}} \, \, \forall \sigma \in \Gamma_{\omega},
 	\end{equation}
-	entailing a separate penalization of the boundary condition via $\alpha_{0}|_{\partial \Omega}$. Decreasing the value of $\alpha_{0}|_{\partial \Omega}$ is tantamount to relaxing the degree to which the boundary condition is enforced, the effect of which will be examined and discussed later on.
+	notably entailing a separate penalization of the boundary condition via $\alpha_{0}|_{\partial \Omega}$. Decreasing the value of $\alpha_{0}|_{\partial \Omega}$ is tantamount to relaxing the degree to which the boundary condition is enforced. The effects of this will be examined and discussed in chapter \ref{ch:results}.
 	
 %	Ultimately, one must show either that $\mathcal{S}^h$ and $\mathcal{V}^h$ and sub-spaces of $\mathcal{S}$ and $\mathcal{V}$, or else that any exterior approximation methods converge to the exact solution under cell refinement. Moreover, we must show that any approximation to the exact solution will yield elements that exhibit convergence under mesh (element) refinement -- an interesting embedded convergence problem.
 		
@@ -502,7 +516,7 @@ Herein we propose a novel alternative approach based upon the interior penalty d
 %  \Sigma \circ \varphi \colon \mathbb{R}^k \mapsto \mathbb{R}^p
 %\end{equation}
 
-\section{Partition-Based Quadrature Rules}
+\section{Partition-Based Quadrature Rules} \label{sec:quadrature}
 
 		%quadrature rules are defined/linked to the chosen partition
 		%1-to-1 relation between partitioned cells and quadrature points
@@ -521,21 +535,21 @@ If arbitrary polytopal shapes are to be used as elements in the PEM, then there 
 		% Number of sub-domains should be sufficient to guarantee stability
 	% Quadrature rules are defined on each sub-domain
 	% Composite quadrature rules are assembled by considering these quadratures taken together
-Partitioned element methods approach this task by partitioning the elements (and their boundaries) into a sufficient number of polytopal sub-domains which are used as integration cells. Low-order (i.e. 1-point) quadrature rules are defined on each of these sub-domains, and a composite quadrature rule for the element is constructed from the resulting sets of quadrature points. In general, these rules will need to be modified to satisfy Galerkin exactness for certain low-order polynomial solutions.
+Partitioned element methods approach this task by subdividing the elements (and their boundaries) into a sufficient number of polytopal sub-domains which are used as integration cells. For the sake of simplicity, the element's cell partition $\mathcal{T}_\omega (\Omega)$ (which is used to construct the element's shape functions) is collocated with the integration cells. Low-order (i.e. 1-point) quadrature rules are defined on each of these sub-domains, and a composite quadrature rule for the element is constructed from the set of all quadrature points defined in this manner. In general, such rules are straightforward to define, but will have limited accuracy. Consequently, appropriate modifications must be made to satisfy Galerkin exactness for certain low-order polynomial solutions.
 	
 % Quadrature rules are adjusted after-the-fact by considering an exact integration of low-order polynomial terms to guarantee Galerkin exactness
 	% may be viewed as a type of gradient correction measure
 	% applied to each quadrature (interior and boundary) separately
 % discuss particular in the following sub-sections:
-Methods for partitioning the elements into sub-domains which yield stable and efficient composite quadrature rules are discussed in the following section. A discussion is given later on to the correction of these quadratures for the sake of satisfying Galerkin exactness (quadrature consistency).
+Methods for partitioning the elements into sub-domains which yield stable and efficient composite quadrature rules are addressed in the following section. A discussion is given later on to the correction of these quadratures for the sake of satisfying Galerkin exactness (quadrature consistency).
 		
 	\subsection*{Composite Quadrature Rules}
 	
-	Given a partition of an element into polytopal sub-domains (quadrature cells), one may utilize low order quadrature rules over each sub-domain, thereby yielding a composite quadrature rule over the element as a whole, whose overall accuracy is determined by the order of accuracy used in each sub-domain.
+	Given a partition of an element into polytopal sub-domains (quadrature cells), one may utilize low order quadrature rules over each sub-domain, thereby yielding a composite quadrature rule over the element as a whole, whose overall accuracy is determined by the order of accuracy used within each sub-domain.
 	
-	The simplest quadrature rule of this form is the composite mid-point scheme, where the quadrature points are located at the centroids of each sub-domain. Such a rule exactly integrates polynomials up to first order, and is reasonably accurate, otherwise. The integration points are guaranteed to be interior to each sub-domain (and the element as a whole), provided each cell is convex.
+	The simplest quadrature rule of this form is the composite mid-point scheme, where the quadrature points are located at the centroids of each sub-domain. Such a rule exactly integrates polynomials up to first order, and provides reasonable accuracy when integrating polynomials of higher-order (\cite{Rashid:12} provides a numerical assessment of the accuracy of composite mid-point quadratures.) Moreover, the integration points are guaranteed to be interior to each sub-domain (and the element as a whole), provided each cell is convex.
 	
-	For simple sub-divisions (consisting of triangles or tetrahedra), composite quadrature rules may be extended rather naturally to obtain higher-order accuracy. For generic sub-divisions (consiting of arbitrary polytopes), the extension to high-order is not as straight-forward. For this reason, subsequent discussions will be concerned almost exclusively with composite mid-point rules.
+	For simple sub-divisions (consisting of triangles or tetrahedra), composite quadrature rules may be extended rather naturally to obtain higher-order accuracy. For generic sub-divisions (consiting of arbitrary polytopes), the extension to higher-order composite rules is not as straight-forward. For this reason, subsequent discussions will be concerned almost exclusively with composite mid-point rules.
 	
 	The weights and locations of a composite mid-point quadrature rule correspond to the volumes and geometric centroids of each cell. In general, a given quadrature cell $\omega$ may be an arbitrary polyhedron, whose volume $|\omega|$ and centroid $\bar{\mathbf{X}}$ may be computed using the $0$-th and $1$-st order moments of $\omega$, i.e.
 	\begin{equation}
@@ -553,7 +567,7 @@ Methods for partitioning the elements into sub-domains which yield stable and ef
 	\begin{equation}
 		\mathbf{X} = \mathbf{X}_\sigma + \sum_{i=1}^{d-1} X_i \, \hat{\mathbf{X}}_i,
 	\end{equation}
-	where $\mathbf{X}_\sigma$ is any reference location positioned on the hyperplane which contains $\sigma$, and $\hat{\mathbf{X}}_i$ form a parameterization of the in-plane coordinates on $\sigma$. This leads to the observation $\mathbf{X} \cdot \mathbf{N}_\sigma = \mathbf{X}_\sigma \cdot \mathbf{N}_\sigma \, \, \forall \mathbf{X} \in \sigma$, and thus
+	where $\mathbf{X}_\sigma$ is any reference location positioned on the hyperplane which contains $\sigma$, and the orthonomial set $\left\{ \hat{\mathbf{X}}_i \right\}_{i=1}^{d-1}$ defines a parameterization of the in-plane coordinates on $\sigma$. This leads to the observation $\mathbf{X} \cdot \mathbf{N}_\sigma = \mathbf{X}_\sigma \cdot \mathbf{N}_\sigma \, \, \forall \mathbf{X} \in \sigma$, and thus
 	\begin{equation}
 		\int_{\omega} \mathbf{X}^\alpha \, dV = \frac{1}{d+|\alpha|} \sum_{\sigma \in \partial \omega} (\mathbf{X}_\sigma \cdot \mathbf{N}_{\sigma}) \int_{\sigma} \, \mathbf{X}^\alpha \, dA.
 	\end{equation}
@@ -600,6 +614,7 @@ Methods for partitioning the elements into sub-domains which yield stable and ef
     	Suppose two adjacent elements $\Omega_{L}$ and $\Omega_{R}$ share a given face $F = \partial \Omega_{L} \cap \partial \Omega_{R}$. If the shape functions and quadrature rules defined on $F_L \subset \partial \Omega_L$ and $F_R \subset \partial \Omega_R$ (where $F_L = F_R$) are identical, then the aforementioned gradient correction scheme will automatically lead to satisfaction of finite element patch tests. However, if $\Omega_{L}$ and $\Omega_{R}$ provide separate quadrature rules on $F_L$ and $F_R$ (arising from different partitions of the shared face), or if the elements' shape functions are not defined identically on $F_L$ and $F_R$, then we require that an additional condition be met:
     	\begin{equation}
     		\sum_{l=1}^{N^{F_L}_{bp}} w_l \mathbf{X}^{\alpha}_l \phi_l \, \mathbf{N}^{(l)} = - \sum_{r=1}^{N^{F_R}_{bp}} w_r \mathbf{X}^{\alpha}_r \phi_r \, \mathbf{N}^{(r)} \quad \forall \, | \alpha | \leq k-1,
+    		\label{eq:face_constraint}
     	\end{equation}
     	for every shared face $\partial \Omega_L \subset F_L = F_R \subset \partial \Omega_R$.
 		
