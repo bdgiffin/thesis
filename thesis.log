@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.8.23)  30 JAN 2018 18:49
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.8.23)  31 JAN 2018 23:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -246,36 +246,68 @@ subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
 \c@algocf=\count135
 \algocf@algoframe=\box34
 \algocf@algobox=\box35
-) (./thesis.aux (./introduction.aux) (./solid_mechanics.aux)
+) (/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 57.
+\captionmargin=\dimen122
+\captionmargin@=\dimen123
+\captionwidth=\dimen124
+\caption@tempdima=\dimen125
+\caption@indent=\dimen126
+\caption@parindent=\dimen127
+\caption@hangindent=\dimen128
+Package caption Info: Unknown document class (or package),
+(caption)             standard defaults will be used.
+)
+
+Package caption Warning: Unsupported document class (or package) detected,
+(caption)                usage of the caption package is not recommended.
+See the caption package documentation for explanation.
+
+Package caption Info: \@makecaption = \long macro:#1#2->\renewcommand {\baselin
+estretch }{1.0} \small \vskip \abovecaptionskip \sbox \@tempboxa {#1. #2}\ifdim
+ \wd \@tempboxa >0.9\hsize \hskip .05\hsize \parbox {0.9\hsize }{#1. #2}\else \
+global \@minipagefalse \hb@xt@ \hsize {\hfil \box \@tempboxa \hfil }\fi \normal
+size \vskip \belowcaptionskip .
+\c@ContinuedFloat=\count136
+) (/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2013/02/03 v1.1-62 Sub-captions (AR)
+\c@subfigure=\count137
+\c@subtable=\count138
+)
+(./thesis.aux (./introduction.aux) (./solid_mechanics.aux)
 (./pem_formulation.aux) (./implementation.aux) (./results.aux)
 (./future_work.aux))
 \openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count136
-\scratchdimen=\dimen122
+\scratchcounter=\count139
+\scratchdimen=\dimen129
 \scratchbox=\box36
-\nofMPsegments=\count137
-\nofMParguments=\count138
+\nofMPsegments=\count140
+\nofMParguments=\count141
 \everyMPshowfont=\toks22
-\MPscratchCnt=\count139
-\MPscratchDim=\dimen123
-\MPnumerator=\count140
-\makeMPintoPDFobject=\count141
+\MPscratchCnt=\count142
+\MPscratchDim=\dimen130
+\MPnumerator=\count143
+\makeMPintoPDFobject=\count144
 \everyMPtoPDFconversion=\toks23
 ) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
@@ -325,18 +357,21 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+
 [1
 
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 113.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 115.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 113.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 115.
  [1
 
 ] [2
@@ -360,7 +395,13 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
  [4]
 (./thesis.lof [5
 
-])
+]
+Overfull \hbox (2.41768pt too wide) in paragraph at lines 22--22
+ [][] []\OT1/cmr/m/n/12 Histograms of var-i-ous el-e-ment met-rics as-so-ci-ate
+d with the polyg-o-nal meshes 
+ []
+
+)
 \tf@lof=\write4
 \openout4 = `thesis.lof'.
 
@@ -373,7 +414,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ]
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/sc' undefined
-(Font)              using `OT1/cmr/bx/n' instead on input line 113.
+(Font)              using `OT1/cmr/bx/n' instead on input line 115.
 
 [8
 
@@ -420,7 +461,7 @@ Chapter 3.
 
 
 
-] <figures/polyhedron_decomposition.pdf, id=160, 2128.65257pt x 614.1085pt>
+] <figures/polyhedron_decomposition.pdf, id=159, 2128.65257pt x 614.1085pt>
 File: figures/polyhedron_decomposition.pdf Graphic file (type pdf)
 
 <use figures/polyhedron_decomposition.pdf>
@@ -428,7 +469,7 @@ Package pdftex.def Info: figures/polyhedron_decomposition.pdf used on input lin
 e 51.
 (pdftex.def)             Requested size: 433.62pt x 125.09656pt.
  [34] [35 <./figures/polyhedron_decomposition.pdf>] <figures/harmonic_sfs.pdf, 
-id=213, 2340.85626pt x 607.79366pt>
+id=211, 2340.85626pt x 607.79366pt>
 File: figures/harmonic_sfs.pdf Graphic file (type pdf)
 
 <use figures/harmonic_sfs.pdf>
@@ -436,14 +477,14 @@ Package pdftex.def Info: figures/harmonic_sfs.pdf used on input line 115.
 (pdftex.def)             Requested size: 433.62pt x 112.57918pt.
  [36 <./figures/harmonic_sfs.pdf>] [37] [38]
 [39] [40] [41] [42]
-<figures/polyhedron_partition.pdf, id=311, 2157.86964pt x 605.79118pt>
+<figures/polyhedron_partition.pdf, id=309, 2157.86964pt x 605.79118pt>
 File: figures/polyhedron_partition.pdf Graphic file (type pdf)
 
 <use figures/polyhedron_partition.pdf>
 Package pdftex.def Info: figures/polyhedron_partition.pdf used on input line 27
 1.
 (pdftex.def)             Requested size: 433.62pt x 121.72919pt.
- [43 <./figures/polyhedron_partition.pdf>] <figures/partition_types.pdf, id=612
+ [43 <./figures/polyhedron_partition.pdf>] <figures/partition_types.pdf, id=610
 , 497.50081pt x 595.763pt>
 File: figures/partition_types.pdf Graphic file (type pdf)
 
@@ -451,7 +492,7 @@ File: figures/partition_types.pdf Graphic file (type pdf)
 Package pdftex.def Info: figures/partition_types.pdf used on input line 285.
 (pdftex.def)             Requested size: 289.07999pt x 346.19731pt.
  [44 <./figures/partition_types.pdf>]
-<figures/harmonic_fem_sfs.pdf, id=618, 2438.58244pt x 650.83704pt>
+<figures/harmonic_fem_sfs.pdf, id=616, 2438.58244pt x 650.83704pt>
 File: figures/harmonic_fem_sfs.pdf Graphic file (type pdf)
 
 <use figures/harmonic_fem_sfs.pdf>
@@ -477,7 +518,7 @@ $ pos-sesses a quadra-ture rule $[][]$
 
  (./implementation.tex
 Chapter 4.
-<figures/canonical_orderings.pdf, id=676, 514.3407pt x 223.6409pt>
+<figures/canonical_orderings.pdf, id=674, 514.3407pt x 223.6409pt>
 File: figures/canonical_orderings.pdf Graphic file (type pdf)
 
 <use figures/canonical_orderings.pdf>
@@ -488,7 +529,7 @@ Package pdftex.def Info: figures/canonical_orderings.pdf used on input line 12.
 
 
 
-] [58 <./figures/canonical_orderings.pdf>] <figures/polyhedron_data.pdf, id=686
+] [58 <./figures/canonical_orderings.pdf>] <figures/polyhedron_data.pdf, id=684
 , 1560.96959pt x 707.7658pt>
 File: figures/polyhedron_data.pdf Graphic file (type pdf)
 
@@ -496,7 +537,7 @@ File: figures/polyhedron_data.pdf Graphic file (type pdf)
 Package pdftex.def Info: figures/polyhedron_data.pdf used on input line 38.
 (pdftex.def)             Requested size: 433.62pt x 196.60712pt.
  [59 <./figures/polyhedron_data.pdf>]
-<figures/polyhedron_data_quadratic.pdf, id=734, 1594.75204pt x 713.83392pt>
+<figures/polyhedron_data_quadratic.pdf, id=732, 1594.75204pt x 713.83392pt>
 File: figures/polyhedron_data_quadratic.pdf Graphic file (type pdf)
 
 <use figures/polyhedron_data_quadratic.pdf>
@@ -504,7 +545,7 @@ Package pdftex.def Info: figures/polyhedron_data_quadratic.pdf used on input li
 ne 52.
 (pdftex.def)             Requested size: 433.62pt x 194.08836pt.
  [60 <./figures/polyhedron_data_quadratic.pdf>] [61] [62]
-<figures/partitioning_algorithm.pdf, id=908, 3073.91527pt x 629.78133pt>
+<figures/partitioning_algorithm.pdf, id=906, 3073.91527pt x 629.78133pt>
 File: figures/partitioning_algorithm.pdf Graphic file (type pdf)
 
 <use figures/partitioning_algorithm.pdf>
@@ -512,7 +553,7 @@ Package pdftex.def Info: figures/partitioning_algorithm.pdf used on input line
 116.
 (pdftex.def)             Requested size: 433.62pt x 88.83185pt.
 
-<figures/partitioning_algorithm_quadratic.pdf, id=909, 3073.91527pt x 629.78133
+<figures/partitioning_algorithm_quadratic.pdf, id=907, 3073.91527pt x 629.78133
 pt>
 File: figures/partitioning_algorithm_quadratic.pdf Graphic file (type pdf)
  <use figures/partitioning_algorithm_quadratic.pdf>
@@ -524,14 +565,14 @@ thm_quadratic.pdf
 
 pdfTeX warning: pdflatex (file ./figures/partitioning_algorithm_quadratic.pdf):
  PDF inclusion: multiple pdfs with page group included in a single page
->] <figures/entity_tree.pdf, id=1099, 3843.75941pt x 1075.54826pt>
+>] <figures/entity_tree.pdf, id=1097, 3843.75941pt x 1075.54826pt>
 File: figures/entity_tree.pdf Graphic file (type pdf)
 
 <use figures/entity_tree.pdf>
 Package pdftex.def Info: figures/entity_tree.pdf used on input line 142.
 (pdftex.def)             Requested size: 361.34999pt x 101.11139pt.
  [65 <./figures/entity_tree.pdf>]
-<figures/sub_element.pdf, id=1119, 1965.45058pt x 607.08919pt>
+<figures/sub_element.pdf, id=1117, 1965.45058pt x 607.08919pt>
 File: figures/sub_element.pdf Graphic file (type pdf)
 
 <use figures/sub_element.pdf>
@@ -558,52 +599,193 @@ Overfull \hbox (2.78821pt too wide) in paragraph at lines 363--365
 
  (./results.tex
 Chapter 5.
-<figures/plate_with_hole.pdf, id=1210, 583.53358pt x 406.87007pt>
-File: figures/plate_with_hole.pdf Graphic file (type pdf)
+<figures/patch_mesh.pdf, id=1208, 1034.58394pt x 655.78337pt>
+File: figures/patch_mesh.pdf Graphic file (type pdf)
 
-<use figures/plate_with_hole.pdf>
-Package pdftex.def Info: figures/plate_with_hole.pdf used on input line 9.
-(pdftex.def)             Requested size: 289.07999pt x 201.55962pt.
+<use figures/patch_mesh.pdf>
+Package pdftex.def Info: figures/patch_mesh.pdf used on input line 14.
+(pdftex.def)             Requested size: 216.81pt x 137.41838pt.
+
+<figures/lloyd_mesh.pdf, id=1209, 1023.84326pt x 655.78337pt>
+File: figures/lloyd_mesh.pdf Graphic file (type pdf)
+
+<use figures/lloyd_mesh.pdf>
+Package pdftex.def Info: figures/lloyd_mesh.pdf used on input line 19.
+(pdftex.def)             Requested size: 216.81pt x 138.86931pt.
  [78
 
 
 
- <./figures/plate_with_hole.pdf>]
-<figures/plate_with_hole_meshes.pdf, id=1230, 1066.58607pt x 882.79451pt>
+ <./figures/patch_mesh.pdf> <./figures/lloyd_mesh.pdf
+
+pdfTeX warning: pdflatex (file ./figures/lloyd_mesh.pdf): PDF inclusion: multip
+le pdfs with page group included in a single page
+>] <figures/patch_edge_lengths.pdf, id=1223, 449.68pt x 343.9489pt>
+File: figures/patch_edge_lengths.pdf Graphic file (type pdf)
+
+<use figures/patch_edge_lengths.pdf>
+Package pdftex.def Info: figures/patch_edge_lengths.pdf used on input line 40.
+(pdftex.def)             Requested size: 216.81pt x 165.83359pt.
+
+<figures/lloyd_edge_lengths.pdf, id=1224, 449.68pt x 344.32262pt>
+File: figures/lloyd_edge_lengths.pdf Graphic file (type pdf)
+
+<use figures/lloyd_edge_lengths.pdf>
+Package pdftex.def Info: figures/lloyd_edge_lengths.pdf used on input line 45.
+(pdftex.def)             Requested size: 216.81pt x 166.01378pt.
+
+<figures/patch_edge_ratios.pdf, id=1225, 449.68pt x 344.04768pt>
+File: figures/patch_edge_ratios.pdf Graphic file (type pdf)
+
+<use figures/patch_edge_ratios.pdf>
+Package pdftex.def Info: figures/patch_edge_ratios.pdf used on input line 50.
+(pdftex.def)             Requested size: 216.81pt x 165.88123pt.
+
+<figures/lloyd_edge_ratios.pdf, id=1226, 449.68pt x 341.0977pt>
+File: figures/lloyd_edge_ratios.pdf Graphic file (type pdf)
+
+<use figures/lloyd_edge_ratios.pdf>
+Package pdftex.def Info: figures/lloyd_edge_ratios.pdf used on input line 55.
+(pdftex.def)             Requested size: 216.81pt x 164.4589pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<figures/patch_eigenmodes_DGPEM.pdf, id=1227, 1045.53882pt x 710.13707pt>
+File: figures/patch_eigenmodes_DGPEM.pdf Graphic file (type pdf)
+
+<use figures/patch_eigenmodes_DGPEM.pdf>
+Package pdftex.def Info: figures/patch_eigenmodes_DGPEM.pdf used on input line 
+63.
+(pdftex.def)             Requested size: 361.34999pt x 245.43098pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<figures/patch_condition_number_FEPEM.pdf, id=1228, 449.68pt x 344.53922pt>
+File: figures/patch_condition_number_FEPEM.pdf Graphic file (type pdf)
+
+<use figures/patch_condition_number_FEPEM.pdf>
+Package pdftex.def Info: figures/patch_condition_number_FEPEM.pdf used on input
+ line 131.
+(pdftex.def)             Requested size: 216.81pt x 166.11821pt.
+
+<figures/lloyd_condition_number_FEPEM.pdf, id=1229, 449.68pt x 345.38275pt>
+File: figures/lloyd_condition_number_FEPEM.pdf Graphic file (type pdf)
+
+<use figures/lloyd_condition_number_FEPEM.pdf>
+Package pdftex.def Info: figures/lloyd_condition_number_FEPEM.pdf used on input
+ line 136.
+(pdftex.def)             Requested size: 216.81pt x 166.52492pt.
+
+<figures/patch_condition_number_DGPEM.pdf, id=1230, 449.68pt x 344.45184pt>
+File: figures/patch_condition_number_DGPEM.pdf Graphic file (type pdf)
+
+<use figures/patch_condition_number_DGPEM.pdf>
+Package pdftex.def Info: figures/patch_condition_number_DGPEM.pdf used on input
+ line 141.
+(pdftex.def)             Requested size: 216.81pt x 166.07608pt.
+
+<figures/lloyd_condition_number_DGPEM.pdf, id=1231, 449.68pt x 344.59009pt>
+File: figures/lloyd_condition_number_DGPEM.pdf Graphic file (type pdf)
+
+<use figures/lloyd_condition_number_DGPEM.pdf>
+Package pdftex.def Info: figures/lloyd_condition_number_DGPEM.pdf used on input
+ line 146.
+(pdftex.def)             Requested size: 216.81pt x 166.14273pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<figures/plate_with_hole.pdf, id=1232, 583.53358pt x 406.87007pt>
+File: figures/plate_with_hole.pdf Graphic file (type pdf)
+
+<use figures/plate_with_hole.pdf>
+Package pdftex.def Info: figures/plate_with_hole.pdf used on input line 186.
+(pdftex.def)             Requested size: 289.07999pt x 201.55962pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[79] <figures/plate_with_hole_meshes.pdf, id=1236, 1066.58607pt x 882.79451pt>
 File: figures/plate_with_hole_meshes.pdf Graphic file (type pdf)
 
 <use figures/plate_with_hole_meshes.pdf>
 Package pdftex.def Info: figures/plate_with_hole_meshes.pdf used on input line 
-32.
+209.
 (pdftex.def)             Requested size: 433.62pt x 358.9038pt.
- [79 <./figures/plate_with_hole_meshes.pdf>] [80] <figures/l2_error_plot.pdf, i
-d=1264, 1948.99567pt x 972.31027pt>
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[80 <./figures/patch_edge_lengths.pdf> <./figures/lloyd_edge_lengths.pdf
+
+pdfTeX warning: pdflatex (file ./figures/lloyd_edge_lengths.pdf): PDF inclusion
+: multiple pdfs with page group included in a single page
+> <./figures/patch_edge_ratios.pdf
+
+pdfTeX warning: pdflatex (file ./figures/patch_edge_ratios.pdf): PDF inclusion:
+ multiple pdfs with page group included in a single page
+> <./figures/lloyd_edge_ratios.pdf
+
+pdfTeX warning: pdflatex (file ./figures/lloyd_edge_ratios.pdf): PDF inclusion:
+ multiple pdfs with page group included in a single page
+>] [81 <./figures/patch_eigenmodes_DGPEM.pdf>]
+<figures/l2_error_plot.pdf, id=1354, 1948.99567pt x 972.31027pt>
 File: figures/l2_error_plot.pdf Graphic file (type pdf)
 
 <use figures/l2_error_plot.pdf>
-Package pdftex.def Info: figures/l2_error_plot.pdf used on input line 116.
+Package pdftex.def Info: figures/l2_error_plot.pdf used on input line 293.
 (pdftex.def)             Requested size: 433.62pt x 216.3124pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<figures/h1_error_plot.pdf, id=1265, 1946.70157pt x 969.21277pt>
+<figures/h1_error_plot.pdf, id=1355, 1946.70157pt x 969.21277pt>
 File: figures/h1_error_plot.pdf Graphic file (type pdf)
 
 <use figures/h1_error_plot.pdf>
-Package pdftex.def Info: figures/h1_error_plot.pdf used on input line 124.
+Package pdftex.def Info: figures/h1_error_plot.pdf used on input line 301.
 (pdftex.def)             Requested size: 433.62pt x 215.8747pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[81] [82 <./figures/l2_error_plot.pdf>] [83 <./figures/h1_error_plot.pdf>]
-[84] [85]) [86]
+[82 <./figures/patch_condition_number_FEPEM.pdf> <./figures/lloyd_condition_num
+ber_FEPEM.pdf
+
+pdfTeX warning: pdflatex (file ./figures/lloyd_condition_number_FEPEM.pdf): PDF
+ inclusion: multiple pdfs with page group included in a single page
+> <./figures/patch_condition_number_DGPEM.pdf
+
+pdfTeX warning: pdflatex (file ./figures/patch_condition_number_DGPEM.pdf): PDF
+ inclusion: multiple pdfs with page group included in a single page
+> <./figures/lloyd_condition_number_DGPEM.pdf
+
+pdfTeX warning: pdflatex (file ./figures/lloyd_condition_number_DGPEM.pdf): PDF
+ inclusion: multiple pdfs with page group included in a single page
+>]
+
+LaTeX Warning: Text page 83 contains only floats.
+
+
+Overfull \vbox (1.48717pt too high) has occurred while \output is active []
+
+
+[83 <./figures/plate_with_hole.pdf> <./figures/plate_with_hole_meshes.pdf
+
+pdfTeX warning: pdflatex (file ./figures/plate_with_hole_meshes.pdf): PDF inclu
+sion: multiple pdfs with page group included in a single page
+>] [84] [85 <./figures/l2_error_plot.pdf> <./figures/h1_error_plot.pdf
+
+pdfTeX warning: pdflatex (file ./figures/h1_error_plot.pdf): PDF inclusion: mul
+tiple pdfs with page group included in a single page
+>] [86] [87]) [88]
 \openout2 = `future_work.aux'.
 
  (./future_work.tex
 Chapter 6.
-) [87
+) [89
 
 
 
@@ -614,10 +796,10 @@ Missing character: There is no Ã in font cmti12!
 Missing character: There is no © in font cmti12!
 Missing character: There is no Ã in font cmti12!
 Missing character: There is no © in font cmti12!
- [88
+ [90
 
 
-] [89] [90] [91]) [92] [1] [2] (./thesis.aux
+] [91] [92] [93]) [94] [1] [2] (./thesis.aux
 (./introduction.aux) (./solid_mechanics.aux) (./pem_formulation.aux)
 (./implementation.aux) (./results.aux) (./future_work.aux))
 
@@ -629,36 +811,35 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 5241 strings out of 494985
- 72229 string characters out of 6180356
- 171803 words of memory out of 5000000
- 8282 multiletter control sequences out of 15000+600000
- 15430 words of font info for 56 fonts, out of 8000000 for 9000
+ 6405 strings out of 494985
+ 94450 string characters out of 6180356
+ 194874 words of memory out of 5000000
+ 9428 multiletter control sequences out of 15000+600000
+ 13874 words of font info for 50 fonts, out of 8000000 for 9000
  40 hyphenation exceptions out of 8191
- 38i,14n,26p,1430b,361s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,14n,49p,1430b,487s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
-fonts/cmextra/cmmib8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.p
-fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr
-/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on thesis.pdf (104 pages, 3607389 bytes).
+xmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cmextra/cmmib8.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on thesis.pdf (106 pages, 4100413 bytes).
 PDF statistics:
- 1402 PDF objects out of 1440 (max. 8388607)
- 881 compressed objects within 9 object streams
+ 1573 PDF objects out of 1728 (max. 8388607)
+ 989 compressed objects within 10 object streams
  0 named destinations out of 1000 (max. 500000)
- 86 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 141 words of extra memory for PDF output out of 10000 (max. 10000000)
 

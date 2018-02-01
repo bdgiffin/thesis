@@ -27,9 +27,11 @@
 \contentsline {section}{\numberline {4.5}Linearization and Assembly of the \\ DG-PEM Systems of Equations}{69}
 \contentsline {section}{\numberline {4.6}Numerical Conditioning of the \\ DG-PEM Systems of Equations}{73}
 \contentsline {chapter}{\numberline {5}A Numerical Evaluation of the PEM}{78}
-\contentsline {section}{\numberline {5.1}Convergence Analysis}{78}
-\contentsline {section}{\numberline {5.2}Parameter Sensitivity Analysis}{83}
-\contentsline {section}{\numberline {5.3}Computational Efficiency}{83}
-\contentsline {subsection}{\numberline {5.3.1}Performance Comparison}{83}
-\contentsline {section}{\numberline {5.4}Resistance to Locking Phenomena}{83}
-\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{87}
+\contentsline {section}{\numberline {5.1}Element Quality and Parameter Sensitivity}{78}
+\contentsline {subsection}{\numberline {5.1.1}Meshes Consisting of Elements with Degenerate Edges}{78}
+\contentsline {section}{\numberline {5.2}Convergence Analysis}{79}
+\contentsline {section}{\numberline {5.3}Parameter Sensitivity Analysis}{86}
+\contentsline {section}{\numberline {5.4}Computational Efficiency}{86}
+\contentsline {subsection}{\numberline {5.4.1}Performance Comparison}{86}
+\contentsline {section}{\numberline {5.5}Resistance to Locking Phenomena}{86}
+\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{89}

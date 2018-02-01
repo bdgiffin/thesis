@@ -11,45 +11,45 @@ A level-1 auxiliary file: future_work.aux
 Database file #1: bibliography.bib
 Warning--entry type for "Wikiversity:17" isn't style-file defined
 --line 522 of file bibliography.bib
-You've used 62 entries,
+You've used 63 entries,
             2118 wiz_defined-function locations,
-            911 strings with 13836 characters,
-and the built_in function-call counts, 20119 in all, are:
-= -- 2047
-> -- 897
+            919 strings with 14088 characters,
+and the built_in function-call counts, 20516 in all, are:
+= -- 2086
+> -- 920
 < -- 1
-+ -- 372
-- -- 292
-* -- 1445
-:= -- 3425
-add.period$ -- 184
-call.type$ -- 62
-change.case$ -- 327
++ -- 381
+- -- 300
+* -- 1482
+:= -- 3492
+add.period$ -- 187
+call.type$ -- 63
+change.case$ -- 334
 chr.to.int$ -- 0
-cite$ -- 62
-duplicate$ -- 681
-empty$ -- 1557
-format.name$ -- 292
-if$ -- 4076
+cite$ -- 63
+duplicate$ -- 692
+empty$ -- 1584
+format.name$ -- 300
+if$ -- 4154
 int.to.chr$ -- 0
-int.to.str$ -- 62
-missing$ -- 64
-newline$ -- 311
-num.names$ -- 124
-pop$ -- 255
+int.to.str$ -- 63
+missing$ -- 65
+newline$ -- 316
+num.names$ -- 126
+pop$ -- 260
 preamble$ -- 1
-purify$ -- 270
+purify$ -- 276
 quote$ -- 0
-skip$ -- 465
+skip$ -- 472
 stack$ -- 0
-substring$ -- 1580
-swap$ -- 71
+substring$ -- 1610
+swap$ -- 72
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 238
+type$ -- 242
 warning$ -- 0
-while$ -- 219
-width$ -- 64
-write$ -- 674
+while$ -- 223
+width$ -- 65
+write$ -- 685
 (There was 1 warning)

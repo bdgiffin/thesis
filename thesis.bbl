@@ -348,6 +348,13 @@ Cameron Talischi and Glaucio~H. Paulino.
 \newblock {\em Mathematical Models and Methods in Applied Sciences},
   24:1701--1727, 2014.
 
+\bibitem{Talischi:12}
+Cameron Talischi, Glaucio~H. Paulino, Anderson Pereira, and Ivan F.~M. Menezes.
+\newblock Polymesher: a general-purpose mesh generator for polygonal elements
+  written in matlab.
+\newblock {\em Structural and Multidisciplinary Optimization}, 45(3):309--328,
+  Mar 2012.
+
 \bibitem{Talischi:15}
 Cameron Talischi, Anderson Pereira, Ivan F.~M. Menezes, and Glaucio~H. Paulino.
 \newblock Gradient correction for polygonal and polyhedral finite elements.

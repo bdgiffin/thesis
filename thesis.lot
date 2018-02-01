@@ -3,8 +3,9 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Computed $L^2$ displacement error norms.}}{81}
-\contentsline {table}{\numberline {5.2}{\ignorespaces Computed $L^2$ displacement error norm convergence rates.}}{81}
-\contentsline {table}{\numberline {5.3}{\ignorespaces Computed $H^1$ energy error semi-norms.}}{81}
-\contentsline {table}{\numberline {5.4}{\ignorespaces Computed $H^1$ energy error semi-norm convergence rates.}}{82}
+\contentsline {table}{\numberline {5.1}{\ignorespaces Computed values for the condition number $\kappa (\mathbf {K})$ of the global stiffnes matrix $\mathbf {K}$ (excluding rigid body modes).\relax }}{79}
+\contentsline {table}{\numberline {5.2}{\ignorespaces Computed $L^2$ displacement error norms.\relax }}{82}
+\contentsline {table}{\numberline {5.3}{\ignorespaces Computed $L^2$ displacement error norm convergence rates.\relax }}{84}
+\contentsline {table}{\numberline {5.4}{\ignorespaces Computed $H^1$ energy error semi-norms.\relax }}{84}
+\contentsline {table}{\numberline {5.5}{\ignorespaces Computed $H^1$ energy error semi-norm convergence rates.\relax }}{84}
 \addvspace {10\p@ }

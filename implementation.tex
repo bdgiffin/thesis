@@ -331,7 +331,7 @@ The subsequent discussion examines the case where $\epsilon = +1$, yielding stri
 \end{equation}
 Let $h_{\varepsilon}$ denote the diameter of $\varepsilon$, such that
 \begin{equation}
-	h_{\varepsilon} = \sup_{\mathbf{X}, \mathbf{Y} \in \varepsilon} ||\mathbf{X} - \mathbf{Y}||_2.
+	h_{\varepsilon} = \sup_{\mathbf{X}_1, \mathbf{X}_2 \in \varepsilon} ||\mathbf{X}_1 - \mathbf{X}_2||_2.
 \end{equation}
 Using the following trace inequalities:
 \begin{equation}
@@ -367,7 +367,7 @@ Clearly, the condition number of $\mathbf{J}$ under these circumstances may beco
 
 To mitigate this issue, the (sub-)element's shape functions may be computed with respect to a shifted and scaled coordinate system, i.e. $\mathbf{X}' = h_\mathcal{E}^{-1} (\mathbf{X} - \bar{\mathbf{X}}^{\mathcal{E}}_0)$, where
 \begin{equation}
-	h_{\mathcal{E}} = \sup_{\mathbf{X}, \mathbf{Y} \in \mathcal{E}} ||\mathbf{X} - \mathbf{Y}||_2.
+	h_{\mathcal{E}} = \sup_{\mathbf{X}_1, \mathbf{X}_2 \in \mathcal{E}} ||\mathbf{X}_1 - \mathbf{x}_2||_2.
 \end{equation}
 This assists in limiting the worst-case value of $R_{\max}$ appearing in the previous estimate, yielding a somewhat improved bound on the condition number: $\kappa (\mathbf{J}) \approx O(\rho^{2k})$, where $\rho = h_{\mathcal{E}} / h_{\min}$, and
 \begin{equation}
