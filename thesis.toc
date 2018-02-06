@@ -1,10 +1,10 @@
 \contentsline {section}{List of Figures}{v}
-\contentsline {section}{List of Tables}{vii}
-\contentsline {section}{Abstract}{viii}
-\contentsline {section}{Acknowledgments}{ix}
+\contentsline {section}{List of Tables}{viii}
+\contentsline {section}{Abstract}{ix}
+\contentsline {section}{Acknowledgments}{x}
 \contentsline {chapter}{\numberline {1}Introduction}{1}
 \contentsline {section}{\numberline {1.1}Historical Development}{1}
-\contentsline {section}{\numberline {1.2}Recent Developments in Polytopal Discretizations}{8}
+\contentsline {section}{\numberline {1.2}Recent Developments in Polytopal Discretization}{9}
 \contentsline {section}{\numberline {1.3}Scope of the Present Work}{13}
 \contentsline {chapter}{\numberline {2}An Overview of Computational Solid Mechanics}{15}
 \contentsline {section}{\numberline {2.1}The Lagrangian Description of Motion}{16}
@@ -27,11 +27,14 @@
 \contentsline {section}{\numberline {4.5}Linearization and Assembly of the \\ DG-PEM Systems of Equations}{69}
 \contentsline {section}{\numberline {4.6}Numerical Conditioning of the \\ DG-PEM Systems of Equations}{73}
 \contentsline {chapter}{\numberline {5}A Numerical Evaluation of the PEM}{78}
-\contentsline {section}{\numberline {5.1}Element Quality and Parameter Sensitivity}{78}
-\contentsline {subsection}{\numberline {5.1.1}Meshes Consisting of Elements with Degenerate Edges}{78}
-\contentsline {section}{\numberline {5.2}Convergence Analysis}{79}
-\contentsline {section}{\numberline {5.3}Parameter Sensitivity Analysis}{86}
-\contentsline {section}{\numberline {5.4}Computational Efficiency}{86}
-\contentsline {subsection}{\numberline {5.4.1}Performance Comparison}{86}
-\contentsline {section}{\numberline {5.5}Resistance to Locking Phenomena}{86}
-\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{89}
+\contentsline {section}{\numberline {5.1}Irons' Patch Tests}{78}
+\contentsline {section}{\numberline {5.2}Element Quality and Parameter Sensitivity}{79}
+\contentsline {subsection}{\numberline {5.2.1}Meshes Consisting of Elements with Degenerate Edges}{79}
+\contentsline {section}{\numberline {5.3}Convergence Analysis}{81}
+\contentsline {section}{\numberline {5.4}Parameter Sensitivity Analysis}{87}
+\contentsline {section}{\numberline {5.5}Computational Efficiency}{87}
+\contentsline {subsection}{\numberline {5.5.1}Performance Comparison}{87}
+\contentsline {section}{\numberline {5.6}Resistance to Locking Phenomena}{87}
+\contentsline {subsubsection}{\numberline {5.6.0.1}Exact Solution}{90}
+\contentsline {section}{\numberline {5.7}Comparison with Isoparametric Finite Elements}{90}
+\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{97}

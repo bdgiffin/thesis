@@ -135,6 +135,13 @@ Carlos~A. Felippa.
 \newblock {\em Introduction to Finite Element Methods}.
 \newblock University of Colorado, Boulder, 2004.
 
+\bibitem{Mendez:04}
+Sonia Fernández-Méndez and Antonio Huerta.
+\newblock Imposing essential boundary conditions in mesh-free methods.
+\newblock {\em Computer Methods in Applied Mechanics and Engineering},
+  193(12):1257 -- 1275, 2004.
+\newblock Meshfree Methods: Recent Advances and New Applications.
+
 \bibitem{Flanagan:81}
 D.~P. Flanagan and T.~Belytschko.
 \newblock A uniform strain hexahedron and quadrilateral with orthogonal
@@ -219,6 +226,13 @@ Richard~H. MacNeal.
   elements.
 \newblock {\em International Journal for Numerical Methods in Engineering},
   24:1793--1799, 1987.
+
+\bibitem{Malkus&Hughes:78}
+David~S. Malkus and Thomas~J.R. Hughes.
+\newblock Mixed finite element methods — reduced and selective integration
+  techniques: A unification of concepts.
+\newblock {\em Computer Methods in Applied Mechanics and Engineering}, 15(1):63
+  -- 81, 1978.
 
 \bibitem{Martin:08}
 Sebastian Martin, Peter Kaufmann, Mario Botsch, Martin Wicke, and Markus Gross.
@@ -322,6 +336,12 @@ Friedrich Stummel.
 \newblock The generalized patch test.
 \newblock {\em SIAM Journal on Numerical Analysis}, 16(3):449--471, 1979.
 
+\bibitem{Stummel:80}
+Friedrich Stummel.
+\newblock The limitations of the patch test.
+\newblock {\em International Journal for Numerical Methods in Engineering},
+  16:177--188, 1980.
+
 \bibitem{Sukumar:04}
 N.~Sukumar.
 \newblock Construction of polygonal interpolants: a maximum entropy approach.
@@ -361,6 +381,12 @@ Cameron Talischi, Anderson Pereira, Ivan F.~M. Menezes, and Glaucio~H. Paulino.
 \newblock {\em International Journal for Numerical Methods in Engineering},
   102:728--747, 2015.
 
+\bibitem{Simo&Taylor:86}
+R.~L. Taylor, J.~C. Simo, O.~C. Zienkiewicz, and A.~C.~H. Chan.
+\newblock The patch test—a condition for assessing fem convergence.
+\newblock {\em International Journal for Numerical Methods in Engineering},
+  22(1):39--62, 1986.
+
 \bibitem{Wachspress:75}
 Eugene~L. Wachspress.
 \newblock {\em A Rational Finite Element Basis}.
@@ -382,6 +408,11 @@ X.~Wang, N.S. Malluwawadu, F.~Gao, and T.C. McMillan.
 \bibitem{Wikiversity:17}
 Wikiversity.
 \newblock Introduction to elasticity/plate with hole in tension, 2017.
+
+\bibitem{Wilson:73}
+E.L. Wilson, R.~Taylor, W.P. Doherty, and Jamshid Ghaboussi.
+\newblock {\em Incompatible Displacement Models}.
+\newblock 12 1973.
 
 \bibitem{Winkler:10}
 Robert Winkler.

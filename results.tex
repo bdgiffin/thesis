@@ -2,6 +2,39 @@
 %
 This chapter provides a detailed numerical assessment of the DG-PEM and its variants. Investigations into the sensitivity of the 
 
+\section{Irons' Patch Tests}
+
+In this section we investigate the behavior of PEM elements in the context of the standard Iron's patch test, whose passage is argued to be a necessary and sufficient condition for convergence in \cite{Simo&Taylor:86} (though this claim has been disputed, namely by Stummel in \cite{Stummel:80}).
+
+Two tests will be considered: the linear and quadratic patch tests, as depicted in figure \ref{fig:polygonal_patches}. 
+
+\begin{figure}[!h]
+    \centering
+    \begin{subfigure}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[width=2.0in]{figures/linear_patch_test.pdf}
+    			\caption{linear patch test \label{fig:linear_patch_test}}
+    \end{subfigure}
+	\begin{subfigure}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[width=2.0in]{figures/quadratic_patch_test.pdf}
+    			\caption{quadratic patch test \label{fig:quadratic_patch_test}}
+    \end{subfigure}
+    \caption{Depiction of simple patch tests for (\subref{fig:linear_patch_test}) linear and (\subref{fig:quadratic_patch_test}) quadratic elements.}
+    \label{fig:polygonal_patches}
+\end{figure}
+
+Want to show a series of problems which link:
+1) parameter choice to poor condition number
+2) poor condition number to interpolation error
+3) interpolation error to patch test errors
+
+Need a way to compute interpolation error (and possibly integration error) for arbitrary patches...
+Consider: specifying all nodal values to be consistent with a univariate polynomial (in Ux displacement, only; in terms of stuff)
+Set the material as E = 1.0, nu = 0.0, such that we recover stresses as strains via identity mapping
+Compute error directly as L2 and H1 norms; each will give error in representing the field and its gradient.
+In other words: constrain all nodes; any error is attributable to integration error
+
 \section{Element Quality and Parameter Sensitivity}
 
 \subsection{Meshes Consisting of Elements with Degenerate Edges}
@@ -426,3 +459,115 @@ The final analytical solution for the displacement and stress fields is presente
 \begin{equation}
   \sigma_{r \theta} = \mu \frac{r^{-2}}{R_i^{-2}} \sin \left( 2 \frac{\Phi R_i^{-2}}{R_i^{-2} - R_o^{-2}} t \right).
 \end{equation}
+
+\subsubsection*{Numerical Results}
+
+Because the element formulations that will be used herein possess only displacement degrees of freedom, we expect the finite element solutions to present innaccuracies due to the effects of volumetric locking. Moreover, it is not possible to run an analysis for a truly incompressible material (if the grade zero hypoelasticity model is to be utilized). For this reasons, it will suffice to examine solutions in the near-incompressible regieme (i.e. $\nu = 0.4999$).
+
+Additionally, because an accurate prediction of the pressure field requires the use of a mixed formulation, we expect the stress error to be dominated by errors in the pressure field. For this reason, we will choose to examine only the errors in the deviatoric stress field, where $s_{ij} = \sigma_{ij} - \frac{1}{3} \delta_{ij} \sigma_{kk}$ denotes the stress deviator.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=6.0in]{figures/annulus_meshes.pdf}
+  \caption{Polygonal meshes with varying levels of refinement for the twisting annulus problem.}
+  \label{fig:annulus_meshes}
+\end{figure}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=6.0in]{figures/quad_annulus_meshes.pdf}
+  \caption{Quadrilateral meshes with varying levels of refinement for the twisting annulus problem.}
+  \label{fig:quad_annulus_meshes}
+\end{figure}
+
+\begin{figure}[!h]
+  \centering
+    \begin{subfigure}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[width=3.3in]{figures/quad_l2_error.pdf}
+    			\caption{displacement error \label{fig:quad_l2_error}}
+    \end{subfigure}
+	\begin{subfigure}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[width=3.3in]{figures/quad_h1_error.pdf}
+    			\caption{stress deviator error \label{fig:quad_h1_error}}
+    \end{subfigure} \caption{Convergence plots for the twisting annulus problem using standard isoparametric elements.}
+  \label{fig:quad_error}
+\end{figure}
+
+\begin{figure}[!h]
+  \centering
+    \begin{subfigure}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[width=3.3in]{figures/quad_l2_error.pdf}
+    			\caption{displacement error \label{fig:quad_l2_error}}
+    \end{subfigure}
+	\begin{subfigure}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[width=3.3in]{figures/quad_h1_error.pdf}
+    			\caption{stress deviator error \label{fig:quad_h1_error}}
+    \end{subfigure} \caption{Convergence plots for the twisting annulus problem using standard isoparametric elements.}
+  \label{fig:quad_error}
+\end{figure}
+
+\subsection*{Thin Corner-Supported Plate}
+
+Consider a thin plate 
+(Description of the corner-supported plate problem).
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=6.0in]{figures/plate_meshes.pdf}
+  \caption{Hexahedral meshes with variable plate thickness $h$ and mesh perturbations $p$ for the corner-supported plate problem.}
+  \label{fig:plate_meshes}
+\end{figure}
+
+\subsubsection{Exact Solution}
+
+An exact solution for the vertical displacement field of the plate prob
+
+\section{Comparison with Isoparametric Finite Elements}
+
+\subsection*{Ductile Necking}
+
+\begin{figure}[!h]
+    \centering
+    \begin{subfigure}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[width=3.0in]{figures/necking_eqps_0.pdf}
+    			\caption{$t=0.0$ \label{fig:necking_eqps_0}}
+    \end{subfigure}
+	\begin{subfigure}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[width=3.0in]{figures/necking_eqps_1.pdf}
+    			\caption{$t=0.5$ \label{fig:necking_eqps_1}}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[width=3.0in]{figures/necking_eqps_2.pdf}
+    			\caption{$t=0.75$ \label{fig:necking_eqps_2}}
+    \end{subfigure}
+	\begin{subfigure}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[width=3.0in]{figures/necking_eqps_3.pdf}
+    			\caption{$t=1$ \label{fig:necking_eqps_3}}
+    \end{subfigure}
+    \caption{Comparison of necking behavior at various times during the analysis, depicting deformed shape, and values of equivalent plastic strain.}
+\end{figure}
+
+\subsection*{Taylor Bar Dynamic Impact}
+
+\begin{figure}[!h]
+  \centering
+    \begin{subfigure}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[width=3.0in]{figures/taylor_eqps_0.pdf}
+    			\caption{$t=0.0$ \label{fig:taylor_eqps_0}}
+    \end{subfigure}
+	\begin{subfigure}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[width=3.0in]{figures/taylor_eqps_1.pdf}
+    			\caption{$t=1.0\times 10^{-6}$ \label{fig:taylor_eqps_1}}
+    \end{subfigure} \caption{Comparison plot of the deformed shape and equivalent plastic strain $\bar{\epsilon}^p$ within the Taylor bar impact specimen.}
+  \label{fig:taylor_eqps}
+\end{figure}
