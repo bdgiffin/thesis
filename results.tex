@@ -2,6 +2,10 @@
 %
 This chapter provides a detailed numerical assessment of the DG-PEM and its variants. Investigations into the sensitivity of the 
 
+\section{Reproducibility Tests}
+
+
+
 \section{Irons' Patch Tests}
 
 In this section we investigate the behavior of PEM elements in the context of the standard Iron's patch test, whose passage is argued to be a necessary and sufficient condition for convergence in \cite{Simo&Taylor:86} (though this claim has been disputed, namely by Stummel in \cite{Stummel:80}).
@@ -36,6 +40,94 @@ Compute error directly as L2 and H1 norms; each will give error in representing 
 In other words: constrain all nodes; any error is attributable to integration error
 
 \section{Element Quality and Parameter Sensitivity}
+
+\subsection*{Element Stiffness Matrix Conditioning}
+
+\subsubsection*{Concave Elements}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=5.0in]{figures/concave_element_comparison.pdf}  \caption{Comparison of shape functions computed for a set of polygonal elements using VETFEM, CG-PEM, and DG-PEM.}
+  \label{fig:concave_element_comparison}
+\end{figure}
+
+\begin{table}
+\centering
+\begin{subtable}{.5\textwidth}
+\centering
+\begin{tabular}{| c | c | c | c |}
+    \hline
+		Element  & A      & B      & C \\ \hline
+		Harmonic	 & 0.9635 & 1.2151 & 7.1166 \\ \hline
+		VETFEM	 & 0.9950 & 4.4864 & 6.0305 \\ \hline
+		CG-PEM	 & 1.0723 & 1.2760 & 8.7108 \\ \hline
+		DG-PEM	 & 0.9668 & 1.1997 & 6.2766 \\
+    \hline
+    \end{tabular}
+    \caption{$\lambda_{\max}$}
+    \label{tab:concave_stiffness_max_eigenvalue}
+\end{subtable}% <---- don't forget this %
+\begin{subtable}{.5\textwidth}
+\centering
+\begin{tabular}{| c | c | c | c |}
+    \hline
+		Element  & A      & B      & C \\ \hline
+		Harmonic	 & 0.5226 & 0.3449 & 0.00562 \\ \hline
+		VETFEM   & 0.5335 & 0.3491 & 0.09189 \\ \hline
+		CG-PEM   & 0.6175 & 0.3935 & 0.00694 \\ \hline
+		DG-PEM   & 0.5345 & 0.3425 & 0.00527 \\
+    \hline
+    \end{tabular}
+    \caption{$\lambda_{\min}$}
+    \label{tab:concave_stiffness_min_eigenvalue}
+\end{subtable}
+
+\caption{Comparison of maximum and minimum (non-zero) eigenvalues of the element stiffness matrix for the elements shown in Figure \ref{fig:concave_element_comparison}.}
+\label{tab:concave_stiffness_max_min_eigenvalue}
+\end{table}
+
+\subsubsection*{Elements with Degenerate Edges}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=5.0in]{figures/degenerate_element_comparison.pdf}  \caption{Comparison of shape functions computed for a set of polygonal elements using VETFEM, CG-PEM, and DG-PEM.}
+  \label{fig:degenerate_element_comparison}
+\end{figure}
+
+\begin{table}
+\centering
+\begin{subtable}{.5\textwidth}
+\centering
+\begin{tabular}{| c | c | c |}
+    \hline
+        $l$  & 1.0    & 0.01 \\ \hline
+    Harmonic & 0.9510 & 5.0899 \\ \hline
+    VETFEM   & 0.9510 & 1.6818 \\ \hline
+    CG-PEM   & 1.1326 & 64.098 \\ \hline
+    DG-PEM   & 0.9510 & 1.3085 \\
+    \hline
+    \end{tabular}
+    \caption{$\lambda_{\max}$}
+    \label{tab:degenerate_stiffness_max_eigenvalue}
+\end{subtable}% <---- don't forget this %
+\begin{subtable}{.5\textwidth}
+\centering
+\begin{tabular}{| c | c | c |}
+    \hline
+        $l$  & 1.0    & 0.01 \\ \hline
+    Harmonic & 0.4925 & 0.3951 \\ \hline
+    VETFEM   & 0.4906 & 0.3746 \\ \hline
+    CG-PEM   & 0.8387 & 0.5516 \\ \hline
+    DG-PEM   & 0.4739 & 0.2592 \\
+    \hline
+    \end{tabular}
+    \caption{$\lambda_{\min}$}
+    \label{tab:degenerate_stiffness_min_eigenvalue}
+\end{subtable}
+
+\caption{Comparison of maximum and minimum (non-zero) eigenvalues of the element stiffness matrix computed for the elements shown in Figure \ref{fig:degenerate_element_comparison}.}
+\label{tab:degenerate_stiffness_max_min_eigenvalue}
+\end{table}
 
 \subsection{Meshes Consisting of Elements with Degenerate Edges}
 
@@ -108,7 +200,7 @@ For the mesh depicted in \ref{fig:polygonal_patches},
     DG-PEM ($\alpha_0 = 10^{-1}$) & 8.1e+02 & 2.7e+03 \\
     \hline
     \end{tabular}
-    \caption{Computed values for the condition number $\kappa(\mathbf{K})$ of the global stiffnes matrix $\mathbf{K}$ (excluding rigid body modes).}
+    \caption{Computed values for the condition number $\kappa(\mathbf{K})$ of the global stiffness matrix $\mathbf{K}$ (excluding rigid body modes).}
     \vspace{-5pt}
     \label{tab:global_stiffness_condition_number}
     \vspace{-25pt}
@@ -162,22 +254,22 @@ For the mesh depicted in \ref{fig:polygonal_patches},
     \begin{subfigure}[b]{0.49\linewidth}
             \centering
             \includegraphics[width=3.0in]{figures/patch_condition_number_FEPEM.pdf}
-    			\caption{Voronoi mesh using FE-PEM \label{fig:patch_condition_number_FEPEM}}
+    			\caption{CG-PEM on the Voronoi mesh  \label{fig:patch_condition_number_FEPEM}}
     \end{subfigure}
 	\begin{subfigure}[b]{0.49\linewidth}
             \centering
             \includegraphics[width=3.0in]{figures/lloyd_condition_number_FEPEM.pdf}
-    			\caption{Lloyd mesh using FE-PEM \label{fig:lloyd_condition_number_FEPEM}}
+    			\caption{CG-PEM on the Lloyd mesh  \label{fig:lloyd_condition_number_FEPEM}}
     \end{subfigure}
     \begin{subfigure}[b]{0.49\linewidth}
             \centering
             \includegraphics[width=3.0in]{figures/patch_condition_number_DGPEM.pdf}
-    			\caption{Voronoi mesh using DG-PEM \label{fig:patch_condition_number_DGPEM}}
+    			\caption{DG-PEM on the Voronoi mesh  \label{fig:patch_condition_number_DGPEM}}
     \end{subfigure}
 	\begin{subfigure}[b]{0.49\linewidth}
             \centering
             \includegraphics[width=3.0in]{figures/lloyd_condition_number_DGPEM.pdf}
-    			\caption{LLoyd mesh using DG-PEM \label{fig:lloyd_condition_number_DGPEM}}
+    			\caption{DG-PEM on the LLoyd mesh  \label{fig:lloyd_condition_number_DGPEM}}
     \end{subfigure}
     \caption{Histograms of various element metrics associated with the polygonal meshes depicted in Figure \ref{fig:polygonal_patches}:  (\subref{fig:patch_edge_lengths}) and (\subref{fig:lloyd_edge_lengths}) show the distributions of edge lengths contained in the random Voronoi and Lloyd meshes, respectively; (\subref{fig:patch_edge_ratios}) and (\subref{fig:lloyd_edge_ratios}) show the distributions for the smallest edge length ratios $\rho_e$ in the random Voronoi and Lloyd meshes, respectively.}
 \end{figure}
@@ -462,7 +554,7 @@ The final analytical solution for the displacement and stress fields is presente
 
 \subsubsection*{Numerical Results}
 
-Because the element formulations that will be used herein possess only displacement degrees of freedom, we expect the finite element solutions to present innaccuracies due to the effects of volumetric locking. Moreover, it is not possible to run an analysis for a truly incompressible material (if the grade zero hypoelasticity model is to be utilized). For this reasons, it will suffice to examine solutions in the near-incompressible regieme (i.e. $\nu = 0.4999$).
+Because the element formulations that will be used herein possess only displacement degrees of freedom, we expect the finite element solutions to present inaccuracies due to the effects of volumetric locking. Moreover, it is not possible to run an analysis for a truly incompressible material (if the grade zero hypoelasticity model is to be utilized). For this reasons, it will suffice to examine solutions in the near-incompressible regime (i.e. $\nu = 0.4999$).
 
 Additionally, because an accurate prediction of the pressure field requires the use of a mixed formulation, we expect the stress error to be dominated by errors in the pressure field. For this reason, we will choose to examine only the errors in the deviatoric stress field, where $s_{ij} = \sigma_{ij} - \frac{1}{3} \delta_{ij} \sigma_{kk}$ denotes the stress deviator.
 

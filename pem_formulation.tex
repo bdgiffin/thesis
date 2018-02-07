@@ -108,12 +108,12 @@ In the following sections, an abstract framework for the PEM is established, des
 		\nabla^2 \varphi = 0 \quad \forall \mathbf{X} \in \Omega \quad \text{s.t.} \quad \varphi = \bar{\varphi} \quad \forall \mathbf{X} \in \partial \Omega,
 		\label{eq:pem_laplace}
 	\end{equation}
-	whose solution $\varphi$ is harmonic on $\Omega$ (and likewise on each face $F$ and edge $E$ -- refer to Figure \ref{fig:harmonic_sfs}). Harmonic shape functions form a partition of unity, satisfy linear completeness, and arise from degrees of freedom borne only by the nodes of each element (i.e. the nodal values $\varphi|_V$); therefore, they satisfy the kronecker delta property. As such, harmonic shape functions constitute a class of generalized barycentric coordinates.
+	whose solution $\varphi$ is harmonic on $\Omega$ (and likewise on each face $F$ and edge $E$ -- refer to Figure \ref{fig:harmonic_sfs}). Harmonic shape functions form a partition of unity, satisfy linear completeness, and arise from degrees of freedom borne only by the nodes of each element (i.e. the nodal values $\varphi|_V$); therefore, they satisfy the Kronecker delta property. As such, harmonic shape functions constitute a class of generalized barycentric coordinates.
 	
 \begin{figure} [!ht]
 	\centering
 	\includegraphics[width = 6.0in]{figures/harmonic_sfs.pdf}
-	\caption{The harmonic shape function corresponding to the indicated node $V$, defined hierarchially on each edge, face, and the element.}
+	\caption{The harmonic shape function corresponding to the indicated node $V$, defined hierarchically on each edge, face, and the element.}
 	\label{fig:harmonic_sfs}
 \end{figure}
 	
@@ -254,7 +254,7 @@ where
 		f_{b} = \int_{\Omega} f_\Omega \, \psi_b \, dV + \epsilon \int_{\partial \Omega} \bar{\varphi} \frac{\partial \psi_b}{\partial N} \, dA + \frac{\alpha}{|\partial \Omega|^{\beta}} \int_{\partial \Omega} \bar{\varphi} \, \psi_b \, dA.
 	\end{equation}
 	
-	As discussed in the previous section, a rather natural choice for the space of approximating functions is $\mathcal{U}^h (\Omega) = P^{m} (\Omega)$ with $m \geq k$. The resulting method yields reasonably well-conditioned stiffness matricies for convex shapes, even when the elements possess degenerate edges. However, experimental evidence suggests that for non-convex shapes, the resulting shape function approximations may succumb to Runge's phenomenon, yielding highly oscillatory approximations. A more thorough investigation of this behavior is presented in chapter \ref{ch:results}.
+	As discussed in the previous section, a rather natural choice for the space of approximating functions is $\mathcal{U}^h (\Omega) = P^{m} (\Omega)$ with $m \geq k$. The resulting method yields reasonably well-conditioned stiffness matrices for convex shapes, even when the elements possess degenerate edges. However, experimental evidence suggests that for non-convex shapes, the resulting shape function approximations may succumb to Runge's phenomenon, yielding highly oscillatory approximations. A more thorough investigation of this behavior is presented in chapter \ref{ch:results}.
 	
 	These observations have led to the conclusion that approximations consisting of piecewise polynomials may yield more well-behaved (less oscillatory) solutions for $\varphi^h$. The remainder of our discussion will focus upon such methods.
 	
@@ -269,7 +269,7 @@ A few preliminary definitions regarding the element's partition are given, follo
 \begin{figure} [!ht]
 	\centering
 	\includegraphics[width = 6.0in]{figures/polyhedron_partition.pdf}
-	\caption{A representative polyhedral element $\Omega \subset \mathbb{R}^3$, and it's hierarchial partition into cells, facets, segments, and verticies.}
+	\caption{A representative polyhedral element $\Omega \subset \mathbb{R}^3$, and it's hierarchical partition into cells, facets, segments, and vertices.}
 	\label{fig:partitioned_element}
 \end{figure}
 
@@ -277,7 +277,7 @@ A few preliminary definitions regarding the element's partition are given, follo
 	
 	In turn, let $\mathcal{T}_{\sigma} (F)$ denote the partition of a given face $F \subset \partial \Omega$ into polygonal facets $\sigma \subset F$. The boundary of each facet consists of linear segments $\gamma \subset \partial \sigma$. For a given face $F$, let $\Gamma_\sigma$ denote the set of all interior facet interfaces (segments) shared by two facets belonging to $F$, such that a given linear segment $\gamma$ belongs either to $\Gamma_\sigma$ or $\partial F$.
 	
-	Finally, $\mathcal{T}_{\gamma} (E)$ denotes the partition of a given edge $E \subset \partial F$ into linear segments $\gamma \subset E$. The endpoints of each segment are called verticies, denoted $v$. For a given edge $E$, denote by $\Gamma_\gamma$ the set of all interior segment interfaces (verticies) shared by two segments belonging to $E$, such that a given vertex $v$ belongs either to $\Gamma_\gamma$ or $\partial E$. As well, each node $V$ corresponds to a single vertex $v$, though not all verticies coincide a node.
+	Finally, $\mathcal{T}_{\gamma} (E)$ denotes the partition of a given edge $E \subset \partial F$ into linear segments $\gamma \subset E$. The endpoints of each segment are called vertices, denoted $v$. For a given edge $E$, denote by $\Gamma_\gamma$ the set of all interior segment interfaces (vertices) shared by two segments belonging to $E$, such that a given vertex $v$ belongs either to $\Gamma_\gamma$ or $\partial E$. As well, each node $V$ corresponds to a single vertex $v$, though not all vertices coincide a node.
 	
 	A number of simple partitioning schemes (as illustrated in Figure \ref{fig:partitioning_types}) are proposed:
 	\begin{figure} [!ht]
@@ -289,8 +289,8 @@ A few preliminary definitions regarding the element's partition are given, follo
 	\begin{itemize}
 		\item \textbf{Edge-based}: For star-convex shapes -- the vertex-averaged centroid is used to subdivide the element into triangles (in 2D) or tetrahedra (in 3D) and associated with each linear edge of the element.
 		\item \textbf{Node-based}: For arbitrary shapes -- the element is sub-divided into quadrature cells corresponding to the tributary area surrounding each node.
-		\item \textbf{Random Delaunay}: For arbitrary shapes -- the element is sub-divided into a Delaunay triangulation (in 2D) or tetrahedralization (in 3D), whose corresponding verticies are generated via a random point sampling process.
-		\item \textbf{Random Voronoi}: For arbitrary shapes -- the element is sub-divided into Voronoi cells, whose corresponding voronoi sites are generated via a constrained maximal poisson-disk sampling process, as described in \cite{Ebeida:11}.
+		\item \textbf{Random Delaunay}: For arbitrary shapes -- the element is sub-divided into a Delaunay triangulation (in 2D) or tetrahedralization (in 3D), whose corresponding vertices are generated via a random point sampling process.
+		\item \textbf{Random Voronoi}: For arbitrary shapes -- the element is sub-divided into Voronoi cells, whose corresponding voronoi sites are generated via a constrained maximal Poisson-disk sampling process, as described in \cite{Ebeida:11}.
 	\end{itemize}
 	
 	We denote the volume of a given cell as $|\omega|$, the area of a facet as $|\sigma|$, and the length of a segment as $|\gamma|$. Each facet likewise possesses an associated normal direction $\mathbf{N}_\sigma$, whose orientation is outward from $\Omega$ for all $\sigma \in \partial \Omega$. The orientation of $\mathbf{N}_\sigma$ is otherwise arbitrary for all $\sigma \in \Gamma_\omega$ (for a given facet $\sigma$ shared by two cells $\omega_1$ and $\omega_2$, $\mathbf{N}_\sigma$ may be defined as being outward with respect to either $\omega_1$ or $\omega_2$.)
@@ -322,18 +322,18 @@ A few preliminary definitions regarding the element's partition are given, follo
 %		a_\Omega (  \varphi^h_a, \varphi^h_a ) \leq a_\Omega (  \varphi_a, \varphi_a ).
 %	\end{equation}
 	
-	Bishop has already explored such an approach in \cite{Bishop:14} for constructing approximations to harmonic shape functions using a partition of a given polyheral element into sub-dividing tetrahedra. The approximation space $\mathcal{U}^h (\Omega)$ is spanned by the $C^0 (\Omega)$ finite element basis functions defined on the tetrahedral partition of $\Omega$. The corresponding shape function approximations $\varphi^h \in \mathcal{U}^h (\Omega)$ are obtained as the solutions to a set of local finite element problems defined on $\Omega$ (and its faces, edges -- refer to Figure \ref{fig:harmonic_fem_sfs}).
+	Bishop has already explored such an approach in \cite{Bishop:14} for constructing approximations to harmonic shape functions using a partition of a given polyhedral element into sub-dividing tetrahedra. The approximation space $\mathcal{U}^h (\Omega)$ is spanned by the $C^0 (\Omega)$ finite element basis functions defined on the tetrahedral partition of $\Omega$. The corresponding shape function approximations $\varphi^h \in \mathcal{U}^h (\Omega)$ are obtained as the solutions to a set of local finite element problems defined on $\Omega$ (and its faces, edges -- refer to Figure \ref{fig:harmonic_fem_sfs}).
 	
 \begin{figure} [!ht]
 	\centering
 	\includegraphics[width = 6.0in]{figures/harmonic_fem_sfs.pdf}
-	\caption{The FE-PEM approximation to a given harmonic shape function, defined hierarchially on the element's faces and edges.}
+	\caption{The FE-PEM approximation to a given harmonic shape function, defined hierarchically on the element's faces and edges.}
 	\label{fig:harmonic_fem_sfs}
 \end{figure}
 	
 	It was demonstrated that the resulting approximations $\varphi^h$ preserve low-order polynomial completeness -- a consequence of $\mathcal{U}^h (\Omega) \supset P^1 (\Omega)$. If the elements are discretized into a sufficient number of tetrahedra, the method is observed to be both stable and consistent (provided a supplementary gradient correction scheme is employed to account for the effects of integration error).
 	
-	For coarse tetrahedral sub-divisions, the local FE problems that must be solved on each element are relatively small, in some cases entailing only a single degree of freedom (assocaited with an interior vertex) that must be solved for. Otherwise, the approach can become computationally expensive if the elements are subdivided into an excessively large number of tetrahedra (in the event that more accurate/refined approximations to the shape functions are desired). However, initial numerical investigations have suggested that relatively coarse tetrahedral sub-divisions of the elements provide sufficiently accurate results; further subdivision (tetrahedral $h-$refinement) does little to improve the overall accuracy of the method.
+	For coarse tetrahedral sub-divisions, the local FE problems that must be solved on each element are relatively small, in some cases entailing only a single degree of freedom (associated with an interior vertex) that must be solved for. Otherwise, the approach can become computationally expensive if the elements are subdivided into an excessively large number of tetrahedra (in the event that more accurate/refined approximations to the shape functions are desired). However, initial numerical investigations have suggested that relatively coarse tetrahedral sub-divisions of the elements provide sufficiently accurate results; further subdivision (tetrahedral $h-$refinement) does little to improve the overall accuracy of the method.
 	
 	A natural extension of the method to higher-order serendipity elements would be to consider $p-$refinement of an element's tetrahedral subdivision to recover higher-order polynomial completeness, i.e. to guarantee $\mathcal{U}^h (\Omega) \supset P^k (\Omega)$ for some desired polynomial order $k$. However, the construction of shape functions on a given element would likely bear a much higher computational cost with increasing polynomial degree, owing to the increased size of the local FE problems on $\Omega$. Moreover, the specification of stable and accurate numerical quadratures would present an additional challenge.
 	
@@ -394,7 +394,7 @@ A few preliminary definitions regarding the element's partition are given, follo
 		J_0 (\varphi^h,\eta^h) + J_1 (\varphi^h,\eta^h) = \sum_{\sigma \in \partial \Omega} \frac{\alpha_{\sigma0}}{|\sigma|^{\beta_0}} \int_{\sigma} \eta^h \,  \bar{\varphi} \, dA \quad \forall \eta^h \in \mathcal{D}^h_k (\Omega).
 		\label{eq:pure_penalty}
 	\end{eqnarray}
-	The above is henceforth refered to as the \textit{pure penalty} DG-PEM. Under certain conditions (for particular choices of $\mathcal{T}_\omega (\Omega)$ and $\mathcal{D}^h_k (\Omega)$), the pure penalty variant of the DG-PEM may in fact yield unique solutions $\varphi^h$ which altogether satisfy conditions of consistency and stability detailed in section \ref{sec:approximations}. However, the bilinear form arising from the penalty terms $J_0$ and $J_1$ alone is not guaranteed to be elliptic, in general. Additional (higher order flux) penalty terms may be necessary, i.e.
+	The above is henceforth referred to as the \textit{pure penalty} DG-PEM. Under certain conditions (for particular choices of $\mathcal{T}_\omega (\Omega)$ and $\mathcal{D}^h_k (\Omega)$), the pure penalty variant of the DG-PEM may in fact yield unique solutions $\varphi^h$ which altogether satisfy conditions of consistency and stability detailed in section \ref{sec:approximations}. However, the bilinear form arising from the penalty terms $J_0$ and $J_1$ alone is not guaranteed to be elliptic, in general. Additional (higher order flux) penalty terms may be necessary, i.e.
 	\begin{equation}
 		J_s (\varphi^h,\eta^h) = \sum_{\sigma \in \Gamma_\omega} \frac{\alpha_{\sigma s}}{|\sigma|^{\beta_s}} \int_{\sigma} \left[\!\!\left[ \frac{\partial^s \varphi^h}{\partial N^s_{\sigma}} \right]\!\!\right] \, \left[\!\!\left[ \frac{\partial^s \eta^h}{\partial N^s_{\sigma}} \right]\!\!\right] \, dA
 		\label{eq:flux_penalty}
@@ -549,7 +549,7 @@ Methods for partitioning the elements into sub-domains which yield stable and ef
 	
 	The simplest quadrature rule of this form is the composite mid-point scheme, where the quadrature points are located at the centroids of each sub-domain. Such a rule exactly integrates polynomials up to first order, and provides reasonable accuracy when integrating polynomials of higher-order (\cite{Rashid:12} provides a numerical assessment of the accuracy of composite mid-point quadratures.) Moreover, the integration points are guaranteed to be interior to each sub-domain (and the element as a whole), provided each cell is convex.
 	
-	For simple sub-divisions (consisting of triangles or tetrahedra), composite quadrature rules may be extended rather naturally to obtain higher-order accuracy. For generic sub-divisions (consiting of arbitrary polytopes), the extension to higher-order composite rules is not as straight-forward. For this reason, subsequent discussions will be concerned almost exclusively with composite mid-point rules.
+	For simple sub-divisions (consisting of triangles or tetrahedra), composite quadrature rules may be extended rather naturally to obtain higher-order accuracy. For generic sub-divisions (consisting of arbitrary polytopes), the extension to higher-order composite rules is not as straight-forward. For this reason, subsequent discussions will be concerned almost exclusively with composite mid-point rules.
 	
 	The weights and locations of a composite mid-point quadrature rule correspond to the volumes and geometric centroids of each cell. In general, a given quadrature cell $\omega$ may be an arbitrary polyhedron, whose volume $|\omega|$ and centroid $\bar{\mathbf{X}}$ may be computed using the $0$-th and $1$-st order moments of $\omega$, i.e.
 	\begin{equation}
@@ -567,7 +567,7 @@ Methods for partitioning the elements into sub-domains which yield stable and ef
 	\begin{equation}
 		\mathbf{X} = \mathbf{X}_\sigma + \sum_{i=1}^{d-1} X_i \, \hat{\mathbf{X}}_i,
 	\end{equation}
-	where $\mathbf{X}_\sigma$ is any reference location positioned on the hyperplane which contains $\sigma$, and the orthonomial set $\left\{ \hat{\mathbf{X}}_i \right\}_{i=1}^{d-1}$ defines a parameterization of the in-plane coordinates on $\sigma$. This leads to the observation $\mathbf{X} \cdot \mathbf{N}_\sigma = \mathbf{X}_\sigma \cdot \mathbf{N}_\sigma \, \, \forall \mathbf{X} \in \sigma$, and thus
+	where $\mathbf{X}_\sigma$ is any reference location positioned on the hyperplane which contains $\sigma$, and the orthonormal set $\left\{ \hat{\mathbf{X}}_i \right\}_{i=1}^{d-1}$ defines a parameterization of the in-plane coordinates on $\sigma$. This leads to the observation $\mathbf{X} \cdot \mathbf{N}_\sigma = \mathbf{X}_\sigma \cdot \mathbf{N}_\sigma \, \, \forall \mathbf{X} \in \sigma$, and thus
 	\begin{equation}
 		\int_{\omega} \mathbf{X}^\alpha \, dV = \frac{1}{d+|\alpha|} \sum_{\sigma \in \partial \omega} (\mathbf{X}_\sigma \cdot \mathbf{N}_{\sigma}) \int_{\sigma} \, \mathbf{X}^\alpha \, dA.
 	\end{equation}

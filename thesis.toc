@@ -27,14 +27,15 @@
 \contentsline {section}{\numberline {4.5}Linearization and Assembly of the \\ DG-PEM Systems of Equations}{69}
 \contentsline {section}{\numberline {4.6}Numerical Conditioning of the \\ DG-PEM Systems of Equations}{73}
 \contentsline {chapter}{\numberline {5}A Numerical Evaluation of the PEM}{78}
-\contentsline {section}{\numberline {5.1}Irons' Patch Tests}{78}
-\contentsline {section}{\numberline {5.2}Element Quality and Parameter Sensitivity}{79}
-\contentsline {subsection}{\numberline {5.2.1}Meshes Consisting of Elements with Degenerate Edges}{79}
-\contentsline {section}{\numberline {5.3}Convergence Analysis}{81}
-\contentsline {section}{\numberline {5.4}Parameter Sensitivity Analysis}{87}
-\contentsline {section}{\numberline {5.5}Computational Efficiency}{87}
-\contentsline {subsection}{\numberline {5.5.1}Performance Comparison}{87}
-\contentsline {section}{\numberline {5.6}Resistance to Locking Phenomena}{87}
-\contentsline {subsubsection}{\numberline {5.6.0.1}Exact Solution}{90}
-\contentsline {section}{\numberline {5.7}Comparison with Isoparametric Finite Elements}{90}
-\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{97}
+\contentsline {section}{\numberline {5.1}Reproducibility Tests}{78}
+\contentsline {section}{\numberline {5.2}Irons' Patch Tests}{78}
+\contentsline {section}{\numberline {5.3}Element Quality and Parameter Sensitivity}{79}
+\contentsline {subsection}{\numberline {5.3.1}Meshes Consisting of Elements with Degenerate Edges}{79}
+\contentsline {section}{\numberline {5.4}Convergence Analysis}{83}
+\contentsline {section}{\numberline {5.5}Parameter Sensitivity Analysis}{89}
+\contentsline {section}{\numberline {5.6}Computational Efficiency}{89}
+\contentsline {subsection}{\numberline {5.6.1}Performance Comparison}{89}
+\contentsline {section}{\numberline {5.7}Resistance to Locking Phenomena}{89}
+\contentsline {subsubsection}{\numberline {5.7.0.1}Exact Solution}{92}
+\contentsline {section}{\numberline {5.8}Comparison with Isoparametric Finite Elements}{92}
+\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{99}

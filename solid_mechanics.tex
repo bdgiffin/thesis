@@ -1,6 +1,6 @@
 \chapter{An Overview of Computational Solid Mechanics} \label{ch:solid_mechanics}
 %
-This chapter addresess some of the essential aspects of numerical approximation methods for modeling solid continua. The discussion herein will focus on the mathematical foundations of solid mechanics, beginning with the kinematics of motion and some common forms of constitutive relationships, followed by the expressions for conservation of momentum in both strong and weak form, and concluding with an analysis of the standard numerical methods utilized to solve these equations in an approximate sense. In the course of our discussion, we will make explicit the ensuing requirements placed upon any prospective approximation scheme. This will aid our analysis in subsequent chapters, and hopefully justify particular choices made in the construction of partitioned element methods.
+This chapter addresses some of the essential aspects of numerical approximation methods for modeling solid continua. The discussion herein will focus on the mathematical foundations of solid mechanics, beginning with the kinematics of motion and some common forms of constitutive relationships, followed by the expressions for conservation of momentum in both strong and weak form, and concluding with an analysis of the standard numerical methods utilized to solve these equations in an approximate sense. In the course of our discussion, we will make explicit the ensuing requirements placed upon any prospective approximation scheme. This will aid our analysis in subsequent chapters, and hopefully justify particular choices made in the construction of partitioned element methods.
 
 \newpage
 
@@ -39,7 +39,7 @@ which may be further decomposed into a symmetric part $\mathbf{D}$ (the rate of 
 
 \subsection*{Compatibility}
 
-Compatibility refers to the idea that a given body remains a contiguous medium following some deformation described by $\raisebox{\depth}{$\chi$}_t$. In other words, $\raisebox{\depth}{$\chi$}_t$ must characterize a continuous mapping of material points between different configurations in time, such that the topology of body remains unchanged. Compatibilitiy is characterized by the following necessary and sufficient conditions:
+Compatibility refers to the idea that a given body remains a contiguous medium following some deformation described by $\raisebox{\depth}{$\chi$}_t$. In other words, $\raisebox{\depth}{$\chi$}_t$ must characterize a continuous mapping of material points between different configurations in time, such that the topology of body remains unchanged. Compatibility is characterized by the following necessary and sufficient conditions:
 \begin{equation}
   \nabla_X \times \mathbf{F} = \mathbf{0} \quad \forall \mathbf{X} \in \mathcal{B}_0.
   \label{eq:compatibility}
@@ -64,7 +64,7 @@ For a given material body $\mathcal{B}_t \subset \mathbb{R}^d$, any open subset 
 \begin{equation}
   \frac{d}{dt} \int_{\Omega_t} \rho \mathbf{v} \, dv = \int_{\Omega_t} \rho \mathbf{b} \, dv + \int_{\partial \Omega_t} \mathbf{t} \, da \quad \forall \Omega_t \subset \mathcal{B},
 \end{equation}
-where $\rho$ is the mass density of the matertial, $\mathbf{v}$ is the velocity field, $\mathbf{b}$ is an applied body force per unit of mass, and $\mathbf{t}$ is the traction vector -- a force per unit of area -- which acts on $\partial \Omega_t$ (the boundary of $\Omega_t$). Via the Cauchy tetrahedron argument, it is possible to express the traction vector $\mathbf{t} (\mathbf{n})$ as a linear function of the unit vector $\mathbf{n}$, which is normal to the surface upon which the traction acts:
+where $\rho$ is the mass density of the material, $\mathbf{v}$ is the velocity field, $\mathbf{b}$ is an applied body force per unit of mass, and $\mathbf{t}$ is the traction vector -- a force per unit of area -- which acts on $\partial \Omega_t$ (the boundary of $\Omega_t$). Via the Cauchy tetrahedron argument, it is possible to express the traction vector $\mathbf{t} (\mathbf{n})$ as a linear function of the unit vector $\mathbf{n}$, which is normal to the surface upon which the traction acts:
 \begin{equation}
   \mathbf{t} = \mathbf{n} \cdot \boldsymbol{\sigma},
 \end{equation}
@@ -164,7 +164,7 @@ In contrast, hypoelasticity models define an evolution (rate) equation in terms 
 \begin{equation}
   \dot{\boldsymbol{\sigma}} = g(\boldsymbol{\sigma}, \mathbf{L}).
 \end{equation}
-Hypoelasticity models are in general non-conservative, and moreover may not necessarily return to a state of zero stress following a closed cycle of deformation. Hypoelasticity is generally less appropriate where hyperelastic or other elastic models may be used instead. The value of hypoelasticity lies in its ability to accomodate models for plastic flow and dissipation in the material, giving rise to the common models of hypoelasto-plasticity.
+Hypoelasticity models are in general non-conservative, and moreover may not necessarily return to a state of zero stress following a closed cycle of deformation. Hypoelasticity is generally less appropriate where hyperelastic or other elastic models may be used instead. The value of hypoelasticity lies in its ability to accommodate models for plastic flow and dissipation in the material, giving rise to the common models of hypoelasto-plasticity.
 
 One of the primary challenges of working with hypoelastic models concerns the manner in which the rate of stress transforms under superposed rigid-body rotations. These considerations have led to the formulation of co-rotational (or objective) stress rates. A multitude of such rates exist, though only a few are found to be in common usage. Most notably, the Jaumann rate of stress $\accentset{\circ}{\boldsymbol{\sigma}}$ is defined as
 \begin{equation}
@@ -247,7 +247,7 @@ This yields the Galerkin approximation to the weak form:
   \label{eq:residual}
 \end{equation}
 
-Without loss of generality, if we suppose that $\mathcal{S} = \mathcal{V}$ (provided $\mathbf{u} = \mathbf{0} \, \, \forall \mathbf{X} \in \Gamma^D_0$), then we may select identical sub-spaces $\mathcal{S}^h = \mathcal{V}^h$ ($\left\{ \varphi_a \right\}_{a = 1}^{N} = \left\{ \phi_a \right\}_{a = 1}^{M}$), resulting in a symmetric (or Bubnov-) Galerkin method. Traditional finite element methods fall into this category. Such methods are advantageous in the sense that (for linear problems) they result in stable, symmetric bilinear forms satisfying the Galerkin orthgonality (or ``best approximation'') property -- the property that the solution error $\mathbf{e} = \mathbf{u}^h - \mathbf{u}$ is orthogonal to the chosen sub-space $\mathcal{S}^h$.
+Without loss of generality, if we suppose that $\mathcal{S} = \mathcal{V}$ (provided $\mathbf{u} = \mathbf{0} \, \, \forall \mathbf{X} \in \Gamma^D_0$), then we may select identical sub-spaces $\mathcal{S}^h = \mathcal{V}^h$ ($\left\{ \varphi_a \right\}_{a = 1}^{N} = \left\{ \phi_a \right\}_{a = 1}^{M}$), resulting in a symmetric (or Bubnov-) Galerkin method. Traditional finite element methods fall into this category. Such methods are advantageous in the sense that (for linear problems) they result in stable, symmetric bilinear forms satisfying the Galerkin orthogonality (or ``best approximation'') property -- the property that the solution error $\mathbf{e} = \mathbf{u}^h - \mathbf{u}$ is orthogonal to the chosen sub-space $\mathcal{S}^h$.
 
 Petrov-Galerkin methods consider the more general case where $\mathcal{V}^h \neq \mathcal{S}^h$, resulting in differing trial and test function spaces. Such methods must guarantee satisfaction of the LBB (inf-sup) conditions to achieve convergence. Consequently, the selection of appropriate trial and test function spaces which result in stable discretizations is not trivial. Nonetheless, Petrov-Galerkin methods allow for greater flexibility in the construction of numerical approximation schemes.
 
@@ -255,7 +255,7 @@ Petrov-Galerkin methods consider the more general case where $\mathcal{V}^h \neq
 
 Finite element methods (FEM) are predicated on the idea that a problem domain $\mathcal{B}_0$ can be discretized into a finite number of simpler sub-domains $\Omega_e \subset \mathcal{B}_0$, individually called elements, and collectively referred to as a ``mesh.'' The basis functions are assumed to be low-order polynomials within each element, and are compactly supported over a given patch of elements. The traditional finite element method assumes these basis functions to be $C^0$ continuous at element boundaries, yielding a priori satisfaction of compatibility.
 
-Individual FE basis functions $\varphi_a$ are typically associated with the ``nodes'' $\mathbf{X}_a$ of the mesh (located at element verticies, along element edges, etc.), such that the kronecker delta property is satisfied, i.e. $\varphi_a (\mathbf{X}_b) = \delta_{ab}$. Consequently, the basis functions comprise a set of interpolants for discrete values of the solution defined at the nodes.
+Individual FE basis functions $\varphi_a$ are typically associated with the ``nodes'' $\mathbf{X}_a$ of the mesh (located at element vertices, along element edges, etc.), such that the Kronecker delta property is satisfied, i.e. $\varphi_a (\mathbf{X}_b) = \delta_{ab}$. Consequently, the basis functions comprise a set of interpolants for discrete values of the solution defined at the nodes.
 
 Elements consisting of regular shapes (tetrahedra, hexahedra) also provide a natural means of effecting numerical integration of the weak form through the use of the isoparametric transformation and product Gaussian quadrature rules.
 
@@ -345,7 +345,7 @@ Elements consisting of regular shapes (tetrahedra, hexahedra) also provide a nat
 
 \section{Requirements for Convergence of an \\ Approximation Method}
 
-Because variational methods utilize finite dimensional spaces $\mathcal{S}^h$ and $\mathcal{V}^h$, they inherrently incur some error $\mathbf{e} = \mathbf{u}^h - \mathbf{u}$ in approximating the exact solution to the original boundary value problem. The  approximation power of a given method is typically characterized by the rate at which a specified error measure $||\mathbf{u}^h - \mathbf{u}||$ (defined on $\mathcal{S}$) decreases as the dimension $N$ of the approximation space $\mathcal{S}^h$ is systematically increased. For finite element methods, increasing the dimension $N$ of the approximation space is synonymous with refining the discretization, to the extent that a specified mesh parameter $h$ (the diameter of the largest element in the mesh) is decreased. An approximation method will therefore yield solutions $\mathbf{u}^h$ which converge to the exact solution $\mathbf{u}$, provided
+Because variational methods utilize finite dimensional spaces $\mathcal{S}^h$ and $\mathcal{V}^h$, they inherently incur some error $\mathbf{e} = \mathbf{u}^h - \mathbf{u}$ in approximating the exact solution to the original boundary value problem. The  approximation power of a given method is typically characterized by the rate at which a specified error measure $||\mathbf{u}^h - \mathbf{u}||$ (defined on $\mathcal{S}$) decreases as the dimension $N$ of the approximation space $\mathcal{S}^h$ is systematically increased. For finite element methods, increasing the dimension $N$ of the approximation space is synonymous with refining the discretization, to the extent that a specified mesh parameter $h$ (the diameter of the largest element in the mesh) is decreased. An approximation method will therefore yield solutions $\mathbf{u}^h$ which converge to the exact solution $\mathbf{u}$, provided
 \begin{equation}
 	\lim_{N \rightarrow \infty} ||\mathbf{u}^h - \mathbf{u}|| = \lim_{h \rightarrow 0} ||\mathbf{u}^h - \mathbf{u}|| = 0.
 \end{equation}
@@ -361,7 +361,7 @@ For an approximation method to achieve convergence, several conditions must be s
 	
 	To achieve $\alpha^{\text{th}}$-order convergence, the approximation space $\mathcal{S}^h$ must contain $[ P^{k} (\mathcal{B}_0) ]^d$ (the space of vector-valued polynomial functions of maximal degree $k = \alpha+1$) as a subset $\mathcal{S}^h \supset [ P^{k} (\mathcal{B}_0) ]^d$.
 	
-	This property is sometimes referred to as \textit{approximability}, reflecting a given method's ability to well-approximate the solution locally as a low-order polynomial. Alternativley, this condition is known as polynomial \textit{reproducibility}, or \textit{completeness}. This condition can be rationalized by the Weierstrass approximation theorem, which asserts that any smooth function can be approximated by polynomials to arbitrary precision.
+	This property is sometimes referred to as \textit{approximability}, reflecting a given method's ability to well-approximate the solution locally as a low-order polynomial. Alternatively, this condition is known as polynomial \textit{reproducibility}, or \textit{completeness}. This condition can be rationalized by the Weierstrass approximation theorem, which asserts that any smooth function can be approximated by polynomials to arbitrary precision.
 	
 	\subsection*{Compatibility}
 
@@ -389,7 +389,7 @@ By comparison, non-conforming finite element methods admit more general function
 		\inf_{\mathbf{u}^h \in \mathcal{S}^h} \sup_{\mathbf{v}^h \in 
 \mathcal{V}^h} \frac{a(\mathbf{u}^h,\mathbf{v}^h)}{||\mathbf{u}^h|| \, ||\mathbf{v}^h||} > 0.
 	\end{equation}
-	If $a$ is symmetric and $\mathcal{S}^h = \mathcal{V}^h$, this condition is equivalent to the requirement that $a$ be ellipitic (coercive):
+	If $a$ is symmetric and $\mathcal{S}^h = \mathcal{V}^h$, this condition is equivalent to the requirement that $a$ be elliptic (coercive):
 	\begin{equation}
 		a(\mathbf{u}^h,\mathbf{u}^h) \geq C_c ||\mathbf{u}^h||^2 \quad \forall \mathbf{u}^h \in \mathcal{S}^h.
 	\end{equation}
@@ -404,7 +404,7 @@ By comparison, non-conforming finite element methods admit more general function
 	\end{equation}
 	
 %	Heuristically, these conditions require that the elements utilize sufficiently accuate quadrature rules to integrate the weak form.
-	Heuristically, these conditions require that individual element stiffness matricies be of full rank, excluding rigid body modes of deformation. This necessitates both: the specification of a stable discretization, and sufficiently accurate evaluation (numerical integration) of the weak form.
+	Heuristically, these conditions require that individual element stiffness matrices be of full rank, excluding rigid body modes of deformation. This necessitates both: the specification of a stable discretization, and sufficiently accurate evaluation (numerical integration) of the weak form.
 	
 %	Show that the inf-sup conditions can be converted into local criteria for the rank sufficiency of element-level stiffness matricies.
 
