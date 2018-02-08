@@ -41,15 +41,47 @@ In other words: constrain all nodes; any error is attributable to integration er
 
 \section{Element Quality and Parameter Sensitivity}
 
-\subsection*{Element Stiffness Matrix Conditioning}
+\subsection*{Conditioning of Element Stiffness Matrices}
 
-\subsubsection*{Concave Elements}
+Partitioned element methods allow for the elements to take on virtually arbitrary shape. However, elements with non-convex or degenerate features must be tolerated to the extent that their presence within a finite element mesh should not degrade the overall accuracy of the resulting numerical solution. To this end, this section attempts to characterize the quality of a representative sampling of polygonal PEM elements by examining the eigenvalues of each element's elastic stiffness matrix.
+
+The motivation for the present study is to assess the effects of element formulation upon a given element's susceptibility to geometric locking phenomena. Heuristically: an element will be more sensitive to the effects of locking if its local stiffness matrix contains a number of eigenmodes (modes of deformation) whose corresponding eigenvalues are excessively large in comparison with the low-order deformation modes.
+
+As a separate issue from locking, if a given element's local stiffness matrix is poorly conditioned, the global stiffness matrix of a mesh which contains said element may become poorly conditioned, as well. This has negative implications for the degree of solution accuracy that can be obtained due to floating point arithmetic. For implicit solid mechanics applications, the accuracy of any linear solver (whether direct or iterative) will be compromised by poor conditioning of the global stiffness matrix.
+
+For the elements considered, a comparison study was carried out to examine differences in the eigenvalue spectra of elements whose stiffness matrices were computed using different element formulations. Specifically, separate approximations to the harmonic shape functions were obtained for each element using the VETFEM, the CG-PEM, and the DG-PEM. These results were compared against a reference solution for the harmonic shape functions.
+
+For each element, the elastic constants for Young's modulus and Poisson's ratio were chosen as $E = 1.0$ and $\nu = 0.0$, respectively. The choice of $\nu = 0.0$ is deliberate, and aims to decouple the effects of volumetric locking from the effects of geometric locking. The elements were scaled to have roughly unit diameter.
+
+\subsubsection*{Examination of the Effects of Geometric Non-convexity}
+
+A study was carried out to assess the effects of geometric non-convexity on a given element's eigenvalue spectrum. Three element shapes were considered, including: (A) a regular convex polygon, (B) an element with two collinear edges, and (C) a non-convex polygon. These elements are illustrated in Figure \ref{fig:concave_element_shapes}.
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=5.0in]{figures/concave_element_comparison.pdf}  \caption{Comparison of shape functions computed for a set of polygonal elements using VETFEM, CG-PEM, and DG-PEM.}
+  \includegraphics[width=3.5in]{figures/concave_element_shapes.pdf}  \caption{A representative sampling of hexagonal elements: (A) strictly convex, (B) two collinear edges, (C) non-convex.}
+  \label{fig:concave_element_shapes}
+\end{figure}
+
+The harmonic shape functions defined on these elements were approximated using the VETFEM, the CG-PEM, and the DG-PEM. The VETFEM approximations consisted of 4th order polynomials, and were obtained as the solutions to (\ref{eq:vetfem}). The CG-PEM and DG-PEM approximations were obtained using the random Delaunay partitions shown in Figure \ref{fig:concave_element_partitions}. The penalty parameters appearing in (\ref{eq:penalty_parameters}) for the DG-PEM were chosen such that $\alpha_{0\gamma} = 10$, $\alpha_{1\gamma} = 0$ for all segments $\gamma$. Unless otherwise noted, the NIPG version of the DG-PEM (with $\epsilon = +1$) was utilized throughout. Reference solutions for the harmonic shape functions were computed on a highly refined partition of the element using the CG-PEM.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=3.5in]{figures/concave_element_partitions.pdf}  \caption{Delaunay partitions for the elements A, B, and C introduced in Figure \ref{fig:concave_element_shapes}.}
+  \label{fig:concave_element_partitions}
+\end{figure}
+
+For the red nodes indicated in Figure \ref{fig:concave_element_shapes}, color plots for the associated harmonic shape functions (and their corresponding approximations) are provided in Figure \ref{fig:concave_element_comparison}.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=5.0in]{figures/concave_element_comparison.pdf}  \caption{Comparison of the shape functions computed for the polygonal elements A, B, and C using VETFEM, CG-PEM, and DG-PEM.}
   \label{fig:concave_element_comparison}
 \end{figure}
+
+Concerning the VETFEM approximations depicted in Figure \ref{fig:concave_element_comparison} (particularly for elements B and C), the resulting shape functions present a number of undesirable features: oscillations, non-positivity, and non-interpolatory behavior. By comparison, the DG-PEM approximations avoid the issue of oscillations, though they are not strictly positive, nor are they interpolatory. Only the CG-PEM approximations can claim good behavior on all three fronts: they are non-oscillatory, strictly positive, and interpolatory. Nonetheless, it is important to emphasize that the aforementioned properties are not strictly necessary for convergence of the overall method. So long as a stable and consistent integration of the weak form is obtained, convergence is achieved. For certain applications, maintaining strict positivity or continuity of the shape function approximations may be desirable, though such applications are not considered here.
+
+Using the aforementioned approximations in place of the harmonic shape functions, the elements' elastic stiffness matrices were computed (by numerical quadrature). The eigendecomposition of each element's local stiffness matrix was then determined, with particular attention paid to the largest eigenvalue $\lambda_{\max}$ and the smallest (non-zero) eigenvalue $\lambda_{\min}$. A comparison of the computed values for $\lambda_{\max}$ and $\lambda_{\min}$ is provided in table \ref{tab:concave_stiffness_max_min_eigenvalue}.
 
 \begin{table}
 \centering
@@ -64,7 +96,7 @@ In other words: constrain all nodes; any error is attributable to integration er
 		DG-PEM	 & 0.9668 & 1.1997 & 6.2766 \\
     \hline
     \end{tabular}
-    \caption{$\lambda_{\max}$}
+    \caption{Largest eigenvalue: $\lambda_{\max}$}
     \label{tab:concave_stiffness_max_eigenvalue}
 \end{subtable}% <---- don't forget this %
 \begin{subtable}{.5\textwidth}
@@ -78,21 +110,76 @@ In other words: constrain all nodes; any error is attributable to integration er
 		DG-PEM   & 0.5345 & 0.3425 & 0.00527 \\
     \hline
     \end{tabular}
-    \caption{$\lambda_{\min}$}
+    \caption{Smallest (non-zero) eigenvalue: $\lambda_{\min}$}
     \label{tab:concave_stiffness_min_eigenvalue}
 \end{subtable}
 
-\caption{Comparison of maximum and minimum (non-zero) eigenvalues of the element stiffness matrix for the elements shown in Figure \ref{fig:concave_element_comparison}.}
+\caption{Comparison of maximum and minimum (non-zero) eigenvalues of the element stiffness matrices for the elements shown in Figure \ref{fig:concave_element_shapes}.}
 \label{tab:concave_stiffness_max_min_eigenvalue}
 \end{table}
 
-\subsubsection*{Elements with Degenerate Edges}
+Irrespective of the chosen approximation method, the condition number for a given element's stiffness matrix becomes large as the degree of geometric non-convexity increases. The VETFEM yields a fairly accurate approximation for the eigenvalues of element A, but obtains an overly stiff approximation for element B, and overestimates the eigenvalues at the low end of the spectrum for element C. The CG-PEM appears to uniformly over-estimate the eigenvalue spectra of all elements A, B, and C, though not significantly. By contrast, the DG-PEM under-estimates the eigenvalues for elements B and C, though this behavior is observed to be contingent upon upon how the penalty parameters $\alpha_{0\gamma}$ and $\alpha_{1\gamma}$ are specified. Table \ref{tab:concave_stiffness_max_min_eigenvalue_parameter_study} illuminates the dependence of $\lambda_{\max}$ and $\lambda_{\min}$ (for element C) upon the choice of DG-PEM penalty parameters. Similar parameter dependencies are obtained for elements A and B.
+
+\begin{table}
+\centering
+\begin{subtable}{1.0\textwidth}
+\centering
+\begin{tabular}{| c | c | c | c | c |}
+    \hline
+DG-PEM & $\alpha_{0\gamma} = 10^{-3}$ & $\alpha_{0\gamma} = 10^{0}$ & $\alpha_{0\gamma} = 10^{3}$ & $\alpha_{0\gamma} = 10^{6}$ \\ \hline
+$\alpha_{1\gamma} = 0.0$	& 5.9210 & 5.4949 & 8.6484 & 8.7108 \\ \hline
+$\alpha_{1\gamma} = 10^{0}$ & 5.9210 & 5.2235 & 7.7525 & 8.7106 \\ \hline
+$\alpha_{1\gamma} = 10^{3}$ & 5.9210 & 5.0938 & 3.9671 & 7.7874 \\ \hline
+$\alpha_{1\gamma} = 10^{6}$ & 5.9210 & 5.0935 & 3.8699 & 3.9640 \\
+    \hline
+    \end{tabular}
+    \caption{Largest eigenvalue: $\lambda_{\max}$}
+    \label{tab:concave_stiffness_max_eigenvalue_parameter_study}
+\end{subtable}% <---- don't forget this %
+\\
+\begin{subtable}{1.0\textwidth}
+\centering
+\begin{tabular}{| c | c | c | c | c |}
+    \hline
+DG-PEM & $\alpha_{0\gamma} = 10^{-3}$	&	$\alpha_{0\gamma} = 10^{0}$	&	$\alpha_{0\gamma} = 10^{3}$	&	$\alpha_{0\gamma} = 10^{6}$ \\ \hline
+$\alpha_{1\gamma} = 0.0$	&	0.004747	&	0.003554	&	0.006920	&	0.006943 \\ \hline
+$\alpha_{1\gamma} = 10^{0}$	&	0.004748	&	0.003675	&	0.006489	&	0.006941 \\ \hline
+$\alpha_{1\gamma} = 10^{3}$	&	0.004748	&	0.004210	&	0.002898	&	0.006508 \\ \hline
+$\alpha_{1\gamma} = 10^{6}$	&	0.004748	&	0.004211	&	0.003660	&	0.002896 \\
+    \hline
+    \end{tabular}
+    \caption{Smallest (non-zero) eigenvalue: $\lambda_{\min}$}
+    \label{tab:concave_stiffness_min_eigenvalue_parameter_study}
+\end{subtable}
+
+\caption{Comparison of maximum and minimum (non-zero) eigenvalues of the element stiffness matrix for element C, computed for various DG-PEM penalty parameter values.}
+\label{tab:concave_stiffness_max_min_eigenvalue_parameter_study}
+\end{table}
+
+The results in table \ref{tab:concave_stiffness_max_min_eigenvalue_parameter_study} warrant a number of observations. The eigenvalue spectrum obtained for the DG-PEM converges to that of the CG-PEM as the value of $\alpha_{0\gamma}$ is increased (provided $\alpha_{1\gamma}$ is sufficiently small). Moreover, the shape functions will themselves converge to the $C^0$ continuous approximations obtained by the CG-PEM. This is an expected result.
+Additionally, if $\alpha_{0\gamma}$ is made sufficiently small, the eigenvalues will becomes relatively insensitive to the choice of $\alpha_{1\gamma}$. 
+
+Conversely, as $\alpha_{0\gamma}$ is increased, the eigenvalues (and the corresponding shape function approximations) become more sensitive to the choice of $\alpha_{1\gamma}$. In such cases, $\alpha_{1\gamma}$ may be thought of as a ``regularization'' parameter, acting to effectively smooth out variations in the gradient of the shape functions over the element. For low-order DG-PEM, increasing $\alpha_{1\gamma}$ tends the element towards a uniform gradient formulation. Doing so risks rank-deficiency of the element's resulting stiffness matrix. If $\alpha_{0\gamma}$ and $\alpha_{1\gamma}$ are increased proportionally to one another, one recovers the behavior of the pure penalty DG-PEM in (\ref{eq:pure_penalty}).
+
+\subsubsection*{Examination of the Effects of Geometric Degeneracy}
+
+A study was carried out to assess the effects of geometric degeneracy on a given element's eigenvalue spectrum. The two elements illustrated in Figure \ref{fig:degenerate_element_shapes} were considered: a regular pentagon, and an irregular pentagon with a comparatively short edge.
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=5.0in]{figures/degenerate_element_comparison.pdf}  \caption{Comparison of shape functions computed for a set of polygonal elements using VETFEM, CG-PEM, and DG-PEM.}
+  \includegraphics[width=3.7in]{figures/degenerate_element_shapes.pdf}  \caption{Two convex pentagonal elements: (left) regular pentagon with edges of length $l = 1.0$, (right) pentagon with a comparatively short edge of length $l = 0.01$.}
+  \label{fig:degenerate_element_shapes}
+\end{figure}
+
+As in the previous example, the harmonic shape functions defined on these elements were approximated by the VETFEM (using 3rd order polynomials), the CG-PEM (using an edge-based partition), and the DG-PEM (using an edge-based partition, and the parameter settings described for the previous problem). Reference solutions for the harmonic shape functions were computed on a highly refined partition of the element using the CG-PEM.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=5.0in]{figures/degenerate_element_comparison.pdf}  \caption{Comparison of shape functions computed for the two pentagonal elements with $l=1.0$ and $l=0.01$ using VETFEM, CG-PEM, and DG-PEM.}
   \label{fig:degenerate_element_comparison}
 \end{figure}
+
+As in the previous example, the aforementioned approximations were used in place of the harmonic shape functions, and the elements' elastic stiffness matrices were computed (by numerical quadrature). The eigendecomposition of each element's local stiffness matrix was then determined, with attention paid to the largest and smallest (non-zero) eigenvalues, $\lambda_{\max}$ and $\lambda_{\min}$, respectively. A comparison of the computed values for $\lambda_{\max}$ and $\lambda_{\min}$ is provided in table \ref{tab:degenerate_stiffness_max_min_eigenvalue}.
 
 \begin{table}
 \centering
@@ -100,34 +187,38 @@ In other words: constrain all nodes; any error is attributable to integration er
 \centering
 \begin{tabular}{| c | c | c |}
     \hline
-        $l$  & 1.0    & 0.01 \\ \hline
+             & $l=1.0$ & $l=0.01$ \\ \hline
     Harmonic & 0.9510 & 5.0899 \\ \hline
     VETFEM   & 0.9510 & 1.6818 \\ \hline
     CG-PEM   & 1.1326 & 64.098 \\ \hline
     DG-PEM   & 0.9510 & 1.3085 \\
     \hline
     \end{tabular}
-    \caption{$\lambda_{\max}$}
+    \caption{Largest eigenvalue: $\lambda_{\max}$}
     \label{tab:degenerate_stiffness_max_eigenvalue}
 \end{subtable}% <---- don't forget this %
 \begin{subtable}{.5\textwidth}
 \centering
 \begin{tabular}{| c | c | c |}
     \hline
-        $l$  & 1.0    & 0.01 \\ \hline
+             & $l=1.0$ & $l=0.01$ \\ \hline
     Harmonic & 0.4925 & 0.3951 \\ \hline
     VETFEM   & 0.4906 & 0.3746 \\ \hline
     CG-PEM   & 0.8387 & 0.5516 \\ \hline
     DG-PEM   & 0.4739 & 0.2592 \\
     \hline
     \end{tabular}
-    \caption{$\lambda_{\min}$}
+    \caption{Smallest (non-zero) eigenvalue: $\lambda_{\min}$}
     \label{tab:degenerate_stiffness_min_eigenvalue}
 \end{subtable}
 
-\caption{Comparison of maximum and minimum (non-zero) eigenvalues of the element stiffness matrix computed for the elements shown in Figure \ref{fig:degenerate_element_comparison}.}
+\caption{Comparison of maximum and minimum (non-zero) eigenvalues of the element stiffness matrices computed for the elements shown in Figure \ref{fig:degenerate_element_shapes}.}
 \label{tab:degenerate_stiffness_max_min_eigenvalue}
 \end{table}
+
+As noted in the previous example, the CG-PEM consistently over-estimates the eigenvalue spectra of the elements. Using a coarse (edge-based) partition further degrades the accuracy of the CG-PEM shape functions, to the extent that the higher-order modes of deformation are determined to be severely over-stiff. Upon decreasing the edge length $l$ further, the the maximum eigenvalue was observed to increase as $\lambda_{\max} \approx O (l^{-1})$. By comparison, the eigenvalue spectra for the VETFEM and DG-PEM remain small (well-conditioned), and relatively constant as $l \rightarrow 0$. The VETFEM, however, is observed to yield oscillatory solutions for the shape functions with decreasing $l$.
+
+While the aforementioned insensitivity of the DG-PEM's eigenvalue spectra to short edge lengths may appear to be a desirable characteristic, it remains to be seen whether this is indeed the case. Correspondingly, the following series of investigations seeks to evaluate the implications of this property in a practical context.
 
 \subsection{Meshes Consisting of Elements with Degenerate Edges}
 
