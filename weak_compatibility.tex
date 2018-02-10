@@ -1,3 +1,18 @@
+\documentclass[12pt]{article}
+
+\usepackage[us,nodayofweek,12hr]{datetime}
+\usepackage{graphicx}
+%\usepackage[square,comma,numbers,sort&compress]{natbib}
+%\usepackage{hypernat}
+% Other useful packages to try
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{accents}
+
+\begin{document}
+
+\section{Weak Compatibility}
+
 An equivalent set of weakened boundary conditions may be written as
 \begin{equation}
 	\int_{\partial \Omega_e} \left[ u - \bar{u} \right] \lambda \, dA = 0 \quad \forall \lambda \in H^{1/2} (\partial \Omega_e),
@@ -50,7 +65,7 @@ We effectively need to demonstrate passage of the E-1 and M-1 tests for converge
 
 \subsection*{Weak Compatibility}
 
-Consider the necessary and sufficient conditions for compatibility of a deformation gradient field $\mathbf{F}$ stated in equation (\ref{eq:compatibility}), reiterated:
+Consider the necessary and sufficient conditions for compatibility of a deformation gradient field $\mathbf{F}$ stated in equation (K), reiterated:
 \begin{equation}
 	\nabla_X \times \mathbf{F} = \mathbf{0} \quad \forall \mathbf{X} \in \mathcal{B}_0.
 \end{equation}
@@ -63,7 +78,7 @@ we arrive at a set of equivalent conditions on the basis functions:
 	\nabla_X \times \nabla_X \varphi = \mathbf{0} \quad \forall \mathbf{X} \in \mathcal{B}_0, \, \varphi \in \left\{ \varphi_a \right\}_{a=1}^N.
 	\label{eq:strong_compatibility}
 \end{equation}
-These equations are trivially satisfied when the basis functions are $C^2 (\mathcal{B}_0)$ continuous, and may therefore be used to construct admissible trial solutions to the strong form statement of equilibrium described in section \ref{sec:strongform}.
+These equations are trivially satisfied when the basis functions are $C^2 (\mathcal{B}_0)$ continuous, and may therefore be used to construct admissible trial solutions to the strong form statement of equilibrium described in section N.
 
 In general, the construction of basis functions $\varphi \in C^2 (\mathcal{B}_0)$ is not trivial. Moreover, we seek solutions to the weak form such that $\mathbf{u} \in H^1 (\Omega)$. In what follows, we shall consider the space of functions $\varphi \in C^0 (\mathcal{B}_0)$ satisfying a weakened statement of compatibility:
 \begin{equation}
@@ -123,3 +138,5 @@ i.e. if we expand $\mathbf{v} = \mathbf{v}_0 + \mathbf{V}_1 \mathbf{x}$ and
 \begin{equation}
 	\sum_{e = 1}^{N_e} \int_{\partial \Omega_e} (\nabla_X \times (\varphi|_{\Omega_e} \mathbf{v})) \cdot d\mathbf{A} = 0 \quad \forall \varphi, \, \mathbf{v} \in P^1 (\mathcal{B}_0),
 \end{equation}
+
+\end{document}

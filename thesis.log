@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.8.23)  7 FEB 2018 19:33
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.8.23)  10 FEB 2018 00:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -413,18 +413,18 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
  [4]
 (./thesis.lof [5
 
-]
-Overfull \hbox (2.41768pt too wide) in paragraph at lines 28--28
+] [6]
+Overfull \hbox (2.41768pt too wide) in paragraph at lines 30--30
  [][] []\OT1/cmr/m/n/12 Histograms of var-i-ous el-e-ment met-rics as-so-ci-ate
 d with the polyg-o-nal meshes 
  []
 
-[6])
+)
 \tf@lof=\write4
 \openout4 = `thesis.lof'.
 
  [7] (./thesis.lot
-Overfull \hbox (1.08727pt too wide) in paragraph at lines 7--7
+Overfull \hbox (1.08727pt too wide) in paragraph at lines 13--13
  \OT1/cmr/m/n/12 ment stiff-ness ma-trix for el-e-ment C, com-puted for var-i-o
 us DG-PEM penalty 
  []
@@ -464,7 +464,7 @@ Chapter 2.
 
 
 
-] <figures/kinematics.pdf, id=96, 417.27335pt x 276.14058pt>
+] <figures/kinematics.pdf, id=97, 417.27335pt x 276.14058pt>
 File: figures/kinematics.pdf Graphic file (type pdf)
 
 <use figures/kinematics.pdf>
@@ -619,191 +619,213 @@ Overfull \hbox (2.78821pt too wide) in paragraph at lines 363--365
 
  (./results.tex
 Chapter 5.
-<figures/linear_patch_test.pdf, id=1214, 411.68028pt x 398.12056pt>
+[79
+
+
+
+] [80] [81]
+<figures/reproducing_element_shape.pdf, id=1224, 487.5715pt x 190.91255pt>
+File: figures/reproducing_element_shape.pdf Graphic file (type pdf)
+
+<use figures/reproducing_element_shape.pdf>
+Package pdftex.def Info: figures/reproducing_element_shape.pdf used on input li
+ne 107.
+(pdftex.def)             Requested size: 252.94499pt x 99.04204pt.
+ [82 <./figures/reproducing_element_shape.pdf>] [83]
+<figures/linear_patch_test.pdf, id=1236, 411.68028pt x 398.12056pt>
 File: figures/linear_patch_test.pdf Graphic file (type pdf)
 
 <use figures/linear_patch_test.pdf>
-Package pdftex.def Info: figures/linear_patch_test.pdf used on input line 19.
+Package pdftex.def Info: figures/linear_patch_test.pdf used on input line 199.
 (pdftex.def)             Requested size: 144.54pt x 139.78166pt.
 
-<figures/quadratic_patch_test.pdf, id=1215, 411.68028pt x 398.12056pt>
+<figures/quadratic_patch_test.pdf, id=1237, 411.68028pt x 398.12056pt>
 File: figures/quadratic_patch_test.pdf Graphic file (type pdf)
 
 <use figures/quadratic_patch_test.pdf>
-Package pdftex.def Info: figures/quadratic_patch_test.pdf used on input line 24
-.
+Package pdftex.def Info: figures/quadratic_patch_test.pdf used on input line 20
+4.
 (pdftex.def)             Requested size: 144.54pt x 139.78166pt.
- [79
 
 
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
- <./figures/linear_patch_test.pdf> <./figures/quadratic_patch_test.pdf
+[84] [85 <./figures/linear_patch_test.pdf> <./figures/quadratic_patch_test.pdf
 
 pdfTeX warning: pdflatex (file ./figures/quadratic_patch_test.pdf): PDF inclusi
 on: multiple pdfs with page group included in a single page
->] [80]
-<figures/concave_element_shapes.pdf, id=1227, 442.67032pt x 165.13112pt>
+>] <figures/patch_test_meshes.pdf, id=1247, 563.07544pt x 236.301pt>
+File: figures/patch_test_meshes.pdf Graphic file (type pdf)
+
+<use figures/patch_test_meshes.pdf>
+Package pdftex.def Info: figures/patch_test_meshes.pdf used on input line 258.
+(pdftex.def)             Requested size: 289.07999pt x 121.31596pt.
+ [86 <./figures/patch_test_meshes.pdf>]
+[87] [88] [89]
+<figures/concave_element_shapes.pdf, id=1263, 442.67032pt x 165.13112pt>
 File: figures/concave_element_shapes.pdf Graphic file (type pdf)
 
 <use figures/concave_element_shapes.pdf>
 Package pdftex.def Info: figures/concave_element_shapes.pdf used on input line 
-62.
+383.
 (pdftex.def)             Requested size: 252.94499pt x 94.35751pt.
- [81 <./figures/concave_element_shapes.pdf>]
-<figures/concave_element_partitions.pdf, id=1233, 442.67032pt x 165.13112pt>
+ [90]
+<figures/concave_element_partitions.pdf, id=1267, 442.67032pt x 165.13112pt>
 File: figures/concave_element_partitions.pdf Graphic file (type pdf)
 
 <use figures/concave_element_partitions.pdf>
 Package pdftex.def Info: figures/concave_element_partitions.pdf used on input l
-ine 70.
+ine 391.
 (pdftex.def)             Requested size: 252.94499pt x 94.35751pt.
 
-<figures/concave_element_comparison.pdf, id=1234, 608.46358pt x 624.04872pt>
+<figures/concave_element_comparison.pdf, id=1268, 608.46358pt x 624.04872pt>
 File: figures/concave_element_comparison.pdf Graphic file (type pdf)
 
 <use figures/concave_element_comparison.pdf>
 Package pdftex.def Info: figures/concave_element_comparison.pdf used on input l
-ine 78.
+ine 399.
 (pdftex.def)             Requested size: 361.34999pt x 370.61371pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[82 <./figures/concave_element_partitions.pdf>] [83 <./figures/concave_element_
-comparison.pdf>] [84]
-<figures/degenerate_element_shapes.pdf, id=1309, 374.71895pt x 160.69467pt>
+[91 <./figures/concave_element_shapes.pdf> <./figures/concave_element_partition
+s.pdf
+
+pdfTeX warning: pdflatex (file ./figures/concave_element_partitions.pdf): PDF i
+nclusion: multiple pdfs with page group included in a single page
+>] [92 <./figures/concave_element_comparison.pdf>] [93]
+<figures/degenerate_element_shapes.pdf, id=1345, 374.71895pt x 160.69467pt>
 File: figures/degenerate_element_shapes.pdf Graphic file (type pdf)
 
 <use figures/degenerate_element_shapes.pdf>
 Package pdftex.def Info: figures/degenerate_element_shapes.pdf used on input li
-ne 170.
+ne 491.
 (pdftex.def)             Requested size: 267.39877pt x 114.68002pt.
- [85 <./figures/degenerate_element_shapes.pdf>]
-<figures/degenerate_element_comparison.pdf, id=1315, 511.39455pt x 601.92407pt>
-File: figures/degenerate_element_comparison.pdf Graphic file (type pdf)
-<use figures/degenerate_element_comparison.pdf>
-Package pdftex.def Info: figures/degenerate_element_comparison.pdf used on inpu
-t line 178.
-(pdftex.def)             Requested size: 361.34999pt x 425.3301pt.
- [86 <./figures/degenerate_element_comparison.pdf>]
-<figures/patch_mesh.pdf, id=1435, 1034.58394pt x 655.78337pt>
-File: figures/patch_mesh.pdf Graphic file (type pdf)
-
-<use figures/patch_mesh.pdf>
-Package pdftex.def Info: figures/patch_mesh.pdf used on input line 230.
-(pdftex.def)             Requested size: 216.81pt x 137.41838pt.
-
-<figures/lloyd_mesh.pdf, id=1436, 1023.84326pt x 655.78337pt>
-File: figures/lloyd_mesh.pdf Graphic file (type pdf)
-
-<use figures/lloyd_mesh.pdf>
-Package pdftex.def Info: figures/lloyd_mesh.pdf used on input line 235.
-(pdftex.def)             Requested size: 216.81pt x 138.86931pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[87] <figures/patch_edge_lengths.pdf, id=1440, 449.68pt x 343.9489pt>
+[94]
+<figures/degenerate_element_comparison.pdf, id=1349, 511.39455pt x 601.92407pt>
+File: figures/degenerate_element_comparison.pdf Graphic file (type pdf)
+<use figures/degenerate_element_comparison.pdf>
+Package pdftex.def Info: figures/degenerate_element_comparison.pdf used on inpu
+t line 499.
+(pdftex.def)             Requested size: 361.34999pt x 425.3301pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[95 <./figures/degenerate_element_shapes.pdf>]
+<figures/patch_mesh.pdf, id=1355, 1034.58394pt x 655.78337pt>
+File: figures/patch_mesh.pdf Graphic file (type pdf)
+
+<use figures/patch_mesh.pdf>
+Package pdftex.def Info: figures/patch_mesh.pdf used on input line 551.
+(pdftex.def)             Requested size: 216.81pt x 137.41838pt.
+
+<figures/lloyd_mesh.pdf, id=1356, 1023.84326pt x 655.78337pt>
+File: figures/lloyd_mesh.pdf Graphic file (type pdf)
+
+<use figures/lloyd_mesh.pdf>
+Package pdftex.def Info: figures/lloyd_mesh.pdf used on input line 556.
+(pdftex.def)             Requested size: 216.81pt x 138.86931pt.
+ [96 <./figures/degenerate_element_comparison.pdf>] <figures/patch_edge_lengths
+.pdf, id=1474, 449.68pt x 343.9489pt>
 File: figures/patch_edge_lengths.pdf Graphic file (type pdf)
 
 <use figures/patch_edge_lengths.pdf>
-Package pdftex.def Info: figures/patch_edge_lengths.pdf used on input line 256.
+Package pdftex.def Info: figures/patch_edge_lengths.pdf used on input line 577.
 
 (pdftex.def)             Requested size: 216.81pt x 165.83359pt.
 
-<figures/lloyd_edge_lengths.pdf, id=1441, 449.68pt x 344.32262pt>
+<figures/lloyd_edge_lengths.pdf, id=1475, 449.68pt x 344.32262pt>
 File: figures/lloyd_edge_lengths.pdf Graphic file (type pdf)
 
 <use figures/lloyd_edge_lengths.pdf>
-Package pdftex.def Info: figures/lloyd_edge_lengths.pdf used on input line 261.
+Package pdftex.def Info: figures/lloyd_edge_lengths.pdf used on input line 582.
 
 (pdftex.def)             Requested size: 216.81pt x 166.01378pt.
 
-<figures/patch_edge_ratios.pdf, id=1442, 449.68pt x 344.04768pt>
+<figures/patch_edge_ratios.pdf, id=1476, 449.68pt x 344.04768pt>
 File: figures/patch_edge_ratios.pdf Graphic file (type pdf)
 
 <use figures/patch_edge_ratios.pdf>
-Package pdftex.def Info: figures/patch_edge_ratios.pdf used on input line 266.
+Package pdftex.def Info: figures/patch_edge_ratios.pdf used on input line 587.
 (pdftex.def)             Requested size: 216.81pt x 165.88123pt.
 
-<figures/lloyd_edge_ratios.pdf, id=1443, 449.68pt x 341.0977pt>
+<figures/lloyd_edge_ratios.pdf, id=1477, 449.68pt x 341.0977pt>
 File: figures/lloyd_edge_ratios.pdf Graphic file (type pdf)
 
 <use figures/lloyd_edge_ratios.pdf>
-Package pdftex.def Info: figures/lloyd_edge_ratios.pdf used on input line 271.
+Package pdftex.def Info: figures/lloyd_edge_ratios.pdf used on input line 592.
 (pdftex.def)             Requested size: 216.81pt x 164.4589pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<figures/patch_eigenmodes_DGPEM.pdf, id=1444, 1045.53882pt x 710.13707pt>
+<figures/patch_eigenmodes_DGPEM.pdf, id=1478, 1045.53882pt x 710.13707pt>
 File: figures/patch_eigenmodes_DGPEM.pdf Graphic file (type pdf)
 
 <use figures/patch_eigenmodes_DGPEM.pdf>
 Package pdftex.def Info: figures/patch_eigenmodes_DGPEM.pdf used on input line 
-279.
+600.
 (pdftex.def)             Requested size: 361.34999pt x 245.43098pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<figures/patch_condition_number_FEPEM.pdf, id=1445, 449.68pt x 344.53922pt>
+<figures/patch_condition_number_FEPEM.pdf, id=1479, 449.68pt x 344.53922pt>
 File: figures/patch_condition_number_FEPEM.pdf Graphic file (type pdf)
 
 <use figures/patch_condition_number_FEPEM.pdf>
 Package pdftex.def Info: figures/patch_condition_number_FEPEM.pdf used on input
- line 347.
+ line 668.
 (pdftex.def)             Requested size: 216.81pt x 166.11821pt.
 
-<figures/lloyd_condition_number_FEPEM.pdf, id=1446, 449.68pt x 345.38275pt>
+<figures/lloyd_condition_number_FEPEM.pdf, id=1480, 449.68pt x 345.38275pt>
 File: figures/lloyd_condition_number_FEPEM.pdf Graphic file (type pdf)
 
 <use figures/lloyd_condition_number_FEPEM.pdf>
 Package pdftex.def Info: figures/lloyd_condition_number_FEPEM.pdf used on input
- line 352.
+ line 673.
 (pdftex.def)             Requested size: 216.81pt x 166.52492pt.
 
-<figures/patch_condition_number_DGPEM.pdf, id=1447, 449.68pt x 344.45184pt>
+<figures/patch_condition_number_DGPEM.pdf, id=1481, 449.68pt x 344.45184pt>
 File: figures/patch_condition_number_DGPEM.pdf Graphic file (type pdf)
 
 <use figures/patch_condition_number_DGPEM.pdf>
 Package pdftex.def Info: figures/patch_condition_number_DGPEM.pdf used on input
- line 357.
+ line 678.
 (pdftex.def)             Requested size: 216.81pt x 166.07608pt.
 
-<figures/lloyd_condition_number_DGPEM.pdf, id=1448, 449.68pt x 344.59009pt>
+<figures/lloyd_condition_number_DGPEM.pdf, id=1482, 449.68pt x 344.59009pt>
 File: figures/lloyd_condition_number_DGPEM.pdf Graphic file (type pdf)
 
 <use figures/lloyd_condition_number_DGPEM.pdf>
 Package pdftex.def Info: figures/lloyd_condition_number_DGPEM.pdf used on input
- line 362.
+ line 683.
 (pdftex.def)             Requested size: 216.81pt x 166.14273pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<figures/plate_with_hole.pdf, id=1449, 583.53358pt x 406.87007pt>
+<figures/plate_with_hole.pdf, id=1483, 583.53358pt x 406.87007pt>
 File: figures/plate_with_hole.pdf Graphic file (type pdf)
 
 <use figures/plate_with_hole.pdf>
-Package pdftex.def Info: figures/plate_with_hole.pdf used on input line 402.
+Package pdftex.def Info: figures/plate_with_hole.pdf used on input line 723.
 (pdftex.def)             Requested size: 289.07999pt x 201.55962pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[88 <./figures/patch_mesh.pdf> <./figures/lloyd_mesh.pdf
+[97 <./figures/patch_mesh.pdf> <./figures/lloyd_mesh.pdf
 
 pdfTeX warning: pdflatex (file ./figures/lloyd_mesh.pdf): PDF inclusion: multip
 le pdfs with page group included in a single page
->] <figures/plate_with_hole_meshes.pdf, id=1462, 1066.58607pt x 882.79451pt>
-File: figures/plate_with_hole_meshes.pdf Graphic file (type pdf)
-
-<use figures/plate_with_hole_meshes.pdf>
-Package pdftex.def Info: figures/plate_with_hole_meshes.pdf used on input line 
-425.
-(pdftex.def)             Requested size: 433.62pt x 358.9038pt.
- [89 <./figures/patch_edge_lengths.pdf> <./figures/lloyd_edge_lengths.pdf
+>] [98 <./figures/patch_edge_lengths.pdf> <./figures/lloyd_edge_lengths.pdf
 
 pdfTeX warning: pdflatex (file ./figures/lloyd_edge_lengths.pdf): PDF inclusion
 : multiple pdfs with page group included in a single page
@@ -815,33 +837,19 @@ pdfTeX warning: pdflatex (file ./figures/patch_edge_ratios.pdf): PDF inclusion:
 
 pdfTeX warning: pdflatex (file ./figures/lloyd_edge_ratios.pdf): PDF inclusion:
  multiple pdfs with page group included in a single page
->]
+>] <figures/plate_with_hole_meshes.pdf, id=1542, 1066.58607pt x 882.79451pt>
+File: figures/plate_with_hole_meshes.pdf Graphic file (type pdf)
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[90 <./figures/patch_eigenmodes_DGPEM.pdf>]
-<figures/l2_error_plot.pdf, id=1579, 1948.99567pt x 972.31027pt>
-File: figures/l2_error_plot.pdf Graphic file (type pdf)
-
-<use figures/l2_error_plot.pdf>
-Package pdftex.def Info: figures/l2_error_plot.pdf used on input line 509.
-(pdftex.def)             Requested size: 433.62pt x 216.3124pt.
+<use figures/plate_with_hole_meshes.pdf>
+Package pdftex.def Info: figures/plate_with_hole_meshes.pdf used on input line 
+746.
+(pdftex.def)             Requested size: 433.62pt x 358.9038pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<figures/h1_error_plot.pdf, id=1580, 1946.70157pt x 969.21277pt>
-File: figures/h1_error_plot.pdf Graphic file (type pdf)
-
-<use figures/h1_error_plot.pdf>
-Package pdftex.def Info: figures/h1_error_plot.pdf used on input line 517.
-(pdftex.def)             Requested size: 433.62pt x 215.8747pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[91 <./figures/patch_condition_number_FEPEM.pdf> <./figures/lloyd_condition_num
-ber_FEPEM.pdf
+[99 <./figures/patch_eigenmodes_DGPEM.pdf>] [100 <./figures/patch_condition_num
+ber_FEPEM.pdf> <./figures/lloyd_condition_number_FEPEM.pdf
 
 pdfTeX warning: pdflatex (file ./figures/lloyd_condition_number_FEPEM.pdf): PDF
  inclusion: multiple pdfs with page group included in a single page
@@ -855,61 +863,77 @@ pdfTeX warning: pdflatex (file ./figures/lloyd_condition_number_DGPEM.pdf): PDF
  inclusion: multiple pdfs with page group included in a single page
 >]
 
-LaTeX Warning: Text page 92 contains only floats.
+LaTeX Warning: Text page 101 contains only floats.
 
 
 Overfull \vbox (1.48717pt too high) has occurred while \output is active []
 
 
-[92 <./figures/plate_with_hole.pdf> <./figures/plate_with_hole_meshes.pdf
+[101 <./figures/plate_with_hole.pdf> <./figures/plate_with_hole_meshes.pdf
 
 pdfTeX warning: pdflatex (file ./figures/plate_with_hole_meshes.pdf): PDF inclu
 sion: multiple pdfs with page group included in a single page
->] [93] [94 <./figures/l2_error_plot.pdf> <./figures/h1_error_plot.pdf
+>] <figures/l2_error_plot.pdf, id=1704, 1948.99567pt x 972.31027pt>
+File: figures/l2_error_plot.pdf Graphic file (type pdf)
 
-pdfTeX warning: pdflatex (file ./figures/h1_error_plot.pdf): PDF inclusion: mul
-tiple pdfs with page group included in a single page
->] [95] [96] [97]
-<figures/annulus_meshes.pdf, id=1710, 923.63104pt x 831.675pt>
+<use figures/l2_error_plot.pdf>
+Package pdftex.def Info: figures/l2_error_plot.pdf used on input line 830.
+(pdftex.def)             Requested size: 433.62pt x 216.3124pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<figures/h1_error_plot.pdf, id=1705, 1946.70157pt x 969.21277pt>
+File: figures/h1_error_plot.pdf Graphic file (type pdf)
+
+<use figures/h1_error_plot.pdf>
+Package pdftex.def Info: figures/h1_error_plot.pdf used on input line 838.
+(pdftex.def)             Requested size: 433.62pt x 215.8747pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[102] [103 <./figures/l2_error_plot.pdf>] [104 <./figures/h1_error_plot.pdf>]
+[105] [106] <figures/annulus_meshes.pdf, id=1746, 923.63104pt x 831.675pt>
 File: figures/annulus_meshes.pdf Graphic file (type pdf)
 
 <use figures/annulus_meshes.pdf>
-Package pdftex.def Info: figures/annulus_meshes.pdf used on input line 654.
+Package pdftex.def Info: figures/annulus_meshes.pdf used on input line 975.
 (pdftex.def)             Requested size: 433.62pt x 390.44315pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<figures/quad_annulus_meshes.pdf, id=1711, 923.9814pt x 823.60727pt>
+<figures/quad_annulus_meshes.pdf, id=1747, 923.9814pt x 823.60727pt>
 File: figures/quad_annulus_meshes.pdf Graphic file (type pdf)
 
 <use figures/quad_annulus_meshes.pdf>
-Package pdftex.def Info: figures/quad_annulus_meshes.pdf used on input line 661
+Package pdftex.def Info: figures/quad_annulus_meshes.pdf used on input line 982
 .
 (pdftex.def)             Requested size: 433.62pt x 386.51738pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<figures/quad_l2_error.pdf, id=1712, 1013.80269pt x 826.46872pt>
+<figures/quad_l2_error.pdf, id=1748, 1013.80269pt x 826.46872pt>
 File: figures/quad_l2_error.pdf Graphic file (type pdf)
 
 <use figures/quad_l2_error.pdf>
-Package pdftex.def Info: figures/quad_l2_error.pdf used on input line 670.
+Package pdftex.def Info: figures/quad_l2_error.pdf used on input line 991.
 (pdftex.def)             Requested size: 238.49121pt x 194.42195pt.
 
-Overfull \hbox (15.39113pt too wide) in paragraph at lines 670--671
+Overfull \hbox (15.39113pt too wide) in paragraph at lines 991--992
  [][] 
  []
 
-<figures/quad_h1_error.pdf, id=1713, 1010.83788pt x 895.16464pt>
+<figures/quad_h1_error.pdf, id=1749, 1010.83788pt x 895.16464pt>
 File: figures/quad_h1_error.pdf Graphic file (type pdf)
 
 <use figures/quad_h1_error.pdf>
-Package pdftex.def Info: figures/quad_h1_error.pdf used on input line 675.
+Package pdftex.def Info: figures/quad_h1_error.pdf used on input line 996.
 (pdftex.def)             Requested size: 238.49121pt x 211.19691pt.
 
-Overfull \hbox (15.39113pt too wide) in paragraph at lines 675--676
+Overfull \hbox (15.39113pt too wide) in paragraph at lines 996--997
  [][] 
  []
 
@@ -918,89 +942,89 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 File: figures/quad_l2_error.pdf Graphic file (type pdf)
 <use figures/quad_l2_error.pdf>
-Package pdftex.def Info: figures/quad_l2_error.pdf used on input line 685.
+Package pdftex.def Info: figures/quad_l2_error.pdf used on input line 1006.
 (pdftex.def)             Requested size: 238.49121pt x 194.42195pt.
 
-Overfull \hbox (15.39113pt too wide) in paragraph at lines 685--686
+Overfull \hbox (15.39113pt too wide) in paragraph at lines 1006--1007
  [][] 
  []
 
 File: figures/quad_h1_error.pdf Graphic file (type pdf)
 <use figures/quad_h1_error.pdf>
-Package pdftex.def Info: figures/quad_h1_error.pdf used on input line 690.
+Package pdftex.def Info: figures/quad_h1_error.pdf used on input line 1011.
 (pdftex.def)             Requested size: 238.49121pt x 211.19691pt.
 
-Overfull \hbox (15.39113pt too wide) in paragraph at lines 690--691
+Overfull \hbox (15.39113pt too wide) in paragraph at lines 1011--1012
  [][] 
  []
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<figures/plate_meshes.pdf, id=1714, 630.0009pt x 350.31926pt>
+<figures/plate_meshes.pdf, id=1750, 630.0009pt x 350.31926pt>
 File: figures/plate_meshes.pdf Graphic file (type pdf)
 
 <use figures/plate_meshes.pdf>
-Package pdftex.def Info: figures/plate_meshes.pdf used on input line 703.
+Package pdftex.def Info: figures/plate_meshes.pdf used on input line 1024.
 (pdftex.def)             Requested size: 433.62pt x 241.1272pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<figures/necking_eqps_0.pdf, id=1715, 707.75954pt x 564.7901pt>
+<figures/necking_eqps_0.pdf, id=1751, 707.75954pt x 564.7901pt>
 File: figures/necking_eqps_0.pdf Graphic file (type pdf)
 
 <use figures/necking_eqps_0.pdf>
-Package pdftex.def Info: figures/necking_eqps_0.pdf used on input line 720.
+Package pdftex.def Info: figures/necking_eqps_0.pdf used on input line 1041.
 (pdftex.def)             Requested size: 216.81pt x 173.0148pt.
 
-<figures/necking_eqps_1.pdf, id=1716, 708.43448pt x 564.7901pt>
+<figures/necking_eqps_1.pdf, id=1752, 708.43448pt x 564.7901pt>
 File: figures/necking_eqps_1.pdf Graphic file (type pdf)
 
 <use figures/necking_eqps_1.pdf>
-Package pdftex.def Info: figures/necking_eqps_1.pdf used on input line 725.
+Package pdftex.def Info: figures/necking_eqps_1.pdf used on input line 1046.
 (pdftex.def)             Requested size: 216.81pt x 172.85106pt.
 
-<figures/necking_eqps_2.pdf, id=1717, 708.33585pt x 564.7901pt>
+<figures/necking_eqps_2.pdf, id=1753, 708.33585pt x 564.7901pt>
 File: figures/necking_eqps_2.pdf Graphic file (type pdf)
 
 <use figures/necking_eqps_2.pdf>
-Package pdftex.def Info: figures/necking_eqps_2.pdf used on input line 730.
+Package pdftex.def Info: figures/necking_eqps_2.pdf used on input line 1051.
 (pdftex.def)             Requested size: 216.81pt x 172.86829pt.
 
-<figures/necking_eqps_3.pdf, id=1718, 708.41383pt x 564.7901pt>
+<figures/necking_eqps_3.pdf, id=1754, 708.41383pt x 564.7901pt>
 File: figures/necking_eqps_3.pdf Graphic file (type pdf)
 
 <use figures/necking_eqps_3.pdf>
-Package pdftex.def Info: figures/necking_eqps_3.pdf used on input line 735.
+Package pdftex.def Info: figures/necking_eqps_3.pdf used on input line 1056.
 (pdftex.def)             Requested size: 216.81pt x 172.85106pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<figures/taylor_eqps_0.pdf, id=1719, 691.15735pt x 607.56662pt>
+<figures/taylor_eqps_0.pdf, id=1755, 691.15735pt x 607.56662pt>
 File: figures/taylor_eqps_0.pdf Graphic file (type pdf)
 
 <use figures/taylor_eqps_0.pdf>
-Package pdftex.def Info: figures/taylor_eqps_0.pdf used on input line 747.
+Package pdftex.def Info: figures/taylor_eqps_0.pdf used on input line 1068.
 (pdftex.def)             Requested size: 216.81pt x 190.58722pt.
 
-<figures/taylor_eqps_1.pdf, id=1720, 691.15735pt x 607.56662pt>
+<figures/taylor_eqps_1.pdf, id=1756, 691.15735pt x 607.56662pt>
 File: figures/taylor_eqps_1.pdf Graphic file (type pdf)
 
 <use figures/taylor_eqps_1.pdf>
-Package pdftex.def Info: figures/taylor_eqps_1.pdf used on input line 752.
+Package pdftex.def Info: figures/taylor_eqps_1.pdf used on input line 1073.
 (pdftex.def)             Requested size: 216.81pt x 190.58722pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-) [98] [99 <./figures/annulus_meshes.pdf>] [100 <./figures/quad_annulus_meshes.
-pdf>] [101 <./figures/quad_l2_error.pdf> <./figures/quad_h1_error.pdf
+) [107] [108 <./figures/annulus_meshes.pdf>] [109 <./figures/quad_annulus_meshe
+s.pdf>] [110 <./figures/quad_l2_error.pdf> <./figures/quad_h1_error.pdf
 
 pdfTeX warning: pdflatex (file ./figures/quad_h1_error.pdf): PDF inclusion: mul
 tiple pdfs with page group included in a single page
->] [102 <./figures/plate_meshes.pdf>] [103 <./figures/necking_eqps_0.pdf> <./fi
+>] [111 <./figures/plate_meshes.pdf>] [112 <./figures/necking_eqps_0.pdf> <./fi
 gures/necking_eqps_1.pdf
 
 pdfTeX warning: pdflatex (file ./figures/necking_eqps_1.pdf): PDF inclusion: mu
@@ -1013,7 +1037,7 @@ ltiple pdfs with page group included in a single page
 
 pdfTeX warning: pdflatex (file ./figures/necking_eqps_3.pdf): PDF inclusion: mu
 ltiple pdfs with page group included in a single page
->] [104 <./figures/taylor_eqps_0.pdf> <./figures/taylor_eqps_1.pdf
+>] [113 <./figures/taylor_eqps_0.pdf> <./figures/taylor_eqps_1.pdf
 
 pdfTeX warning: pdflatex (file ./figures/taylor_eqps_1.pdf): PDF inclusion: mul
 tiple pdfs with page group included in a single page
@@ -1022,7 +1046,7 @@ tiple pdfs with page group included in a single page
 
  (./future_work.tex
 Chapter 6.
-) [105
+) [114
 
 
 
@@ -1033,7 +1057,7 @@ Missing character: There is no Ã in font cmti12!
 Missing character: There is no © in font cmti12!
 Missing character: There is no Ã in font cmti12!
 Missing character: There is no © in font cmti12!
- [106
+ [115
 
 
 ]
@@ -1041,15 +1065,15 @@ Missing character: There is no Ã in font cmr12!
 Missing character: There is no ¡ in font cmr12!
 Missing character: There is no Ã in font cmr12!
 Missing character: There is no © in font cmr12!
- [107]
+ [116]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ” in font cmr12!
- [108] [109]
+ [117] [118]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ” in font cmr12!
- [110]) [111] [1] [2]
+ [119]) [120] [1] [2]
 (./thesis.aux (./introduction.aux) (./solid_mechanics.aux)
 (./pem_formulation.aux) (./implementation.aux) (./results.aux)
 (./future_work.aux))
@@ -1065,36 +1089,37 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6556 strings out of 494985
- 98966 string characters out of 6180356
- 195481 words of memory out of 5000000
- 9560 multiletter control sequences out of 15000+600000
+ 6583 strings out of 494985
+ 99791 string characters out of 6180356
+ 193685 words of memory out of 5000000
+ 9585 multiletter control sequences out of 15000+600000
  15430 words of font info for 56 fonts, out of 8000000 for 9000
  40 hyphenation exceptions out of 8191
  38i,14n,49p,1430b,487s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
-fonts/cmextra/cmmib8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.p
-fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr
-/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on thesis.pdf (124 pages, 11204839 bytes).
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cmextra/cmmib8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/symbols/msbm10.pfb>
+Output written on thesis.pdf (133 pages, 11247399 bytes).
 PDF statistics:
- 2118 PDF objects out of 2487 (max. 8388607)
- 1338 compressed objects within 14 object streams
+ 2157 PDF objects out of 2487 (max. 8388607)
+ 1365 compressed objects within 14 object streams
  0 named destinations out of 1000 (max. 500000)
- 231 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 241 words of extra memory for PDF output out of 10000 (max. 10000000)
 

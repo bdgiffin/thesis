@@ -433,7 +433,7 @@ The above consistency requirements are required to hold over the problem domain 
   \int_{\Omega_e} \mathbf{X}^{\alpha} \phi_{a,i} \, dV + \int_{\Omega_e} \mathbf{X}^{\alpha}_{,i} \phi_a \, dV = \int_{\partial \Omega_e} \mathbf{X}^{\alpha} N_i \phi_a \, dA \quad \forall i, \, a, \, | \alpha | \leq k-1, \, \Omega_e \subset \mathcal{B}_0.
   \label{eq:consistency}
 \end{equation}
-The above conditions are sufficient for satisfaction of the Irons patch test up to $k^{\text{th}}$ order, provided $\mathcal{S}^h \supset [ P^{k} (\mathcal{B}_0) ]^d$. It should be emphasized that these conditions apply specifically to the test functions $\phi_a \in \mathcal{V}^h$.
+The above conditions are necessary for satisfaction of the Irons patch test up to $k^{\text{th}}$ order, provided $\mathcal{S}^h \supset [ P^{k} (\mathcal{B}_0) ]^d$. It should be emphasized that these conditions apply specifically to the test functions $\phi_a \in \mathcal{V}^h$.
 
 In most practical situations, however, the integral expressions in (\ref{eq:weakform}) are evaluated only approximately; numerical quadrature rules are defined on the elements and on their boundaries, such that
 \begin{equation}

@@ -33,6 +33,12 @@ F.~Bassi, L.~Botti, A.~Colombo, D.A.~Di Pietro, and P.~Tesini.
   discontinuous galerkin discretizations.
 \newblock {\em Journal of Computational Physics}, 231(1):45 -- 65, 2012.
 
+\bibitem{Irons:65}
+G.P. Bazeley, Y.K. Cheung, B.M. Irons, and O.C. Zienkiewicz.
+\newblock Triangular elements in bending. conforming and non-conforming
+  solutions.
+\newblock {\em Proc. Conf. Matrix Methods in Structural Mechanics}, 1965.
+
 \bibitem{Bishop:14}
 J.~E. Bishop.
 \newblock A displacement-based finite element formulation for general polyhedra
