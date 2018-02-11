@@ -1,7 +1,7 @@
 \contentsline {section}{List of Figures}{v}
-\contentsline {section}{List of Tables}{viii}
-\contentsline {section}{Abstract}{ix}
-\contentsline {section}{Acknowledgments}{x}
+\contentsline {section}{List of Tables}{ix}
+\contentsline {section}{Abstract}{x}
+\contentsline {section}{Acknowledgments}{xi}
 \contentsline {chapter}{\numberline {1}Introduction}{1}
 \contentsline {section}{\numberline {1.1}Historical Development}{1}
 \contentsline {section}{\numberline {1.2}Recent Developments in Polytopal Discretization}{9}
@@ -30,13 +30,12 @@
 \contentsline {chapter}{\numberline {5}A Numerical Evaluation of the PEM}{79}
 \contentsline {section}{\numberline {5.1}Tests for Polynomial Reproducibility}{79}
 \contentsline {section}{\numberline {5.2}Finite Element Patch Tests}{84}
-\contentsline {section}{\numberline {5.3}Element Quality and Parameter Sensitivity}{89}
-\contentsline {subsection}{\numberline {5.3.1}Meshes Consisting of Elements with Degenerate Edges}{97}
-\contentsline {section}{\numberline {5.4}Convergence Analysis}{97}
-\contentsline {section}{\numberline {5.5}Parameter Sensitivity Analysis}{104}
-\contentsline {section}{\numberline {5.6}Computational Efficiency}{104}
-\contentsline {subsection}{\numberline {5.6.1}Performance Comparison}{104}
-\contentsline {section}{\numberline {5.7}Resistance to Locking Phenomena}{104}
-\contentsline {subsubsection}{\numberline {5.7.0.1}Exact Solution}{107}
-\contentsline {section}{\numberline {5.8}Comparison with Isoparametric Finite Elements}{107}
-\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{114}
+\contentsline {section}{\numberline {5.3}Tests for Element Quality}{91}
+\contentsline {section}{\numberline {5.4}Convergence Analysis}{99}
+\contentsline {section}{\numberline {5.5}Parameter Sensitivity Analysis}{106}
+\contentsline {section}{\numberline {5.6}Computational Efficiency}{106}
+\contentsline {subsection}{\numberline {5.6.1}Performance Comparison}{106}
+\contentsline {section}{\numberline {5.7}Resistance to Locking Phenomena}{106}
+\contentsline {subsubsection}{\numberline {5.7.0.1}Exact Solution}{109}
+\contentsline {section}{\numberline {5.8}Comparison with Isoparametric Finite Elements}{109}
+\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{116}

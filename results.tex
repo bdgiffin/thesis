@@ -196,12 +196,12 @@ In this section we investigate the behavior of PEM elements in the context of th
     \centering
     \begin{subfigure}[b]{0.49\linewidth}
             \centering
-            \includegraphics[width=2.0in]{figures/linear_patch_test.pdf}
+            \includegraphics[width=2.5in]{figures/linear_patch_test.pdf}
     			\caption{linear patch test \label{fig:linear_patch_test}}
     \end{subfigure}
 	\begin{subfigure}[b]{0.49\linewidth}
             \centering
-            \includegraphics[width=2.0in]{figures/quadratic_patch_test.pdf}
+            \includegraphics[width=2.5in]{figures/quadratic_patch_test.pdf}
     			\caption{quadratic patch test \label{fig:quadratic_patch_test}}
     \end{subfigure}
     \caption{Depiction of simple patch tests for (\subref{fig:linear_patch_test}) linear and (\subref{fig:quadratic_patch_test}) quadratic elements.}
@@ -251,15 +251,6 @@ A simplistic case involving only a constant body force and no boundary tractions
 	\sigma_{11} (\mathbf{X}) = \sigma_{12} (\mathbf{X}) = 0, \quad \sigma_{22} (\mathbf{X}) = b_2 (L -  X_2).
 \end{equation}
 
-The two meshes depicted in Figure \ref{fig:patch_test_meshes} are considered. The PEM was used on the polygonal mesh, whereas the quadrilateral mesh consisted of standard isoparametric elements.
-
-\begin{figure}[!h]
-    \centering
-    \includegraphics[width=4.0in]{figures/patch_test_meshes.pdf}
-    	\caption{2D meshes for the linear and quadratic patch tests: (left) polygonal mesh, (right) distorted quadrilateral mesh.}
-    \label{fig:patch_test_meshes}
-\end{figure}
-
 Patch test errors were measured in terms of the normalized $L^2 (\Omega)$ error metrics for displacement and stress:
 \begin{equation}
 	\frac{||\mathbf{u}^h - \mathbf{u}||}{||\mathbf{u}||} = \sqrt{\frac{\int_{\mathcal{B}_0} (\mathbf{u}^h - \mathbf{u}) \cdot (\mathbf{u}^h - \mathbf{u}) \, dV}{\int_{\mathcal{B}_0} \mathbf{u} \cdot \mathbf{u} \, dV}},
@@ -268,6 +259,17 @@ Patch test errors were measured in terms of the normalized $L^2 (\Omega)$ error 
 	\frac{||\boldsymbol{\sigma}^h - \boldsymbol{\sigma}||}{||\boldsymbol{\sigma}||} = \sqrt{\frac{\int_{\mathcal{B}_0} (\boldsymbol{\sigma}^h - \boldsymbol{\sigma}) \colon (\boldsymbol{\sigma}^h - \boldsymbol{\sigma}) \, dV}{\int_{\mathcal{B}_0} \boldsymbol{\sigma} \colon \boldsymbol{\sigma} \, dV}},
 \end{equation}
 where $\mathbf{u}$ and $\boldsymbol{\sigma}$ denote the exact solutions for the displacement and stress fields, respectively.
+
+\subsection*{Linear Patch Tests}
+
+The two meshes depicted in Figure \ref{fig:patch_test_meshes} are considered. The PEM was used on the polygonal mesh, whereas the FEM with standard 4-nodes isoparametric elements was used on the quadrilateral mesh.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=4.0in]{figures/patch_test_meshes.pdf}
+    	\caption{Meshes used for the linear patch test: (left) polygonal mesh, (right) distorted quadrilateral mesh.}
+    \label{fig:patch_test_meshes}
+\end{figure}
 
 Linear patch test errors for the FEM, CG-PEM, and DG-PEM were explored. Both the CG-PEM and DG-PEM utilized an edge-based partitioning scheme and composite mid-point quadrature rules for each element. Unless otherwise noted, the parameters for the DG-PEM were selected as $\epsilon = +1$, $\alpha_{0\gamma} = 10.0$, and $\alpha_{1\gamma} = 0.0$. Further, the DG-PEM was tested both with and without using the gradient correction scheme presented in \cite{Talischi:15}. These corrections were applied to the test function gradients alone (yielding a ``nonsymmetric correction'' scheme), or to both the trial and test function gradients (yielding a ``symmetric correction'' scheme). The results of these tests may be found in table \ref{tab:linear_patch_test}.
 
@@ -333,46 +335,88 @@ It is tempting to want to specify $\alpha_{0\gamma}$ to be sufficiently small/la
     $\alpha_{0\gamma} = 10^{12}$ & 6.1821E+012 & 1.7678E-003 & 2.1612E-006 & 3.0495E-005 \\
     \hline
     \end{tabular}
-    \caption{The effect of interpolation error on patch test error in the DG-PEM, in the absence of a gradient correction scheme.}
+    \caption{The effects of interpolation error on patch test errors in the DG-PEM. No gradient correction scheme was utilized.}
     \vspace{-5pt}
     \label{tab:interpolation_patch_test_error}
     \vspace{-25pt}
   \end{center}
 \end{table}
 
-If the interpolation error $E_1 (\Omega)$ becomes large enough (due to poor conditioning of $\mathbf{J}$), it will dominate any other sources of error incurred in the patch test. Interpolation errors persist even if a gradient correction scheme is employed, and can become particularly troublesome for: thin elements, higher-order elements, or elements with nearly degenerate features.
+If the interpolation error $E_1 (\Omega)$ becomes large enough (due to poor conditioning of $\mathbf{J}$), it will dominate any other sources of error incurred in the patch test. Moreover, interpolation errors persist even if a gradient correction scheme is employed, and can become particularly troublesome for: thin elements, higher-order elements, or elements with nearly degenerate features.
+
+\subsection*{Quadratic Patch Tests}
+
+The two quadrilateral meshes depicted in Figure \ref{fig:quadrilateral_patch_meshes} were used in conjunction with the FEM, using both 8-node serendipity and 9-node Lagrange isoparametric formulations. The PEM was used on the polygonal mesh depicted in Figure \ref{fig:quadratic_polygonal_patch_mesh}.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=4.0in]{figures/quadrilateral_patch_meshes.pdf}
+    	\caption{Quadrilateral meshes: (left) regular, (right) distorted.}
+    \label{fig:quadrilateral_patch_meshes}
+\end{figure}
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=4.0in]{figures/quadratic_polygonal_patch_mesh.pdf}
+    	\caption{Patch of serendipity polygonal elements.}
+    \label{fig:quadratic_polygonal_patch_mesh}
+\end{figure}
+
+Quadratic patch test errors for the FEM and DG-PEM were explored. The DG-PEM utilized an edge-based partitioning scheme and composite mid-point quadrature rules for each element. The DG-PEM bases was chosen such that $\varphi^h \in \mathcal{D}^h_2 (\Omega)$, yielding quadratically complete shape functions. Further, the DG-PEM was tested both with and without using the symmetric and nonsymmetric gradient correction schemes discussed previously. The results are presented in table \ref{tab:quadratic_patch_test}.
 
 \begin{table}[!ht]
   \begin{center}
-    \begin{tabular}{| c || c | c |}
+    \begin{tabular}{| c || c | c | c |}
     \hline
-           & $||\mathbf{u}^h - \mathbf{u}|| / ||\mathbf{u}||$ & $||\boldsymbol{\sigma}^h - \boldsymbol{\sigma}|| / ||\boldsymbol{\sigma}||$ \\ \hline \hline
-    FEM (8-node quadrilaterals) & 4.8968E-003 & 5.2227E-002 \\ \hline
-    DG-PEM (no gradient correction) & 9.8535E-002 & 2.8876E-001 \\ \hline
-    DG-PEM (symmetric correction) & 3.5935E-008 & 1.4642E-007 \\ \hline
-    DG-PEM (nonsymmetric correction) & 4.5498E-009 & 5.5341E-009 \\
+           & $E_2 (\Omega)$ & $||\mathbf{u}^h - \mathbf{u}|| / ||\mathbf{u}||$ & $||\boldsymbol{\sigma}^h - \boldsymbol{\sigma}|| / ||\boldsymbol{\sigma}||$ \\ \hline \hline
+    FEM (regular 8-node quadrilaterals) & 9.0812E-016 & 1.7437E-009 & 1.3950E-008 \\ \hline
+    FEM (distorted 8-node quadrilaterals) & 4.7831E-003 & 9.9714E-005 & 2.0795E-003 \\ \hline
+    FEM (regular 9-node quadrilaterals) & 8.6713E-016 & 1.7437E-009 & 1.3950E-008 \\ \hline
+    FEM (distorted 9-node quadrilaterals) & 1.2818E-015 & 2.0841E-009 & 1.5752E-008 \\ \hline
+    DG-PEM (no gradient correction) & 3.3857E-008 & 9.8535E-002 & 2.8876E-001 \\ \hline
+    DG-PEM (symmetric correction) & 3.6486E-007 & 3.5935E-008 & 1.4642E-007 \\ \hline
+    DG-PEM (nonsymmetric correction) & 3.3857E-008 & 4.5498E-009 & 5.5341E-009 \\
     \hline
     \end{tabular}
-    \caption{Quadratic patch test results.}
+    \caption{Quadratic patch test results comparison for FEM and DG-PEM.}
     \vspace{-5pt}
     \label{tab:quadratic_patch_test}
     \vspace{-25pt}
   \end{center}
 \end{table}
 
-\section{Element Quality and Parameter Sensitivity}
+It is interesting to note that the 8-node isoparametric quadrilaterals fail the quadratic patch test if the mesh becomes distorted. Only affinely distorted quadrilaterals of this type will exhibit quadratic completeness. Arbitrarily distorted elements will suffer from excessive interpolation errors, as observed in Table \ref{tab:quadratic_patch_test}. This behavior is discussed in greater detail in \cite{Arnold:02} and \cite{Arnold:01}. In comparison, the 9-node quadrilateral elements preserve quadratic completeness, even when distorted as in Figure \ref{fig:quadrilateral_patch_meshes}. However, it should be remarked that if the elements' edges are curved, both the 8- and 9-node isoparametric elements will lose 2nd order completeness and fail quadratic patch tests.
 
-\subsection*{Conditioning of Element Stiffness Matrices}
+To account for the effects of integration error, the DG-PEM requires the use of a gradient correction scheme. However, if a symmetric correction scheme is employed, it is observed that there is a loss of completeness in the representation of the solution gradients over the element, corresponding to an increase in the interpolation error. Only the nonsymmetric gradient correction method is able to achieve the desired level of accuracy in the quadratic patch test. It shall therefore be used exclusively throughout the remainder of our discussions.
 
-Partitioned element methods allow for the elements to take on virtually arbitrary shape. However, elements with non-convex or degenerate features must be tolerated to the extent that their presence within a finite element mesh should not degrade the overall accuracy of the resulting numerical solution. To this end, this section attempts to characterize the quality of a representative sampling of polygonal PEM elements by examining the eigenvalues of each element's elastic stiffness matrix.
+%Another quadratic patch test which involves no body force considers an elastic cantilever beam in pure bending, as depicted in Figure \ref{fig:bending_patch_test}. For clarity, this problem shall be referred to as the ``bending patch test.'' The support conditions of the (weakly) fixed beam are
+%\begin{equation}
+%	u_1 (X_1 = 0) = 0, \quad u_2 (X_1 = 0, X_2 = 0) = 0.
+%\end{equation}
+%A linearly varying traction $\bar{\mathbf{t}} = (M X_2, \, 0)$ is applied to the free end of the beam. For plane strain isotropic elasticity, the exact solution is:
+%\begin{equation}
+%	u_1 (\mathbf{X}) = \frac{M (\lambda + 2 \mu)}{4 \mu (\lambda + \mu)} X_1 X_2,
+%\end{equation}
+%\begin{equation}
+%	u_2 (\mathbf{X}) = - \frac{M}{8 \mu (\lambda + \mu)} \left[ (\lambda + 2 \mu) X_1^2 + \lambda X_2^2 \right],
+%\end{equation}
+%\begin{equation}
+%	\sigma_{11} = M X_2, \quad \sigma_{22} = \sigma_{12} = 0.
+%\end{equation}
+
+\section{Tests for Element Quality}
+
+\subsection*{Conditioning of Individual Element Stiffness Matrices}
+
+Partitioned element methods allow for the elements to take on virtually arbitrary shape. Nonetheless, elements with non-convex or degenerate features may degrade the overall accuracy of the resulting numerical solution. This section attempts to characterize the behavior of a representative sampling of polygonal PEM elements by examining the eigenvalues of each element's elastic stiffness matrix.
 
 The motivation for the present study is to assess the effects of element formulation upon a given element's susceptibility to geometric locking phenomena. Heuristically: an element will be more sensitive to the effects of locking if its local stiffness matrix contains a number of eigenmodes (modes of deformation) whose corresponding eigenvalues are excessively large in comparison with the low-order deformation modes.
 
-As a separate issue from locking, if a given element's local stiffness matrix is poorly conditioned, the global stiffness matrix of a mesh which contains said element may become poorly conditioned, as well. This has negative implications for the degree of solution accuracy that can be obtained due to floating point arithmetic. For implicit solid mechanics applications, the accuracy of any linear solver (whether direct or iterative) will be compromised by poor conditioning of the global stiffness matrix.
+As a separate issue from locking, if a given element's local stiffness matrix is poorly conditioned, the global stiffness matrix of a mesh which contains said element may become poorly conditioned, as well. This may negatively impact the degree of solution accuracy that can be obtained due to floating point arithmetic. For implicit solid mechanics applications, the accuracy of any linear solver (whether direct or iterative) will be compromised by poor conditioning of the global stiffness matrix.
 
-For the elements considered, a comparison study was carried out to examine differences in the eigenvalue spectra of elements whose stiffness matrices were computed using different element formulations. Specifically, separate approximations to the harmonic shape functions were obtained for each element using the VETFEM, the CG-PEM, and the DG-PEM. These results were compared against a reference solution for the harmonic shape functions.
+For the elements considered, a comparison study was carried out to examine differences in the eigenvalue spectra of elements whose stiffness matrices were computed using various element formulations. Specifically, approximations to harmonic shape functions were obtained for each element using the VETFEM, the CG-PEM, and the DG-PEM. These results were compared against a computed reference solution for the harmonic shape functions.
 
-For each element, the elastic constants for Young's modulus and Poisson's ratio were chosen as $E = 1.0$ and $\nu = 0.0$, respectively. The choice of $\nu = 0.0$ is deliberate, and aims to decouple the effects of volumetric locking from the effects of geometric locking. The elements were scaled to have roughly unit diameter.
+For each element, the elastic constants for Young's modulus and Poisson's ratio were chosen as $E = 1.0$ and $\nu = 0.0$, respectively. The choice of $\nu = 0.0$ is deliberate, and aims to decouple the effects of volumetric locking from the effects of geometric locking. All elements were scaled to have roughly unit diameter.
 
 \subsubsection*{Examination of the Effects of Geometric Non-convexity}
 
@@ -388,15 +432,15 @@ The harmonic shape functions defined on these elements were approximated using t
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=3.5in]{figures/concave_element_partitions.pdf}  \caption{Delaunay partitions for the elements A, B, and C introduced in Figure \ref{fig:concave_element_shapes}.}
+  \includegraphics[width=3.5in]{figures/concave_element_partitions.pdf}  \caption{Delaunay partitions for elements A, B, and C.}
   \label{fig:concave_element_partitions}
 \end{figure}
 
-For the red nodes indicated in Figure \ref{fig:concave_element_shapes}, color plots for the associated harmonic shape functions (and their corresponding approximations) are provided in Figure \ref{fig:concave_element_comparison}.
+For the red nodes indicated in Figure \ref{fig:concave_element_shapes}, color plots of the associated harmonic shape functions (and their corresponding approximations) are provided in Figure \ref{fig:concave_element_comparison}.
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=5.0in]{figures/concave_element_comparison.pdf}  \caption{Comparison of the shape functions computed for the polygonal elements A, B, and C using VETFEM, CG-PEM, and DG-PEM.}
+  \includegraphics[width=5.0in]{figures/concave_element_comparison.pdf}  \caption{Comparison of the shape functions computed for elements A, B, and C using the VETFEM, CG-PEM, and DG-PEM.}
   \label{fig:concave_element_comparison}
 \end{figure}
 
@@ -408,9 +452,9 @@ Using the aforementioned approximations in place of the harmonic shape functions
 \centering
 \begin{subtable}{.5\textwidth}
 \centering
-\begin{tabular}{| c | c | c | c |}
+\begin{tabular}{| c || c | c | c |}
     \hline
-		Element  & A      & B      & C \\ \hline
+		Element  & A      & B      & C \\ \hline \hline
 		Harmonic	 & 0.9635 & 1.2151 & 7.1166 \\ \hline
 		VETFEM	 & 0.9950 & 4.4864 & 6.0305 \\ \hline
 		CG-PEM	 & 1.0723 & 1.2760 & 8.7108 \\ \hline
@@ -422,9 +466,9 @@ Using the aforementioned approximations in place of the harmonic shape functions
 \end{subtable}% <---- don't forget this %
 \begin{subtable}{.5\textwidth}
 \centering
-\begin{tabular}{| c | c | c | c |}
+\begin{tabular}{| c || c | c | c |}
     \hline
-		Element  & A      & B      & C \\ \hline
+		Element  & A      & B      & C \\ \hline \hline
 		Harmonic	 & 0.5226 & 0.3449 & 0.00562 \\ \hline
 		VETFEM   & 0.5335 & 0.3491 & 0.09189 \\ \hline
 		CG-PEM   & 0.6175 & 0.3935 & 0.00694 \\ \hline
@@ -445,9 +489,9 @@ Irrespective of the chosen approximation method, the condition number for a give
 \centering
 \begin{subtable}{1.0\textwidth}
 \centering
-\begin{tabular}{| c | c | c | c | c |}
+\begin{tabular}{| c || c | c | c | c |}
     \hline
-DG-PEM & $\alpha_{0\gamma} = 10^{-3}$ & $\alpha_{0\gamma} = 10^{0}$ & $\alpha_{0\gamma} = 10^{3}$ & $\alpha_{0\gamma} = 10^{6}$ \\ \hline
+DG-PEM & $\alpha_{0\gamma} = 10^{-3}$ & $\alpha_{0\gamma} = 10^{0}$ & $\alpha_{0\gamma} = 10^{3}$ & $\alpha_{0\gamma} = 10^{6}$ \\ \hline \hline
 $\alpha_{1\gamma} = 0.0$	& 5.9210 & 5.4949 & 8.6484 & 8.7108 \\ \hline
 $\alpha_{1\gamma} = 10^{0}$ & 5.9210 & 5.2235 & 7.7525 & 8.7106 \\ \hline
 $\alpha_{1\gamma} = 10^{3}$ & 5.9210 & 5.0938 & 3.9671 & 7.7874 \\ \hline
@@ -460,9 +504,9 @@ $\alpha_{1\gamma} = 10^{6}$ & 5.9210 & 5.0935 & 3.8699 & 3.9640 \\
 \\
 \begin{subtable}{1.0\textwidth}
 \centering
-\begin{tabular}{| c | c | c | c | c |}
+\begin{tabular}{| c || c | c | c | c |}
     \hline
-DG-PEM & $\alpha_{0\gamma} = 10^{-3}$	&	$\alpha_{0\gamma} = 10^{0}$	&	$\alpha_{0\gamma} = 10^{3}$	&	$\alpha_{0\gamma} = 10^{6}$ \\ \hline
+DG-PEM & $\alpha_{0\gamma} = 10^{-3}$	&	$\alpha_{0\gamma} = 10^{0}$	&	$\alpha_{0\gamma} = 10^{3}$	&	$\alpha_{0\gamma} = 10^{6}$ \\ \hline \hline
 $\alpha_{1\gamma} = 0.0$	&	0.004747	&	0.003554	&	0.006920	&	0.006943 \\ \hline
 $\alpha_{1\gamma} = 10^{0}$	&	0.004748	&	0.003675	&	0.006489	&	0.006941 \\ \hline
 $\alpha_{1\gamma} = 10^{3}$	&	0.004748	&	0.004210	&	0.002898	&	0.006508 \\ \hline
@@ -477,12 +521,12 @@ $\alpha_{1\gamma} = 10^{6}$	&	0.004748	&	0.004211	&	0.003660	&	0.002896 \\
 \label{tab:concave_stiffness_max_min_eigenvalue_parameter_study}
 \end{table}
 
-The results in table \ref{tab:concave_stiffness_max_min_eigenvalue_parameter_study} warrant a number of observations. The eigenvalue spectrum obtained for the DG-PEM converges to that of the CG-PEM as the value of $\alpha_{0\gamma}$ is increased (provided $\alpha_{1\gamma}$ is sufficiently small). Moreover, the shape functions will themselves converge to the $C^0$ continuous approximations obtained by the CG-PEM. This is an expected result.
+The results in table \ref{tab:concave_stiffness_max_min_eigenvalue_parameter_study} warrant a number of observations. The eigenvalue spectrum obtained for the DG-PEM converges to that of the CG-PEM as the value of $\alpha_{0\gamma}$ is increased (provided $\alpha_{1\gamma}$ is sufficiently small). Moreover, the shape functions will themselves converge to the $C^0$ continuous approximations obtained by the CG-PEM. This is the expected result.
 Additionally, if $\alpha_{0\gamma}$ is made sufficiently small, the eigenvalues will becomes relatively insensitive to the choice of $\alpha_{1\gamma}$. 
 
-Conversely, as $\alpha_{0\gamma}$ is increased, the eigenvalues (and the corresponding shape function approximations) become more sensitive to the choice of $\alpha_{1\gamma}$. In such cases, $\alpha_{1\gamma}$ may be thought of as a ``regularization'' parameter, acting to effectively smooth out variations in the gradient of the shape functions over the element. For low-order DG-PEM, increasing $\alpha_{1\gamma}$ tends the element towards a uniform gradient formulation. Doing so risks rank-deficiency of the element's resulting stiffness matrix. If $\alpha_{0\gamma}$ and $\alpha_{1\gamma}$ are increased proportionally to one another, one recovers the behavior of the pure penalty DG-PEM in (\ref{eq:pure_penalty}).
+Conversely, as $\alpha_{0\gamma}$ is increased, the eigenvalues (and the corresponding shape function approximations) become more sensitive to the choice of $\alpha_{1\gamma}$. In such cases, $\alpha_{1\gamma}$ may be thought of as a ``regularization'' parameter, acting to effectively smooth out variations in the gradient of the shape functions over the element. For low-order DG-PEM, increasing $\alpha_{1\gamma}$ tends the element towards a uniform gradient formulation. Doing so risks rank-deficiency of the element's resulting stiffness matrix. If $\alpha_{0\gamma}$ and $\alpha_{1\gamma}$ are increased proportionally to one another, one recovers the behavior of the pure penalty DG-PEM corresponding to (\ref{eq:pure_penalty}).
 
-\subsubsection*{Examination of the Effects of Geometric Degeneracy}
+\subsubsection*{Examination of the Effects of Nearly Degenerate Features}
 
 A study was carried out to assess the effects of geometric degeneracy on a given element's eigenvalue spectrum. The two elements illustrated in Figure \ref{fig:degenerate_element_shapes} were considered: a regular pentagon, and an irregular pentagon with a comparatively short edge.
 
@@ -500,15 +544,15 @@ As in the previous example, the harmonic shape functions defined on these elemen
   \label{fig:degenerate_element_comparison}
 \end{figure}
 
-As in the previous example, the aforementioned approximations were used in place of the harmonic shape functions, and the elements' elastic stiffness matrices were computed (by numerical quadrature). The eigendecomposition of each element's local stiffness matrix was then determined, with attention paid to the largest and smallest (non-zero) eigenvalues, $\lambda_{\max}$ and $\lambda_{\min}$, respectively. A comparison of the computed values for $\lambda_{\max}$ and $\lambda_{\min}$ is provided in table \ref{tab:degenerate_stiffness_max_min_eigenvalue}.
+As in the previous example, the aforementioned approximations were used in place of the harmonic shape functions when integrating the elements' elastic stiffness matrices. A comparison of the computed values for $\lambda_{\max}$ and $\lambda_{\min}$ is provided in table \ref{tab:degenerate_stiffness_max_min_eigenvalue}.
 
 \begin{table}
 \centering
 \begin{subtable}{.5\textwidth}
 \centering
-\begin{tabular}{| c | c | c |}
+\begin{tabular}{| c || c | c |}
     \hline
-             & $l=1.0$ & $l=0.01$ \\ \hline
+             & $l=1.0$ & $l=0.01$ \\ \hline \hline
     Harmonic & 0.9510 & 5.0899 \\ \hline
     VETFEM   & 0.9510 & 1.6818 \\ \hline
     CG-PEM   & 1.1326 & 64.098 \\ \hline
@@ -520,9 +564,9 @@ As in the previous example, the aforementioned approximations were used in place
 \end{subtable}% <---- don't forget this %
 \begin{subtable}{.5\textwidth}
 \centering
-\begin{tabular}{| c | c | c |}
+\begin{tabular}{| c || c | c |}
     \hline
-             & $l=1.0$ & $l=0.01$ \\ \hline
+             & $l=1.0$ & $l=0.01$ \\ \hline \hline
     Harmonic & 0.4925 & 0.3951 \\ \hline
     VETFEM   & 0.4906 & 0.3746 \\ \hline
     CG-PEM   & 0.8387 & 0.5516 \\ \hline
@@ -537,13 +581,13 @@ As in the previous example, the aforementioned approximations were used in place
 \label{tab:degenerate_stiffness_max_min_eigenvalue}
 \end{table}
 
-As noted in the previous example, the CG-PEM consistently over-estimates the eigenvalue spectra of the elements. Using a coarse (edge-based) partition further degrades the accuracy of the CG-PEM shape functions, to the extent that the higher-order modes of deformation are determined to be severely over-stiff. Upon decreasing the edge length $l$ further, the the maximum eigenvalue was observed to increase as $\lambda_{\max} \approx O (l^{-1})$. By comparison, the eigenvalue spectra for the VETFEM and DG-PEM remain small (well-conditioned), and relatively constant as $l \rightarrow 0$. The VETFEM, however, is observed to yield oscillatory solutions for the shape functions with decreasing $l$.
+As noted in the previous example, the CG-PEM consistently over-estimates the eigenvalue spectra of the elements. Using a coarse (edge-based) partition further degrades the accuracy of the CG-PEM shape functions, to the extent that higher-order modes of deformation are severely over-stiff. Upon decreasing the edge length $l$ further, the maximum eigenvalue was observed to increase as $\lambda_{\max} \approx O (l^{-1})$. By comparison, the eigenvalue spectra for the VETFEM and DG-PEM remain small (well-conditioned), and relatively constant as $l \rightarrow 0$. The VETFEM, however, is observed to yield oscillatory solutions for the shape functions with decreasing $l$.
 
-While the aforementioned insensitivity of the DG-PEM's eigenvalue spectra to short edge lengths may appear to be a desirable characteristic, it remains to be seen whether this is indeed the case. Correspondingly, the following series of investigations seeks to evaluate the implications of this property in a practical context.
+While the aforementioned insensitivity of the DG-PEM's eigenvalue spectra to short edges appears to be a desirable quality, it remains to be seen whether this is indeed the case. Correspondingly, the following series of investigations seeks to evaluate the implications of this property in a practical context.
 
-\subsection{Meshes Consisting of Elements with Degenerate Edges}
+\subsection*{Meshes Consisting of Elements with Degenerate Edges}
 
-Consider the two square patches depicted in Figure \ref{fig:polygonal_patches}, each containing 1,000 polygonal elements. Both meshes were generated using the PolyMesher, a polygonal meshing tool detailed in \cite{Talischi:12}; the mesh in Figure \ref{fig:patch_mesh} . As noted in the figure, the resulting elements may possess extremely short edges, which can potentially degrade the quality of any finite element solution computed on the polygonal mesh. Herein, we will investigate the effects of having short edges within a given mesh.
+Consider the two square patches depicted in Figure \ref{fig:polygonal_patches}, each containing 1,000 polygonal elements. Both meshes were generated using PolyMesher, a polygonal meshing tool detailed in \cite{Talischi:12}. The Voronoi mesh in Figure \ref{fig:patch_mesh} was obtained by random point sampling process, and contains numerous elements with very short edges. The mesh in Figure \ref{fig:lloyd_mesh} was obtained after 100 iterations of Lloyd's algorithm (described in \cite{Talischi:12}). Any remaining short edges in the mesh were collapsed out. As noted in the figure, the resulting elements may possess extremely short edges, which can potentially degrade the quality of any finite element solution computed on the polygonal mesh. Herein, we will investigate the effects of having short edges within a given mesh.
 \begin{figure}[!h]
     \centering
     \begin{subfigure}[b]{0.49\linewidth}
@@ -592,7 +636,7 @@ For the mesh depicted in \ref{fig:polygonal_patches},
             \includegraphics[width=3.0in]{figures/lloyd_edge_ratios.pdf}
     			\caption{Lloyd mesh \label{fig:lloyd_edge_ratios}}
     \end{subfigure}
-    \caption{Histograms of various mesh metrics associated with the polygonal meshes depicted in Figure \ref{fig:polygonal_patches}:  (\subref{fig:patch_edge_lengths}) and (\subref{fig:lloyd_edge_lengths}) show the distributions of edge lengths contained in the random Voronoi and Lloyd meshes, respectively; (\subref{fig:patch_edge_ratios}) and (\subref{fig:lloyd_edge_ratios}) show the distributions for the smallest edge length ratios $\rho_e$ in the random Voronoi and Lloyd meshes, respectively.}
+    \caption{Histograms of various mesh metrics associated with the polygonal meshes depicted in Figure \ref{fig:polygonal_patches}:  (\subref{fig:patch_edge_lengths}) and (\subref{fig:lloyd_edge_lengths}) show the distributions of edge lengths contained in the random Voronoi and Lloyd meshes, respectively. (\subref{fig:patch_edge_ratios}) and (\subref{fig:lloyd_edge_ratios}) show the distributions for the smallest edge length ratios $\rho_e$ in the random Voronoi and Lloyd meshes, respectively.}
 \end{figure}
 
 \begin{figure}[!h]
@@ -603,9 +647,9 @@ For the mesh depicted in \ref{fig:polygonal_patches},
 
 \begin{table}[!ht]
   \begin{center}
-    \begin{tabular}{| c | c | c |}
+    \begin{tabular}{| c || c | c |}
     \hline
-           & Voronoi mesh & Lloyd mesh \\ \hline
+           & Voronoi mesh & Lloyd mesh \\ \hline \hline
     FE-PEM & 9.1e+05 & 4.6e+03 \\ \hline
     DG-PEM ($\alpha_0 = 10^3$) & 4.8e+04 & 4.4e+03 \\ \hline
     DG-PEM ($\alpha_0 = 10^1$) & 1.0e+03 & 2.9e+03 \\ \hline
@@ -825,19 +869,35 @@ A convergence study was carried out using a series of quadrilateral meshes with 
     \vspace{-25pt}
   \end{center}
 \end{table}
+
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=6.0in]{figures/l2_error_plot.pdf}
-  \caption{$L^2$ error convergence plots for (a) FEM and (b) PEM formulations.}
-  \label{fig:l2_error}
-  \vspace{-10pt}
+    \begin{subfigure}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[width=3.3in]{figures/plate_with_hole_quad_l2_error.pdf}
+    			\caption{displacement error \label{fig:plate_with_hole_quad_l2_error}}
+    \end{subfigure}
+	\begin{subfigure}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[width=3.3in]{figures/plate_with_hole_quad_h1_error.pdf}
+    			\caption{stress error \label{fig:plate_with_hole_quad_h1_error}}
+    \end{subfigure} \caption{Convergence plots for the plate with hole problem using standard isoparametric elements.}
+  \label{fig:plate_with_hole_quad_error}
 \end{figure}
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=6.0in]{figures/h1_error_plot.pdf}
-  \caption{$H^1$ error convergence plots for (a) FEM and (b) PEM formulations.}
-  \label{fig:h1_error}
+    \begin{subfigure}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[width=3.3in]{figures/plate_with_hole_pem_l2_error.pdf}
+    			\caption{displacement error \label{fig:plate_with_hole_pem_l2_error}}
+    \end{subfigure}
+	\begin{subfigure}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[width=3.3in]{figures/plate_with_hole_pem_h1_error.pdf}
+    			\caption{stress error \label{fig:plate_with_hole_pem_h1_error}}
+    \end{subfigure} \caption{Convergence plots for the plate with hole problem using DG-PEM elements.}
+  \label{fig:plate_with_hole_pem_error}
 \end{figure}
 
 A number of observations should be made regarding the resulting data. In particular, it is worthwhile to note that part of the incurred solution error may be attributable to the inexact representation of the problem geometry, especially for the coarse meshes. This may in part explain why the observed convergence rates are lower at coarser levels of refinement, but approach the expected rates as the mesh is further refined.
