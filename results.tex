@@ -100,7 +100,7 @@ If a given element is capable of reproducing all polynomials up to degree $k$, t
 
 Through a series of numerical experiments, we confirm that both the CG-PEM and the DG-PEM satisfy the requirements of polynomial reproducibility. Particular attention is paid to low-order PEM elements (i.e. $k=1$), where satisfaction of the condition $E_1 (\Omega) = 0$ is sufficient to demonstrate reproducibility for a given element $\Omega$.
 
-Consider the arbitrary polygonal element and its corresponding edge-based partition illustrated in Figure \ref{fig:reproducing_element_shape}. The harmonic shape functions defined on this partitioned element were approximated using the CG-PEM and the DG-PEM. Unless otherwise noted, the NIPG version of the DG-PEM (with $\epsilon = +1$) was utilized throughout.
+Consider the arbitrary polygonal element and its corresponding edge-based partition illustrated in Figure \ref{fig:reproducing_element_shape}. The harmonic shape functions defined on this partitioned element were approximated using the CG-PEM and the DG-PEM. Unless otherwise noted, the NIPG version of the DG-PEM ($\epsilon = +1$) was utilized throughout.
 
 \begin{figure}[!h]
   \centering
@@ -116,11 +116,11 @@ For the partitioned element under consideration, the interpolation error of orde
 \centering
 \begin{tabular}{| c || c | c | c | c |}
     \hline
-DG-PEM & $\alpha_{0\gamma} = 10^{-3}$ & $\alpha_{0\gamma} = 10^{0}$ & $\alpha_{0\gamma} = 10^{3}$ & $\alpha_{0\gamma} = 10^{6}$ \\ \hline \hline
-$\alpha_{1\gamma} = 0.0$	& 1.66E-013 & 7.48E-016 & 4.70E-014 & 1.79E-010 \\ \hline
-$\alpha_{1\gamma} = 10^{0}$ & 1.65E-013 & 9.67E-016 & 8.73E-015 & 2.51E-011 \\ \hline
-$\alpha_{1\gamma} = 10^{3}$ & 1.01E-012 & 2.66E-013 & 1.36E-015 & 4.49E-014 \\ \hline
-$\alpha_{1\gamma} = 10^{6}$ & 1.13E-009 & 3.13E-010 & 7.10E-013 & 9.03E-016 \\
+DG-PEM & $\alpha_{\gamma0} = 10^{-3}$ & $\alpha_{\gamma0} = 10^{0}$ & $\alpha_{\gamma0} = 10^{3}$ & $\alpha_{\gamma0} = 10^{6}$ \\ \hline \hline
+$\alpha_{\gamma1} = 0.0$	& 1.66E-013 & 7.48E-016 & 4.70E-014 & 1.79E-010 \\ \hline
+$\alpha_{\gamma1} = 10^{0}$ & 1.65E-013 & 9.67E-016 & 8.73E-015 & 2.51E-011 \\ \hline
+$\alpha_{\gamma1} = 10^{3}$ & 1.01E-012 & 2.66E-013 & 1.36E-015 & 4.49E-014 \\ \hline
+$\alpha_{\gamma1} = 10^{6}$ & 1.13E-009 & 3.13E-010 & 7.10E-013 & 9.03E-016 \\
     \hline
     \end{tabular}
     \caption{Interpolation error: $E_1 (\Omega)$}
@@ -131,11 +131,11 @@ $\alpha_{1\gamma} = 10^{6}$ & 1.13E-009 & 3.13E-010 & 7.10E-013 & 9.03E-016 \\
 \centering
 \begin{tabular}{| c || c | c | c | c |}
     \hline
-DG-PEM & $\alpha_{0\gamma} = 10^{-3}$	&	$\alpha_{0\gamma} = 10^{0}$	&	$\alpha_{0\gamma} = 10^{3}$	&	$\alpha_{0\gamma} = 10^{6}$ \\ \hline \hline
-$\alpha_{1\gamma} = 0.0$	&	5.44E+002 & 4.07E+000 & 5.94E+003 & 5.96E+006 \\ \hline
-$\alpha_{1\gamma} = 10^{0}$	&	4.96E+003 & 2.01E+001 & 9.33E+002 & 9.29E+005 \\ \hline
-$\alpha_{1\gamma} = 10^{3}$	&	1.58E+007 & 2.50E+004 & 6.96E+001 & 1.11E+003 \\ \hline
-$\alpha_{1\gamma} = 10^{6}$	&	2.37E+010 & 2.50E+007 & 6.86E+004 & 6.98E+001 \\
+DG-PEM & $\alpha_{\gamma0} = 10^{-3}$	&	$\alpha_{\gamma0} = 10^{0}$	&	$\alpha_{\gamma0} = 10^{3}$	&	$\alpha_{\gamma0} = 10^{6}$ \\ \hline \hline
+$\alpha_{\gamma1} = 0.0$	&	5.44E+002 & 4.07E+000 & 5.94E+003 & 5.96E+006 \\ \hline
+$\alpha_{\gamma1} = 10^{0}$	&	4.96E+003 & 2.01E+001 & 9.33E+002 & 9.29E+005 \\ \hline
+$\alpha_{\gamma1} = 10^{3}$	&	1.58E+007 & 2.50E+004 & 6.96E+001 & 1.11E+003 \\ \hline
+$\alpha_{\gamma1} = 10^{6}$	&	2.37E+010 & 2.50E+007 & 6.86E+004 & 6.98E+001 \\
     \hline
     \end{tabular}
     \caption{DG-PEM linear system conditioning: $\kappa(\mathbf{J})$}
@@ -146,7 +146,7 @@ $\alpha_{1\gamma} = 10^{6}$	&	2.37E+010 & 2.50E+007 & 6.86E+004 & 6.98E+001 \\
 \label{tab:interpolation_error_and_condJ_k1}
 \end{table}
 
-The results in table \ref{tab:interpolation_error_and_condJ_k1} confirm that $\mathbf{J}$ will become poorly conditioned if either of the two penalty parameters $\alpha_{0\gamma}$ or $\alpha_{1\gamma}$ are sufficiently large. This is true regardless of how the DG polynomial bases are specified within each geometric entity. Under certain circumstances, $\mathbf{J}$ will remain well-conditioned if both $\alpha_{0\gamma}$ and $\alpha_{1\gamma}$ are kept roughly proportional to one another, for all values of $\alpha_{0\gamma}, \, \alpha_{1\gamma} > 0$. If $\alpha_{0\gamma}$ and $\alpha_{1\gamma}$ are increased proportionally to one another, one recovers the behavior of the pure penalty DG-PEM in (\ref{eq:pure_penalty}).
+The results in table \ref{tab:interpolation_error_and_condJ_k1} confirm that $\mathbf{J}$ will become poorly conditioned if either of the two penalty parameters $\alpha_{\gamma0}$ or $\alpha_{\gamma1}$ are sufficiently large. This is true regardless of how the DG polynomial bases are specified within each geometric entity. Under certain circumstances, $\mathbf{J}$ will remain well-conditioned if both $\alpha_{\gamma0}$ and $\alpha_{\gamma1}$ are kept roughly proportional to one another, for all values of $\alpha_{\gamma0}, \, \alpha_{\gamma1} > 0$. If $\alpha_{\gamma0}$ and $\alpha_{\gamma1}$ are increased proportionally to one another, one recovers the behavior of the pure penalty DG-PEM in (\ref{eq:pure_penalty}).
 
 It is remarked that other factors which impact with condition number of $\mathbf{J}$ may have detrimental effects on the accuracy of the element's interpolation error. Specifically, consider the case where the element in Figure \ref{fig:reproducing_element_shape} is scaled anisotropically by a factor of $0.01$ in the vertical direction, yielding a comparatively thin element with an aspect ratio of 100:1. For this element, the interpolation error using the CG-PEM increases only slightly, to $E_1 (\Omega) = 6.9817 \times 10^{-15}$. The corresponding values of $E_1 (\Omega)$ and $\kappa(\mathbf{J})$ for the DG-PEM are presented in table \ref{tab:thin_interpolation_error_and_condJ_k1}.
 
@@ -156,11 +156,11 @@ It is remarked that other factors which impact with condition number of $\mathbf
 \centering
 \begin{tabular}{| c || c | c | c | c |}
     \hline
-DG-PEM & $\alpha_{0\gamma} = 10^{-3}$ & $\alpha_{0\gamma} = 10^{0}$ & $\alpha_{0\gamma} = 10^{3}$ & $\alpha_{0\gamma} = 10^{6}$ \\ \hline \hline
-$\alpha_{1\gamma} = 0.0$	& 3.02E-014 & 9.01E-015 & 5.22E-013 & 1.59E-009 \\ \hline
-$\alpha_{1\gamma} = 10^{0}$ & 3.99E-014 & 1.37E-014 & 2.02E-013 & 3.12E-012 \\ \hline
-$\alpha_{1\gamma} = 10^{3}$ & 2.44E-011 & 6.48E-012 & 1.89E-012 & 3.34E-013 \\ \hline
-$\alpha_{1\gamma} = 10^{6}$ & 1.52E-007 & 4.97E-008 & 1.85E-009 & 3.69E-012 \\
+DG-PEM & $\alpha_{\gamma0} = 10^{-3}$ & $\alpha_{\gamma0} = 10^{0}$ & $\alpha_{\gamma0} = 10^{3}$ & $\alpha_{\gamma0} = 10^{6}$ \\ \hline \hline
+$\alpha_{\gamma1} = 0.0$	& 3.02E-014 & 9.01E-015 & 5.22E-013 & 1.59E-009 \\ \hline
+$\alpha_{\gamma1} = 10^{0}$ & 3.99E-014 & 1.37E-014 & 2.02E-013 & 3.12E-012 \\ \hline
+$\alpha_{\gamma1} = 10^{3}$ & 2.44E-011 & 6.48E-012 & 1.89E-012 & 3.34E-013 \\ \hline
+$\alpha_{\gamma1} = 10^{6}$ & 1.52E-007 & 4.97E-008 & 1.85E-009 & 3.69E-012 \\
     \hline
     \end{tabular}
     \caption{Interpolation error: $E_1 (\Omega)$}
@@ -171,11 +171,11 @@ $\alpha_{1\gamma} = 10^{6}$ & 1.52E-007 & 4.97E-008 & 1.85E-009 & 3.69E-012 \\
 \centering
 \begin{tabular}{| c || c | c | c | c |}
     \hline
-DG-PEM & $\alpha_{0\gamma} = 10^{-3}$	&	$\alpha_{0\gamma} = 10^{0}$	&	$\alpha_{0\gamma} = 10^{3}$	&	$\alpha_{0\gamma} = 10^{6}$ \\ \hline \hline
-$\alpha_{1\gamma} = 0.0$	& 9.07E+003 & 1.39E+002 & 1.14E+005 & 1.33E+008 \\ \hline
-$\alpha_{1\gamma} = 10^{0}$	& 3.52E+005 & 1.75E+003 & 1.97E+004 & 3.67E+005 \\ \hline
-$\alpha_{1\gamma} = 10^{3}$	& 1.17E+009 & 2.46E+006 & 2.61E+005 & 2.32E+004 \\ \hline
-$\alpha_{1\gamma} = 10^{6}$	& 1.77E+012 & 2.45E+009 & 2.52E+008 & 3.07E+005 \\
+DG-PEM & $\alpha_{\gamma0} = 10^{-3}$	&	$\alpha_{\gamma0} = 10^{0}$	&	$\alpha_{\gamma0} = 10^{3}$	&	$\alpha_{\gamma0} = 10^{6}$ \\ \hline \hline
+$\alpha_{\gamma1} = 0.0$	& 9.07E+003 & 1.39E+002 & 1.14E+005 & 1.33E+008 \\ \hline
+$\alpha_{\gamma1} = 10^{0}$	& 3.52E+005 & 1.75E+003 & 1.97E+004 & 3.67E+005 \\ \hline
+$\alpha_{\gamma1} = 10^{3}$	& 1.17E+009 & 2.46E+006 & 2.61E+005 & 2.32E+004 \\ \hline
+$\alpha_{\gamma1} = 10^{6}$	& 1.77E+012 & 2.45E+009 & 2.52E+008 & 3.07E+005 \\
     \hline
     \end{tabular}
     \caption{DG-PEM linear system conditioning: $\kappa(\mathbf{J})$}
@@ -186,7 +186,7 @@ $\alpha_{1\gamma} = 10^{6}$	& 1.77E+012 & 2.45E+009 & 2.52E+008 & 3.07E+005 \\
 \label{tab:thin_interpolation_error_and_condJ_k1}
 \end{table}
 
-Clearly, a careful selection of $\alpha_{0\gamma}$ and $\alpha_{1\gamma}$ is warranted for the sake of minimizing the resulting interpolation error. For general 2D applications in which an edge-based partitioning scheme is employed, it is suggested that the parameter values be chosen such that $\alpha_{0\gamma} = 10.0$ and $\alpha_{1\gamma} = 0.0$. However, it is recommended that a more thorough investigation be conducted to determine more optimal parameters settings for other element types.
+Clearly, a careful selection of $\alpha_{\gamma0}$ and $\alpha_{\gamma1}$ is warranted for the sake of minimizing the resulting interpolation error. For general 2D applications in which an edge-based partitioning scheme is employed, it is suggested that the parameter values be chosen such that $\alpha_{\gamma0} = 10.0$ and $\alpha_{\gamma1} = 0.0$. However, it is recommended that a more thorough investigation be conducted to determine more optimal parameters settings for other element types.
 
 \section{Finite Element Patch Tests}
 
@@ -271,7 +271,7 @@ The two meshes depicted in Figure \ref{fig:patch_test_meshes} are considered. Th
     \label{fig:patch_test_meshes}
 \end{figure}
 
-Linear patch test errors for the FEM, CG-PEM, and DG-PEM were explored. Both the CG-PEM and DG-PEM utilized an edge-based partitioning scheme and composite mid-point quadrature rules for each element. Unless otherwise noted, the parameters for the DG-PEM were selected as $\epsilon = +1$, $\alpha_{0\gamma} = 10.0$, and $\alpha_{1\gamma} = 0.0$. Further, the DG-PEM was tested both with and without using the gradient correction scheme presented in \cite{Talischi:15}. These corrections were applied to the test function gradients alone (yielding a ``nonsymmetric correction'' scheme), or to both the trial and test function gradients (yielding a ``symmetric correction'' scheme). The results of these tests may be found in table \ref{tab:linear_patch_test}.
+Linear patch test errors for the FEM, CG-PEM, and DG-PEM were explored. Both the CG-PEM and DG-PEM utilized an edge-based partitioning scheme and composite mid-point quadrature rules for each element. Unless otherwise noted, the parameters for the DG-PEM were selected as $\epsilon = +1$, $\alpha_{\gamma0} = 10.0$, and $\alpha_{\gamma1} = 0.0$. Further, the DG-PEM was tested both with and without using the gradient correction scheme presented in \cite{Talischi:15}. These corrections were applied to the test function gradients alone (yielding a ``nonsymmetric correction'' scheme), or to both the trial and test function gradients (yielding a ``symmetric correction'' scheme). The results of these tests may be found in table \ref{tab:linear_patch_test}.
 
 \begin{table}[!ht]
   \begin{center}
@@ -292,20 +292,20 @@ Linear patch test errors for the FEM, CG-PEM, and DG-PEM were explored. Both the
   \end{center}
 \end{table}
 
-The classical FEM produces errors on the order of machine precision. The CG-PEM produces results that are only slightly less accurate. Interestingly, the errors for the CG-PEM are unaffected by the use (or disuse) of a gradient correction scheme. In contrast, the DG-PEM produces noticeable errors if no gradient correction scheme is employed. Using either of the symmetric or nonsymmetric gradient correction schemes with the DG-PEM yields comparable accuracy to the CG-PEM.
+The classical FEM produces errors on the order of machine precision. The CG-PEM produces results that are only slightly less accurate. As expected, the errors for the CG-PEM are unaffected by the use (or disuse) of a gradient correction scheme. In contrast, the DG-PEM produces noticeable errors if no gradient correction scheme is employed. Using either of the symmetric or nonsymmetric gradient correction schemes with the DG-PEM yields comparable accuracy to the CG-PEM.
 
-These observations help to illuminate an important point regarding a consistent integration of the weak form. Consider the consistency equations in (\ref{eq:consistency}). It is remarked that any continuous field $\varphi_a \in C^0 (\Omega_e)$ integrated exactly in (\ref{eq:consistency}) will lead to direct satisfaction of quadrature consistency. Such is the case for the CG-PEM under the present circumstances. However, if $\varphi_a$ is not a continuous field, neither (\ref{eq:consistency}) nor quadrature consistency will not not be satisfied, in general. Such is the case for the DG-PEM, even when exact integration is used. The consequence is violation of patch tests. This can be mitigated through the use of a gradient correction scheme, or alternatively through an appropriate selection of the DG-PEM parameters. Specifically, in the limit as $\alpha_{0\gamma} \rightarrow \infty$, the DG-PEM reduces to the CG-PEM, and the resulting patch test errors can be eliminated. Table \ref{tab:linear_patch_test_parameter_study} demonstrates this behavior for increasing values of $\alpha_{0\gamma}$, in the absence of a gradient correction scheme.
+These observations help to illuminate an important point regarding a consistent integration of the weak form. Consider the consistency equations in (\ref{eq:consistency}). It is remarked that any continuous field $\varphi_a \in C^0 (\Omega_e)$ integrated exactly in (\ref{eq:consistency}) will lead to direct satisfaction of quadrature consistency. Such is the case for the CG-PEM under the present circumstances. However, if $\varphi_a$ is not a continuous field, neither (\ref{eq:consistency}) nor quadrature consistency will be satisfied, in general. Such is the case for the DG-PEM, even when exact integration is used. The consequence is violation of patch tests. This can be mitigated through the use of a gradient correction scheme, or alternatively through an appropriate selection of the DG-PEM parameters. Specifically, in the limit as $\alpha_{\gamma0} \rightarrow \infty$, the DG-PEM reduces to the CG-PEM, and the resulting patch test errors can be eliminated. Table \ref{tab:linear_patch_test_parameter_study} demonstrates this behavior for increasing values of $\alpha_{\gamma0}$, in the absence of a gradient correction scheme.
 
 \begin{table}[!ht]
   \begin{center}
     \begin{tabular}{| c || c | c | c | c | c |}
     \hline
-    DG-PEM & $\alpha_{0\gamma} = 10^{-6}$ & $\alpha_{0\gamma} = 10^{-3}$ & $\alpha_{0\gamma} = 10^{0}$ & $\alpha_{0\gamma} = 10^{3}$ & $\alpha_{0\gamma} = 10^{6}$ \\ \hline \hline
-    	$\alpha_{1\gamma} = 0.0$ & 2.8433E-009 & 2.8152E-006 & 3.3114E-004 & 4.8035E-006 & 4.8278E-009 \\ \hline
-    $\alpha_{1\gamma} = 10^{-3}$ & 2.8505E-009 & 2.8224E-006 & 3.2288E-004 & 4.9805E-006 & 5.0082E-009 \\ \hline
-    $\alpha_{1\gamma} = 10^{0}$ & 3.4853E-009 & 3.4604E-006 & 2.4827E-003 &  7.4284E-004 & 8.6376E-007 \\ \hline
-    $\alpha_{1\gamma} = 10^{3}$ & 3.5460E-009 & 3.5450E-006 & 3.0047E-003 & 1.3898E-002 & 7.4705E-004 \\ \hline
-    $\alpha_{1\gamma} = 10^{6}$ & 3.5457E-009 & 3.5456E-006 & 3.0054E-003 & 1.4604E-002 & 1.3953E-002 \\
+    DG-PEM & $\alpha_{\gamma0} = 10^{-6}$ & $\alpha_{\gamma0} = 10^{-3}$ & $\alpha_{\gamma0} = 10^{0}$ & $\alpha_{\gamma0} = 10^{3}$ & $\alpha_{\gamma0} = 10^{6}$ \\ \hline \hline
+    	$\alpha_{\gamma1} = 0.0$ & 2.8433E-009 & 2.8152E-006 & 3.3114E-004 & 4.8035E-006 & 4.8278E-009 \\ \hline
+    $\alpha_{\gamma1} = 10^{-3}$ & 2.8505E-009 & 2.8224E-006 & 3.2288E-004 & 4.9805E-006 & 5.0082E-009 \\ \hline
+    $\alpha_{\gamma1} = 10^{0}$ & 3.4853E-009 & 3.4604E-006 & 2.4827E-003 &  7.4284E-004 & 8.6376E-007 \\ \hline
+    $\alpha_{\gamma1} = 10^{3}$ & 3.5460E-009 & 3.5450E-006 & 3.0047E-003 & 1.3898E-002 & 7.4705E-004 \\ \hline
+    $\alpha_{\gamma1} = 10^{6}$ & 3.5457E-009 & 3.5456E-006 & 3.0054E-003 & 1.4604E-002 & 1.3953E-002 \\
     \hline
     \end{tabular}
     \caption{Computed values of $||\boldsymbol{\sigma}^h - \boldsymbol{\sigma}|| / ||\boldsymbol{\sigma}||$ for the DG-PEM using various penalty parameter settings. No gradient correction scheme was utilized. Identical trends were observed for $||\mathbf{u}^h - \mathbf{u}|| / ||\mathbf{u}||$.}
@@ -315,24 +315,18 @@ These observations help to illuminate an important point regarding a consistent 
   \end{center}
 \end{table}
 
-A ponderous result from table \ref{tab:linear_patch_test_parameter_study} which deserves further explanation is the behavior of the DG-PEM in the limit as $\alpha_{0\gamma} \rightarrow 0$. Interestingly, the patch test errors are observed to decrease if $\alpha_{0\gamma}$ is made sufficiently small. This behavior may be rationalized by considering the DG-PEM variational form (\ref{eq:dg_poisson}). Specifically, for the case where $\epsilon = +1$, $\alpha_{0\gamma} = \alpha_{1\gamma} = 0$, and $f_\Omega \equiv 0$, the following expression is obtained from (\ref{eq:dg_poisson}) for $\eta^h \in P^k (\Omega) \subset \mathcal{D}^h_k (\Omega)$:
-\begin{eqnarray}
-		\sum_{\sigma \in \partial \Omega} \int_{\sigma} \mathbf{N}_{\sigma} \cdot \nabla \eta^h \, \bar{\varphi} \, dA - \sum_{\omega \in \mathcal{T}_\omega (\Omega)} \int_{\omega} \nabla \varphi^h \cdot \nabla \eta^h \, dV \nonumber \\ - \sum_{\sigma \in \Gamma_\omega \cup \partial \Omega} \int_{\sigma} \mathbf{N}_{\sigma} \cdot \nabla \eta^h \, [\![ \varphi^h ]\!] \, dA = 0 \quad \forall \eta^h \in P^k (\Omega).
-\end{eqnarray}
-Satisfaction of the above yields a negation of the consistency errors incurred by the discontinuities in $\varphi^h \in \mathcal{D}^h_k (\Omega)$. Consequently, the errors for first order patch tests are effectively canceled out. The same cannot be said of higher order patch tests.
-
-It is tempting to want to specify $\alpha_{0\gamma}$ to be sufficiently small/large enough to reduce patch test errors to an acceptable level. This thinking must be tempered by an understanding of the effects of interpolation error on patch test error. Recall that the interpolation error $E_1 (\Omega)$ for a given element is controlled largely by the conditioning of $\mathbf{J}$. In turn, $\kappa (\mathbf{J})$ will be adversely affected by sufficiently small/large values of $\alpha_{0\gamma}$. Table \ref{tab:interpolation_patch_test_error} demonstrates the consequent limitations imposed upon the choice of $\alpha_{0\gamma}$ due to excessive interpolation error.
+Additionally, it is noted that the DG-PEM recovers integration consistency in the limit as $\alpha_{\gamma0} \rightarrow 0$. This is a direct consequence of (\ref{eq:weak_compatibility_enforcement}). It is tempting to want to specify $\alpha_{\gamma0}$ to be sufficiently small/large enough to reduce patch test errors to an acceptable level. However, this thinking must be tempered by an understanding of the effects of interpolation error on patch test error. Recall that the interpolation error $E_1 (\Omega)$ for a given element is controlled largely by the conditioning of $\mathbf{J}$. In turn, $\kappa (\mathbf{J})$ will be adversely affected by sufficiently small/large values of $\alpha_{\gamma0}$. Table \ref{tab:interpolation_patch_test_error} demonstrates the consequent limitations imposed upon the choice of $\alpha_{\gamma0}$ due to excessive interpolation error.
 
 \begin{table}[!ht]
   \begin{center}
     \begin{tabular}{| c || c | c | c | c |}
     \hline
     DG-PEM & $\kappa(\mathbf{J})$ &  $E_1 (\Omega)$ & $||\mathbf{u}^h - \mathbf{u}|| / ||\mathbf{u}||$ & $||\boldsymbol{\sigma}^h - \boldsymbol{\sigma}|| / ||\boldsymbol{\sigma}||$ \\ \hline \hline
-    $\alpha_{0\gamma} = 10^{0}$ & 4.3653E+000 & 3.7339E-015 & 3.9872E-005 & 3.3113E-004 \\ \hline
-    $\alpha_{0\gamma} = 10^{3}$ & 6.1670E+003 & 2.5645E-012 & 3.5373E-007 & 4.8035E-006 \\ \hline
-    $\alpha_{0\gamma} = 10^{6}$ & 6.1816E+006 & 2.2129E-009 & 3.5767E-010 & 4.8276E-009 \\ \hline
-    $\alpha_{0\gamma} = 10^{9}$ & 6.1817E+009 & 1.6471E-006 & 1.4331E-009 & 2.4472E-008 \\ \hline
-    $\alpha_{0\gamma} = 10^{12}$ & 6.1821E+012 & 1.7678E-003 & 2.1612E-006 & 3.0495E-005 \\
+    $\alpha_{\gamma0} = 10^{0}$ & 4.3653E+000 & 3.7339E-015 & 3.9872E-005 & 3.3113E-004 \\ \hline
+    $\alpha_{\gamma0} = 10^{3}$ & 6.1670E+003 & 2.5645E-012 & 3.5373E-007 & 4.8035E-006 \\ \hline
+    $\alpha_{\gamma0} = 10^{6}$ & 6.1816E+006 & 2.2129E-009 & 3.5767E-010 & 4.8276E-009 \\ \hline
+    $\alpha_{\gamma0} = 10^{9}$ & 6.1817E+009 & 1.6471E-006 & 1.4331E-009 & 2.4472E-008 \\ \hline
+    $\alpha_{\gamma0} = 10^{12}$ & 6.1821E+012 & 1.7678E-003 & 2.1612E-006 & 3.0495E-005 \\
     \hline
     \end{tabular}
     \caption{The effects of interpolation error on patch test errors in the DG-PEM. No gradient correction scheme was utilized.}
@@ -343,6 +337,25 @@ It is tempting to want to specify $\alpha_{0\gamma}$ to be sufficiently small/la
 \end{table}
 
 If the interpolation error $E_1 (\Omega)$ becomes large enough (due to poor conditioning of $\mathbf{J}$), it will dominate any other sources of error incurred in the patch test. Moreover, interpolation errors persist even if a gradient correction scheme is employed, and can become particularly troublesome for: thin elements, higher-order elements, or elements with nearly degenerate features.
+
+A curious set of results are obtained for polyhedral elements. Specifically, the DG-PEM elements do not pass patch tests, even if a gradient correction scheme is applied. This can be explained by virtue of the DG-PEM's lack of continuity/consistency in the representation of $\varphi^h \in \partial \Omega$. Because 2D DG-PEM elements typically have continuous representations for $\varphi^h|_{\partial \Omega} \in C^0 (\partial \Omega)$, we may directly apply a gradient correction scheme in such cases, yielding satisfaction of patch tests. However, for 3D DG-PEM elements, this is not the case. Rather, $\varphi^h|_{\partial \Omega} \not \in C^0 (\partial \Omega)$, and we cannot guarantee the necessary conditions to pass patch tests (i.e. we lack ``weak compatibility''). However, in the limit as $\alpha_{\gamma0} \rightarrow \infty$ ($\alpha_{\gamma1}$ small), we recover a $C^0 (\partial \Omega)$ representation for $\varphi^h|_{\partial \Omega}$, leading to satisfaction of finite element patch tests. A few numerical tests support this hypothesis. This suggests that use of the CG-PEM on $\partial \Omega$ may be the best course of action. Subsequently, the DG-PEM may be used on the interior of $\Omega$ with impunity. Alternatively, one would need to enforce some additional set of constraints on each face to guarantee ``weak compatibility.''
+
+Consider the boundary term appearing in (\ref{eq:weak_compatibility}):
+\begin{equation}
+	\sum_{\sigma \in \partial \Omega} \int_{\sigma} \mathbf{N}_{\sigma} \cdot \nabla \eta^h \, \varphi^h \, dA = \sum_{\sigma \in \partial \Omega} \int_{\sigma} \mathbf{N}_{\sigma} \cdot \left[ \nabla (\eta^h \, \varphi^h) - \eta^h \, \nabla \varphi^h \right] \, dA \quad \forall \eta^h \in P^k (\Omega).
+\end{equation}
+Allow for the following substitution to be made: $\nabla \eta^h = \nabla \times \mathbf{v}$ for all $\mathbf{v} \in \left[ P^k (\Omega) \right]^d$, such that
+\begin{equation}
+	\sum_{\sigma \in \partial \Omega} \int_{\sigma} \mathbf{N}_{\sigma} \cdot \nabla \times \mathbf{v} \, \varphi^h \, dA = \sum_{\sigma \in \partial \Omega} \int_{\sigma} \mathbf{N}_{\sigma} \cdot \left[ \nabla \times (\mathbf{v} \, \varphi^h) + \mathbf{v} \times \nabla \varphi^h \right] \, dA \quad \forall \mathbf{v} \in \left[ P^k (\Omega) \right]^d,
+\end{equation}
+\begin{equation}
+	\sum_{\sigma \in \partial \Omega} \int_{\sigma} \mathbf{N}_{\sigma} \cdot \left[ \varphi^h \, \nabla \times \mathbf{v} - \mathbf{v} \times \nabla \varphi^h \right] \, dA = \sum_{\sigma \in \partial \Omega} \oint_{\partial \sigma} \boldsymbol{\lambda} \cdot \mathbf{v} \, \varphi^h \, dS \quad \forall \mathbf{v} \in \left[ P^k (\Omega) \right]^d.
+\end{equation}
+The right-hand side may be re-written for each $F \subset \partial \Omega$:
+\begin{equation}
+	\sum_{\sigma \in F} \oint_{\partial \sigma} \boldsymbol{\lambda} \cdot \mathbf{v} \, \varphi^h \, dS = \sum_{\gamma \in \Gamma_\gamma \cup \partial F} \int_{\gamma} \boldsymbol{\lambda}_\gamma \cdot \mathbf{v} \, [\![ \varphi^h ]\!] \, dS \quad \forall \mathbf{v} \in \left[ P^k (\Omega) \right]^d,
+\end{equation}
+where $[\![ \varphi^h ]\!]$ is defined similarly as in (\ref{eq:internal_jumps}) and (\ref{eq:external_jumps}). For all $\gamma \in \Gamma_{\gamma}$ shared by two facets ($\sigma_1$ and $\sigma_2$), the orientation of each tangential vector $\boldsymbol{\lambda}_\gamma$ is counter-clockwise with respect to $\sigma_1$.
 
 \subsection*{Quadratic Patch Tests}
 
@@ -428,7 +441,7 @@ A study was carried out to assess the effects of geometric non-convexity on a gi
   \label{fig:concave_element_shapes}
 \end{figure}
 
-The harmonic shape functions defined on these elements were approximated using the VETFEM, the CG-PEM, and the DG-PEM. The VETFEM approximations consisted of 4th order polynomials, and were obtained as the solutions to (\ref{eq:vetfem}). The CG-PEM and DG-PEM approximations were obtained using the random Delaunay partitions shown in Figure \ref{fig:concave_element_partitions}. The penalty parameters appearing in (\ref{eq:penalty_parameters}) for the DG-PEM were chosen such that $\alpha_{0\gamma} = 10$, $\alpha_{1\gamma} = 0$ for all segments $\gamma$. Unless otherwise noted, the NIPG version of the DG-PEM (with $\epsilon = +1$) was utilized throughout. Reference solutions for the harmonic shape functions were computed on a highly refined partition of the element using the CG-PEM.
+The harmonic shape functions defined on these elements were approximated using the VETFEM, the CG-PEM, and the DG-PEM. The VETFEM approximations consisted of 4th order polynomials, and were obtained as the solutions to (\ref{eq:vetfem}). The CG-PEM and DG-PEM approximations were obtained using the random Delaunay partitions shown in Figure \ref{fig:concave_element_partitions}. The penalty parameters appearing in (\ref{eq:penalty_parameters}) for the DG-PEM were chosen such that $\alpha_{\gamma0} = 10$, $\alpha_{\gamma1} = 0$ for all segments $\gamma$. Unless otherwise noted, the NIPG version of the DG-PEM (with $\epsilon = +1$) was utilized throughout. Reference solutions for the harmonic shape functions were computed on a highly refined partition of the element using the CG-PEM.
 
 \begin{figure}[!h]
   \centering
@@ -483,7 +496,7 @@ Using the aforementioned approximations in place of the harmonic shape functions
 \label{tab:concave_stiffness_max_min_eigenvalue}
 \end{table}
 
-Irrespective of the chosen approximation method, the condition number for a given element's stiffness matrix becomes large as the degree of geometric non-convexity increases. The VETFEM yields a fairly accurate approximation for the eigenvalues of element A, but obtains an overly stiff approximation for element B, and overestimates the eigenvalues at the low end of the spectrum for element C. The CG-PEM appears to uniformly over-estimate the eigenvalue spectra of all elements A, B, and C, though not significantly. By contrast, the DG-PEM under-estimates the eigenvalues for elements B and C, though this behavior is observed to be contingent upon upon how the penalty parameters $\alpha_{0\gamma}$ and $\alpha_{1\gamma}$ are specified. Table \ref{tab:concave_stiffness_max_min_eigenvalue_parameter_study} illuminates the dependence of $\lambda_{\max}$ and $\lambda_{\min}$ (for element C) upon the choice of DG-PEM penalty parameters. Similar parameter dependencies are obtained for elements A and B.
+Irrespective of the chosen approximation method, the condition number for a given element's stiffness matrix becomes large as the degree of geometric non-convexity increases. The VETFEM yields a fairly accurate approximation for the eigenvalues of element A, but obtains an overly stiff approximation for element B, and overestimates the eigenvalues at the low end of the spectrum for element C. The CG-PEM appears to uniformly over-estimate the eigenvalue spectra of all elements A, B, and C, though not significantly. By contrast, the DG-PEM under-estimates the eigenvalues for elements B and C, though this behavior is observed to be contingent upon upon how the penalty parameters $\alpha_{\gamma0}$ and $\alpha_{\gamma1}$ are specified. Table \ref{tab:concave_stiffness_max_min_eigenvalue_parameter_study} illuminates the dependence of $\lambda_{\max}$ and $\lambda_{\min}$ (for element C) upon the choice of DG-PEM penalty parameters. Similar parameter dependencies are obtained for elements A and B.
 
 \begin{table}
 \centering
@@ -491,11 +504,11 @@ Irrespective of the chosen approximation method, the condition number for a give
 \centering
 \begin{tabular}{| c || c | c | c | c |}
     \hline
-DG-PEM & $\alpha_{0\gamma} = 10^{-3}$ & $\alpha_{0\gamma} = 10^{0}$ & $\alpha_{0\gamma} = 10^{3}$ & $\alpha_{0\gamma} = 10^{6}$ \\ \hline \hline
-$\alpha_{1\gamma} = 0.0$	& 5.9210 & 5.4949 & 8.6484 & 8.7108 \\ \hline
-$\alpha_{1\gamma} = 10^{0}$ & 5.9210 & 5.2235 & 7.7525 & 8.7106 \\ \hline
-$\alpha_{1\gamma} = 10^{3}$ & 5.9210 & 5.0938 & 3.9671 & 7.7874 \\ \hline
-$\alpha_{1\gamma} = 10^{6}$ & 5.9210 & 5.0935 & 3.8699 & 3.9640 \\
+DG-PEM & $\alpha_{\gamma0} = 10^{-3}$ & $\alpha_{\gamma0} = 10^{0}$ & $\alpha_{\gamma0} = 10^{3}$ & $\alpha_{\gamma0} = 10^{6}$ \\ \hline \hline
+$\alpha_{\gamma1} = 0.0$	& 5.9210 & 5.4949 & 8.6484 & 8.7108 \\ \hline
+$\alpha_{\gamma1} = 10^{0}$ & 5.9210 & 5.2235 & 7.7525 & 8.7106 \\ \hline
+$\alpha_{\gamma1} = 10^{3}$ & 5.9210 & 5.0938 & 3.9671 & 7.7874 \\ \hline
+$\alpha_{\gamma1} = 10^{6}$ & 5.9210 & 5.0935 & 3.8699 & 3.9640 \\
     \hline
     \end{tabular}
     \caption{Largest eigenvalue: $\lambda_{\max}$}
@@ -506,11 +519,11 @@ $\alpha_{1\gamma} = 10^{6}$ & 5.9210 & 5.0935 & 3.8699 & 3.9640 \\
 \centering
 \begin{tabular}{| c || c | c | c | c |}
     \hline
-DG-PEM & $\alpha_{0\gamma} = 10^{-3}$	&	$\alpha_{0\gamma} = 10^{0}$	&	$\alpha_{0\gamma} = 10^{3}$	&	$\alpha_{0\gamma} = 10^{6}$ \\ \hline \hline
-$\alpha_{1\gamma} = 0.0$	&	0.004747	&	0.003554	&	0.006920	&	0.006943 \\ \hline
-$\alpha_{1\gamma} = 10^{0}$	&	0.004748	&	0.003675	&	0.006489	&	0.006941 \\ \hline
-$\alpha_{1\gamma} = 10^{3}$	&	0.004748	&	0.004210	&	0.002898	&	0.006508 \\ \hline
-$\alpha_{1\gamma} = 10^{6}$	&	0.004748	&	0.004211	&	0.003660	&	0.002896 \\
+DG-PEM & $\alpha_{\gamma0} = 10^{-3}$	&	$\alpha_{\gamma0} = 10^{0}$	&	$\alpha_{\gamma0} = 10^{3}$	&	$\alpha_{\gamma0} = 10^{6}$ \\ \hline \hline
+$\alpha_{\gamma1} = 0.0$	&	0.004747	&	0.003554	&	0.006920	&	0.006943 \\ \hline
+$\alpha_{\gamma1} = 10^{0}$	&	0.004748	&	0.003675	&	0.006489	&	0.006941 \\ \hline
+$\alpha_{\gamma1} = 10^{3}$	&	0.004748	&	0.004210	&	0.002898	&	0.006508 \\ \hline
+$\alpha_{\gamma1} = 10^{6}$	&	0.004748	&	0.004211	&	0.003660	&	0.002896 \\
     \hline
     \end{tabular}
     \caption{Smallest (non-zero) eigenvalue: $\lambda_{\min}$}
@@ -521,10 +534,10 @@ $\alpha_{1\gamma} = 10^{6}$	&	0.004748	&	0.004211	&	0.003660	&	0.002896 \\
 \label{tab:concave_stiffness_max_min_eigenvalue_parameter_study}
 \end{table}
 
-The results in table \ref{tab:concave_stiffness_max_min_eigenvalue_parameter_study} warrant a number of observations. The eigenvalue spectrum obtained for the DG-PEM converges to that of the CG-PEM as the value of $\alpha_{0\gamma}$ is increased (provided $\alpha_{1\gamma}$ is sufficiently small). Moreover, the shape functions will themselves converge to the $C^0$ continuous approximations obtained by the CG-PEM. This is the expected result.
-Additionally, if $\alpha_{0\gamma}$ is made sufficiently small, the eigenvalues will becomes relatively insensitive to the choice of $\alpha_{1\gamma}$. 
+The results in table \ref{tab:concave_stiffness_max_min_eigenvalue_parameter_study} warrant a number of observations. The eigenvalue spectrum obtained for the DG-PEM converges to that of the CG-PEM as the value of $\alpha_{\gamma0}$ is increased (provided $\alpha_{\gamma1}$ is sufficiently small). Moreover, the shape functions will themselves converge to the $C^0$ continuous approximations obtained by the CG-PEM. This is the expected result.
+Additionally, if $\alpha_{\gamma0}$ is made sufficiently small, the eigenvalues will becomes relatively insensitive to the choice of $\alpha_{\gamma1}$. 
 
-Conversely, as $\alpha_{0\gamma}$ is increased, the eigenvalues (and the corresponding shape function approximations) become more sensitive to the choice of $\alpha_{1\gamma}$. In such cases, $\alpha_{1\gamma}$ may be thought of as a ``regularization'' parameter, acting to effectively smooth out variations in the gradient of the shape functions over the element. For low-order DG-PEM, increasing $\alpha_{1\gamma}$ tends the element towards a uniform gradient formulation. Doing so risks rank-deficiency of the element's resulting stiffness matrix. If $\alpha_{0\gamma}$ and $\alpha_{1\gamma}$ are increased proportionally to one another, one recovers the behavior of the pure penalty DG-PEM corresponding to (\ref{eq:pure_penalty}).
+Conversely, as $\alpha_{\gamma0}$ is increased, the eigenvalues (and the corresponding shape function approximations) become more sensitive to the choice of $\alpha_{\gamma1}$. In such cases, $\alpha_{\gamma1}$ may be thought of as a ``regularization'' parameter, acting to effectively smooth out variations in the gradient of the shape functions over the element. For low-order DG-PEM, increasing $\alpha_{\gamma1}$ tends the element towards a uniform gradient formulation. Doing so risks rank-deficiency of the element's resulting stiffness matrix. If $\alpha_{\gamma0}$ and $\alpha_{\gamma1}$ are increased proportionally to one another, one recovers the behavior of the pure penalty DG-PEM corresponding to (\ref{eq:pure_penalty}).
 
 \subsubsection*{Examination of the Effects of Nearly Degenerate Features}
 
@@ -532,7 +545,7 @@ A study was carried out to assess the effects of geometric degeneracy on a given
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=3.7in]{figures/degenerate_element_shapes.pdf}  \caption{Two convex pentagonal elements: (left) regular pentagon with edges of length $l = 1.0$, (right) pentagon with a comparatively short edge of length $l = 0.01$.}
+  \includegraphics[width=3.7in]{figures/degenerate_element_shapes.pdf}  \caption{Two convex pentagonal elements: (left) regular pentagon with edges of equal length $l = 1.0$, (right) pentagon with a comparatively short edge of length $l = 0.01$.}
   \label{fig:degenerate_element_shapes}
 \end{figure}
 

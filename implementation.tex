@@ -221,17 +221,17 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 	\end{equation}
 	Each $\zeta \in \partial \mathcal{E}$ (which borders a single $d$-dimensional entity $\varepsilon$) contributes:
 	\begin{equation}
-			J^{\varepsilon}_{ab} = \int_{\zeta} \bigg( \epsilon \,  \mathbf{N}_{\zeta} \cdot \nabla \psi^{\varepsilon}_a \, \psi^{\varepsilon}_b - \psi^{\varepsilon}_a \, \nabla \psi^{\varepsilon}_b \cdot \mathbf{N}_{\zeta} \bigg) \, d \zeta + \frac{\alpha_{\zeta0}}{|\zeta|^{\beta_0}} \int_{\zeta} \psi_a^{\varepsilon} \, \psi_b^{\varepsilon} \, d \zeta \quad \forall a, \, b = 1, \ldots, N^{\varepsilon}_{bf},
+			J^{\varepsilon}_{ab} = \int_{\zeta} \bigg( \epsilon \, (\mathbf{N}_{\zeta} \cdot \nabla \psi^{\varepsilon}_b) \, \psi^{\varepsilon}_a - \psi^{\varepsilon}_b \, (\mathbf{N}_{\zeta} \cdot \nabla \psi^{\varepsilon}_a) \bigg) \, d \zeta + \frac{\alpha_{\zeta0}}{|\zeta|^{\beta_0}} \int_{\zeta} \psi_a^{\varepsilon} \, \psi_b^{\varepsilon} \, d \zeta \quad \forall a, \, b = 1, \ldots, N^{\varepsilon}_{bf},
 	\end{equation}
 	\begin{equation}
-		F^{\varepsilon}_b = \int_{\zeta} \epsilon \, \bar{\varphi} \, \nabla \psi_b^{\varepsilon} \cdot \mathbf{N}_{\zeta} \, d \zeta + \frac{\alpha_{\zeta0}}{|\zeta|^{\beta_0}} \int_{\zeta} \bar{\varphi} \, \psi_b^{\varepsilon} \, d \zeta \quad \forall b = 1, \ldots, N^{\varepsilon}_{bf},
+		F^{\varepsilon}_b = \int_{\zeta} \epsilon \, (\mathbf{N}_{\zeta} \cdot \nabla \psi_b^{\varepsilon}) \, \bar{\varphi} \, d \zeta + \frac{\alpha_{\zeta0}}{|\zeta|^{\beta_0}} \int_{\zeta} \bar{\varphi} \, \psi_b^{\varepsilon} \, d \zeta \quad \forall b = 1, \ldots, N^{\varepsilon}_{bf},
 		\label{eq:boundary_term}
 	\end{equation}
 	and each $\zeta \in \Gamma_\varepsilon$ (which borders two $d$-dimensional entities, $\varepsilon_1$ and $\varepsilon_2$) contributes:
 	\begin{align}
-			J^{\varepsilon_i \varepsilon_j}_{ab} & = - \frac{1}{2} \int_{\zeta} \bigg( (-1)^{j} \, \epsilon \, \mathbf{N}_{\zeta} \cdot \nabla \psi_a^{\varepsilon_i} \, \psi_b^{\varepsilon_j} - (-1)^{i} \psi_a^{\varepsilon_i} \, \nabla \psi_b^{\varepsilon_j} \cdot \mathbf{N}_{\zeta} \bigg) \, d \zeta \\
-			& + (-1)^{|i-j|} \frac{\alpha_{\zeta0}}{|\zeta|^{\beta_0}} \int_{\zeta} \psi_a^{\varepsilon_i} \, \psi_b^{\varepsilon_j} \, d \zeta \\
-			& + (-1)^{|i-j|} \frac{\alpha_{\zeta1}}{|\zeta|^{\beta_1}} \int_{\zeta} \nabla \psi_a^{\varepsilon_i} \cdot (\mathbf{N}_\zeta \otimes \mathbf{N}_\zeta) \cdot \nabla \psi_b^{\varepsilon_j} \, d \zeta
+			J^{\varepsilon_i \varepsilon_j}_{ab} & = - \frac{1}{2} \int_{\zeta} \bigg( (-1)^{i} \, \epsilon \, (\mathbf{N}_{\zeta} \cdot \nabla \psi_b^{\varepsilon_j}) \, \psi_a^{\varepsilon_i} - (-1)^{j} \, \psi_b^{\varepsilon_j} (\mathbf{N}_{\zeta} \cdot \nabla \psi_a^{\varepsilon_i}) \bigg) \, d \zeta \\
+			& + (-1)^{(i+j)} \frac{\alpha_{\zeta0}}{|\zeta|^{\beta_0}} \int_{\zeta} \psi_a^{\varepsilon_i} \, \psi_b^{\varepsilon_j} \, d \zeta \\
+			& + (-1)^{(i+j)} \frac{\alpha_{\zeta1}}{|\zeta|^{\beta_1}} \int_{\zeta} \nabla \psi_a^{\varepsilon_i} \cdot (\mathbf{N}_\zeta \otimes \mathbf{N}_\zeta) \cdot \nabla \psi_b^{\varepsilon_j} \, d \zeta
 	\end{align}
 	for all $i, \, j = 1, \, 2$, and $a = 1, \ldots, N^{\varepsilon_i}_{bf}$, $b = 1, \ldots, N^{\varepsilon_j}_{bf}$. For the remainder of our discussions, we will consider only the case where $f_\mathcal{E} \equiv 0$ for all sub-elements $\mathcal{E} \subset \Omega$.
 	
@@ -247,7 +247,7 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 	\end{equation}
 	which may be used in lieu of (\ref{eq:boundary_term}), where
 	\begin{equation}
-		\bar{J}^{\varepsilon}_{bc} = \int_{\zeta} \epsilon \, \psi^\zeta_c \, \nabla \psi_b^{\varepsilon} \cdot \mathbf{N}_{\zeta} \, d \zeta + \frac{\alpha_{\zeta0}}{|\zeta|^{\beta_0}} \int_{\zeta} \psi^\zeta_c \, \psi_b^{\varepsilon} \, d \zeta \quad \forall b = 1, \ldots, N^{\varepsilon}_{bf}, \, c = 1, \ldots, N^\zeta_{bf}.
+		\bar{J}^{\varepsilon}_{bc} = \int_{\zeta} \epsilon \, (\mathbf{N}_{\zeta} \cdot \nabla \psi_b^{\varepsilon}) \, \psi^\zeta_c  \, d \zeta + \frac{\alpha_{\zeta0}}{|\zeta|^{\beta_0}} \int_{\zeta} \psi^\zeta_c \, \psi_b^{\varepsilon} \, d \zeta \quad \forall b = 1, \ldots, N^{\varepsilon}_{bf}, \, c = 1, \ldots, N^\zeta_{bf}.
 	\end{equation}
 	Consequently, we may re-write the right-hand side of (\ref{eq:linearization_dgpem}) as a linear mapping from the basis coefficients $\bar{\varphi}_C$ which determine the boundary function $\bar{\varphi} (\mathbf{X}) = \sum_{C=1}^{N^{\partial \mathcal{E}}_{bf}} \psi_C (\mathbf{X}) \, \bar{\varphi}_C$:
 	\begin{equation}
@@ -357,38 +357,38 @@ where it is assumed that
 \begin{equation}
 	R_\varepsilon = \max_{\mathbf{X} \in \varepsilon} || \mathbf{X} ||_2,
 \end{equation}
-and $R_\varepsilon \geq 1$ without loss of generality. Under these conditions, it suffices to assert that $\exists \, C > 0$ which may be used to establish uniform upper and lower bounds on $J^{\varepsilon}_{aa}$, such that
+and $R_\varepsilon \geq 1$, without loss of generality. Under these conditions, it suffices to assert that $\exists \, C > 0$ which may be used to establish a uniform lower bound on $J^{\varepsilon}_{aa}$, such that
 \begin{equation}
 	C \left[ (h_\varepsilon^{d} + C_1 h_\varepsilon^{d+1/2}) + C_2 h_\varepsilon^{d-3/2} \right] \leq J^{\varepsilon}_{aa} \leq (h_\varepsilon^{d} + C_1 h_\varepsilon^{d+1/2}) R_{\varepsilon}^{2\langle k-1 \rangle} + C_2 h_\varepsilon^{d-3/2} R_{\varepsilon}^{2k}.
 \end{equation}
-If the penalty parameter $\alpha_{\gamma0}$ is sufficiently small, we obtain the estimate $\kappa (\mathbf{J}) \approx O(R_{\max}^{2\langle k-1 \rangle})$, where $R_{\max} = \max \left\{ \max_{\varepsilon \in \mathcal{E}} R_\varepsilon, \, \max_{\varepsilon \in \mathcal{E}} R_\varepsilon^{-1} \right\}$. Otherwise, if $\alpha_{\gamma0}$ is sufficiently large, then $\kappa (\mathbf{J}) \approx O(R_{\max}^{2k})$; a similar estimate may be obtained for the SIPG and IIPG methods. The latter estimate is also applicable to the pure penalty DG-PEM, provided sufficient stability is supplied by the inclusion of appropriate high-order flux penalty terms (\ref{eq:flux_penalty}).
+If the penalty parameter $\alpha_{\gamma0}$ is sufficiently small, we obtain the estimate $\kappa (\mathbf{J}) \approx O(R_{\max}^{2\langle k-1 \rangle})$, where $R_{\max} = \max \left\{ \max_{\varepsilon \in \mathcal{E}} R_\varepsilon, \, \max_{\varepsilon \in \mathcal{E}} R_\varepsilon^{-1} \right\}$. Otherwise, if $\alpha_{\gamma0}$ is sufficiently large, then $\kappa (\mathbf{J}) \approx O(R_{\max}^{2k})$; a similar estimate may be obtained for the SIPG and IIPG methods. The latter estimate is also applicable to the pure penalty DG-PEM, provided sufficient stability is supplied by the inclusion of additional penalty terms (\ref{eq:flux_penalty}).
 
-Clearly, the condition number of $\mathbf{J}$ under these circumstances may become unacceptably large for increasing values of $k$ and $R_{\max}$, leading to numerical inaccuracies in the resulting shape functions which can ultimately degrade the degree of precision by which finite element patch tests are satisfied.
+Clearly, the condition number of $\mathbf{J}$ under these circumstances may become unacceptably large for increasing values of $k$ and $R_{\max}$, leading to numerical inaccuracies in the resulting shape functions. This can ultimately degrade the degree of precision achieved in finite element patch tests.
 
-To mitigate this issue, the (sub-)element's shape functions may be computed with respect to a shifted and scaled coordinate system, i.e. $\mathbf{X}' = h_\mathcal{E}^{-1} (\mathbf{X} - \bar{\mathbf{X}}^{\mathcal{E}}_0)$, where
+To mitigate this issue, the (sub-)element's shape functions may be computed with respect to a shifted and scaled coordinate system, e.g. $\mathbf{X}' = h_\mathcal{E}^{-1} (\mathbf{X} - \bar{\mathbf{X}}^{\mathcal{E}}_0)$, where
 \begin{equation}
-	h_{\mathcal{E}} = \sup_{\mathbf{X}_1, \mathbf{X}_2 \in \mathcal{E}} ||\mathbf{X}_1 - \mathbf{x}_2||_2.
+	h_{\mathcal{E}} = \sup_{\mathbf{X}_1, \mathbf{X}_2 \in \mathcal{E}} ||\mathbf{X}_1 - \mathbf{X}_2||_2.
 \end{equation}
-This assists in limiting the worst-case value of $R_{\max}$ appearing in the previous estimate, yielding a somewhat improved bound on the condition number: $\kappa (\mathbf{J}) \approx O(\rho^{2k})$, where $\rho = h_{\mathcal{E}} / h_{\min}$, and
+This assists in limiting the worst-case value of $R_{\max}$ appearing in the previous estimate, yielding a somewhat improved bound on the condition number: $\kappa (\mathbf{J}) \approx O(\rho^{2k})$. We define $\rho = h_{\mathcal{E}} / h_{\min}$, and
 \begin{equation}
 	\quad h_{\min} = \inf_{\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})} \sup_{B_r (\mathbf{X}_B) \subset \varepsilon} |2r|
 \end{equation}
-denotes the smallest diameter of the largest ball $B_r (\mathbf{X}_B) = \left\{ \mathbf{X} \in \mathbb{R}^d : ||\mathbf{X} - \mathbf{X}_B||_2 \leq r \right\}$ fully contained within any single entity $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$. Nonetheless, the condition number of $\mathbf{J}$ can become large if: a relatively refined partition of the element is utilized; if the aspect ratio of the element becomes large; or if the element's partition contains ``sliver cells'' (i.e. if an edge-based partition is employed on an element with nearly degenerate geometric features -- short edges.) Some improvements in the conditioning of $\mathbf{J}$ may be obtained by considering the DG basis described in \cite{Bassi:12}. The Lagrange polynomials (for triangles and tetrahedra) can also be used to obtain well-scaled bases for each entity.
+denotes the smallest diameter of the largest ball $B_r (\mathbf{X}_B) = \left\{ \mathbf{X} \in \mathbb{R}^d : ||\mathbf{X} - \mathbf{X}_B||_2 \leq r \right\}$ fully contained within any single entity $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$. Nonetheless, the condition number of $\mathbf{J}$ can become large if: a relatively refined partition of the element is utilized; if the aspect ratio of the element becomes large; or if the element's partition contains ``sliver cells'' (i.e. if an edge-based partition is employed on an element with nearly degenerate geometric features.) Some improvements in the conditioning of $\mathbf{J}$ may be obtained by considering the DG basis described in \cite{Bassi:12}. The Lagrange polynomials (for triangles and tetrahedra) can also be used to obtain well-scaled bases for each entity.
 
 Following a number of numerical experiments, it was determined that the aforementioned estimates are quite accurate, illuminating a number of key points:
 \begin{itemize}
 	\item[(I.)] The condition number depends upon the dimensions of the element, and more specifically, upon the dimensions of its partition.
 	\begin{itemize}
-		\item[a.] Isotropically scaling an element will change the condition number of the resulting PEM linear systems, for better or for worse. This would seem to justify the idea of rescaling PEM elements into a corresponding ``parent'' domain -- ideally one which minimizes $h$. Shape functions and gradients would then be computed in the parent configuration, and subsequently mapped back into the element's physical configuration.
-		\item[b.] Choosing the element's reference coordinate system poorly may subtly impact the conditioning of the PEM linear systems. This further justifies the idea that the element's local coordinate system should be shifted in such a way as to minimize $h$. However, certain choices of reference coordinate may be preferable/optimal for the different tope-level minimum problems. Namely, recent numerical experiments have revealed that the solution inaccuracies caused by nearly planar faces can be effectively mitigated when the element's reference coordinate is chosen to lie on or near the warped face(s). This finding may warrant the reconsideration of a local coordinate system being used for every cell (or at the very least, for every tope) of the element.
-		\item[c.] Elements with unequal dimensions (i.e. thin elements) will unavoidably suffer from issues of poor conditioning due to a larger relative value of $h$ (regardless of isotropic scaling). The natural temptation would be to scale the element anisotropically in an effort to achieve better conditioning. However, this would need to be done with care; every tope of the element would need to be scaled independently, according to a given tope's dimensions alone. This condition is necessary to guarantee inter-face compatibility between elements, as two anisotropically scaled elements would not, in general, produce identical shape functions on their shared face.
+		\item[a.] Isotropically scaling an element will change the condition number of the resulting DG-PEM linear systems if the unscaled monomials are used as the entities' basis functions. This would seem to justify the idea of rescaling PEM elements into a corresponding ``parent'' domain -- ideally one which minimizes $\rho$. Shape functions and gradients would be computed in the parent configuration, and subsequently mapped back into the element's physical configuration through an affine transformation.
+		\item[b.] Choosing the element's reference coordinate $\bar{\mathbf{X}}^{\mathcal{E}}_0$ poorly can severely impact the conditioning of the DG-PEM linear systems. This further justifies the idea that the element's local coordinate system should be shifted to the element's centroid.
+		\item[c.] Elements with unequal dimensions (i.e. thin elements) will unavoidably suffer from issues of poor conditioning due to a larger relative value of $\rho$ (regardless of isotropic scaling). The natural temptation would be to scale the element anisotropically in an effort to achieve better conditioning. However, this would need to be done with care. Each sub-element would need to be scaled independently, according to its dimensions, alone. This is necessary to guarantee inter-face compatibility between elements, as two anisotropically scaled elements would not, in general, produce identical shape functions on their shared face.
 	\end{itemize}
-	\item[(II.)] The condition number becomes drastically worse when higher order monomials are used.
+	\item[(II.)] The condition number becomes drastically worse when higher order monomial bases are used.
 	\begin{itemize}
-		\item[a.] This explains a great deal about why the quadratic PEM elements have performed so poorly in convergence studies up to this point: not only does $h$ become worse under mesh refinement, but the condition number scales as $O(h^4)$ for quadratic elements, leading to significant inaccuracies in the shape function computations, and subsequent losses in solution accuracy.
-		\item[b.] Unfortunately, this makes thin quadratic elements even more sensitive to the relative scaling of $h$. It is unclear whether or not anisotropically rescaling the elements will sufficiently improve matters.
+		\item[a.] This explains a great deal about why the quadratic DG-PEM elements have performed so poorly in convergence studies up to this point: not only does $\rho$ become worse under cell refinement, but the condition number scales as $O(\rho^4)$ for quadratic elements, leading to significant inaccuracies in the shape function computations, and subsequent losses in solution accuracy.
+		\item[b.] Unfortunately, this makes thin quadratic elements even more sensitive to the relative scaling of $\rho$. It is unclear whether or not anisotropically rescaling the elements will sufficiently improve matters.
 	\end{itemize}
-	\item[(III.)] Perhaps most importantly: the strong dependence of the condition number upon $h$ and $k$ is largely a consequence of our specific choice of polynomial basis (i.e. the monomial basis).
+	\item[(III.)] Perhaps most importantly: the strong dependence of the condition number upon $\rho$ and $k$ is largely a consequence of our specific choice of polynomial basis (i.e. the monomial basis).
 	\begin{itemize}
 		\item[a.] Because the solution unknowns that we seek are monomial coefficients, it is to be expected that the constant, gradient (and curvature) coefficients may differ by orders of magnitude, depending on the relative scale of the element in physical space.
 		\item[b.] A more robust solution to the aforementioned issues of conditioning might be obtained through the selection of a different polynomial basis for $P_k (\Omega)$ (other than the monomial basis). In particular, the use of an orthonormal polynomial basis (with respect to an appropriately defined norm on an arbitrary element domain) could entirely circumvent the problem of poor conditioning. To prove this, we would need to illustrate that the resulting condition number of $\mathbf{J}$ using an orthonormal polynomial basis is less sensitive to both $h$ and $k$.

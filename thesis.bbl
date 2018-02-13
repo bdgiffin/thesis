@@ -53,6 +53,12 @@ Franco Brezzi.
 \newblock {\em ESAIM: Mathematical Modelling and Numerical Analysis -
   Modélisation Mathématique et Analyse Numérique}, 8:129--151, 1974.
 
+\bibitem{Burman:12}
+Erik Burman.
+\newblock A penalty-free nonsymmetric nitsche-type method for the weak
+  imposition of boundary conditions.
+\newblock {\em SIAM Journal on Numerical Analysis}, 50(4):1959--1981, 2012.
+
 \bibitem{Chen:13}
 Jiun-Shyan Chen, Michael Hillman, and Marcus R\"{u}ter.
 \newblock An arbitrary order variationally consistent integration for galerkin
@@ -160,6 +166,11 @@ Michael~S. Floater.
 \newblock Mean value coordinates.
 \newblock {\em Computer Aided Geometric Design}, 20:19--27, 2003.
 
+\bibitem{Freund:95}
+Jouni Freund and Rolf Stenberg.
+\newblock On weakly imposed boundary conditions for second order problems.
+\newblock pages 327--336, 01 1995.
+
 \bibitem{Gain:13}
 Arun Gain, Cameron Talischi, and Glaucio~H. Paulino.
 \newblock On the virtual element method for three-dimensional elasticity
@@ -265,6 +276,11 @@ Lin Mu, Junping Wang, and Xiu Ye.
 \newblock {\em Journal of Computational and Applied Mathematics}, 285:45--58,
   2015.
 
+\bibitem{Oden:98}
+J.Tinsley Oden, Ivo Babu\^{s}ka, and Carlos~Erik Baumann.
+\newblock A discontinuoushpfinite element method for diffusion problems.
+\newblock {\em J. Comput. Phys.}, 146(2):491--519, October 1998.
+
 \bibitem{Bathe&Pantuso:97}
 Daniel Pantuso and Klaus-J{\"{u}}rgen Bathe.
 \newblock On the stability of mixed finite elements in large strain analysis of
@@ -310,6 +326,12 @@ B\'{e}atrice Rivi\`{e}re.
   Parabolic Equations: Theory and Implementation}.
 \newblock Society for Industrial and Applied Mathematics, 3600 Market Street,
   6th Floor, Philadelphia, PA 19104-2688 USA, 2008.
+
+\bibitem{Riviere:01}
+B\'{e}atrice Rivi\`{e}re, Mary~F. Wheeler, and Vivette Girault.
+\newblock A priori error estimates for finite element methods based on
+  discontinuous approximation spaces for elliptic problems.
+\newblock {\em SIAM Journal on Numerical Analysis}, 39(3):902--931, 2001.
 
 \bibitem{Selimotic:08}
 Mili Selimoti{\'{c}}.

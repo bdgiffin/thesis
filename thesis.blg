@@ -10,47 +10,48 @@ A level-1 auxiliary file: results.aux
 A level-1 auxiliary file: future_work.aux
 Database file #1: bibliography.bib
 Warning--entry type for "Wikiversity:17" isn't style-file defined
---line 550 of file bibliography.bib
+--line 599 of file bibliography.bib
+Warning--empty journal in Freund:95
 Warning--empty publisher in Wilson:73
-You've used 69 entries,
+You've used 73 entries,
             2118 wiz_defined-function locations,
-            956 strings with 15067 characters,
-and the built_in function-call counts, 22498 in all, are:
-= -- 2277
-> -- 1022
-< -- 1
-+ -- 423
-- -- 334
-* -- 1634
-:= -- 3832
-add.period$ -- 206
-call.type$ -- 69
-change.case$ -- 368
+            986 strings with 15833 characters,
+and the built_in function-call counts, 23944 in all, are:
+= -- 2422
+> -- 1078
+< -- 2
++ -- 448
+- -- 352
+* -- 1744
+:= -- 4062
+add.period$ -- 218
+call.type$ -- 73
+change.case$ -- 389
 chr.to.int$ -- 0
-cite$ -- 70
-duplicate$ -- 758
-empty$ -- 1732
-format.name$ -- 334
-if$ -- 4554
+cite$ -- 75
+duplicate$ -- 811
+empty$ -- 1847
+format.name$ -- 352
+if$ -- 4861
 int.to.chr$ -- 0
-int.to.str$ -- 69
-missing$ -- 72
-newline$ -- 347
-num.names$ -- 138
-pop$ -- 291
+int.to.str$ -- 73
+missing$ -- 76
+newline$ -- 367
+num.names$ -- 146
+pop$ -- 308
 preamble$ -- 1
-purify$ -- 305
+purify$ -- 322
 quote$ -- 0
-skip$ -- 515
+skip$ -- 556
 stack$ -- 0
-substring$ -- 1740
-swap$ -- 78
-text.length$ -- 1
+substring$ -- 1864
+swap$ -- 90
+text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 264
-warning$ -- 1
-while$ -- 241
-width$ -- 71
-write$ -- 750
-(There were 2 warnings)
+type$ -- 280
+warning$ -- 2
+while$ -- 255
+width$ -- 75
+write$ -- 793
+(There were 3 warnings)

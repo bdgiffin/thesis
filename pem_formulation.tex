@@ -135,13 +135,14 @@ In the following sections, an abstract framework for the PEM is established, des
 	The exact solution $\varphi \in \mathcal{U} (\Omega) = \left\{ \varphi \in H^1(\Omega) : \varphi = \bar{\varphi} \, \forall \mathbf{X} \in \partial \Omega \right\}$ to Poisson's equation in (\ref{eq:pem_poisson}) (or Laplace's equation in (\ref{eq:pem_laplace}) when $f_\Omega \equiv 0$) also satisfies the equivalent weak form:
 	\begin{equation}
 		\int_\Omega (\nabla^2 \varphi + f_{\Omega}) \eta \, dV = 0 \quad \forall \eta \in \mathcal{U}_0 (\Omega),
+		\label{eq:initial_weak}
 	\end{equation}
 	or
 	\begin{equation}
 		\int_\Omega \nabla \varphi \cdot \nabla \eta \, dV = \int_\Omega f_{\Omega} \, \eta \, dV \quad \forall \eta \in \mathcal{U}_0 (\Omega),
 		\label{eq:weak_bvp}
 	\end{equation}
-	where $\mathcal{U}_0 (\Omega) = \left\{ \eta \in H^1(\Omega) : \eta = 0 \, \forall \mathbf{X} \in \partial \Omega \right\}$ denotes an appropriately defined space of admissible variations -- test functions.
+	where $\mathcal{U}_0 (\Omega) = \left\{ \eta \in H^1(\Omega) : \eta = 0 \, \forall \mathbf{X} \in \partial \Omega \right\}$ denotes an appropriately defined space of admissible variations.
 	
 	A vast array of different variational methods may be employed to obtain an approximate solution $\varphi^h \in \mathcal{U}^h (\Omega)$ satisfying
 	\begin{equation}
@@ -240,19 +241,19 @@ where
 
 	\subsection*{Weak Enforcement of Boundary Conditions via Nitsche's Method}
 	
-	As a viable alternative to the Lagrange multiplier method presented in the previous section, one may instead consider using Nitsche's method (refer to \cite{Juntunen&Stenberg:09}) as a means of weakly enforcing the boundary conditions for a given shape function, i.e.
+	As a viable alternative to the Lagrange multiplier method presented in the previous section, the boundary conditions may be enforced weakly via Nitsche's method:
 	\begin{eqnarray}
-		\int_{\Omega} \nabla \varphi^h \cdot \nabla \eta^h \, dV + \int_{\partial \Omega} \left[ \epsilon \, \frac{\partial \varphi^h}{\partial N} \eta^h - \varphi^h \frac{\partial \eta^h}{\partial N} \right] \, dA + \frac{\alpha}{|\partial \Omega|^{\beta}} \int_{\partial \Omega} \varphi^h \eta^h \, dA \nonumber \\ = \int_\Omega f_\Omega \, \eta^h \, dV + \epsilon \int_{\partial \Omega} \bar{\varphi} \frac{\partial \eta^h}{\partial N} \, dA + \frac{\alpha}{|\partial \Omega|^{\beta}} \int_{\partial \Omega} \bar{\varphi} \eta^h \, dA \quad \forall \eta^h \in \mathcal{U}^h (\Omega),
+		\int_{\Omega} \nabla \varphi^h \cdot \nabla \eta^h \, dV + \int_{\partial \Omega} \left[ \epsilon \, \frac{\partial \eta^h}{\partial N} \varphi^h - \eta^h \, \frac{\partial \varphi^h}{\partial N} \right] \, dA + \frac{\alpha}{|\partial \Omega|^{\beta}} \int_{\partial \Omega} \varphi^h \eta^h \, dA \nonumber \\ = \int_\Omega f_\Omega \, \eta^h \, dV + \epsilon \int_{\partial \Omega} \frac{\partial \eta^h}{\partial N} \, \bar{\varphi} \, dA + \frac{\alpha}{|\partial \Omega|^{\beta}} \int_{\partial \Omega} \bar{\varphi} \, \eta^h \, dA \quad \forall \eta^h \in \mathcal{U}^h (\Omega),
 		\label{eq:vetfem}
 	\end{eqnarray}
-	where $\alpha > 0$ is a stabilization parameter, $| \partial \Omega |$ denotes the surface area of $\partial \Omega$, and $\beta = (d-1)^{-1}$ for $\Omega \subset \mathbb{R}^d$, $d \geq 2$. The parameter $\epsilon$ is canonically set equal to either $-1$ (yielding symmetry of the corresponding bilinear form on $\varphi^h$ and $\eta^h$) or $+1$ (yielding coercivity).
+	where $\alpha > 0$ is a stabilization parameter, $| \partial \Omega |$ denotes the surface area of $\partial \Omega$, and $\beta = (d-1)^{-1}$ for $\Omega \subset \mathbb{R}^d$, $d \geq 2$. The symmetric form of Nitsche's method \cite{Juntunen&Stenberg:09} corresponds to the case where $\epsilon = -1$, whereas the nonsymmetric form (\cite{Freund:95}, \cite{Burman:12}) corresponds to $\epsilon = +1$.
 	
 	Provided the stabilization parameter $\alpha$ is specified appropriately, the Galerkin approximation $\varphi^h$ can be obtained as the solution to a positive-definite system of equations: $\mathbf{A} \boldsymbol{\varphi} = \mathbf{f}$, where
 	\begin{equation}
-		A_{ab} = \int_{\Omega} \nabla \psi_a \cdot \nabla \psi_b \, dV + \int_{\partial \Omega} \left[ \epsilon \, \frac{\partial \psi_a}{\partial N} \psi_b - \psi_a \frac{\partial \psi_b}{\partial N} \right] \, dA + \frac{\alpha}{|\partial \Omega|^{\beta}} \int_{\partial \Omega} \psi_a \, \psi_b \, dA,
+		A_{ab} = \int_{\Omega} \nabla \psi_a \cdot \nabla \psi_b \, dV + \int_{\partial \Omega} \left[ \epsilon \, \frac{\partial \psi_b}{\partial N} \psi_a - \psi_b \frac{\partial \psi_a}{\partial N} \right] \, dA + \frac{\alpha}{|\partial \Omega|^{\beta}} \int_{\partial \Omega} \psi_a \, \psi_b \, dA,
 	\end{equation}
 	\begin{equation}
-		f_{b} = \int_{\Omega} f_\Omega \, \psi_b \, dV + \epsilon \int_{\partial \Omega} \bar{\varphi} \frac{\partial \psi_b}{\partial N} \, dA + \frac{\alpha}{|\partial \Omega|^{\beta}} \int_{\partial \Omega} \bar{\varphi} \, \psi_b \, dA.
+		f_{b} = \int_{\Omega} f_\Omega \, \psi_b \, dV + \epsilon \int_{\partial \Omega} \frac{\partial \psi_b}{\partial N} \, \bar{\varphi} \, dA + \frac{\alpha}{|\partial \Omega|^{\beta}} \int_{\partial \Omega} \bar{\varphi} \, \psi_b \, dA.
 	\end{equation}
 	
 	As discussed in the previous section, a rather natural choice for the space of approximating functions is $\mathcal{U}^h (\Omega) = P^{m} (\Omega)$ with $m \geq k$. The resulting method yields reasonably well-conditioned stiffness matrices for convex shapes, even when the elements possess degenerate edges. However, experimental evidence suggests that for non-convex shapes, the resulting shape function approximations may succumb to Runge's phenomenon, yielding highly oscillatory approximations. A more thorough investigation of this behavior is presented in chapter \ref{ch:results}.
@@ -294,7 +295,7 @@ A few preliminary definitions regarding the element's partition are given, follo
 		\item \textbf{Random Voronoi}: For arbitrary shapes -- the element is sub-divided into Voronoi cells, whose corresponding voronoi sites are generated via a constrained maximal Poisson-disk sampling process, as described in \cite{Ebeida:11}.
 	\end{itemize}
 	
-	We denote the volume of a given cell as $|\omega|$, the area of a facet as $|\sigma|$, and the length of a segment as $|\gamma|$. Each facet likewise possesses an associated normal direction $\mathbf{N}_\sigma$, whose orientation is outward from $\Omega$ for all $\sigma \in \partial \Omega$. The orientation of $\mathbf{N}_\sigma$ is otherwise arbitrary for all $\sigma \in \Gamma_\omega$ (for a given facet $\sigma$ shared by two cells $\omega_1$ and $\omega_2$, $\mathbf{N}_\sigma$ may be defined as being outward with respect to either $\omega_1$ or $\omega_2$.)
+	We denote the volume of a given cell as $|\omega|$, the area of a facet as $|\sigma|$, and the length of a segment as $|\gamma|$. Each facet likewise possesses an associated normal direction $\mathbf{N}_\sigma$, whose orientation is outward from $\Omega$ for all $\sigma \in \partial \Omega$. For all $\sigma \in \Gamma_\omega$ shared by two cells ($\omega_1$ and $\omega_2$), the orientation of $\mathbf{N}_\sigma$ is outward with respect to $\omega_1$.
 	
 \subsection*{Continuous Galerkin Approximations to \\ (Generalized) Harmonic Shape Functions}
 
@@ -323,7 +324,7 @@ A few preliminary definitions regarding the element's partition are given, follo
 %		a_\Omega (  \varphi^h_a, \varphi^h_a ) \leq a_\Omega (  \varphi_a, \varphi_a ).
 %	\end{equation}
 	
-	Bishop has already explored such an approach in \cite{Bishop:14} for constructing approximations to harmonic shape functions using a partition of a given polyhedral element into sub-dividing tetrahedra. The approximation space $\mathcal{U}^h (\Omega)$ is spanned by the $C^0 (\Omega)$ finite element basis functions defined on the tetrahedral partition of $\Omega$. The corresponding shape function approximations $\varphi^h \in \mathcal{U}^h (\Omega)$ are obtained as the solutions to a set of local finite element problems defined on $\Omega$ (and its faces, edges -- refer to Figure \ref{fig:harmonic_fem_sfs}). Henceforth, this approach will be referred to contextually as the \textit{continuous Galerkin partitioned element method} (CG-PEM).
+	Bishop has already explored such an approach in \cite{Bishop:14} for constructing approximations to harmonic shape functions using a partition of a given polyhedral element into sub-dividing tetrahedra. The approximation space $\mathcal{U}^h (\Omega)$ is spanned by $C^0 (\Omega)$ finite element basis functions defined on the tetrahedral partition of $\Omega$. The corresponding shape function approximations $\varphi^h \in \mathcal{U}^h (\Omega)$ are obtained as the solutions to a set of local finite element problems defined on $\Omega$ (and its faces, edges -- refer to Figure \ref{fig:harmonic_fem_sfs}). This approach will be distinguished as the \textit{continuous Galerkin partitioned element method} (CG-PEM).
 	
 \begin{figure} [!ht]
 	\centering
@@ -332,44 +333,70 @@ A few preliminary definitions regarding the element's partition are given, follo
 	\label{fig:harmonic_fem_sfs}
 \end{figure}
 	
-	It was demonstrated that the resulting approximations $\varphi^h$ preserve low-order polynomial completeness -- a consequence of $\mathcal{U}^h (\Omega) \supset P^1 (\Omega)$. If the elements are discretized into a sufficient number of tetrahedra, the method is observed to be both stable and consistent (provided a supplementary gradient correction scheme is employed to account for the effects of integration error).
+	It was demonstrated in \cite{Bishop:14} that the resulting approximations $\varphi^h$ preserve low-order polynomial completeness -- a consequence of $\mathcal{U}^h (\Omega) \supset P^1 (\Omega)$. If the elements are discretized into a sufficient number of tetrahedra, the method is observed to be stable. If sufficiently accurate quadrature rules are specified on $\Omega$ and $\partial \Omega$, the CG-PEM also yields a consistent integration of the weak form.
 	
-	For coarse tetrahedral sub-divisions, the local FE problems that must be solved on each element are relatively small, in some cases entailing only a single degree of freedom (associated with an interior vertex) that must be solved for. Otherwise, the approach can become computationally expensive if the elements are subdivided into an excessively large number of tetrahedra (in the event that more accurate/refined approximations to the shape functions are desired). However, initial numerical investigations by Bishop have suggested that relatively coarse tetrahedral sub-divisions of the elements provide sufficiently accurate results; further subdivision (tetrahedral $h-$refinement) does little to improve the overall accuracy of the method.
+	For coarse tetrahedral sub-divisions, the local FE problems that must be solved on each element are relatively small, in some cases entailing only a single degree of freedom. However, the approach can become computationally expensive if the elements are subdivided into an excessively large number of tetrahedra (in the event that more accurate/refined approximations to the shape functions are desired). Initial numerical investigations conducted by Bishop have suggested that relatively coarse tetrahedral sub-divisions of the elements provide sufficiently accurate results; further subdivision (tetrahedral $h-$refinement) does little to improve the overall accuracy of the method.
 	
-	A natural extension of the method to higher-order serendipity elements would be to consider $p-$refinement of an element's tetrahedral subdivision to recover higher-order polynomial completeness, i.e. to guarantee $\mathcal{U}^h (\Omega) \supset P^k (\Omega)$ for some desired polynomial order $k$. However, the construction of shape functions on a given element would likely bear a much higher computational cost with increasing polynomial degree, owing to the increased size of the local FE problems on $\Omega$. Moreover, the specification of stable and accurate numerical quadratures would present an additional challenge.
+	A natural extension of the method to higher-order serendipity elements would be to consider $p-$refinement of an element's tetrahedral subdivision to recover higher-order polynomial completeness, i.e. to guarantee $\mathcal{U}^h (\Omega) \supset P^k (\Omega)$ for some desired polynomial order $k$. The construction of shape functions on a given element would likely bear a much higher computational cost with increasing polynomial degree, owing to the increased size of the local FE problems on $\Omega$. Moreover, the specification of efficient yet stable and accurate numerical quadratures would present an additional challenge.
 	
-	A separate generalization would be to consider subdividing the elements into arbitrary polyhedra, and solving (\ref{eq:weak_poisson}) by means of the virtual element method. This would allow for a more natural collocation of quadrature cells with the specified subdivision, resembling the partitioned element method proposed in \cite{Rashid:12}.
+	A separate generalization would be to consider subdividing the elements into arbitrary polyhedra, solving (\ref{eq:weak_poisson}) by means of the virtual element method. This would allow for a more natural collocation of quadrature cells with the specified subdivision, resembling the partitioned element method proposed in \cite{Rashid:12}.
 	
 	As will be discussed in chapter \ref{ch:results}, a particular complication arises for harmonic shape functions and their corresponding $C^0 (\Omega)$ approximations on irregularly shaped elements: the solution to Laplace's equation may possess extremely sharp gradients if the geometry of the element contains reflex corners or nearly degenerate features (i.e. short edges). A consequence of this is poor conditioning of the element's local stiffness matrix, leading to excessively stiff modes of deformation (locking), and issues of numerical conditioning in the linear solution process.
 	
-	As discussed previously, it becomes of interest to consider non-conforming approximations $\varphi^h \in \mathcal{U}^h (\Omega) \not\subset \mathcal{U} (\Omega)$ which have the potential to overcome these issues. A particular solution is henceforth explored in the form of discontinuous Galerkin finite element approximations to harmonic shape functions.
+\subsubsection*{Integration Consistency of the CG-PEM}
+
+	Consider the case when (\ref{eq:initial_weak}) is integrated against an arbitrary polynomial test function $\eta \in P^k (\Omega)$. Integrating by parts yields:
+	\begin{equation}
+		\int_\Omega \nabla \varphi \cdot \nabla \eta \, dV = \int_\Omega f_{\Omega} \, \eta \, dV + \int_{\Omega} \nabla \cdot (\eta \, \nabla \varphi) \, dV \quad \forall \eta \in P^k (\Omega).
+	\end{equation}
+	Note that
+	\begin{equation}
+		\int_\Omega \nabla \varphi \cdot \nabla \eta \, dV = \int_\Omega \left[ \nabla \cdot (\varphi \, \nabla \eta) - \varphi \, \nabla^2 \eta \right] \, dV \quad \forall \eta \in P^k (\Omega),
+	\end{equation}
+	and
+	\begin{equation}
+		\int_{\partial \Omega} (\mathbf{N} \cdot \nabla \eta) \, \bar{\varphi} \, dA = \int_\Omega \left[ \nabla^2 \eta \, \varphi + f_{\Omega} \, \eta \right] \, dV + \int_{\Omega} \nabla \cdot (\eta \, \nabla \varphi) \, dV \quad \forall \eta \in P^k (\Omega).
+	\end{equation}
+	For the case where $\eta \in P^1 (\Omega)$, we have $\nabla^2 \eta = 0 \, \, \forall \eta \in P^1 (\Omega)$. Additionally, noting that $\nabla \cdot (\eta \nabla \varphi) = \nabla \eta \cdot \nabla \varphi + \eta \, \nabla^2 \varphi$, we observe:
+	\begin{equation}
+		\int_{\Omega} \nabla \eta \cdot \nabla \varphi \, dV - \int_{\partial \Omega} (\mathbf{N} \cdot \nabla \eta) \, \bar{\varphi} \, dA = \int_\Omega (\nabla^2 \varphi + f_{\Omega}) \, \eta \, dV = 0 \quad \forall \eta \in P^1 (\Omega).
+	\end{equation}
+	
+	Further, consider a low-order finite element approximation space $\mathcal{U}^h (\Omega) \supset P^1 (\Omega)$ defined on a corresponding partition $\mathcal{T}_\omega (\Omega)$ of $\Omega$. If $\varphi^h \in \mathcal{U}^h (\Omega) \subset \mathcal{U} (\Omega)$ consists of piecewise linear polynomials in each cell $\omega \in \mathcal{T}_\omega (\Omega)$, then $\nabla^2 \varphi^h|_{\omega} = 0$. Provided $f_{\Omega} \equiv 0$, the above expression implies that the approximate solution $\varphi^h \in \mathcal{U}^h (\Omega) \subset \mathcal{U} (\Omega)$ to (\ref{eq:weak_poisson}) will satisfy the first-order integration consistency conditions:
+	\begin{equation}
+		\int_{\Omega} \nabla \varphi^h \, dV = \int_{\partial \Omega} \mathbf{N} \, \bar{\varphi} \, dA.
+		\label{eq:cg_pem_integration_consistency}
+	\end{equation}
+	If (\ref{eq:cg_pem_integration_consistency}) is integrated exactly by the element's quadrature rules, the resulting CG-PEM elements will pass linear finite element patch tests. If the element's partition consists of linear triangles and tetrahedra, a composite mid-point quadrature scheme proves to be sufficient to this end.
 
 \subsection*{Discontinuous Galerkin Approximations to \\ (Generalized) Harmonic Shape Functions}
 
-	Consider the broken Sobolev space $\mathcal{D}^h_k (\Omega) = \left\{ \varphi \in L^2 (\Omega) : \varphi|_{\omega} \in P^k (\omega) \, \forall \omega \in \mathcal{T}_\omega (\Omega) \right\}$ consisting of (discontinuous) piecewise polynomials defined over the partition of the element. The interior penalty discontinuous Galerkin method described in \cite{Riviere:08} is applied to (\ref{eq:weak_bvp}) to obtain approximations $\varphi^h \in \mathcal{D}^h_k (\Omega) \not\subset \mathcal{U} (\Omega)$ to generalized harmonic shape functions $\varphi \in \mathcal{U} (\Omega)$, satisfying
+	Consider the broken Sobolev space $\mathcal{D}^h_k (\Omega) = \left\{ \varphi \in L^2 (\Omega) : \varphi|_{\omega} \in P^k (\omega) \, \forall \omega \in \mathcal{T}_\omega (\Omega) \right\}$ consisting of (discontinuous) piecewise polynomials defined over the partition of the element. Herein, the interior penalty discontinuous Galerkin method described in \cite{Riviere:08} is applied to (\ref{eq:weak_bvp}) to obtain approximations $\varphi^h \in \mathcal{D}^h_k (\Omega) \not\subset \mathcal{U} (\Omega)$ to generalized harmonic shape functions $\varphi \in \mathcal{U} (\Omega)$. The reader is cautioned against several apparent errors in the presentation of interior penalty DG methods found in \cite{Riviere:08}. The following weak form is consistent with the (correct) presentation found in \cite{Riviere:01}:
 	\begin{eqnarray}
-		\sum_{\omega \in \mathcal{T}_\omega (\Omega)} \int_{\omega} \nabla \varphi^h \cdot \nabla \eta^h \, dV + \sum_{\sigma \in \Gamma_\omega \cup \partial \Omega} \int_{\sigma} \bigg( \epsilon \left\{ \frac{\partial \varphi^h}{\partial N_{\sigma}} \right\} [\![ \eta^h ]\!] - [\![ \varphi^h ]\!] \left\{ \frac{\partial \eta^h}{\partial N_{\sigma}} \right\}  \bigg) \, dA \nonumber \\ + J_0 (\varphi^h,\eta^h) + J_1 (\varphi^h,\eta^h) = \int_{\Omega} f_{\Omega} \, \eta^h \, dV + \sum_{\sigma \in \partial \Omega} \int_{\sigma} \left(\frac{\alpha_{\sigma0}}{|\sigma|^{\beta_0}} \eta^h + \epsilon \frac{\partial \eta^h}{\partial N_{\sigma}} \right) \bar{\varphi} \, dA
+		\sum_{\omega \in \mathcal{T}_\omega (\Omega)} \int_{\omega} \nabla \varphi^h \cdot \nabla \eta^h \, dV + \sum_{\sigma \in \Gamma_\omega \cup \partial \Omega} \int_{\sigma} \bigg( \epsilon \left\{ \frac{\partial \eta^h}{\partial N_{\sigma}} \right\} [\![ \varphi^h ]\!] - [\![ \eta^h ]\!] \left\{ \frac{\partial \varphi^h}{\partial N_{\sigma}} \right\}  \bigg) \, dA \nonumber \\ + J_0 (\varphi^h,\eta^h) + J_1 (\varphi^h,\eta^h) = \int_{\Omega} f_{\Omega} \, \eta^h \, dV + \sum_{\sigma \in \partial \Omega} \int_{\sigma} \left(\frac{\alpha_{\sigma0}}{|\sigma|^{\beta_0}} \eta^h + \epsilon \frac{\partial \eta^h}{\partial N_{\sigma}} \right) \bar{\varphi} \, dA
 		\label{eq:dg_poisson}
 	\end{eqnarray}
 	for all $\eta^h \in \mathcal{D}^h_k (\Omega)$, where
 	\begin{equation}
 		\{ \varphi \} = \frac{1}{2} (\varphi|_{\omega_1} + \varphi|_{\omega_2}), \quad [\![ \varphi ]\!] = (\varphi|_{\omega_1} - \varphi|_{\omega_2}) \quad \forall \sigma = \partial \omega_1 \cap \partial \omega_2,
+		\label{eq:internal_jumps}
 	\end{equation}
 	\begin{equation}
 		\{ \varphi \} = [\![ \varphi ]\!] = \varphi|_{\omega} \quad \forall \sigma = \partial \omega \cap \partial \Omega,
+		\label{eq:external_jumps}
 	\end{equation}
-	and where
+	The supplementary bilinear forms $J_0 (\varphi^h,\eta^h)$ and $J_1 (\varphi^h,\eta^h)$ are defined as:
 	\begin{equation}
 		J_0 (\varphi^h,\eta^h) = \sum_{\sigma \in \Gamma_\omega \cup \partial \Omega} \frac{\alpha_{\sigma0}}{|\sigma|^{\beta_0}} \int_{\sigma} [\![ \varphi^h ]\!] \, [\![ \eta^h ]\!] \, dA,
 	\end{equation}
 	\begin{equation}
 		J_1 (\varphi^h,\eta^h) = \sum_{\sigma \in \Gamma_\omega} \frac{\alpha_{\sigma1}}{|\sigma|^{\beta_1}} \int_{\sigma} \left[\!\!\left[ \frac{\partial \varphi^h}{\partial N_{\sigma}} \right]\!\!\right] \, \left[\!\!\left[ \frac{\partial \eta^h}{\partial N_{\sigma}} \right]\!\!\right] \, dA.
 	\end{equation}
-	$J_0 (\varphi^h,\eta^h)$ and $J_1 (\varphi^h,\eta^h)$ are supplementary bilinear forms which penalize jumps in the indicated functions' values and their normal derivatives at cell boundaries. The parameters $\alpha_{\sigma0}$, $\beta_0$, must be appropriately specified such that $\alpha_{\sigma0} > 0$ is sufficiently large, and $\beta_0 (d-1) \geq 1$ where $\Omega \subset \mathbb{R}^d$, $d \geq 2$; the specification of $\alpha_{\sigma1}$, $\beta_1$ is less strict, allowing for $\alpha_{\sigma1} \geq 0 \, \, \forall \sigma$. The parameter $\epsilon \in \left\{ -1, \, 0, \, +1 \right\}$ determines which interior penalty method is employed:
+	These two terms penalize jumps in the indicated functions' values and their normal derivatives at cell boundaries, respectively. The parameters $\alpha_{\sigma0}$, $\beta_0$, must be appropriately specified such that $\alpha_{\sigma0} > 0$ is sufficiently large, and $\beta_0 (d-1) \geq 1$ where $\Omega \subset \mathbb{R}^d$, $d \geq 2$; the specification of $\alpha_{\sigma1}$, $\beta_1$ is less strict, allowing for $\alpha_{\sigma1} \geq 0 \, \, \forall \sigma$. The parameter $\epsilon \in \left\{ -1, \, 0, \, +1 \right\}$ determines which interior penalty method is employed:
 	\begin{itemize}
 		\item[] $\epsilon = -1$: The symmetric interior penalty Galerkin (SIPG) method.
 		\item[] $\epsilon = 0$: The incomplete interior penalty Galerkin (IIPG) method.
-		\item[] $\epsilon = +1$: The nonsymmetric interior penalty Galerkin (NIPG) method.
+		\item[] $\epsilon = +1$: The nonsymmetric interior penalty Galerkin (NIPG) method. The NIPG method also encompasses the special case where $\alpha_{\sigma0} = \alpha_{\sigma1} = 0$, corresponding to the OBB method \cite{Oden:98}.
 	\end{itemize}
 	Henceforth, the above methods will collectively be referred to as \textit{discontinuous Galerkin partitioned element methods} (DG-PEM).
 	
@@ -380,7 +407,7 @@ A few preliminary definitions regarding the element's partition are given, follo
     It is presumed that $\alpha_{\sigma0}$, $\alpha_{\sigma1}$ are defined independently of $h_\Omega$. Consequently,
     \begin{align}
 		h_\Omega^{d-2} & \left[ \sum_{\omega' \in \mathcal{T}_{\omega'} (\Omega')} \int_{\omega'} \nabla' \varphi^h \cdot \nabla' \eta^h \, dV' - \int_{\Omega'} f_{\Omega'} \, \eta^h \, dV' - \sum_{\sigma' \in \partial \Omega'} \int_{\sigma'} \epsilon \frac{\partial \eta^h}{\partial N_{\sigma'}} \, \bar{\varphi} \, dA' \right. \nonumber \\ 
-		& \left. + \sum_{\sigma' \in \Gamma_{\omega'} \cup \partial \Omega'} \int_{\sigma'} \bigg( \epsilon \left\{ \frac{\partial \varphi^h}{\partial N_{\sigma'}} \right\} [\![ \eta^h ]\!] - [\![ \varphi^h ]\!] \left\{ \frac{\partial \eta^h}{\partial N_{\sigma'}} \right\}  \bigg) \, dA' \right] \nonumber \\ 
+		& \left. + \sum_{\sigma' \in \Gamma_{\omega'} \cup \partial \Omega'} \int_{\sigma'} \bigg( \epsilon \left\{ \frac{\partial \eta^h}{\partial N_{\sigma'}} \right\} [\![ \varphi^h ]\!] - [\![ \eta^h ]\!] \left\{ \frac{\partial \varphi^h}{\partial N_{\sigma'}} \right\} \bigg) \, dA' \right] \nonumber \\ 
 		+ \, h_\Omega^{(d-1)(1-\beta_0)} & \left[ \sum_{\sigma' \in \Gamma_{\omega'} \cup \partial \Omega'} \frac{\alpha_{\sigma0}}{|\sigma'|^{\beta_0}} \int_{\sigma'} [\![ \varphi^h ]\!] \, [\![ \eta^h ]\!] \, dA' - \sum_{\sigma' \in \partial \Omega'} \frac{\alpha_{\sigma0}}{|\sigma'|^{\beta_0}} \int_{\sigma'} \eta^h \, \bar{\varphi} \, dA' \right] \nonumber \\ 
 		+ \, h_\Omega^{(d-1)(1-\beta_1)-2} & \left[ \sum_{\sigma' \in \Gamma_{\omega'}} \frac{\alpha_{\sigma1}}{|\sigma'|^{\beta_1}} \int_{\sigma'} \left[\!\!\left[ \frac{\partial \varphi^h}{\partial N_{\sigma'}} \right]\!\!\right] \, \left[\!\!\left[ \frac{\partial \eta^h}{\partial N_{\sigma'}} \right]\!\!\right] \, dA' \right] = 0 \quad \forall \eta^h \in \mathcal{D}^h_k (\Omega). 
 		\label{eq:dg_nondim}
@@ -395,19 +422,70 @@ A few preliminary definitions regarding the element's partition are given, follo
 		J_0 (\varphi^h,\eta^h) + J_1 (\varphi^h,\eta^h) = \sum_{\sigma \in \partial \Omega} \frac{\alpha_{\sigma0}}{|\sigma|^{\beta_0}} \int_{\sigma} \eta^h \,  \bar{\varphi} \, dA \quad \forall \eta^h \in \mathcal{D}^h_k (\Omega).
 		\label{eq:pure_penalty}
 	\end{eqnarray}
-	The above is henceforth referred to as the \textit{pure penalty} DG-PEM. Under certain conditions (for particular choices of $\mathcal{T}_\omega (\Omega)$ and $\mathcal{D}^h_k (\Omega)$), the pure penalty variant of the DG-PEM may in fact yield unique solutions $\varphi^h$ which altogether satisfy conditions of consistency and stability detailed in section \ref{sec:approximations}. However, the bilinear form arising from the penalty terms $J_0$ and $J_1$ alone is not guaranteed to be elliptic, in general. Additional (higher order flux) penalty terms may be necessary, i.e.
+	The above is henceforth referred to as the \textit{pure penalty} DG-PEM. Under certain conditions (for particular choices of $\mathcal{T}_\omega (\Omega)$ and $\mathcal{D}^h_k (\Omega)$), the pure penalty variant of the DG-PEM may in fact yield unique solutions $\varphi^h$ which altogether satisfy conditions of consistency and stability detailed in section \ref{sec:approximations}. However, the bilinear form arising from the penalty terms $J_0$ and $J_1$ alone is not guaranteed to be elliptic, in general. Additional penalty terms may be necessary, i.e.
 	\begin{equation}
 		J_s (\varphi^h,\eta^h) = \sum_{\sigma \in \Gamma_\omega} \frac{\alpha_{\sigma s}}{|\sigma|^{\beta_s}} \int_{\sigma} \left[\!\!\left[ \frac{\partial^s \varphi^h}{\partial N^s_{\sigma}} \right]\!\!\right] \, \left[\!\!\left[ \frac{\partial^s \eta^h}{\partial N^s_{\sigma}} \right]\!\!\right] \, dA
 		\label{eq:flux_penalty}
 	\end{equation}
-	for $s \leq k$, $\alpha_{sigma s} > 0$, and $\beta_s = (1-2s)/(d-1)$. These may be used to supplement the stability of the pure penalty approach, particularly when $k > 1$.
+	for $s \leq k$, $\alpha_{\sigma s} > 0$, and $\beta_s = (1-2s)/(d-1)$. These may be used to supplement the stability of the pure penalty approach, particularly when $k > 1$.
 	
-	The majority of our subsequent analyses will explore the family of 3-parameter methods arising from
+\subsubsection*{Integration Consistency of the DG-PEM}
+
+	Consider the variational form of the DG-PEM in (\ref{eq:dg_poisson}), specifically for the case when $\eta \in P^k (\Omega) \subset \mathcal{D}^h_k (\Omega)$:
+	\begin{eqnarray}
+		\sum_{\omega \in \mathcal{T}_\omega (\Omega)} \int_{\omega} \nabla \varphi^h \cdot \nabla \eta \, dV 
+		+ \sum_{\sigma \in \Gamma_\omega \cup \partial \Omega} \int_{\sigma} \epsilon \frac{\partial \eta}{\partial N_{\sigma}} [\![ \varphi^h ]\!] \, dA
+		+ \sum_{\sigma \in \partial \Omega} \frac{\alpha_{\sigma0}}{|\sigma|^{\beta_0}} \int_{\sigma} \eta \, (\varphi^h - \bar{\varphi}) \, dA \nonumber \\ 
+		= \int_{\Omega} f_{\Omega} \, \eta \, dV + \sum_{\sigma \in \partial \Omega} \int_{\sigma} \left( \epsilon \frac{\partial \eta}{\partial N_{\sigma}} \bar{\varphi} + \eta \frac{\partial \varphi^h}{\partial N_{\sigma}} \right) \, dA \quad \forall \eta \in P^k (\Omega).
+		\label{eq:weak_compatibility}
+	\end{eqnarray}
+Note that
+\begin{equation}
+	\int_{\partial \omega} \frac{\partial \eta}{\partial N_{\sigma}} \varphi^h \, dA = \int_{\omega} \left[ \varphi^h \, \nabla^2 \eta  + \nabla \varphi^h \cdot \nabla \eta \right] \, dV,
+\end{equation}
+and
+\begin{equation}
+	\int_{\partial \omega} \eta \frac{\partial \varphi^h}{\partial N_{\sigma}} \, dA = \int_{\omega} \left[ \eta \, \nabla^2 \varphi^h + \nabla \varphi^h \cdot \nabla \eta \right] \, dA
+\end{equation}
+for all $\omega \in \mathcal{T}_\omega (\Omega)$. For the case where $\eta \in P^1 (\Omega)$, we have $\nabla^2 \eta = 0 \, \, \forall \eta \in P^1 (\Omega)$. Consequently,
 	\begin{equation}
-		\alpha_{\sigma 0} = \alpha_{0}|_{\partial \Omega} \, \, \forall \sigma \in \partial \Omega, \quad \alpha_{\sigma 0} = \alpha_{0}|_{\Gamma_{\omega}} \, \, \forall \sigma \in \Gamma_{\omega}, \quad \alpha_{\sigma 1} = \alpha_{1}|_{\Gamma_{\omega}} \, \, \forall \sigma \in \Gamma_{\omega},
+	\sum_{\sigma \in \Gamma_\omega \cup \partial \Omega} \int_{\sigma} \frac{\partial \eta}{\partial N_{\sigma}} \, [\![ \varphi^h ]\!] \, dA = \sum_{\omega \in \mathcal{T}_\omega (\Omega)} \int_{\omega} \nabla \varphi^h \cdot \nabla \eta \, dV,
+	\end{equation}
+	\begin{equation}
+	 \sum_{\sigma \in \partial \Omega} \int_{\sigma} \eta \frac{\partial \varphi^h}{\partial N_{\sigma}} \, dA = \sum_{\omega \in \mathcal{T}_\omega (\Omega)} \int_{\omega} \left[ \nabla \varphi^h \cdot \nabla \eta + \eta \nabla^2 \varphi^h \right] \, dV,
+	\end{equation}
+and (\ref{eq:weak_compatibility}) reduces to
+	\begin{eqnarray}
+		\left( \sum_{\omega \in \mathcal{T}_\omega (\Omega)} \int_{\omega} \nabla \varphi^h \cdot \nabla \eta \, dV
+		- \sum_{\sigma \in \partial \Omega} \int_{\sigma} \frac{\partial \eta}{\partial N_{\sigma}} \bar{\varphi} \, dA \right) \epsilon \nonumber \\ 
+		= \sum_{\sigma \in \partial \Omega} \frac{\alpha_{\sigma0}}{|\sigma|^{\beta_0}} \int_{\sigma} \eta \, (\bar{\varphi} - \varphi^h) \, dA + \sum_{\omega \in \mathcal{T}_\omega (\Omega)} \int_{\omega} (\nabla^2 \varphi^h + f_{\Omega}) \, \eta \, dV \quad \forall \eta \in P^1 (\Omega).
+	\end{eqnarray}
+	
+	If $\varphi^h \in \mathcal{D}^h_1 (\Omega)$, then $\nabla^2 \varphi^h|_{\omega} = 0 \, \, \forall \omega \in \mathcal{T}_\omega (\Omega)$. Provided $f_{\Omega} \equiv 0$, the above expression implies that the approximate solution $\varphi^h \in \mathcal{U}^h (\Omega) \subset \mathcal{U} (\Omega)$ to (\ref{eq:dg_poisson}) will obey:
+	\begin{eqnarray}
+		\left( \sum_{\omega \in \mathcal{T}_\omega (\Omega)} \int_{\omega} \nabla \varphi^h \cdot \nabla \eta \, dV
+		- \sum_{\sigma \in \partial \Omega} \int_{\sigma} \frac{\partial \eta}{\partial N_{\sigma}} \bar{\varphi} \, dA \right) \epsilon \nonumber \\ 
+		= \sum_{\sigma \in \partial \Omega} \frac{\alpha_{\sigma0}}{|\sigma|^{\beta_0}} \int_{\sigma} \eta \, (\bar{\varphi} - \varphi^h) \, dA \quad \forall \eta \in P^1 (\Omega).
+		\label{eq:weak_compatibility_enforcement}
+	\end{eqnarray}
+For any $\epsilon \neq 0$, (\ref{eq:weak_compatibility_enforcement}) implies that $\varphi^h$ will satisfy the first-order integration consistency conditions:
+\begin{equation}
+		\sum_{\omega \in \mathcal{T}_\omega (\Omega)} \int_{\omega} \nabla \varphi^h \, dV = \sum_{\sigma \in \partial \Omega} \int_{\sigma} \mathbf{N}_{\sigma} \, \bar{\varphi} \, dA,
+\end{equation}
+provided
+\begin{equation}
+		\sum_{\sigma \in \partial \Omega} \frac{\alpha_{\sigma0}}{|\sigma|^{\beta_0}} \int_{\sigma} \eta \, (\bar{\varphi} - \varphi^h) \, dA = 0 \quad \forall \eta \in P^1 (\Omega).
+		\label{eq:boundary_condition_enforcement}
+\end{equation}
+This occurs primarily under two circumstances: either as $\alpha_{\sigma0} \rightarrow \infty$ (thereby enforcing the boundary condition $\bar{\varphi} = \varphi^h$), or in the limit as $\alpha_{\sigma0} \rightarrow 0$. For $\varphi^h \in \mathcal{D}^h_1 (\Omega)$, the case of $\alpha_{\sigma0} = 0$ is precluded by the stability condition $\alpha_{\sigma0} > 0$.
+
+Satisfaction of (\ref{eq:boundary_condition_enforcement}) yields a negation of the consistency errors incurred by the discontinuities in $\varphi^h \in \mathcal{D}^h_1 (\Omega)$. Consequently, the errors for first order patch tests are effectively canceled out. The same cannot be said of higher order patch tests, however.
+
+It is emphasized that only the boundary penalty terms $\alpha_{\sigma0} \, \forall \sigma \in \partial \Omega$ influence the behavior of (\ref{eq:boundary_condition_enforcement}). This observation has motivated an exploration of the 3-parameter family of methods arising from:
+	\begin{equation}
+		\alpha_{\sigma 0} = \alpha_{0}|_{\partial \Omega} \, \, \forall \sigma \in \partial \Omega, \quad \alpha_{\sigma 0} = \alpha_{0}|_{\Gamma_{\omega}} \, \, \forall \sigma \in \Gamma_{\omega}, \quad \alpha_{\sigma 1} = \alpha_{1}|_{\Gamma_{\omega}} \, \, \forall \sigma \in \Gamma_{\omega}.
 		\label{eq:penalty_parameters}
 	\end{equation}
-	notably entailing a separate penalization of the boundary condition via $\alpha_{0}|_{\partial \Omega}$. Decreasing the value of $\alpha_{0}|_{\partial \Omega}$ is tantamount to relaxing the degree to which the boundary condition is enforced. The effects of this will be examined and discussed in chapter \ref{ch:results}.
 	
 %	Ultimately, one must show either that $\mathcal{S}^h$ and $\mathcal{V}^h$ and sub-spaces of $\mathcal{S}$ and $\mathcal{V}$, or else that any exterior approximation methods converge to the exact solution under cell refinement. Moreover, we must show that any approximation to the exact solution will yield elements that exhibit convergence under mesh (element) refinement -- an interesting embedded convergence problem.
 		
@@ -684,7 +762,7 @@ Methods for partitioning the elements into sub-domains which yield stable and ef
 		\mathbf{M}_k \equiv \left[ {\boldsymbol{\Pi}^{\Omega}_k}^T \left( \int_{\Omega} \mathbf{z} \otimes \mathbf{z} \, dV \right) \boldsymbol{\Pi}^{\Omega}_k \right] + \left[ {\boldsymbol{\pi}^{\Omega}_k}^T \mathbf{W} \boldsymbol{\pi}^{\Omega}_k \right].
 	\end{equation}
 	
-	We shall refer to this form of integration as \textit{selective modal quadrature}, given that the products of particular low-order polynomial modes are integrated exactly, and the products of any higher-order modes are approximated using the element's quadrature rules. The advantage of modal quadrature is that we may exactly integrate any terms which directly impact quadrature consistency. Consequently, nearly any stable numerical integration scheme (e.g. composite mid-point quadrature) may be used to integrate the higher-order products.
+	We shall refer to this form of integration as \textit{selective modal quadrature}, given that the products of particular low-order polynomial modes are integrated exactly, and the products of any higher-order modes are approximated using the element's quadrature rules. This approach is effectively equivalent to the method proposed by Talischi in \cite{Talischi:14}. The advantage of modal quadrature is that we may exactly integrate any terms which directly impact quadrature consistency. Consequently, nearly any stable numerical integration scheme (e.g. composite mid-point quadrature) may be used to integrate the higher-order products.
 	
 	Rather than storing the independent quadrature weights $w_q = w (\mathbf{x}_q)$, selective modal quadrature requires the storage of a generalized quadrature weighting matrix $M_k (\mathbf{x}_q,\mathbf{x}_p)$. Alternatively, for the sake of efficiency, if the function $g$ is known a priori (e.g. if $g$ is a test function for a weighted residual method), then we need only store the ``augmented'' test function values:
 	\begin{equation}

@@ -19,23 +19,23 @@
 \contentsline {section}{\numberline {3.3}Shape Function Approximation Methods}{37}
 \contentsline {section}{\numberline {3.4}Non-conforming Galerkin Approximations to \\ (Generalized) Harmonic Shape Functions}{40}
 \contentsline {section}{\numberline {3.5}Piecewise Polynomial Approximations to \\ (Generalized) Harmonic Shape Functions}{43}
-\contentsline {section}{\numberline {3.6}Partition-Based Quadrature Rules}{50}
-\contentsline {chapter}{\numberline {4}An Implementational Framework \\ for the DG-PEM}{58}
-\contentsline {section}{\numberline {4.1}Arbitrary Polytopal Meshes}{58}
-\contentsline {section}{\numberline {4.2}Element Partitioning Schemes}{63}
-\contentsline {section}{\numberline {4.3}Abstract Geometric Data Structures}{65}
-\contentsline {section}{\numberline {4.4}Partition-Based Approximation Spaces}{68}
-\contentsline {section}{\numberline {4.5}Linearization and Assembly of the \\ DG-PEM Systems of Equations}{70}
-\contentsline {section}{\numberline {4.6}Numerical Conditioning of the \\ DG-PEM Systems of Equations}{74}
-\contentsline {chapter}{\numberline {5}A Numerical Evaluation of the PEM}{79}
-\contentsline {section}{\numberline {5.1}Tests for Polynomial Reproducibility}{79}
-\contentsline {section}{\numberline {5.2}Finite Element Patch Tests}{84}
-\contentsline {section}{\numberline {5.3}Tests for Element Quality}{91}
-\contentsline {section}{\numberline {5.4}Convergence Analysis}{99}
-\contentsline {section}{\numberline {5.5}Parameter Sensitivity Analysis}{106}
-\contentsline {section}{\numberline {5.6}Computational Efficiency}{106}
-\contentsline {subsection}{\numberline {5.6.1}Performance Comparison}{106}
-\contentsline {section}{\numberline {5.7}Resistance to Locking Phenomena}{106}
-\contentsline {subsubsection}{\numberline {5.7.0.1}Exact Solution}{109}
-\contentsline {section}{\numberline {5.8}Comparison with Isoparametric Finite Elements}{109}
-\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{116}
+\contentsline {section}{\numberline {3.6}Partition-Based Quadrature Rules}{52}
+\contentsline {chapter}{\numberline {4}An Implementational Framework \\ for the DG-PEM}{59}
+\contentsline {section}{\numberline {4.1}Arbitrary Polytopal Meshes}{59}
+\contentsline {section}{\numberline {4.2}Element Partitioning Schemes}{64}
+\contentsline {section}{\numberline {4.3}Abstract Geometric Data Structures}{66}
+\contentsline {section}{\numberline {4.4}Partition-Based Approximation Spaces}{69}
+\contentsline {section}{\numberline {4.5}Linearization and Assembly of the \\ DG-PEM Systems of Equations}{71}
+\contentsline {section}{\numberline {4.6}Numerical Conditioning of the \\ DG-PEM Systems of Equations}{75}
+\contentsline {chapter}{\numberline {5}A Numerical Evaluation of the PEM}{80}
+\contentsline {section}{\numberline {5.1}Tests for Polynomial Reproducibility}{80}
+\contentsline {section}{\numberline {5.2}Finite Element Patch Tests}{85}
+\contentsline {section}{\numberline {5.3}Tests for Element Quality}{93}
+\contentsline {section}{\numberline {5.4}Convergence Analysis}{101}
+\contentsline {section}{\numberline {5.5}Parameter Sensitivity Analysis}{107}
+\contentsline {section}{\numberline {5.6}Computational Efficiency}{107}
+\contentsline {subsection}{\numberline {5.6.1}Performance Comparison}{107}
+\contentsline {section}{\numberline {5.7}Resistance to Locking Phenomena}{107}
+\contentsline {subsubsection}{\numberline {5.7.0.1}Exact Solution}{110}
+\contentsline {section}{\numberline {5.8}Comparison with Isoparametric Finite Elements}{111}
+\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{117}
