@@ -1125,13 +1125,43 @@ An exact solution for the vertical displacement field of the plate prob
 
 \subsection{Performance Comparison}
 
-
+The $J_2$ model of elastoplasticity with linear isotropic hardening was implemented, employing the radial return algorithm described in \cite{LSDYNA}.
 
 \section{Nonlinear Kinematics and Elastoplastic Material Behavior}
 
+A set of examples were explored to examine the behavior of the PEM in the context of both geometric and material nonlinearity.
+
 \subsection*{Ductile Necking Problem}
 
-The $J_2$ model of elastoplasticity with linear isotropic hardening was implemented, employing the radial return algorithm described in \cite{LSDYNA}.
+A tensile test for a 4130 steel plate specimen was simulated using FEM and the DG-PEM. The experimental setup was based upon the tests conducted in \cite{Gerberich:62}. The dimensions of the plate specimen are illustrated in Figure \ref{fig:tensile_specimen_dimensions}, and the material parameters are listed in Table \ref{tab:tensile_specimen_properties}.
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=6.0in]{figures/tensile_specimen_dimensions.pdf}
+  \caption{Tensile specimen dimensions, in inches. The thickness of the plate specimen shown is $0.063$ in.}
+  \label{fig:tensile_specimen_dimensions}
+\end{figure}
+
+\begin{table}[!ht]
+  \begin{center}
+    \begin{tabular}{| c || c | c |}
+    \hline
+      & 4130 steel (800$^{\circ}$F temper) & 4130 steel (1050$^{\circ}$F temper) \\ \hline \hline
+    $E$ (ksi) & 28000 & 28600 \\ \hline
+    $Y_0$ (ksi) & 173 & 129 \\ \hline
+    $E_h$ (ksi) & 741 & 500 \\ \hline
+    UTS (ksi) & 182 & 136 \\ \hline
+    \% elongation (2 in) & 6 & 10 \\ \hline
+    \% area reduction & 36.7 & 49.7 \\
+    \hline
+    \end{tabular}
+    \caption{Tensile specimen properties.}
+    \vspace{-5pt}
+    \label{tab:tensile_specimen_properties}
+    \vspace{-25pt}
+  \end{center}
+\end{table}
+
+The test was run as a three-dimensional analysis under quasi-static loading conditions. The meshes shown in Figures A and B were used with the FEM and DG-PEM, respectively. The results are depicted in Figure N.
 
 \begin{figure}[!h]
     \centering

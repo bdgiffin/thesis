@@ -41,6 +41,7 @@
 \contentsline {figure}{\numberline {5.23}{\ignorespaces Convergence plots for the twisting annulus problem using standard isoparametric elements.\relax }}{111}
 \contentsline {figure}{\numberline {5.24}{\ignorespaces Convergence plots for the twisting annulus problem using standard isoparametric elements.\relax }}{111}
 \contentsline {figure}{\numberline {5.25}{\ignorespaces Hexahedral meshes with variable plate thickness $h$ and mesh perturbations $p$ for the corner-supported plate problem.\relax }}{112}
-\contentsline {figure}{\numberline {5.26}{\ignorespaces Comparison of necking behavior at various times during the analysis, depicting deformed shape, and values of equivalent plastic strain.\relax }}{113}
-\contentsline {figure}{\numberline {5.27}{\ignorespaces Comparison plot of the deformed shape and equivalent plastic strain $\cc@accent {"7016}{\epsilon }^p$ within the Taylor bar impact specimen.\relax }}{114}
+\contentsline {figure}{\numberline {5.26}{\ignorespaces Tensile specimen dimensions, in inches. The thickness of the plate specimen shown is $0.063$ in.\relax }}{112}
+\contentsline {figure}{\numberline {5.27}{\ignorespaces Comparison of necking behavior at various times during the analysis, depicting deformed shape, and values of equivalent plastic strain.\relax }}{113}
+\contentsline {figure}{\numberline {5.28}{\ignorespaces Comparison plot of the deformed shape and equivalent plastic strain $\cc@accent {"7016}{\epsilon }^p$ within the Taylor bar impact specimen.\relax }}{115}
 \addvspace {10\p@ }

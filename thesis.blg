@@ -1,6 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
-Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
-The top-level auxiliary file: thesis.aux
+This is BibTeX, Version 0.99dThe top-level auxiliary file: thesis.aux
 The style file: plain.bst
 A level-1 auxiliary file: introduction.aux
 A level-1 auxiliary file: solid_mechanics.aux
@@ -15,45 +13,4 @@ Warning--to sort, need author, organization, or key in LSDYNA
 Warning--empty journal in Freund:95
 Warning--empty publisher in Wilson:73
 Warning--empty school in Wopschall:17
-You've used 80 entries,
-            2118 wiz_defined-function locations,
-            1028 strings with 16916 characters,
-and the built_in function-call counts, 25743 in all, are:
-= -- 2601
-> -- 1138
-< -- 2
-+ -- 475
-- -- 370
-* -- 1861
-:= -- 4368
-add.period$ -- 237
-call.type$ -- 80
-change.case$ -- 417
-chr.to.int$ -- 0
-cite$ -- 84
-duplicate$ -- 882
-empty$ -- 2004
-format.name$ -- 370
-if$ -- 5236
-int.to.chr$ -- 0
-int.to.str$ -- 80
-missing$ -- 81
-newline$ -- 400
-num.names$ -- 158
-pop$ -- 330
-preamble$ -- 1
-purify$ -- 345
-quote$ -- 0
-skip$ -- 605
-stack$ -- 0
-substring$ -- 1991
-swap$ -- 97
-text.length$ -- 2
-text.prefix$ -- 0
-top$ -- 0
-type$ -- 308
-warning$ -- 4
-while$ -- 271
-width$ -- 82
-write$ -- 863
 (There were 5 warnings)
