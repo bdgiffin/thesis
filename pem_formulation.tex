@@ -333,7 +333,7 @@ A few preliminary definitions regarding the element's partition are given, follo
 	\label{fig:harmonic_fem_sfs}
 \end{figure}
 	
-	It was demonstrated in \cite{Bishop:14} that the resulting approximations $\varphi^h$ preserve low-order polynomial completeness -- a consequence of $\mathcal{U}^h (\Omega) \supset P^1 (\Omega)$. If the elements are discretized into a sufficient number of tetrahedra, the method is observed to be stable. If sufficiently accurate quadrature rules are specified on $\Omega$ and $\partial \Omega$, the CG-PEM also yields a consistent integration of the weak form.
+	It was demonstrated in \cite{Bishop:14} that the resulting approximations $\varphi^h$ preserve low-order polynomial completeness -- a direct consequence of $\mathcal{U}^h (\Omega) \supset P^1 (\Omega)$. If the elements are discretized into a sufficient number of tetrahedra, the method is observed to be stable. If sufficiently accurate quadrature rules are specified on $\Omega$ and $\partial \Omega$, the CG-PEM also yields a consistent integration of the weak form.
 	
 	For coarse tetrahedral sub-divisions, the local FE problems that must be solved on each element are relatively small, in some cases entailing only a single degree of freedom. However, the approach can become computationally expensive if the elements are subdivided into an excessively large number of tetrahedra (in the event that more accurate/refined approximations to the shape functions are desired). Initial numerical investigations conducted by Bishop have suggested that relatively coarse tetrahedral sub-divisions of the elements provide sufficiently accurate results; further subdivision (tetrahedral $h-$refinement) does little to improve the overall accuracy of the method.
 	
@@ -371,7 +371,7 @@ A few preliminary definitions regarding the element's partition are given, follo
 
 \subsection*{Discontinuous Galerkin Approximations to \\ (Generalized) Harmonic Shape Functions}
 
-	Consider the broken Sobolev space $\mathcal{D}^h_k (\Omega) = \left\{ \varphi \in L^2 (\Omega) : \varphi|_{\omega} \in P^k (\omega) \, \forall \omega \in \mathcal{T}_\omega (\Omega) \right\}$ consisting of (discontinuous) piecewise polynomials defined over the partition of the element. Herein, the interior penalty discontinuous Galerkin method described in \cite{Riviere:08} is applied to (\ref{eq:weak_bvp}) to obtain approximations $\varphi^h \in \mathcal{D}^h_k (\Omega) \not\subset \mathcal{U} (\Omega)$ to generalized harmonic shape functions $\varphi \in \mathcal{U} (\Omega)$. The reader is cautioned against several apparent errors in the presentation of interior penalty DG methods found in \cite{Riviere:08}. The following weak form is consistent with the (correct) presentation found in \cite{Riviere:01}:
+	Consider the broken Sobolev space $\mathcal{D}^h_k (\Omega) = \left\{ \varphi \in L^2 (\Omega) : \varphi|_{\omega} \in P^k (\omega) \, \forall \omega \in \mathcal{T}_\omega (\Omega) \right\}$ consisting of (discontinuous) piecewise polynomials defined over the partition of the element. Herein, the family of interior penalty discontinuous Galerkin methods described in \cite{Riviere:08} are applied to (\ref{eq:weak_bvp}). In doing so, one obtains piecewise discontinuous approximations to generalized harmonic shape functions $\varphi^h \in \mathcal{D}^h_k (\Omega) \not\subset \mathcal{U} (\Omega)$. The reader is cautioned against several apparent errors in the presentation of interior penalty DG methods found in \cite{Riviere:08}. The following weak form is consistent with \cite{Riviere:01}:
 	\begin{eqnarray}
 		\sum_{\omega \in \mathcal{T}_\omega (\Omega)} \int_{\omega} \nabla \varphi^h \cdot \nabla \eta^h \, dV + \sum_{\sigma \in \Gamma_\omega \cup \partial \Omega} \int_{\sigma} \bigg( \epsilon \left\{ \frac{\partial \eta^h}{\partial N_{\sigma}} \right\} [\![ \varphi^h ]\!] - [\![ \eta^h ]\!] \left\{ \frac{\partial \varphi^h}{\partial N_{\sigma}} \right\}  \bigg) \, dA \nonumber \\ + J_0 (\varphi^h,\eta^h) + J_1 (\varphi^h,\eta^h) = \int_{\Omega} f_{\Omega} \, \eta^h \, dV + \sum_{\sigma \in \partial \Omega} \int_{\sigma} \left(\frac{\alpha_{\sigma0}}{|\sigma|^{\beta_0}} \eta^h + \epsilon \frac{\partial \eta^h}{\partial N_{\sigma}} \right) \bar{\varphi} \, dA
 		\label{eq:dg_poisson}
@@ -422,7 +422,7 @@ A few preliminary definitions regarding the element's partition are given, follo
 		J_0 (\varphi^h,\eta^h) + J_1 (\varphi^h,\eta^h) = \sum_{\sigma \in \partial \Omega} \frac{\alpha_{\sigma0}}{|\sigma|^{\beta_0}} \int_{\sigma} \eta^h \,  \bar{\varphi} \, dA \quad \forall \eta^h \in \mathcal{D}^h_k (\Omega).
 		\label{eq:pure_penalty}
 	\end{eqnarray}
-	The above is henceforth referred to as the \textit{pure penalty} DG-PEM. Under certain conditions (for particular choices of $\mathcal{T}_\omega (\Omega)$ and $\mathcal{D}^h_k (\Omega)$), the pure penalty variant of the DG-PEM may in fact yield unique solutions $\varphi^h$ which altogether satisfy conditions of consistency and stability detailed in section \ref{sec:approximations}. However, the bilinear form arising from the penalty terms $J_0$ and $J_1$ alone is not guaranteed to be elliptic, in general. Additional penalty terms may be necessary, i.e.
+	The above is henceforth referred to as the \textit{pure penalty} DG-PEM. Under certain conditions (for particular choices of $\mathcal{T}_\omega (\Omega)$ and $\mathcal{D}^h_k (\Omega)$), the pure penalty variant of the DG-PEM may in fact yield unique solutions $\varphi^h$ which altogether satisfy the conditions of consistency and stability detailed in section \ref{sec:approximations}. However, the bilinear form arising from the penalty terms $J_0$ and $J_1$ alone is not guaranteed to be elliptic, in general. Additional penalty terms may be necessary, i.e.
 	\begin{equation}
 		J_s (\varphi^h,\eta^h) = \sum_{\sigma \in \Gamma_\omega} \frac{\alpha_{\sigma s}}{|\sigma|^{\beta_s}} \int_{\sigma} \left[\!\!\left[ \frac{\partial^s \varphi^h}{\partial N^s_{\sigma}} \right]\!\!\right] \, \left[\!\!\left[ \frac{\partial^s \eta^h}{\partial N^s_{\sigma}} \right]\!\!\right] \, dA
 		\label{eq:flux_penalty}
@@ -479,13 +479,63 @@ provided
 \end{equation}
 This occurs primarily under two circumstances: either as $\alpha_{\sigma0} \rightarrow \infty$ (thereby enforcing the boundary condition $\bar{\varphi} = \varphi^h$), or in the limit as $\alpha_{\sigma0} \rightarrow 0$. For $\varphi^h \in \mathcal{D}^h_1 (\Omega)$, the case of $\alpha_{\sigma0} = 0$ is precluded by the stability condition $\alpha_{\sigma0} > 0$.
 
-Satisfaction of (\ref{eq:boundary_condition_enforcement}) yields a negation of the consistency errors incurred by the discontinuities in $\varphi^h \in \mathcal{D}^h_1 (\Omega)$. Consequently, the errors for first order patch tests are effectively canceled out. The same cannot be said of higher order patch tests, however.
+Satisfaction of (\ref{eq:boundary_condition_enforcement}) yields a negation of the consistency errors incurred by the discontinuities in $\varphi^h \in \mathcal{D}^h_1 (\Omega)$. Consequently, the errors for first order patch tests can be effectively reduced by an appropriate specification of $\alpha_{\sigma0}$. The same cannot be said of higher order patch tests, however.
 
 It is emphasized that only the boundary penalty terms $\alpha_{\sigma0} \, \forall \sigma \in \partial \Omega$ influence the behavior of (\ref{eq:boundary_condition_enforcement}). This observation has motivated an exploration of the 3-parameter family of methods arising from:
 	\begin{equation}
 		\alpha_{\sigma 0} = \alpha_{0}|_{\partial \Omega} \, \, \forall \sigma \in \partial \Omega, \quad \alpha_{\sigma 0} = \alpha_{0}|_{\Gamma_{\omega}} \, \, \forall \sigma \in \Gamma_{\omega}, \quad \alpha_{\sigma 1} = \alpha_{1}|_{\Gamma_{\omega}} \, \, \forall \sigma \in \Gamma_{\omega}.
 		\label{eq:penalty_parameters}
 	\end{equation}
+	
+%\subsubsection*{Weak Compatibility of the DG-PEM}
+%	
+%	Consider the term appearing in (\ref{eq:weak_compatibility}) which integrates the boundary condition:
+%\begin{equation}
+%	\sum_{\sigma \in \partial \Omega} \int_{\sigma} \frac{\partial \eta}{\partial N_{\sigma}} \bar{\varphi} \, dA = \sum_{\sigma \in \partial \Omega} \int_{\sigma} \mathbf{N}_{\sigma} \cdot \left[ \nabla (\eta \, \bar{\varphi}) - \eta \, \nabla \bar{\varphi} \right] \, dA \quad \forall \eta \in P^k (\Omega).
+%\end{equation}
+%The following substitution can be made: $\nabla \eta = \nabla \times \mathbf{v}$ for all $\mathbf{v} \in \left[ P^k (\Omega) \right]^d$, such that
+%\begin{equation}
+%	\sum_{\sigma \in \partial \Omega} \int_{\sigma} \mathbf{N}_{\sigma} \cdot \nabla \times \mathbf{v} \, \bar{\varphi} \, dA = \sum_{\sigma \in \partial \Omega} \int_{\sigma} \mathbf{N}_{\sigma} \cdot \left[ \nabla \times (\mathbf{v} \, \bar{\varphi}) + \mathbf{v} \times \nabla \bar{\varphi} \right] \, dA \quad \forall \mathbf{v} \in \left[ P^k (\Omega) \right]^d,
+%\end{equation}
+%\begin{equation}
+%	\sum_{\sigma \in \partial \Omega} \int_{\sigma} \mathbf{N}_{\sigma} \cdot \left[ \bar{\varphi} \, \nabla \times \mathbf{v} - \mathbf{v} \times \nabla \bar{\varphi} \right] \, dA = \sum_{\sigma \in \partial \Omega} \oint_{\partial \sigma} \boldsymbol{\lambda} \cdot \mathbf{v} \, \bar{\varphi} \, dS \quad \forall \mathbf{v} \in \left[ P^k (\Omega) \right]^d.
+%\end{equation}
+%The right-hand side may be re-written for each $F \subset \partial \Omega$:
+%\begin{equation}
+%	\sum_{\sigma \in F} \oint_{\partial \sigma} \boldsymbol{\lambda} \cdot \mathbf{v} \, \bar{\varphi} \, dS = \sum_{\gamma \in \Gamma_\gamma \cup \partial F} \int_{\gamma} \boldsymbol{\lambda}_\gamma \cdot \mathbf{v} \, [\![ \bar{\varphi} ]\!] \, dS \quad \forall \mathbf{v} \in \left[ P^k (\Omega) \right]^d,
+%\end{equation}
+%where $[\![ \varphi^h ]\!]$ is defined similarly as in (\ref{eq:internal_jumps}) and (\ref{eq:external_jumps}). For all $\gamma \in \Gamma_{\gamma}$ shared by two facets ($\sigma_1$ and $\sigma_2$), the orientation of each tangential vector $\boldsymbol{\lambda}_\gamma$ is counter-clockwise with respect to $\sigma_1$. If $\bar{\varphi}$ is defined independently on the boundary of each face, such that $\bar{\varphi}|_{E} = \hat{\varphi} \, \, \forall E \subset \partial F$ then we may write separate expressions pertaining to each face of the element:
+%\begin{eqnarray}
+%	\sum_{\gamma \in \Gamma_\gamma \cup \partial F} \int_{\gamma} \boldsymbol{\lambda}_\gamma \cdot \mathbf{v} \, [\![ \bar{\varphi} ]\!] \, dS - \sum_{\gamma \in \partial F} \int_{\gamma} \boldsymbol{\lambda}_\gamma \cdot \mathbf{v} \, \hat{\varphi} \, dS \nonumber \\ 
+%	= \sum_{\sigma \in F} \int_{\sigma} \mathbf{N}_{\sigma} \cdot \left[ \bar{\varphi} \, \nabla \times \mathbf{v} - \mathbf{v} \times \nabla \bar{\varphi} \right] \, dA \quad \forall \mathbf{v} \in \left[ P^k (\Omega) \right]^d.
+%\end{eqnarray}
+%Equivalently,
+%\begin{eqnarray}
+%	\sum_{\gamma \in \Gamma_\gamma \cup \partial F} \int_{\gamma} \frac{\partial \eta}{\partial N_{\gamma}} [\![ \bar{\varphi} ]\!] \, dS - \sum_{\gamma \in \partial F} \int_{\gamma} \frac{\partial \eta}{\partial N_{\gamma}} \hat{\varphi} \, dS \nonumber \\ 
+%	= \sum_{\sigma \in F} \int_{\sigma} \mathbf{N}_{\sigma} \cdot \nabla \times (\mathbf{v} \bar{\varphi}) \, dA \quad \forall \eta \in P^k (\Omega).
+%\end{eqnarray}
+%Moreover,
+%\begin{equation}
+%	\sum_{\gamma \in \Gamma_\gamma \cup \partial F} \int_{\gamma} \frac{\partial \eta}{\partial N_{\gamma}} [\![ \bar{\varphi} ]\!] \, dS =  \sum_{\sigma \in F} \int_{\sigma} \left[ \bar{\varphi} \nabla^2 \eta + \nabla \bar{\varphi} \cdot \nabla \eta \right] \, dA,
+%\end{equation}
+%and
+%\begin{eqnarray}
+%	\sum_{\sigma \in F} \int_{\sigma} \left[ \bar{\varphi} \nabla^2 \eta + \nabla \bar{\varphi} \cdot \nabla \eta \right] \, dA - \sum_{\gamma \in \partial F} \int_{\gamma} \frac{\partial \eta}{\partial N_{\gamma}} \hat{\varphi} \, dS \nonumber \\ 
+%	= \sum_{\sigma \in F} \int_{\sigma} \mathbf{N}_{\sigma} \cdot \left[ \bar{\varphi} \, \nabla \eta - \mathbf{v} \times \nabla \bar{\varphi} \right] \, dA \quad \forall \eta \in P^k (\Omega).
+%\end{eqnarray}
+%If $\eta \in P^1 (\Omega)$ then $\nabla^2 \eta = 0$ and
+%\begin{eqnarray}
+%	\sum_{\sigma \in F} \int_{\sigma} \nabla \bar{\varphi} \cdot \nabla \eta \, dA - \sum_{\gamma \in \partial F} \int_{\gamma} \frac{\partial \eta}{\partial N_{\gamma}} \hat{\varphi} \, dS \nonumber \\ 
+%	= \sum_{\sigma \in F} \int_{\sigma} \mathbf{N}_{\sigma} \cdot \left[ \bar{\varphi} \, \nabla \eta - \mathbf{v} \times \nabla \bar{\varphi} \right] \, dA \quad \forall \eta \in P^1 (\Omega).
+%\end{eqnarray}
+%If we enforce the the left-hand side to be zero
+%\begin{equation}
+%	\sum_{\sigma \in F} \int_{\sigma} \nabla \bar{\varphi} \cdot \nabla \eta \, dA - \sum_{\gamma \in \partial F} \int_{\gamma} \frac{\partial \eta}{\partial N_{\gamma}} \hat{\varphi} \, dS = 0,
+%\end{equation}
+%which is indeed the case under similar conditions as for the previous section, we obtain the following result:
+%\begin{eqnarray}
+%	\sum_{\sigma \in F} \int_{\sigma} \frac{\partial \eta}{\partial N_{\sigma}} \bar{\varphi} \, dA = \sum_{\sigma \in F} \int_{\sigma} \mathbf{N}_{\sigma} \cdot \mathbf{v} \times \nabla \bar{\varphi} \, dA \quad \forall \eta \in P^1 (\Omega).
+%\end{eqnarray}
 	
 %	Ultimately, one must show either that $\mathcal{S}^h$ and $\mathcal{V}^h$ and sub-spaces of $\mathcal{S}$ and $\mathcal{V}$, or else that any exterior approximation methods converge to the exact solution under cell refinement. Moreover, we must show that any approximation to the exact solution will yield elements that exhibit convergence under mesh (element) refinement -- an interesting embedded convergence problem.
 		
@@ -698,92 +748,92 @@ Methods for partitioning the elements into sub-domains which yield stable and ef
     	\end{equation}
     	for every shared face $\partial \Omega_L \subset F_L = F_R \subset \partial \Omega_R$.
 		
-	 As an alternative to using a gradient correction scheme, a novel approach to restore quadrature consistency (inspired by the virtual element method) is presented in the following section.
-		
-	\subsection*{Selective Modal Quadrature}
-	
-	Consider all functions $f \in L^2 (\Omega)$ represented over an arbitrary polytopal element domain $\Omega \subset \mathbb{R}^d$. Borrowing from notation typical of the VEM, consider an $L^2 (\Omega)$ polynomial projection operator $\Pi^{\Omega}_k : L^2 (\Omega) \mapsto P^k (\Omega)$ which may be used to decompose $f = f_p + f_n$ into polynomial and non-polynomial parts:
-	\begin{equation}
-		f_p = \Pi^{\Omega}_k f, \quad f_n = f - \Pi^{\Omega}_k f = \pi^{\Omega}_k f,
-	\end{equation}
-	where $\pi^{\Omega}_k : L^2 (\Omega) \mapsto L^2 (\Omega) \backslash P^k (\Omega)$. Consequently, we observe that $\Pi^{\Omega}_k f$ is $L^2 (\Omega)$ orthogonal to any $\pi^{\Omega}_k g$ for all $g \in L^2 (\Omega)$, to the extent that
-	\begin{equation}
-		\int_{\Omega} (\Pi^{\Omega}_k f) (g - \Pi^{\Omega}_k g) \, dv = \langle \Pi^{\Omega}_k f, g - \Pi^{\Omega}_k g \rangle_{\Omega} = 0 \quad \forall f, \, g \in L^2 (\Omega).
-	\end{equation}
-	
-	We propose a quadrature rule of the form:
-	\begin{equation}
-		\int_\Omega f \, dV \approx \int_\Omega f_p \, dV + \sum_{q=1}^{N_{qp}} w_q f_n(\mathbf{x}_q),
-	\end{equation}
-	where it is supposed that the projection operators $\Pi^{\Omega}_k$ and $\pi^{\Omega}_k$ are well-defined on $\Omega$, and $\int_\Omega f_p \, dV$ may be computed exactly using the methodology proposed by Chin et al. in \cite{Chin:15}. Furthermore, if we wish to integrate the product $f g$ where $f, \, g \in L^2 (\Omega)$, we may write
-	\begin{equation}
-		\int_\Omega f g \, dV = \langle f, g \rangle_{\Omega} = \langle \Pi^{\Omega}_k f + \pi^{\Omega}_k f, \Pi^{\Omega}_k g + \pi^{\Omega}_k  g \rangle_{\Omega},
-	\end{equation}
-	which, by the linearity of the $L^2 (\Omega)$ inner product, and by the orthogonality of $\Pi^{\Omega}_k f$ and $\pi^{\Omega}_k g$ (and of $\pi^{\Omega}_k f$ and $\Pi^{\Omega}_k g$), yields
-	\begin{equation}
-		\int_\Omega f g \, dV = \langle \Pi^{\Omega}_k f, \Pi^{\Omega}_k g \rangle_{\Omega} + \langle \pi^{\Omega}_k f, \pi^{\Omega}_k g \rangle_{\Omega},
-	\end{equation}
-	and thus
-	\begin{equation}
-		\int_\Omega f g \, dV \approx \int_\Omega f_p g_p \, dV + \sum_{q=1}^{N_{qp}} w_q f_n(\mathbf{x}_q) g_n(\mathbf{x}_q).
-	\end{equation}
-	This is effectively equivalent to integrating the product of all low-order polynomials exactly, while integrating the product of all non-polynomial ``remainders'' approximately, using a quadrature rule.
-	
-	If we are only given evaluations of a function $f$ at a set of discrete (quadrature) points $\left\{ \mathbf{x}_q \right\}_{q=1}^{N_{qp}}$, then we must construct a low-order polynomial projection operator by considering the least-squares problem:
-	\begin{equation}
-		\min_{f_p \in P^k (\Omega)} \frac{1}{2} || f_p - f ||^2_\Omega,
-	\end{equation}
-	where $|| f ||_\Omega = \sqrt{\langle f, f \rangle_\Omega}$ is deliberately approximated using the element's quadrature rule:
-	\begin{equation}
-		\langle f, f \rangle_\Omega \approx \sum_{q=1}^{N_{qp}} w_q \left[ f(\mathbf{x}_q) \right]^2.
-		\label{eq:L2projection}
-	\end{equation}
-	For a given polynomial basis $\left\{ z_a \right\}_{a=1}^{K}$ which spans $P^k (\Omega)$, we may write
-	\begin{equation}
-		f_p (\mathbf{x}) = \sum_{a=1}^{K} z_a (\mathbf{x}) c_a = \mathbf{z}^T (\mathbf{x}) \, \mathbf{c},
-	\end{equation}
-	and the solution to (\ref{eq:L2projection}) satisfies
-	\begin{equation}
-		\sum_{a=1}^{K} \sum_{q=1}^{N_{qp}} w_q z_b (\mathbf{x}_q) z_a (\mathbf{x}_q) c_a =
-		\sum_{q=1}^{N_{qp}} w_q z_b (\mathbf{x}_q) f(\mathbf{x}_q) \quad \forall b = 1, \, \ldots, \, K,
-	\end{equation}
-	The above may be written in matrix-vector format as $\mathbf{Z}^T \mathbf{W} \mathbf{Z} \mathbf{c} = \mathbf{Z}^T \mathbf{W} \mathbf{f}$, where we denote $f_i = f(\mathbf{x}_i)$, $W_{ii} = w_i, \, W_{ij} = 0 \, \forall i \neq j$, and $Z_{ij} = z_j (\mathbf{x}_i)$. The discrete polynomial projection operator $\mathbf{\Pi}^{\Omega}_k : \mathbb{R}^{N_{qp}} \mapsto \mathbb{R}^K$ is computed as $\boldsymbol{\Pi}^{\Omega}_k = (\mathbf{Z}^T \mathbf{W} \mathbf{Z})^{-1} \mathbf{Z}^T \mathbf{W}$, and the complement operator $\boldsymbol{\pi}^{\Omega}_k : \mathbb{R}^{N_{qp}} \mapsto \mathbb{R}^{N_{qp}}$ is $\boldsymbol{\pi}^{\Omega}_k = \mathbf{1}_{N_{qp}} - \mathbf{Z} \boldsymbol{\Pi}^{\Omega}_k$. Consequently,
-	\begin{equation}
-		\langle \Pi^{\Omega}_k f, \Pi^{\Omega}_k g \rangle_{\Omega} = \langle \mathbf{z}^T \boldsymbol{\Pi}^{\Omega}_k \mathbf{f}, \mathbf{z}^T \boldsymbol{\Pi}^{\Omega}_k \mathbf{g} \rangle_{\Omega} = \mathbf{f}^T \left[ {\boldsymbol{\Pi}^{\Omega}_k}^T \left( \int_{\Omega} \mathbf{z} \otimes \mathbf{z} \, dV \right) \boldsymbol{\Pi}^{\Omega}_k \right] \mathbf{g},
-	\end{equation}
-	\begin{equation}
-		\langle \pi^{\Omega}_k f, \pi^{\Omega}_k g \rangle_{\Omega} \approx \sum_{q=1}^{N_{qp}} w_q f_n(\mathbf{x}_q) g_n(\mathbf{x}_q) = \mathbf{f}^T \left[ {\boldsymbol{\pi}^{\Omega}_k}^T \mathbf{W} \boldsymbol{\pi}^{\Omega}_k \right] \mathbf{g},
-	\end{equation}
-	and thus
-	\begin{equation}
-		\int_\Omega f g \, dV \approx \mathbf{f}^T \mathbf{M}_k \mathbf{g} = \sum_{q = 1}^{N_{qp}} \sum_{p = 1}^{N_{qp}} M_k (\mathbf{x}_q,\mathbf{x}_p) \, f (\mathbf{x}_q) \, g (\mathbf{x}_p),
-	\end{equation}
-	\begin{equation}
-		\mathbf{M}_k \equiv \left[ {\boldsymbol{\Pi}^{\Omega}_k}^T \left( \int_{\Omega} \mathbf{z} \otimes \mathbf{z} \, dV \right) \boldsymbol{\Pi}^{\Omega}_k \right] + \left[ {\boldsymbol{\pi}^{\Omega}_k}^T \mathbf{W} \boldsymbol{\pi}^{\Omega}_k \right].
-	\end{equation}
-	
-	We shall refer to this form of integration as \textit{selective modal quadrature}, given that the products of particular low-order polynomial modes are integrated exactly, and the products of any higher-order modes are approximated using the element's quadrature rules. This approach is effectively equivalent to the method proposed by Talischi in \cite{Talischi:14}. The advantage of modal quadrature is that we may exactly integrate any terms which directly impact quadrature consistency. Consequently, nearly any stable numerical integration scheme (e.g. composite mid-point quadrature) may be used to integrate the higher-order products.
-	
-	Rather than storing the independent quadrature weights $w_q = w (\mathbf{x}_q)$, selective modal quadrature requires the storage of a generalized quadrature weighting matrix $M_k (\mathbf{x}_q,\mathbf{x}_p)$. Alternatively, for the sake of efficiency, if the function $g$ is known a priori (e.g. if $g$ is a test function for a weighted residual method), then we need only store the ``augmented'' test function values:
-	\begin{equation}
-		\tilde{g}^{(k)} (\mathbf{x}_q) = \sum_{p = 1}^{N_{qp}} \frac{M_k (\mathbf{x}_q,\mathbf{x}_p)}{w_q} \, g (\mathbf{x}_p),
-	\end{equation}		
-	and all integrals involving $f$ and $g$ may be carried out via
-	\begin{equation}
-		\int_\Omega f g \, dV \approx \sum_{q = 1}^{N_{qp}} \, w_q \, \tilde{g}^{(k)} (\mathbf{x}_q) \, f (\mathbf{x}_q).
-	\end{equation}
-	
-	If applied to the stress divergence integral appearing in (\ref{eq:residual}), the resulting expression would resemble a gradient correction scheme in some respects, although it should be noted that the above procedure would need to be applied separately to each term appearing in the weak form (including boundary integrals). Specifically, the corresponding integration of the residual equations in (\ref{eq:residual}) would be carried out via
-	\begin{equation}
-		\int_{\mathcal{B}_0} P_{ij} \phi_{a,j} \, dV \approx \sum_{q=1}^{N_{qp}} w_q P_{ij} (\mathbf{x}_q) \tilde{\phi}^{(k)}_{a,j} (\mathbf{x}_q),
-	\end{equation}
-	\begin{equation}
-		\int_{\mathcal{B}_0} \rho_0 b_i \phi_a \, dV \approx \sum_{q=1}^{N_{qp}} w_q \rho_0 (\mathbf{x}_q) b_i (\mathbf{x}_q) \tilde{\phi}^{(k-1)}_a (\mathbf{x}_q),
-	\end{equation}
-	\begin{equation}
-		\int_{\Gamma^N_0} \bar{p}_i \phi_a \, dA \approx \sum_{b=1}^{N_{bp}} w_b  \bar{p}_i (\mathbf{x}_b) \tilde{\phi}^{(k)}_a (\mathbf{x}_b),
-	\end{equation}
-	where $\tilde{\phi}^{(k)}_a$ and $\tilde{\phi}^{(k)}_{a,j}$ denote the ``augmented'' test functions are their corresponding gradients, and $k$ is the indicated order of quadrature consistency (required to pass patch tests up to order $k+1$).
+%	 As an alternative to using a gradient correction scheme, a separate approach to restore quadrature consistency (influenced by the virtual element method) is presented in the following section.
+%		
+%	\subsection*{Selective Modal Quadrature}
+%	
+%	Consider all functions $f \in L^2 (\Omega)$ represented over an arbitrary polytopal element domain $\Omega \subset \mathbb{R}^d$. Borrowing from notation typical of the VEM, consider an $L^2 (\Omega)$ polynomial projection operator $\Pi^{\Omega}_k : L^2 (\Omega) \mapsto P^k (\Omega)$ which may be used to decompose $f = f_p + f_n$ into polynomial and non-polynomial parts:
+%	\begin{equation}
+%		f_p = \Pi^{\Omega}_k f, \quad f_n = f - \Pi^{\Omega}_k f = \pi^{\Omega}_k f,
+%	\end{equation}
+%	where $\pi^{\Omega}_k : L^2 (\Omega) \mapsto L^2 (\Omega) \backslash P^k (\Omega)$. Consequently, we observe that $\Pi^{\Omega}_k f$ is $L^2 (\Omega)$ orthogonal to any $\pi^{\Omega}_k g$ for all $g \in L^2 (\Omega)$, to the extent that
+%	\begin{equation}
+%		\int_{\Omega} (\Pi^{\Omega}_k f) (g - \Pi^{\Omega}_k g) \, dv = \langle \Pi^{\Omega}_k f, g - \Pi^{\Omega}_k g \rangle_{\Omega} = 0 \quad \forall f, \, g \in L^2 (\Omega).
+%	\end{equation}
+%	
+%	We propose a quadrature rule of the form:
+%	\begin{equation}
+%		\int_\Omega f \, dV \approx \int_\Omega f_p \, dV + \sum_{q=1}^{N_{qp}} w_q f_n(\mathbf{x}_q),
+%	\end{equation}
+%	where it is supposed that the projection operators $\Pi^{\Omega}_k$ and $\pi^{\Omega}_k$ are well-defined on $\Omega$, and $\int_\Omega f_p \, dV$ may be computed exactly using the methodology proposed by Chin et al. in \cite{Chin:15}. Furthermore, if we wish to integrate the product $f g$ where $f, \, g \in L^2 (\Omega)$, we may write
+%	\begin{equation}
+%		\int_\Omega f g \, dV = \langle f, g \rangle_{\Omega} = \langle \Pi^{\Omega}_k f + \pi^{\Omega}_k f, \Pi^{\Omega}_k g + \pi^{\Omega}_k  g \rangle_{\Omega},
+%	\end{equation}
+%	which, by the linearity of the $L^2 (\Omega)$ inner product, and by the orthogonality of $\Pi^{\Omega}_k f$ and $\pi^{\Omega}_k g$ (and of $\pi^{\Omega}_k f$ and $\Pi^{\Omega}_k g$), yields
+%	\begin{equation}
+%		\int_\Omega f g \, dV = \langle \Pi^{\Omega}_k f, \Pi^{\Omega}_k g \rangle_{\Omega} + \langle \pi^{\Omega}_k f, \pi^{\Omega}_k g \rangle_{\Omega},
+%	\end{equation}
+%	and thus
+%	\begin{equation}
+%		\int_\Omega f g \, dV \approx \int_\Omega f_p g_p \, dV + \sum_{q=1}^{N_{qp}} w_q f_n(\mathbf{x}_q) g_n(\mathbf{x}_q).
+%	\end{equation}
+%	This is effectively equivalent to integrating the product of all low-order polynomials exactly, while integrating the product of all non-polynomial ``remainders'' approximately, using a quadrature rule.
+%	
+%	If we are only given evaluations of a function $f$ at a set of discrete (quadrature) points $\left\{ \mathbf{x}_q \right\}_{q=1}^{N_{qp}}$, then we must construct a low-order polynomial projection operator by considering the least-squares problem:
+%	\begin{equation}
+%		\min_{f_p \in P^k (\Omega)} \frac{1}{2} || f_p - f ||^2_\Omega,
+%	\end{equation}
+%	where $|| f ||_\Omega = \sqrt{\langle f, f \rangle_\Omega}$ is deliberately approximated using the element's quadrature rule:
+%	\begin{equation}
+%		\langle f, f \rangle_\Omega \approx \sum_{q=1}^{N_{qp}} w_q \left[ f(\mathbf{x}_q) \right]^2.
+%		\label{eq:L2projection}
+%	\end{equation}
+%	For a given polynomial basis $\left\{ z_a \right\}_{a=1}^{K}$ which spans $P^k (\Omega)$, we may write
+%	\begin{equation}
+%		f_p (\mathbf{x}) = \sum_{a=1}^{K} z_a (\mathbf{x}) c_a = \mathbf{z}^T (\mathbf{x}) \, \mathbf{c},
+%	\end{equation}
+%	and the solution to (\ref{eq:L2projection}) satisfies
+%	\begin{equation}
+%		\sum_{a=1}^{K} \sum_{q=1}^{N_{qp}} w_q z_b (\mathbf{x}_q) z_a (\mathbf{x}_q) c_a =
+%		\sum_{q=1}^{N_{qp}} w_q z_b (\mathbf{x}_q) f(\mathbf{x}_q) \quad \forall b = 1, \, \ldots, \, K,
+%	\end{equation}
+%	The above may be written in matrix-vector format as $\mathbf{Z}^T \mathbf{W} \mathbf{Z} \mathbf{c} = \mathbf{Z}^T \mathbf{W} \mathbf{f}$, where we denote $f_i = f(\mathbf{x}_i)$, $W_{ii} = w_i, \, W_{ij} = 0 \, \forall i \neq j$, and $Z_{ij} = z_j (\mathbf{x}_i)$. The discrete polynomial projection operator $\mathbf{\Pi}^{\Omega}_k : \mathbb{R}^{N_{qp}} \mapsto \mathbb{R}^K$ is computed as $\boldsymbol{\Pi}^{\Omega}_k = (\mathbf{Z}^T \mathbf{W} \mathbf{Z})^{-1} \mathbf{Z}^T \mathbf{W}$, and the complement operator $\boldsymbol{\pi}^{\Omega}_k : \mathbb{R}^{N_{qp}} \mapsto \mathbb{R}^{N_{qp}}$ is $\boldsymbol{\pi}^{\Omega}_k = \mathbf{1}_{N_{qp}} - \mathbf{Z} \boldsymbol{\Pi}^{\Omega}_k$. Consequently,
+%	\begin{equation}
+%		\langle \Pi^{\Omega}_k f, \Pi^{\Omega}_k g \rangle_{\Omega} = \langle \mathbf{z}^T \boldsymbol{\Pi}^{\Omega}_k \mathbf{f}, \mathbf{z}^T \boldsymbol{\Pi}^{\Omega}_k \mathbf{g} \rangle_{\Omega} = \mathbf{f}^T \left[ {\boldsymbol{\Pi}^{\Omega}_k}^T \left( \int_{\Omega} \mathbf{z} \otimes \mathbf{z} \, dV \right) \boldsymbol{\Pi}^{\Omega}_k \right] \mathbf{g},
+%	\end{equation}
+%	\begin{equation}
+%		\langle \pi^{\Omega}_k f, \pi^{\Omega}_k g \rangle_{\Omega} \approx \sum_{q=1}^{N_{qp}} w_q f_n(\mathbf{x}_q) g_n(\mathbf{x}_q) = \mathbf{f}^T \left[ {\boldsymbol{\pi}^{\Omega}_k}^T \mathbf{W} \boldsymbol{\pi}^{\Omega}_k \right] \mathbf{g},
+%	\end{equation}
+%	and thus
+%	\begin{equation}
+%		\int_\Omega f g \, dV \approx \mathbf{f}^T \mathbf{M}_k \mathbf{g} = \sum_{q = 1}^{N_{qp}} \sum_{p = 1}^{N_{qp}} M_k (\mathbf{x}_q,\mathbf{x}_p) \, f (\mathbf{x}_q) \, g (\mathbf{x}_p),
+%	\end{equation}
+%	\begin{equation}
+%		\mathbf{M}_k \equiv \left[ {\boldsymbol{\Pi}^{\Omega}_k}^T \left( \int_{\Omega} \mathbf{z} \otimes \mathbf{z} \, dV \right) \boldsymbol{\Pi}^{\Omega}_k \right] + \left[ {\boldsymbol{\pi}^{\Omega}_k}^T \mathbf{W} \boldsymbol{\pi}^{\Omega}_k \right].
+%	\end{equation}
+%	
+%	We shall refer to this form of integration as \textit{selective modal quadrature}, given that the products of particular low-order polynomial modes are integrated exactly, and the products of any higher-order modes are approximated using the element's quadrature rules. This approach is effectively equivalent to the method proposed by Talischi in \cite{Talischi:14}. The advantage of modal quadrature is that we may exactly integrate any terms which directly impact quadrature consistency. Consequently, nearly any stable numerical integration scheme (e.g. composite mid-point quadrature) may be used to integrate the higher-order products.
+%	
+%	Rather than storing the independent quadrature weights $w_q = w (\mathbf{x}_q)$, selective modal quadrature requires the storage of a generalized quadrature weighting matrix $M_k (\mathbf{x}_q,\mathbf{x}_p)$. Alternatively, for the sake of efficiency, if the function $g$ is known a priori (e.g. if $g$ is a test function for a weighted residual method), then we need only store the ``augmented'' test function values:
+%	\begin{equation}
+%		\tilde{g}^{(k)} (\mathbf{x}_q) = \sum_{p = 1}^{N_{qp}} \frac{M_k (\mathbf{x}_q,\mathbf{x}_p)}{w_q} \, g (\mathbf{x}_p),
+%	\end{equation}		
+%	and all integrals involving $f$ and $g$ may be carried out via
+%	\begin{equation}
+%		\int_\Omega f g \, dV \approx \sum_{q = 1}^{N_{qp}} \, w_q \, \tilde{g}^{(k)} (\mathbf{x}_q) \, f (\mathbf{x}_q).
+%	\end{equation}
+%	
+%	If applied to the stress divergence integral appearing in (\ref{eq:residual}), the resulting expression would resemble a gradient correction scheme in some respects, although it should be noted that the above procedure would need to be applied separately to each term appearing in the weak form (including boundary integrals). Specifically, the corresponding integration of the residual equations in (\ref{eq:residual}) would be carried out via
+%	\begin{equation}
+%		\int_{\mathcal{B}_0} P_{ij} \phi_{a,j} \, dV \approx \sum_{q=1}^{N_{qp}} w_q P_{ij} (\mathbf{x}_q) \tilde{\phi}^{(k)}_{a,j} (\mathbf{x}_q),
+%	\end{equation}
+%	\begin{equation}
+%		\int_{\mathcal{B}_0} \rho_0 b_i \phi_a \, dV \approx \sum_{q=1}^{N_{qp}} w_q \rho_0 (\mathbf{x}_q) b_i (\mathbf{x}_q) \tilde{\phi}^{(k-1)}_a (\mathbf{x}_q),
+%	\end{equation}
+%	\begin{equation}
+%		\int_{\Gamma^N_0} \bar{p}_i \phi_a \, dA \approx \sum_{b=1}^{N_{bp}} w_b  \bar{p}_i (\mathbf{x}_b) \tilde{\phi}^{(k)}_a (\mathbf{x}_b),
+%	\end{equation}
+%	where $\tilde{\phi}^{(k)}_a$ and $\tilde{\phi}^{(k)}_{a,j}$ denote the ``augmented'' test functions are their corresponding gradients, and $k$ is the indicated order of quadrature consistency (required to pass patch tests up to order $k+1$).
 
 %\subsection{Selection of an Appropriate Objective Functional}
 

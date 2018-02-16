@@ -1,5 +1,8 @@
 \begin{thebibliography}{10}
 
+\bibitem{LSDYNA}
+{\em LS-DYNA Keyword User's Manual, Volume II: Material Models}.
+
 \bibitem{Arnold:02}
 D.~N. Arnold, D.~Boffi, and R.~S. Falk.
 \newblock Approximation by quadrilateral finite elements.
@@ -26,6 +29,11 @@ Ivo Babu{\u{s}}ka and Manil Suri.
 Ivo Babu{\u{s}}ka and Manil Suri.
 \newblock On locking and robustness in the finite element method.
 \newblock {\em SIAM Journal on Numerical Analysis}, 29(5):1261--1293, 1992.
+
+\bibitem{Banerjee:05}
+Biswajit Banerjee.
+\newblock Taylor impact tests: Detailed report.
+\newblock {\em C-SAFE Internal Report}, Report No. C-SAFE-CD-IR-05-001, 2005.
 
 \bibitem{Bassi:12}
 F.~Bassi, L.~Botti, A.~Colombo, D.A.~Di Pietro, and P.~Tesini.
@@ -195,6 +203,17 @@ Axel Grundmann and H.~M. M{\"{o}}ller.
   methods.
 \newblock {\em SIAM Journal on Numerical Analysis}, 15(2):282--290, 1978.
 
+\bibitem{Gust:82}
+W.~H. Gust.
+\newblock High impact deformation of metal cylinders at elevated temperatures.
+\newblock {\em Journal of Applied Physics}, 53(5):3566--3575, 1982.
+
+\bibitem{Hecker:73}
+S.~S. Hecker.
+\newblock Influence of deformation history on the yield locus and stress-strain
+  behavior of aluminum and copper.
+\newblock {\em Metallurgical Transactions}, 4:985--989, 1973.
+
 \bibitem{Hesthaven:10}
 Jan~S. Hesthaven and Tim Warburton.
 \newblock {\em Nodal Discontinuous Galerkin Methods: Algorithms, Analysis, and
@@ -206,6 +225,13 @@ Thomas J.~R. Hughes.
 \newblock {\em The Finite Element Method--Linear Static and Dynamic Finite
   Element Analysis}.
 \newblock Dover Publications, 2000.
+
+\bibitem{Johnson&Cook:83}
+G.R. Johnson and W.H. Cook.
+\newblock A constitutive model and data for metals subjected to large strains,
+  high strain rates, and high temperatures.
+\newblock {\em Proceedings 7th International Symposium on Ballistics, The
+  Hague}, 19-21:541--547, April 1983.
 
 \bibitem{Joshi:07}
 Pushkar Joshi, Mark Meyer, Tony DeRose, Brian Green, and Tom Sanocki.
@@ -333,6 +359,12 @@ B\'{e}atrice Rivi\`{e}re, Mary~F. Wheeler, and Vivette Girault.
   discontinuous approximation spaces for elliptic problems.
 \newblock {\em SIAM Journal on Numerical Analysis}, 39(3):902--931, 2001.
 
+\bibitem{Heinstein:05}
+A.~C. Robinson, Martin~W. Heinstein, and Guglielmo Scovazzi.
+\newblock Lagrangian modeling at sandia national laboratories: Current status
+  and future directions.
+\newblock {\em Proceedings of 5LC}, 19-21:541--547, 2005.
+
 \bibitem{Selimotic:08}
 Mili Selimoti{\'{c}}.
 \newblock {\em Polyhedral Finite-Element Approximants in 3D Solid Mechanics}.
@@ -447,5 +479,11 @@ Robert Winkler.
 \newblock Comments on membrane locking.
 \newblock {\em Proceedings in Applied Mathematics and Mechanics}, 10:229--230,
   2010.
+
+\bibitem{Wopschall:17}
+Steven~R. Wopschall.
+\newblock {\em A Novel Face-on-Face Contact Method for Nonlinear Solid
+  Mechanics}.
+\newblock PhD thesis, 2017.
 
 \end{thebibliography}

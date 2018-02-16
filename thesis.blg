@@ -11,47 +11,49 @@ A level-1 auxiliary file: future_work.aux
 Database file #1: bibliography.bib
 Warning--entry type for "Wikiversity:17" isn't style-file defined
 --line 599 of file bibliography.bib
+Warning--to sort, need author, organization, or key in LSDYNA
 Warning--empty journal in Freund:95
 Warning--empty publisher in Wilson:73
-You've used 73 entries,
+Warning--empty school in Wopschall:17
+You've used 80 entries,
             2118 wiz_defined-function locations,
-            986 strings with 15833 characters,
-and the built_in function-call counts, 23944 in all, are:
-= -- 2422
-> -- 1078
+            1028 strings with 16916 characters,
+and the built_in function-call counts, 25743 in all, are:
+= -- 2601
+> -- 1138
 < -- 2
-+ -- 448
-- -- 352
-* -- 1744
-:= -- 4062
-add.period$ -- 218
-call.type$ -- 73
-change.case$ -- 389
++ -- 475
+- -- 370
+* -- 1861
+:= -- 4368
+add.period$ -- 237
+call.type$ -- 80
+change.case$ -- 417
 chr.to.int$ -- 0
-cite$ -- 75
-duplicate$ -- 811
-empty$ -- 1847
-format.name$ -- 352
-if$ -- 4861
+cite$ -- 84
+duplicate$ -- 882
+empty$ -- 2004
+format.name$ -- 370
+if$ -- 5236
 int.to.chr$ -- 0
-int.to.str$ -- 73
-missing$ -- 76
-newline$ -- 367
-num.names$ -- 146
-pop$ -- 308
+int.to.str$ -- 80
+missing$ -- 81
+newline$ -- 400
+num.names$ -- 158
+pop$ -- 330
 preamble$ -- 1
-purify$ -- 322
+purify$ -- 345
 quote$ -- 0
-skip$ -- 556
+skip$ -- 605
 stack$ -- 0
-substring$ -- 1864
-swap$ -- 90
+substring$ -- 1991
+swap$ -- 97
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 280
-warning$ -- 2
-while$ -- 255
-width$ -- 75
-write$ -- 793
-(There were 3 warnings)
+type$ -- 308
+warning$ -- 4
+while$ -- 271
+width$ -- 82
+write$ -- 863
+(There were 5 warnings)

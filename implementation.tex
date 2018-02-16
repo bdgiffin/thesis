@@ -375,22 +375,22 @@ This assists in limiting the worst-case value of $R_{\max}$ appearing in the pre
 \end{equation}
 denotes the smallest diameter of the largest ball $B_r (\mathbf{X}_B) = \left\{ \mathbf{X} \in \mathbb{R}^d : ||\mathbf{X} - \mathbf{X}_B||_2 \leq r \right\}$ fully contained within any single entity $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$. Nonetheless, the condition number of $\mathbf{J}$ can become large if: a relatively refined partition of the element is utilized; if the aspect ratio of the element becomes large; or if the element's partition contains ``sliver cells'' (i.e. if an edge-based partition is employed on an element with nearly degenerate geometric features.) Some improvements in the conditioning of $\mathbf{J}$ may be obtained by considering the DG basis described in \cite{Bassi:12}. The Lagrange polynomials (for triangles and tetrahedra) can also be used to obtain well-scaled bases for each entity.
 
-Following a number of numerical experiments, it was determined that the aforementioned estimates are quite accurate, illuminating a number of key points:
-\begin{itemize}
-	\item[(I.)] The condition number depends upon the dimensions of the element, and more specifically, upon the dimensions of its partition.
-	\begin{itemize}
-		\item[a.] Isotropically scaling an element will change the condition number of the resulting DG-PEM linear systems if the unscaled monomials are used as the entities' basis functions. This would seem to justify the idea of rescaling PEM elements into a corresponding ``parent'' domain -- ideally one which minimizes $\rho$. Shape functions and gradients would be computed in the parent configuration, and subsequently mapped back into the element's physical configuration through an affine transformation.
-		\item[b.] Choosing the element's reference coordinate $\bar{\mathbf{X}}^{\mathcal{E}}_0$ poorly can severely impact the conditioning of the DG-PEM linear systems. This further justifies the idea that the element's local coordinate system should be shifted to the element's centroid.
-		\item[c.] Elements with unequal dimensions (i.e. thin elements) will unavoidably suffer from issues of poor conditioning due to a larger relative value of $\rho$ (regardless of isotropic scaling). The natural temptation would be to scale the element anisotropically in an effort to achieve better conditioning. However, this would need to be done with care. Each sub-element would need to be scaled independently, according to its dimensions, alone. This is necessary to guarantee inter-face compatibility between elements, as two anisotropically scaled elements would not, in general, produce identical shape functions on their shared face.
-	\end{itemize}
-	\item[(II.)] The condition number becomes drastically worse when higher order monomial bases are used.
-	\begin{itemize}
-		\item[a.] This explains a great deal about why the quadratic DG-PEM elements have performed so poorly in convergence studies up to this point: not only does $\rho$ become worse under cell refinement, but the condition number scales as $O(\rho^4)$ for quadratic elements, leading to significant inaccuracies in the shape function computations, and subsequent losses in solution accuracy.
-		\item[b.] Unfortunately, this makes thin quadratic elements even more sensitive to the relative scaling of $\rho$. It is unclear whether or not anisotropically rescaling the elements will sufficiently improve matters.
-	\end{itemize}
-	\item[(III.)] Perhaps most importantly: the strong dependence of the condition number upon $\rho$ and $k$ is largely a consequence of our specific choice of polynomial basis (i.e. the monomial basis).
-	\begin{itemize}
-		\item[a.] Because the solution unknowns that we seek are monomial coefficients, it is to be expected that the constant, gradient (and curvature) coefficients may differ by orders of magnitude, depending on the relative scale of the element in physical space.
-		\item[b.] A more robust solution to the aforementioned issues of conditioning might be obtained through the selection of a different polynomial basis for $P_k (\Omega)$ (other than the monomial basis). In particular, the use of an orthonormal polynomial basis (with respect to an appropriately defined norm on an arbitrary element domain) could entirely circumvent the problem of poor conditioning. To prove this, we would need to illustrate that the resulting condition number of $\mathbf{J}$ using an orthonormal polynomial basis is less sensitive to both $h$ and $k$.
-	\end{itemize}
-\end{itemize}
+%Following a number of numerical experiments, it was determined that the aforementioned estimates are quite accurate, illuminating a number of key points:
+%\begin{itemize}
+%	\item[(I.)] The condition number depends upon the dimensions of the element, and more specifically, upon the dimensions of its partition.
+%	\begin{itemize}
+%		\item[a.] Isotropically scaling an element will change the condition number of the resulting DG-PEM linear systems if the unscaled monomials are used as the entities' basis functions. This would seem to justify the idea of rescaling PEM elements into a corresponding ``parent'' domain -- ideally one which minimizes $\rho$. Shape functions and gradients would be computed in the parent configuration, and subsequently mapped back into the element's physical configuration through an affine transformation.
+%		\item[b.] Choosing the element's reference coordinate $\bar{\mathbf{X}}^{\mathcal{E}}_0$ poorly can severely impact the conditioning of the DG-PEM linear systems. This further justifies the idea that the element's local coordinate system should be shifted to the element's centroid.
+%		\item[c.] Elements with unequal dimensions (i.e. thin elements) will unavoidably suffer from issues of poor conditioning due to a larger relative value of $\rho$ (regardless of isotropic scaling). The natural temptation would be to scale the element anisotropically in an effort to achieve better conditioning. However, this would need to be done with care. Each sub-element would need to be scaled independently, according to its dimensions, alone. This is necessary to guarantee inter-face compatibility between elements, as two anisotropically scaled elements would not, in general, produce identical shape functions on their shared face.
+%	\end{itemize}
+%	\item[(II.)] The condition number becomes drastically worse when higher order monomial bases are used.
+%	\begin{itemize}
+%		\item[a.] This explains a great deal about why the quadratic DG-PEM elements have performed so poorly in convergence studies up to this point: not only does $\rho$ become worse under cell refinement, but the condition number scales as $O(\rho^4)$ for quadratic elements, leading to significant inaccuracies in the shape function computations, and subsequent losses in solution accuracy.
+%		\item[b.] Unfortunately, this makes thin quadratic elements even more sensitive to the relative scaling of $\rho$. It is unclear whether or not anisotropically rescaling the elements will sufficiently improve matters.
+%	\end{itemize}
+%	\item[(III.)] Perhaps most importantly: the strong dependence of the condition number upon $\rho$ and $k$ is largely a consequence of our specific choice of polynomial basis (i.e. the monomial basis).
+%	\begin{itemize}
+%		\item[a.] Because the solution unknowns that we seek are monomial coefficients, it is to be expected that the constant, gradient (and curvature) coefficients may differ by orders of magnitude, depending on the relative scale of the element in physical space.
+%		\item[b.] A more robust solution to the aforementioned issues of conditioning might be obtained through the selection of a different polynomial basis for $P_k (\Omega)$ (other than the monomial basis). In particular, the use of an orthonormal polynomial basis (with respect to an appropriately defined norm on an arbitrary element domain) could entirely circumvent the problem of poor conditioning. To prove this, we would need to illustrate that the resulting condition number of $\mathbf{J}$ using an orthonormal polynomial basis is less sensitive to both $h$ and $k$.
+%	\end{itemize}
+%\end{itemize}
