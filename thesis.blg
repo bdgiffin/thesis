@@ -1,4 +1,6 @@
-This is BibTeX, Version 0.99dThe top-level auxiliary file: thesis.aux
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: thesis.aux
 The style file: plain.bst
 A level-1 auxiliary file: introduction.aux
 A level-1 auxiliary file: solid_mechanics.aux
@@ -10,7 +12,49 @@ Database file #1: bibliography.bib
 Warning--entry type for "Wikiversity:17" isn't style-file defined
 --line 599 of file bibliography.bib
 Warning--to sort, need author, organization, or key in LSDYNA
+Warning--empty author in ASTM:08
 Warning--empty journal in Freund:95
 Warning--empty publisher in Wilson:73
 Warning--empty school in Wopschall:17
-(There were 5 warnings)
+You've used 82 entries,
+            2118 wiz_defined-function locations,
+            1042 strings with 17357 characters,
+and the built_in function-call counts, 26177 in all, are:
+= -- 2645
+> -- 1157
+< -- 2
++ -- 483
+- -- 376
+* -- 1889
+:= -- 4444
+add.period$ -- 242
+call.type$ -- 82
+change.case$ -- 428
+chr.to.int$ -- 0
+cite$ -- 87
+duplicate$ -- 900
+empty$ -- 2037
+format.name$ -- 376
+if$ -- 5325
+int.to.chr$ -- 0
+int.to.str$ -- 82
+missing$ -- 82
+newline$ -- 409
+num.names$ -- 160
+pop$ -- 336
+preamble$ -- 1
+purify$ -- 353
+quote$ -- 0
+skip$ -- 618
+stack$ -- 0
+substring$ -- 2001
+swap$ -- 98
+text.length$ -- 2
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 316
+warning$ -- 5
+while$ -- 273
+width$ -- 84
+write$ -- 884
+(There were 6 warnings)

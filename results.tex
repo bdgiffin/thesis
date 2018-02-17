@@ -1032,7 +1032,7 @@ and
 \end{equation}
 Imposing the initial conditions $a(0) = b(0) = 0$ results in:
 \begin{equation}
-  a(t) = \frac{\mu B}{2 A} \left[ \cos (2 A t) - 1 \right], \quad b(t) = \frac{\mu B}{2 A} \sin (2 A t).
+  a(t) = \frac{\mu B}{2 A} \left[ \cos (2 A t) - 1 \right], \quad b(t) = \frac{\mu B}{2 A} \sin (2 A t).concave_stiffness_min_eigenvalue_parameter_study
 \end{equation}
 Imposing the boundary conditions $\phi(R_i,t) = 0 \, \, \forall t$, $\phi(R_o,t) = \Phi \, t \, \, \forall t$ yields:
 \begin{equation}
@@ -1125,15 +1125,18 @@ An exact solution for the vertical displacement field of the plate prob
 
 \subsection{Performance Comparison}
 
-The $J_2$ model of elastoplasticity with linear isotropic hardening was implemented, employing the radial return algorithm described in \cite{LSDYNA}.
+
 
 \section{Nonlinear Kinematics and Elastoplastic Material Behavior}
 
 A set of examples were explored to examine the behavior of the PEM in the context of both geometric and material nonlinearity.
 
+The $J_2$ model of elastoplasticity with linear isotropic hardening was implemented, employing the radial return algorithm described in \cite{LSDYNA}. This model will be utilized in the two problems considered herein, requiring the specification of the following material parameters: Young's modulus $E$, Poisson's ratio $\nu$, an initial yield stress $Y_0$, and a linear hardening modulus $E_h$.
+
 \subsection*{Ductile Necking Problem}
 
-A tensile test for a 4130 steel plate specimen was simulated using FEM and the DG-PEM. The experimental setup was based upon the tests conducted in \cite{Gerberich:62}. The dimensions of the plate specimen are illustrated in Figure \ref{fig:tensile_specimen_dimensions}, and the material parameters are listed in Table \ref{tab:tensile_specimen_properties}.
+A tensile test for a 4130 steel (800$^\circ$F temper) plate specimen was simulated under isothermal conditions. The test setup was based upon the experimental data collected in \cite{Gerberich:62}. The dimensions of the plate specimen illustrated in Figure \ref{fig:tensile_specimen_dimensions} conform with the ASTM standard \cite{ASTM:08}. The $J_2$ elastoplasticity model previously described was utilized, with the following model parameters chosen based upon the data obtained in \cite{Gerberich:62}: $E =$ 28,000 ksi, $\nu = 0.29$, $Y_0 = 173$ ksi, and $E_h = 741$ ksi.
+
 \begin{figure}[!h]
   \centering
   \includegraphics[width=6.0in]{figures/tensile_specimen_dimensions.pdf}
@@ -1141,52 +1144,170 @@ A tensile test for a 4130 steel plate specimen was simulated using FEM and the D
   \label{fig:tensile_specimen_dimensions}
 \end{figure}
 
-\begin{table}[!ht]
-  \begin{center}
-    \begin{tabular}{| c || c | c |}
-    \hline
-      & 4130 steel (800$^{\circ}$F temper) & 4130 steel (1050$^{\circ}$F temper) \\ \hline \hline
-    $E$ (ksi) & 28000 & 28600 \\ \hline
-    $Y_0$ (ksi) & 173 & 129 \\ \hline
-    $E_h$ (ksi) & 741 & 500 \\ \hline
-    UTS (ksi) & 182 & 136 \\ \hline
-    \% elongation (2 in) & 6 & 10 \\ \hline
-    \% area reduction & 36.7 & 49.7 \\
-    \hline
-    \end{tabular}
-    \caption{Tensile specimen properties.}
-    \vspace{-5pt}
-    \label{tab:tensile_specimen_properties}
-    \vspace{-25pt}
-  \end{center}
-\end{table}
+The test was run as a three-dimensional analysis under quasi-static loading conditions. The meshes shown in Figures \ref{fig:necking_hex_mesh} and \ref{fig:necking_poly_mesh} were used in conjunction with the FEM and DG-PEM, respectively. The DG-PEM employed the standard parameter settings utilized in previous problems. Both meshes consisted of roughly 400 elements, each.
 
-The test was run as a three-dimensional analysis under quasi-static loading conditions. The meshes shown in Figures A and B were used with the FEM and DG-PEM, respectively. The results are depicted in Figure N.
+\begin{figure}[!h]
+  \centering
+    \begin{subfigure}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[width=3.3in]{figures/necking_hex_mesh.pdf}
+    			\caption{Hexahedral mesh \label{fig:necking_hex_mesh}}
+    \end{subfigure}
+	\begin{subfigure}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[width=3.3in]{figures/necking_poly_mesh.pdf}
+    			\caption{Polyhedral mesh \label{fig:necking_poly_mesh}}
+    \end{subfigure} \caption{Plate specimen meshes used for the tensile necking problem, modeled as an eighth-symmetric problem.}
+  \label{fig:necking_meshes}
+\end{figure}
+
+Values of true (Cauchy) stress and engineering strain were measured from the analysis results as a post-processing step. The vertical component of Cauchy stress was measured within each element, and averaged over a representative horizontal layer of elements to determine an average tensile stress within the specimen. To maintain consistency with the experimental measurements obtained in \cite{Gerberich:62}, the engineering strain and percent elongation of the specimen were measured over a gage length of 2 inches.
+
+% listed in Table \ref{tab:tensile_specimen_properties}.
+%\begin{table}[!ht]
+%  \begin{center}
+%    \begin{tabular}{| c || c | c |}
+%    \hline
+%      & 4130 steel (800$^{\circ}$F temper) & 4130 steel (1050$^{\circ}$F temper) \\ \hline \hline
+%    $E$ (ksi) & 28000 & 28600 \\ \hline
+%    	$\nu$ (in/in) & 0.29 & 0.29 \\ \hline
+%    $Y_0$ (ksi) & 173 & 129 \\ \hline
+%    $E_h$ (ksi) & 741 & 500 \\
+%    \hline
+%    \end{tabular}
+%    \caption{Tensile specimen properties.}
+%    \vspace{-5pt}
+%    \label{tab:tensile_specimen_properties}
+%    \vspace{-25pt}
+%  \end{center}
+%\end{table}
+
+The visualized results of the simulations are depicted in Figures \ref{fig:necking_vm} and \ref{fig:necking_meshes}, depicting a clear discrepancy between the FEM and (DG-)PEM. The FEM predicted the onset of necking at roughly 0.6 \% elongation, exhibiting softening behavior almost immediately after reaching the initial point of yielding. At 1.8 \% elongation, the FEM simulation was terminated due to element inversion (see Figure \ref{fig:necking_deformed_iso}.) By comparison, the PEM exhibited strain hardening within the specimen, reaching 1.8 \% elongation prior to the onset of necking. At 3.6 \% elongation, the PEM simulation succumbed to element inversion (see Figure \ref{fig:necking_deformed_pem}.)
 
 \begin{figure}[!h]
     \centering
     \begin{subfigure}[b]{0.49\linewidth}
             \centering
-            \includegraphics[width=3.0in]{figures/necking_eqps_0.pdf}
-    			\caption{$t=0.0$ \label{fig:necking_eqps_0}}
+            \includegraphics[width=3.0in]{figures/necking_t0.pdf}
+    			\caption{0.0 \% elongation \label{fig:necking_t0}}
     \end{subfigure}
 	\begin{subfigure}[b]{0.49\linewidth}
             \centering
-            \includegraphics[width=3.0in]{figures/necking_eqps_1.pdf}
-    			\caption{$t=0.5$ \label{fig:necking_eqps_1}}
+            \includegraphics[width=3.0in]{figures/necking_t1.pdf}
+    			\caption{0.6 \% elongation \label{fig:necking_t1}}
     \end{subfigure}
     \begin{subfigure}[b]{0.49\linewidth}
             \centering
-            \includegraphics[width=3.0in]{figures/necking_eqps_2.pdf}
-    			\caption{$t=0.75$ \label{fig:necking_eqps_2}}
+            \includegraphics[width=3.0in]{figures/necking_t2.pdf}
+    			\caption{1.8 \% elongation \label{fig:necking_t2}}
     \end{subfigure}
 	\begin{subfigure}[b]{0.49\linewidth}
             \centering
-            \includegraphics[width=3.0in]{figures/necking_eqps_3.pdf}
-    			\caption{$t=1$ \label{fig:necking_eqps_3}}
+            \includegraphics[width=3.0in]{figures/necking_t3.pdf}
+    			\caption{3.7 \% elongation (PEM only) \label{fig:necking_t3}}
     \end{subfigure}
-    \caption{Comparison of necking behavior at various times during the analysis, depicting deformed shape, and values of equivalent plastic strain.}
+    \caption{Comparison of necking behavior at various stages of loading, depicting computed values of von Mises stress $\sigma_v$.}
+    \label{fig:necking_vm}
 \end{figure}
+
+\begin{figure}[!h]
+  \centering
+    \begin{subfigure}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[width=3.1in]{figures/necking_deformed_iso.pdf}
+    			\caption{FEM at 1.8 \% elongation \label{fig:necking_deformed_iso}}
+    \end{subfigure}
+	\begin{subfigure}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[width=3.1in]{figures/necking_deformed_pem.pdf}
+    			\caption{PEM at 3.7 \% elongation \label{fig:necking_deformed_pem}}
+    \end{subfigure} \caption{Comparison of necking behavior at differing times during the analysis, depicting deformed shape, and computed values of equivalent plastic strain $\bar{\epsilon}^p$.}
+  \label{fig:necking_meshes}
+\end{figure}
+
+%\begin{figure}[!h]
+%    \centering
+%    \begin{subfigure}[b]{0.49\linewidth}
+%            \centering
+%            \includegraphics[width=3.0in]{figures/necking_eqps_0.pdf}
+%    			\caption{$t=0.0$ \label{fig:necking_eqps_0}}
+%    \end{subfigure}
+%	\begin{subfigure}[b]{0.49\linewidth}
+%            \centering
+%            \includegraphics[width=3.0in]{figures/necking_eqps_1.pdf}
+%    			\caption{$t=0.5$ \label{fig:necking_eqps_1}}
+%    \end{subfigure}
+%    \begin{subfigure}[b]{0.49\linewidth}
+%            \centering
+%            \includegraphics[width=3.0in]{figures/necking_eqps_2.pdf}
+%    			\caption{$t=0.75$ \label{fig:necking_eqps_2}}
+%    \end{subfigure}
+%	\begin{subfigure}[b]{0.49\linewidth}
+%            \centering
+%            \includegraphics[width=3.0in]{figures/necking_eqps_3.pdf}
+%    			\caption{$t=1$ \label{fig:necking_eqps_3}}
+%    \end{subfigure}
+%    \caption{Comparison of necking behavior at various times during the analysis, depicting deformed shape, and values of equivalent plastic strain.}
+%    \label{fig:necking_eqps}
+%\end{figure}
+
+Plots of the computed stress vs. engineering strain curves from each simulation are depicted in Figure \ref{fig:tensile_stress_strain}. The results obtained by the PEM model suggest that strain hardening will take place within the specimen, reaching an (averaged) ultimate tensile stress of 178 ksi. For the FEM model, the specimen quickly softens after reaching the initial yield point at 172 ksi.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=4.0in]{figures/tensile_stress_strain.pdf}
+  \caption{Plotted values of true stress vs. engineering strain using FEM and DG-PEM.}
+  \label{fig:tensile_stress_strain}
+\end{figure}
+
+%\begin{table}
+%\centering
+%\begin{subtable}{1.0\textwidth}
+%\centering
+%\begin{tabular}{| c || c | c | c |}
+%    \hline
+%               & \% elongation (2 in) & \% area reduction & UTS (ksi) \\ \hline \hline
+%    FEM        &  &  &  \\ \hline
+%    DG-PEM     &  &  &  \\ \hline
+%    Experiment & 6 & 36.7 & 182 \\
+%    \hline
+%    \end{tabular}
+%    \caption{4130 steel (800$^\circ$F temper)}
+%    \label{tab:tensile_test_data_results800}
+%\end{subtable}% <---- don't forget this %
+%\\
+%\begin{subtable}{1.0\textwidth}
+%\centering
+%\begin{tabular}{| c || c | c | c |}
+%    \hline
+%               & \% elongation (2 in) & \% area reduction & UTS (ksi) \\ \hline \hline
+%    FEM        &  &  &  \\ \hline
+%    DG-PEM     &  &  &  \\ \hline
+%    Experiment & 10 & 49.7 & 136 \\
+%    \hline
+%    \end{tabular}
+%    \caption{4130 steel (1050$^\circ$F temper)}
+%    \label{tab:tensile_test_data_results1050}
+%\end{subtable}
+%\caption{Tensile test data results comparison.}
+%\label{tab:tensile_test_data_results}
+%\end{table}
+
+Without the use of an adequate model for ductile fracture, it is not possible to predict when rupture will occur within the specimen. It is therefore not proper to claim that rupture will occur within the specimen when the elements ultimately invert. However, it may be sufficient to claim that the \% elongation at which element inversion occurs should provide an upper bound on the \% elongation at which ductile rupture takes place. With these upper bounds in mind, consider the results in Table \ref{tab:tensile_test_data_results} in comparison with the experimentally measured values. Clearly, neither of the two simulations produces sensical results, but at least the PEM does ok.
+
+\begin{table}
+\centering
+\begin{tabular}{| c || c | c |}
+    \hline
+               & \% elongation (2 in) & UTS (ksi) \\ \hline \hline
+    FEM        & $<1.8$ & 172 \\ \hline
+    DG-PEM     & $<3.7$ & 178 \\ \hline
+    Experiment & 6.0 & 182 \\
+    \hline
+\end{tabular}
+\caption{Tensile test data results comparison.}
+\label{tab:tensile_test_data_results}
+\end{table}
 
 \subsection*{Taylor Bar Impact Problem}
 
@@ -1194,7 +1315,7 @@ The test was run as a three-dimensional analysis under quasi-static loading cond
 
 For high impact velocities, the Taylor impact test under consideration is typically modeled as a coupled thermo-mechanical problem. Moreover, many finite element simulations (\cite{Heinstein:05}, \cite{Banerjee:05}) employ temperature- and strain-rate-dependent material models (such as the model of Johnson and Cook \cite{Johnson&Cook:83}). To avoid over-complicating the subsequent analyses, isothermal conditions are assumed. Additionally, the simple (rate-independent) $J_2$ elastoplasticity model described in the previous section will be used for the 
 
-The numerical model herein sought to mimic the experimental setups detailed in \cite{Johnson&Cook:83} and \cite{Gust:82}. The impact specimen was a cylindrical billet with an initial height of 30mm, and an initial diameter of 6mm. The billet was given material properties consistent with those of OFHC copper. The following model parameters were estimated based on experimental data from \cite{Hecker:73}: the material density was specified as 8,930 kg/$\text{m}^3$, the elastic properties were taken to be $E = 110$ GPa, $\nu = 0.343$, the initial yield stress was approximated as $Y_0 = 41.37$ MPa, and the linear hardening modulus was estimated as $H = 2.3$ GPa. The billet was given an initial velocity of $400$ m/s.
+The numerical model herein sought to mimic the experimental setups detailed in \cite{Johnson&Cook:83} and \cite{Gust:82}. The impact specimen was a cylindrical billet with an initial height of 30mm, and an initial diameter of 6mm. The billet was given material properties consistent with those of OFHC copper. The following model parameters were estimated based on experimental data from \cite{Hecker:73}: the material density was specified as 8,930 kg/$\text{m}^3$, the elastic properties were taken to be $E = 110$ GPa, $\nu = 0.343$, the initial yield stress was approximated as $Y_0 = 41.37$ MPa, and the linear hardening modulus was estimated as $E_h = 2.3$ GPa. The billet was given an initial velocity of $400$ m/s.
 
 Frictionless contact between the billet and the rigid surface corresponding to $X_3 = 0.0$ was modeled via the inclusion of a penalty traction of the form:
 \begin{equation}

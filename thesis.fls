@@ -319,6 +319,15 @@ INPUT ./figures/quad_h1_error.pdf
 INPUT figures/plate_meshes.pdf
 INPUT ./figures/plate_meshes.pdf
 INPUT ./figures/plate_meshes.pdf
+INPUT figures/tensile_specimen_dimensions.pdf
+INPUT ./figures/tensile_specimen_dimensions.pdf
+INPUT ./figures/tensile_specimen_dimensions.pdf
+INPUT figures/necking_hex_mesh.pdf
+INPUT ./figures/necking_hex_mesh.pdf
+INPUT ./figures/necking_hex_mesh.pdf
+INPUT figures/necking_poly_mesh.pdf
+INPUT ./figures/necking_poly_mesh.pdf
+INPUT ./figures/necking_poly_mesh.pdf
 INPUT figures/necking_eqps_0.pdf
 INPUT ./figures/necking_eqps_0.pdf
 INPUT ./figures/necking_eqps_0.pdf
@@ -331,6 +340,9 @@ INPUT ./figures/necking_eqps_2.pdf
 INPUT figures/necking_eqps_3.pdf
 INPUT ./figures/necking_eqps_3.pdf
 INPUT ./figures/necking_eqps_3.pdf
+INPUT figures/tensile_stress_strain.pdf
+INPUT ./figures/tensile_stress_strain.pdf
+INPUT ./figures/tensile_stress_strain.pdf
 INPUT figures/taylor_eqps_0.pdf
 INPUT ./figures/taylor_eqps_0.pdf
 INPUT ./figures/taylor_eqps_0.pdf
