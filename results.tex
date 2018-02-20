@@ -1135,7 +1135,7 @@ The $J_2$ model of elastoplasticity with linear isotropic hardening was implemen
 
 \subsection*{Ductile Necking Problem}
 
-A tensile test for a 4130 steel (800$^\circ$F temper) plate specimen was simulated under isothermal conditions. The test setup was based upon the experimental data collected in \cite{Gerberich:62}. The dimensions of the plate specimen illustrated in Figure \ref{fig:tensile_specimen_dimensions} conform with the ASTM standard \cite{ASTM:08}. The $J_2$ elastoplasticity model previously described was utilized, with the following model parameters chosen based upon the data obtained in \cite{Gerberich:62}: $E =$ 28,000 ksi, $\nu = 0.29$, $Y_0 = 173$ ksi, and $E_h = 741$ ksi.
+A tensile test for a 4130 steel (800$^\circ$F temper) plate specimen was simulated under isothermal conditions. The test setup was based upon the experimental data collected in \cite{Gerberich:62}. The dimensions of the plate specimen illustrated in Figure \ref{fig:tensile_specimen_dimensions} conform with the ASTM standard \cite{ASTM:08}. The $J_2$ elastoplasticity model described in the previous section was utilized, with the following model parameters chosen based upon the data obtained in \cite{Gerberich:62}: $E =$ 28,000 ksi, $\nu = 0.29$, $Y_0 = 173$ ksi, and $E_h = 741$ ksi.
 
 \begin{figure}[!h]
   \centering
@@ -1161,7 +1161,7 @@ The test was run as a three-dimensional analysis under quasi-static loading cond
   \label{fig:necking_meshes}
 \end{figure}
 
-Values of true (Cauchy) stress and engineering strain were measured from the analysis results as a post-processing step. The vertical component of Cauchy stress was measured within each element, and averaged over a representative horizontal layer of elements to determine an average tensile stress within the specimen. To maintain consistency with the experimental measurements obtained in \cite{Gerberich:62}, the engineering strain and percent elongation of the specimen were measured over a gage length of 2 inches.
+Values of true (Cauchy) stress and engineering strain were measured from the analysis results via post-processing. The vertical component of Cauchy stress was measured within each element, and averaged over a representative horizontal layer of elements (away from the region of necking) to determine an average tensile stress within the specimen. To maintain consistency with the experimental measurements obtained in \cite{Gerberich:62}, the engineering strain and percent elongation of the specimen were measured over a gage length of 2 inches.
 
 % listed in Table \ref{tab:tensile_specimen_properties}.
 %\begin{table}[!ht]
@@ -1182,7 +1182,7 @@ Values of true (Cauchy) stress and engineering strain were measured from the ana
 %  \end{center}
 %\end{table}
 
-The visualized results of the simulations are depicted in Figures \ref{fig:necking_vm} and \ref{fig:necking_meshes}, depicting a clear discrepancy between the FEM and (DG-)PEM. The FEM predicted the onset of necking at roughly 0.6 \% elongation, exhibiting softening behavior almost immediately after reaching the initial point of yielding. At 1.8 \% elongation, the FEM simulation was terminated due to element inversion (see Figure \ref{fig:necking_deformed_iso}.) By comparison, the PEM exhibited strain hardening within the specimen, reaching 1.8 \% elongation prior to the onset of necking. At 3.6 \% elongation, the PEM simulation succumbed to element inversion (see Figure \ref{fig:necking_deformed_pem}.)
+The visualized results of the simulations are depicted in Figures \ref{fig:necking_vm} and \ref{fig:necking_meshes}, showing a clear discrepancy between the FEM and (DG-)PEM. The FEM model predicted the onset of necking at roughly 0.6 \% elongation, exhibiting softening behavior almost immediately after reaching the initial point of yielding. At 1.8 \% elongation, the FEM simulation was terminated due to element inversion (see Figure \ref{fig:necking_deformed_iso}.) By comparison, the PEM model exhibited hardening behavior, reaching 1.8 \% elongation prior to the onset of necking. At 3.6 \% elongation, the PEM simulation succumbed to element inversion (see Figure \ref{fig:necking_deformed_pem}.)
 
 \begin{figure}[!h]
     \centering
@@ -1221,7 +1221,7 @@ The visualized results of the simulations are depicted in Figures \ref{fig:necki
             \centering
             \includegraphics[width=3.1in]{figures/necking_deformed_pem.pdf}
     			\caption{PEM at 3.7 \% elongation \label{fig:necking_deformed_pem}}
-    \end{subfigure} \caption{Comparison of necking behavior at differing times during the analysis, depicting deformed shape, and computed values of equivalent plastic strain $\bar{\epsilon}^p$.}
+    \end{subfigure} \caption{Comparison of necking behavior at the time of element inversion for each analysis, depicting the deformed shape, and computed values of equivalent plastic strain $\bar{\epsilon}^p$.}
   \label{fig:necking_meshes}
 \end{figure}
 
@@ -1293,7 +1293,7 @@ Plots of the computed stress vs. engineering strain curves from each simulation 
 %\label{tab:tensile_test_data_results}
 %\end{table}
 
-Without the use of an adequate model for ductile fracture, it is not possible to predict when rupture will occur within the specimen. It is therefore not proper to claim that rupture will occur within the specimen when the elements ultimately invert. However, it may be sufficient to claim that the \% elongation at which element inversion occurs should provide an upper bound on the \% elongation at which ductile rupture takes place. With these upper bounds in mind, consider the results in Table \ref{tab:tensile_test_data_results} in comparison with the experimentally measured values. Clearly, neither of the two simulations produces sensical results, but at least the PEM does ok.
+Without the use of an adequate model for ductile fracture, it is not possible to predict when rupture will occur within the specimen. It is therefore not proper to claim that rupture will occur within the specimen when the elements ultimately invert. However, it may be sufficient to claim that the \% elongation at which element inversion occurs should provide an upper bound on the \% elongation at which ductile rupture takes place. With these upper bounds in mind, consider the results in Table \ref{tab:tensile_test_data_results} in comparison with the experimentally measured values.
 
 \begin{table}
 \centering
@@ -1309,19 +1309,21 @@ Without the use of an adequate model for ductile fracture, it is not possible to
 \label{tab:tensile_test_data_results}
 \end{table}
 
+Neither simulation comes particularly close to reproducing the experimental results. This may attributable to a number of potential factors: failure to account for the effects of material variability, inadequacy of the chosen linear hardening plasticity model, poorly calibrated model parameters, or coarseness of the meshes that were utilized. Irrespective of these shortcomings, however, it is difficult to rationalize the difference between the results obtained by the FEM and the PEM. 
+
+Interestingly, if the PEM is employed on the hexahedral mesh in Figure \ref{fig:necking_hex_mesh}, the results are comparable with those of the FEM. This observation seems to indicate that the results are sensitive to the particular choice of discretization. Running the problem on a more highly refined mesh reveals that
+
 \subsection*{Taylor Bar Impact Problem}
 
+A Taylor impact test for an OFHC copper rod was simulated using the HTT-$\alpha$ implicit dynamics time integration algorithm introduced in \cite{Hilber&Hughes&Taylor:77}. For high impact velocities, the Taylor impact test under consideration is typically modeled as a coupled thermo-mechanical problem. Moreover, many finite element simulations (\cite{Heinstein:05}, \cite{Banerjee:05}) employ temperature- and strain-rate-dependent material models (such as the model of Johnson and Cook \cite{Johnson&Cook:83}). To avoid over-complicating the subsequent analyses, however, isothermal conditions are assumed. Additionally, the simple (rate-independent) $J_2$ elastoplasticity model described previously will be utilized.
 
+The numerical model herein sought to mimic the experimental procedures detailed in \cite{Johnson&Cook:83} and \cite{Gust:82}. The impact specimen was a cylindrical copper rod with an initial height of 30mm, and an initial diameter of 6mm. The following model parameters were estimated based on experimental data from \cite{Hecker:73}: the material density was specified as 8,930 kg/$\text{m}^3$, the elastic properties were taken to be $E = 110$ GPa, $\nu = 0.343$, the initial yield stress was approximated as $Y_0 = 41.37$ MPa, and the linear hardening modulus was estimated as $E_h = 2.3$ GPa. Prior to impact, the rod was given an initial velocity of $400$ m/s.
 
-For high impact velocities, the Taylor impact test under consideration is typically modeled as a coupled thermo-mechanical problem. Moreover, many finite element simulations (\cite{Heinstein:05}, \cite{Banerjee:05}) employ temperature- and strain-rate-dependent material models (such as the model of Johnson and Cook \cite{Johnson&Cook:83}). To avoid over-complicating the subsequent analyses, isothermal conditions are assumed. Additionally, the simple (rate-independent) $J_2$ elastoplasticity model described in the previous section will be used for the 
-
-The numerical model herein sought to mimic the experimental setups detailed in \cite{Johnson&Cook:83} and \cite{Gust:82}. The impact specimen was a cylindrical billet with an initial height of 30mm, and an initial diameter of 6mm. The billet was given material properties consistent with those of OFHC copper. The following model parameters were estimated based on experimental data from \cite{Hecker:73}: the material density was specified as 8,930 kg/$\text{m}^3$, the elastic properties were taken to be $E = 110$ GPa, $\nu = 0.343$, the initial yield stress was approximated as $Y_0 = 41.37$ MPa, and the linear hardening modulus was estimated as $E_h = 2.3$ GPa. The billet was given an initial velocity of $400$ m/s.
-
-Frictionless contact between the billet and the rigid surface corresponding to $X_3 = 0.0$ was modeled via the inclusion of a penalty traction of the form:
+Frictionless contact between the rod and the rigid surface corresponding to $X_3 = 0.0$ was modeled via the inclusion of a penalty traction of the form:
 \begin{equation}
 	\bar{t}_1 = \bar{t}_2 = 0, \quad \bar{t}_3 = p \langle -u_3|u_3|  \rangle,
 \end{equation}
-where $u_3$ corresponds to the vertical displacement of a given point on the bottom surface of the billet, and $p$ denotes a penalty stiffness parameter. For the problem at hand, an ad hoc value of $p = 6.0E+016$ was chosen, following a process of trial-and-error.
+where $u_3$ corresponds to the vertical displacement of a given point on the bottom surface of the rod, and $p$ denotes a penalty stiffness parameter. For the problem at hand, an ad hoc value of $p = 6.0E+016$ was chosen, following a process of trial-and-error.
 
 \begin{figure}[!h]
   \centering
@@ -1348,7 +1350,7 @@ where $u_3$ corresponds to the vertical displacement of a given point on the bot
     DG-PEM ($\beta = 0.1$) & 0.0031577  & -0.01182747 \\
     \hline
     \end{tabular}
-    \caption{Change in base width and billet length.}
+    \caption{Change in base width and rod length.}
     \vspace{-5pt}
     \label{tab:change_in_length_measurements}
     \vspace{-25pt}

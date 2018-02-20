@@ -231,6 +231,13 @@ Jan~S. Hesthaven and Tim Warburton.
   Applications}.
 \newblock Springer Publishing Company, Incorporated, 1st edition, 2010.
 
+\bibitem{Hilber&Hughes&Taylor:77}
+Hans~M. Hilber, Thomas J.~R. Hughes, and Robert~L. Taylor.
+\newblock Improved numerical dissipation for time integration algorithms in
+  structural dynamics.
+\newblock {\em Earthquake Engineering \& Structural Dynamics}, 5(3):283--292,
+  1977.
+
 \bibitem{Hughes:00}
 Thomas J.~R. Hughes.
 \newblock {\em The Finite Element Method--Linear Static and Dynamic Finite
