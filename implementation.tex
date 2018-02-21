@@ -210,7 +210,7 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 		\sum_{A=1}^{N^\mathcal{E}_{bf}} J_{AB} \, \varphi_A = F_B \quad \forall B = 1, \ldots, N^\mathcal{E}_{bf},
 		\label{eq:linearization_dgpem}
 	\end{equation}
-	where $J_{AB}$ and $F_B$ are computed via an entity-wise assembly process following to the methodology described in \cite{Riviere:08} for assembling DG finite element systems of equations. In addition to assembling local contributions $J^\varepsilon_{ab}$ and $F^\varepsilon_b$ to $J_{AB}$ and $F_B$ from all $d$-dimensional entities $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$, it is also necessary to assemble appropriate contributions from all $(d-1)$-dimensional interfaces $\zeta \in \Gamma_\varepsilon \cup \partial \mathcal{E}$, as well.
+	where $J_{AB}$ and $F_B$ are computed via an entity-wise assembly process following to the methodology described in \cite{Riviere:08}. In addition to assembling local contributions $J^\varepsilon_{ab}$ and $F^\varepsilon_b$ to $J_{AB}$ and $F_B$ from all $d$-dimensional entities $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$, it is also necessary to assemble appropriate contributions from all $(d-1)$-dimensional interfaces $\zeta \in \Gamma_\varepsilon \cup \partial \mathcal{E}$, as well.
 
 	Specifically, each $d$-dimensional entity $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$ contributes the following local arrays:
 	\begin{equation}
@@ -235,7 +235,7 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 	\end{align}
 	for all $i, \, j = 1, \, 2$, and $a = 1, \ldots, N^{\varepsilon_i}_{bf}$, $b = 1, \ldots, N^{\varepsilon_j}_{bf}$. For the remainder of our discussions, we will consider only the case where $f_\mathcal{E} \equiv 0$ for all sub-elements $\mathcal{E} \subset \Omega$.
 	
-	For a given $d$-dimensional sub-element $\mathcal{E}$, the assembly of the above terms entails an entity-wise integration of products between basis functions (and their gradients) over $d$-dimensional entities $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$ and their $(d-1)$-dimensional children $\zeta \in \Gamma_\varepsilon \cup \partial \mathcal{E}$. This may be effected through the use of appropriately defined quadrature rules on each entity, or by pre-computing the monomial integrals over each entity up to some sufficiently high degree (nominally $2k$). If the entities
+	For a given $d$-dimensional sub-element $\mathcal{E}$, the assembly of the above terms entails an entity-wise integration of products between basis functions (and their gradients) over $d$-dimensional entities $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$ and their $(d-1)$-dimensional children $\zeta \in \Gamma_\varepsilon \cup \partial \mathcal{E}$. This may be effected through the use of appropriately defined quadrature rules on each entity, or by pre-computing the monomial integrals over each entity up to some sufficiently high degree (nominally $2k$).
 	
 	Additionally, it is remarked that the boundary condition $\bar{\varphi}$ is defined independently on every $(d-1)$-dimensional sub-element $e \subset \partial \mathcal{E}$, such that its restriction $\bar{\varphi}|_\zeta$ may be written in terms of the local basis functions $\left\{ \psi^{\zeta}_c \right\}_{c=1}^{N^\zeta_{bf}}$ belonging to a given boundary entity $\zeta \in \mathcal{T}_{\zeta} (e)$, i.e.
 	\begin{equation}
@@ -268,10 +268,7 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 		\varphi_A |_{V_B} = \delta_{AB} \quad \forall A, \, B = 1, \ldots, N^{\Omega}_V.
 	\end{equation}
 	
-	Additionally, for the sake of simplicity (and computational efficiency), it is suggested that the shape functions along each linear edge $E$ be constructed from the standard Lagrange polynomials which interpolate the nodal values of that edge, i.e.
-	\begin{equation}
-		\varphi_A |_{E} (\mathbf{X}) = \sum_{b = 1}^{N^E_V} \psi_b (\mathbf{X}) \, \varphi_A |_{V_b}.
-	\end{equation}
+	Additionally, for the sake of simplicity (and computational efficiency), it is suggested that the shape functions along each linear edge $E$ be constructed from the standard Lagrange polynomials which interpolate the nodal values of that edge.
 
 	For each polygonal face $F$, linear mappings $\mathbf{M}^{\partial F \mapsto F} : \mathbb{R}^{N^{F}_{V}} \mapsto \mathbb{R}^{N^{F}_{bf}}$ may be constructed according to the process described in the previous section, yielding 
 	\begin{equation}

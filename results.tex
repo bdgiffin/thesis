@@ -1,20 +1,18 @@
 \chapter{A Numerical Evaluation of the PEM} \label{ch:results}
 %
-This chapter provides a detailed numerical assessment of several partitioned element methods, with specific emphasis placed upon the DG-PEM. A numerical measure of polynomial reproducibility is introduced and utilized to investigate the level of interpolation error incured by different element formulations. Linear and quadratic finite element patch tests are conducted in both 2- and 3-dimensions. Some tests are run on oddly-shaped elements to investigate the behavior of the element's stiffness matrices. The effects of small edges are investigated further in a simple 2D mesh of Voronoi elements.
-
- Investigations into the sensitivity of the 
+This chapter provides a detailed numerical assessment of several partitioned element methods, with specific emphasis placed upon the DG-PEM. A numerical measure of polynomial reproducibility is introduced and utilized to investigate the level of interpolation error incurred by different formulations of the PEM. Linear and quadratic finite element patch tests are conducted in both 2- and 3-dimensions, with comparisons drawn between the FEM and the PEM. The behavior of irregularly-shaped polygonal elements is investigated, and the effects of short element edges within 2-dimensional Voronoi meshes are examined further. Convergence studies are carried out to compare the accuracy of the PEM with that of the FEM. The chapter concludes with a number of demonstrative problems, illustrating the ability of the PEM to handle nonlinear deformations and material behavior.
 
 \section{Tests for Polynomial Reproducibility}
 
-An investigation was conducted to assess the degree to which polynomial reproducibility was achieved by a given partitioned element methodology. Reproducibility was assessed though the use of an error metric discussed in the following section, herein defined as \textit{interpolation error}.
+Herein, an investigation is conducted to assess the degree to which polynomial reproducibility is achieved by a given partitioned element methodology. Reproducibility is assessed by an \textit{interpolation error} metric, defined in the following section.
 
 \subsection*{Interpolation Error}
 
-Consider an arbitrary polytopal element $\Omega \subset \mathbb{R}^d$. Let $u$ denote an arbitrary scalar polynomial field of maximal degree $k$, written in terms of the monomials:
+Consider an arbitrary polytopal element $\Omega \subset \mathbb{R}^d$. Let $u \in P^k (\Omega)$ denote a scalar polynomial field of maximal degree $k$, written in terms of the monomials:
 \begin{equation}
         u (\mathbf{X}) = \sum_{|\alpha| \leq k} c_{\alpha} \, \mathbf{X}^{\alpha}.
 \end{equation}
-The $H^1(\Omega)$ norm of any scalar field $u \in H^1(\Omega)$ will be denoted as
+The $H^1(\Omega)$ norm of any scalar field $u \in H^1(\Omega)$ is denoted
 \begin{equation}
         ||u||_{H^1} = \left[ \langle u, \, u \rangle_{H^1} \right]^{1/2},
 \end{equation}
@@ -27,16 +25,16 @@ is the $H^1(\Omega)$ inner product of $u, \,v \in H^1(\Omega)$. Denote $u^h$ as 
         u^h (\mathbf{X}) = \sum_{A = 1}^{N^{\Omega}_V} \varphi_A (\mathbf{X}) \, u(\mathbf{X}_A).
 \end{equation}
 
-The space of all polynomials of maximal degree $k$ is denoted as $P^k (\Omega)$. We will confine our attention to the sub-space $\bar{P}^k (\Omega) \subset P^k (\Omega)$ containing only those polynomials with unit $H^1 (\Omega)$ norm:
+Recall that the space of all polynomials of maximal degree $k$ is denoted $P^k (\Omega)$. The sub-space $\bar{P}^k (\Omega) \subset P^k (\Omega)$ contains only those polynomials with unit $H^1 (\Omega)$ norm:
 \begin{equation}
         \bar{P}^k (\Omega) = \{ u : u \in P^k (\Omega), ||u||_{H^1} = 1 \}.
 \end{equation}
 
-The \textit{interpolation error} $E_k (\Omega)$ on the element $\Omega$ for the polynomials of maximal degree $k$ is defined as
+The \textit{interpolation error} $E_k (\Omega)$ on the element $\Omega$ over the polynomials of maximal degree $k$ is defined as
 \begin{equation}
-        E_k (\Omega) \equiv \max_{u \in \bar{P}^k (\Omega)} || u(\mathbf{X}) - u^h(\mathbf{X}) ||_{H^1} = \max_{u \in P^k (\Omega)} \frac{|| u(\mathbf{X}) - u^h(\mathbf{X}) ||_{H^1}}{|| u(\mathbf{X}) ||_{H^1}}.
+        E_k (\Omega) \equiv \sup_{u \in \bar{P}^k (\Omega)} || u(\mathbf{X}) - u^h(\mathbf{X}) ||_{H^1} = \sup_{u \in P^k (\Omega)} \frac{|| u(\mathbf{X}) - u^h(\mathbf{X}) ||_{H^1}}{|| u(\mathbf{X}) ||_{H^1}}.
 \end{equation}
-In the computation of this error measure, we must determine the polynomial coeffients $c_\alpha$ of $u \in \bar{P}^k (\Omega)$ which yield the maximal error. Denote $e_\alpha$ as the error in the approximation of the monomial $\mathbf{X}^\alpha$:
+In the numerical computation of this error measure, the polynomial coefficients $c_\alpha$ of $u \in \bar{P}^k (\Omega)$ which yield the maximal error must be determined. Denote $e_\alpha$ as the error in the approximation of the monomial $\mathbf{X}^\alpha$:
 \begin{equation}
         e_\alpha = \mathbf{X}^{\alpha} - \sum_{A = 1}^{N^{\Omega}_V} \varphi_A (\mathbf{X}) \, \mathbf{X}_A^{\alpha}.
 \end{equation}
@@ -72,11 +70,11 @@ or, in matrix-vector notation:
 \begin{equation}
         (\mathbf{A} - \lambda \mathbf{B}) \mathbf{c} = \mathbf{0},
 \end{equation}
-which corresponds to a generalized eigenvalue problem, where
+corresponding to the generalized eigenvalue problem, where
 \begin{equation}
         A_{\alpha \beta} = \langle e_\alpha, e_\beta \rangle_{H^1}, \qquad B_{\alpha \beta} = \langle \mathbf{X}^\alpha, \mathbf{X}^\beta \rangle_{H^1},
 \end{equation}
-are both real, symmetric matrices. Since $\mathbf{B}$ is positive-definite, we determine that it is invertible, and therefore we may solve the equivalent eigenvalue problem
+are both real, symmetric matrices. Since $\mathbf{B}$ is positive-definite, we determine that it is invertible, and therefore we may solve the equivalent eigenvalue problem:
 \begin{equation}
         (\mathbf{B}^{-1} \mathbf{A} - \lambda \mathbf{1}) \mathbf{c} = \mathbf{0}.
 \end{equation}
@@ -86,21 +84,21 @@ The square root of the maximum eigenvalue $\lambda_{\max}$ of $\mathbf{B}^{-1} \
 \end{equation}
 For simplicity in the numerical computation of $E_k (\Omega)$, we assume that the entries of $\mathbf{A}$ and $\mathbf{B}$ will be computed approximately using the element's quadrature rules, i.e.
 \begin{equation}
-        \langle e_\alpha, e_\beta \rangle_{H^1} \approx \sum_{q=1}^{N^{\Omega}_{qp}} w_q (e_{\alpha}^{q} e_{\beta}^{q} + e_{\alpha,i}^{q} e_{\beta,i}^{q})
+        \langle e_\alpha, e_\beta \rangle_{H^1} \approx \sum_{q=1}^{N^{\Omega}_{qp}} w_q (e_{\alpha}^{q} e_{\beta}^{q} + e_{\alpha,i}^{q} e_{\beta,i}^{q}),
 \end{equation}
 \begin{equation}
-        \langle \mathbf{X}^\alpha, \mathbf{X}^\beta \rangle_{H^1} \approx \sum_{q=1}^{N^{\Omega}_{qp}} w_q (\mathbf{X}^{\alpha}_{q} \mathbf{X}^{\beta}_{q} + \mathbf{X}^{\alpha}_{q,i} \mathbf{X}^{\beta}_{q,i})
+        \langle \mathbf{X}^\alpha, \mathbf{X}^\beta \rangle_{H^1} \approx \sum_{q=1}^{N^{\Omega}_{qp}} w_q (\mathbf{X}^{\alpha}_{q} \mathbf{X}^{\beta}_{q} + \mathbf{X}^{\alpha}_{q,i} \mathbf{X}^{\beta}_{q,i}),
 \end{equation}
 where
 \begin{equation}
         e_{\alpha}^{q} = \mathbf{X}^{\alpha}_{q} - \sum_{A = 1}^{N^{\Omega}_V} \varphi_A (\mathbf{X}_{q}) \, \mathbf{X}_A^{\alpha}, \qquad e_{\alpha,i}^{q} = \mathbf{X}^{\alpha}_{q,i} - \sum_{A = 1}^{N^{\Omega}_V} \varphi_{A,i} (\mathbf{X}_{q}) \, \mathbf{X}_A^{\alpha}.
 \end{equation}
 
-If a given element is capable of reproducing all polynomials up to degree $k$, then clearly $E_k(\Omega) = 0$. This property will be used to verify that the shape function approximations obtained via a particular formulation of the PEM satisfy the requirements of polynomial reproducibility.
+If a given element is capable of reproducing all polynomials up to degree $k$, then clearly $E_k(\Omega) = 0$. This property is used to verify that the shape function approximations obtained via a particular formulation of the PEM satisfy the requirements of polynomial reproducibility.
 
-\subsection*{Polynomial Reproducibility of PEM Elements}
+\subsection*{Verification of Polynomial Reproducibility for PEM Elements}
 
-Through a series of numerical experiments, we confirm that both the CG-PEM and the DG-PEM satisfy the requirements of polynomial reproducibility. Particular attention is paid to low-order PEM elements (i.e. $k=1$), where satisfaction of the condition $E_1 (\Omega) = 0$ is sufficient to demonstrate reproducibility for a given element $\Omega$.
+Through a series of numerical experiments, it is confirmed that both the CG-PEM and the DG-PEM satisfy the requirements of polynomial reproducibility. Particular attention is paid to low-order PEM elements (i.e. $k=1$), where satisfaction of the condition $E_1 (\Omega) = 0$ is sufficient to demonstrate reproducibility for a given element $\Omega$.
 
 Consider the arbitrary polygonal element and its corresponding edge-based partition illustrated in Figure \ref{fig:reproducing_element_shape}. The harmonic shape functions defined on this partitioned element were approximated using the CG-PEM and the DG-PEM. Unless otherwise noted, the NIPG version of the DG-PEM ($\epsilon = +1$) was utilized throughout.
 
@@ -110,7 +108,7 @@ Consider the arbitrary polygonal element and its corresponding edge-based partit
   \label{fig:reproducing_element_shape}
 \end{figure}
 
-For the partitioned element under consideration, the interpolation error of order $k=1$ for the CG-PEM was computed as $E_1 (\Omega) = 2.5465 \times 10^{-16}$ (on the order of machine precision). For the DG-PEM, the interpolation error was observed to be dependent upon the accuracy of the computations performed in solving (\ref{eq:dgpem_linear_system}). The log of $\kappa(\mathbf{J})$ provides a useful indicator of the number of digits of precision lost in computing $\mathbf{J}^{-1}$. This loss of precision is reflected by a corresponding increase in the interpolation error measure. Table \ref{tab:interpolation_error_and_condJ_k1} illustrates the connection between $E_1 (\Omega)$ and $\kappa(\mathbf{J})$ for various DG-PEM penalty parameter values. 
+For the partitioned element under consideration, the interpolation error of order $k=1$ for the CG-PEM was computed as $E_1 (\Omega) = 2.5465 \times 10^{-16}$ (on the order of machine precision). For the DG-PEM, the interpolation error was observed to be dependent upon the accuracy of the computations performed in solving the linear system of equations in (\ref{eq:dgpem_linear_system}). The log of $\kappa(\mathbf{J})$ provides a useful indicator of the number of digits of precision lost in computing $\mathbf{J}^{-1}$. This loss of precision is reflected by a corresponding increase in the interpolation error measure. Table \ref{tab:interpolation_error_and_condJ_k1} illustrates the connection between $E_1 (\Omega)$ and $\kappa(\mathbf{J})$ for various DG-PEM penalty parameter values. 
 
 \begin{table}
 \centering
@@ -118,7 +116,7 @@ For the partitioned element under consideration, the interpolation error of orde
 \centering
 \begin{tabular}{| c || c | c | c | c |}
     \hline
-DG-PEM & $\alpha_{\gamma0} = 10^{-3}$ & $\alpha_{\gamma0} = 10^{0}$ & $\alpha_{\gamma0} = 10^{3}$ & $\alpha_{\gamma0} = 10^{6}$ \\ \hline \hline
+$E_1 (\Omega)$ & $\alpha_{\gamma0} = 10^{-3}$ & $\alpha_{\gamma0} = 10^{0}$ & $\alpha_{\gamma0} = 10^{3}$ & $\alpha_{\gamma0} = 10^{6}$ \\ \hline \hline
 $\alpha_{\gamma1} = 0.0$	& 1.66E-013 & 7.48E-016 & 4.70E-014 & 1.79E-010 \\ \hline
 $\alpha_{\gamma1} = 10^{0}$ & 1.65E-013 & 9.67E-016 & 8.73E-015 & 2.51E-011 \\ \hline
 $\alpha_{\gamma1} = 10^{3}$ & 1.01E-012 & 2.66E-013 & 1.36E-015 & 4.49E-014 \\ \hline
@@ -133,7 +131,7 @@ $\alpha_{\gamma1} = 10^{6}$ & 1.13E-009 & 3.13E-010 & 7.10E-013 & 9.03E-016 \\
 \centering
 \begin{tabular}{| c || c | c | c | c |}
     \hline
-DG-PEM & $\alpha_{\gamma0} = 10^{-3}$	&	$\alpha_{\gamma0} = 10^{0}$	&	$\alpha_{\gamma0} = 10^{3}$	&	$\alpha_{\gamma0} = 10^{6}$ \\ \hline \hline
+$\kappa(\mathbf{J})$ & $\alpha_{\gamma0} = 10^{-3}$	&	$\alpha_{\gamma0} = 10^{0}$	&	$\alpha_{\gamma0} = 10^{3}$	&	$\alpha_{\gamma0} = 10^{6}$ \\ \hline \hline
 $\alpha_{\gamma1} = 0.0$	&	5.44E+002 & 4.07E+000 & 5.94E+003 & 5.96E+006 \\ \hline
 $\alpha_{\gamma1} = 10^{0}$	&	4.96E+003 & 2.01E+001 & 9.33E+002 & 9.29E+005 \\ \hline
 $\alpha_{\gamma1} = 10^{3}$	&	1.58E+007 & 2.50E+004 & 6.96E+001 & 1.11E+003 \\ \hline
@@ -148,9 +146,9 @@ $\alpha_{\gamma1} = 10^{6}$	&	2.37E+010 & 2.50E+007 & 6.86E+004 & 6.98E+001 \\
 \label{tab:interpolation_error_and_condJ_k1}
 \end{table}
 
-The results in table \ref{tab:interpolation_error_and_condJ_k1} confirm that $\mathbf{J}$ will become poorly conditioned if either of the two penalty parameters $\alpha_{\gamma0}$ or $\alpha_{\gamma1}$ are sufficiently large. This is true regardless of how the DG polynomial bases are specified within each geometric entity. Under certain circumstances, $\mathbf{J}$ will remain well-conditioned if both $\alpha_{\gamma0}$ and $\alpha_{\gamma1}$ are kept roughly proportional to one another, for all values of $\alpha_{\gamma0}, \, \alpha_{\gamma1} > 0$. If $\alpha_{\gamma0}$ and $\alpha_{\gamma1}$ are increased proportionally to one another, one recovers the behavior of the pure penalty DG-PEM in (\ref{eq:pure_penalty}).
+The results in table \ref{tab:interpolation_error_and_condJ_k1} confirm that $\mathbf{J}$ will become poorly conditioned if either of the two penalty parameters $\alpha_{\gamma0}$ or $\alpha_{\gamma1}$ are sufficiently large. This is true regardless of how the DG polynomial bases are specified for each geometric entity. Under certain circumstances, $\mathbf{J}$ will remain well-conditioned if both $\alpha_{\gamma0}$ and $\alpha_{\gamma1}$ are kept roughly proportional to one another, for all values of $\alpha_{\gamma0}, \, \alpha_{\gamma1} > 0$. If $\alpha_{\gamma0}$ and $\alpha_{\gamma1}$ are increased proportionally to one another, one recovers the behavior of the pure penalty DG-PEM in (\ref{eq:pure_penalty}).
 
-It is remarked that other factors which impact with condition number of $\mathbf{J}$ may have detrimental effects on the accuracy of the element's interpolation error. Specifically, consider the case where the element in Figure \ref{fig:reproducing_element_shape} is scaled anisotropically by a factor of $0.01$ in the vertical direction, yielding a comparatively thin element with an aspect ratio of 100:1. For this element, the interpolation error using the CG-PEM increases only slightly, to $E_1 (\Omega) = 6.9817 \times 10^{-15}$. The corresponding values of $E_1 (\Omega)$ and $\kappa(\mathbf{J})$ for the DG-PEM are presented in table \ref{tab:thin_interpolation_error_and_condJ_k1}.
+Other factors which impact the condition number of $\mathbf{J}$ (such as element shape) may therefore lead to increased interpolation errors. Specifically, consider the case where the element in Figure \ref{fig:reproducing_element_shape} is scaled anisotropically by a factor of $0.01$ in the vertical direction, yielding a comparatively thin element with an aspect ratio of 100:1. For this element, the interpolation error using the CG-PEM increases only slightly, to $E_1 (\Omega) = 6.9817 \times 10^{-15}$. The corresponding values of $E_1 (\Omega)$ and $\kappa(\mathbf{J})$ for the DG-PEM are presented in table \ref{tab:thin_interpolation_error_and_condJ_k1}.
 
 \begin{table}
 \centering
@@ -158,7 +156,7 @@ It is remarked that other factors which impact with condition number of $\mathbf
 \centering
 \begin{tabular}{| c || c | c | c | c |}
     \hline
-DG-PEM & $\alpha_{\gamma0} = 10^{-3}$ & $\alpha_{\gamma0} = 10^{0}$ & $\alpha_{\gamma0} = 10^{3}$ & $\alpha_{\gamma0} = 10^{6}$ \\ \hline \hline
+$E_1 (\Omega)$ & $\alpha_{\gamma0} = 10^{-3}$ & $\alpha_{\gamma0} = 10^{0}$ & $\alpha_{\gamma0} = 10^{3}$ & $\alpha_{\gamma0} = 10^{6}$ \\ \hline \hline
 $\alpha_{\gamma1} = 0.0$	& 3.02E-014 & 9.01E-015 & 5.22E-013 & 1.59E-009 \\ \hline
 $\alpha_{\gamma1} = 10^{0}$ & 3.99E-014 & 1.37E-014 & 2.02E-013 & 3.12E-012 \\ \hline
 $\alpha_{\gamma1} = 10^{3}$ & 2.44E-011 & 6.48E-012 & 1.89E-012 & 3.34E-013 \\ \hline
@@ -173,7 +171,7 @@ $\alpha_{\gamma1} = 10^{6}$ & 1.52E-007 & 4.97E-008 & 1.85E-009 & 3.69E-012 \\
 \centering
 \begin{tabular}{| c || c | c | c | c |}
     \hline
-DG-PEM & $\alpha_{\gamma0} = 10^{-3}$	&	$\alpha_{\gamma0} = 10^{0}$	&	$\alpha_{\gamma0} = 10^{3}$	&	$\alpha_{\gamma0} = 10^{6}$ \\ \hline \hline
+$\kappa(\mathbf{J})$ & $\alpha_{\gamma0} = 10^{-3}$	&	$\alpha_{\gamma0} = 10^{0}$	&	$\alpha_{\gamma0} = 10^{3}$	&	$\alpha_{\gamma0} = 10^{6}$ \\ \hline \hline
 $\alpha_{\gamma1} = 0.0$	& 9.07E+003 & 1.39E+002 & 1.14E+005 & 1.33E+008 \\ \hline
 $\alpha_{\gamma1} = 10^{0}$	& 3.52E+005 & 1.75E+003 & 1.97E+004 & 3.67E+005 \\ \hline
 $\alpha_{\gamma1} = 10^{3}$	& 1.17E+009 & 2.46E+006 & 2.61E+005 & 2.32E+004 \\ \hline
@@ -188,70 +186,11 @@ $\alpha_{\gamma1} = 10^{6}$	& 1.77E+012 & 2.45E+009 & 2.52E+008 & 3.07E+005 \\
 \label{tab:thin_interpolation_error_and_condJ_k1}
 \end{table}
 
-Clearly, a careful selection of $\alpha_{\gamma0}$ and $\alpha_{\gamma1}$ is warranted for the sake of minimizing the resulting interpolation error. For general 2D applications in which an edge-based partitioning scheme is employed, it is suggested that the parameter values be chosen such that $\alpha_{\gamma0} = 10.0$ and $\alpha_{\gamma1} = 0.0$. However, it is recommended that a more thorough investigation be conducted to determine more optimal parameters settings for other element types.
+Careful selection of $\alpha_{\gamma0}$ and $\alpha_{\gamma1}$ is warranted for the sake of minimizing the resulting interpolation error. For general applications in which an edge-based partitioning scheme is employed, it is suggested that the parameter values be chosen such that $\alpha_{\gamma0} = 10.0$ and $\alpha_{\gamma1} = 0.0$. Nonetheless, a more thorough parameter sensitivity analysis is recommended.
 
 \section{Finite Element Patch Tests}
 
-In this section we investigate the behavior of PEM elements in the context of the classical patch test introduced by Irons in the Appendix of \cite{Irons:65}, whose passage is argued in \cite{Simo&Taylor:86} to be a necessary and sufficient condition for convergence. This claim has been disputed, namely by Stummel in \cite{Stummel:80}. Nonetheless, it serves as a useful indicator for the expected convergence properties of conforming finite elements. Two tests will be considered: the linear and quadratic patch tests, as depicted in figure \ref{fig:polygonal_patches}.
-
-\begin{figure}[!h]
-    \centering
-    \begin{subfigure}[b]{0.49\linewidth}
-            \centering
-            \includegraphics[width=2.5in]{figures/linear_patch_test.pdf}
-    			\caption{linear patch test \label{fig:linear_patch_test}}
-    \end{subfigure}
-	\begin{subfigure}[b]{0.49\linewidth}
-            \centering
-            \includegraphics[width=2.5in]{figures/quadratic_patch_test.pdf}
-    			\caption{quadratic patch test \label{fig:quadratic_patch_test}}
-    \end{subfigure}
-    \caption{Depiction of simple patch tests for (\subref{fig:linear_patch_test}) linear and (\subref{fig:quadratic_patch_test}) quadratic elements.}
-    \label{fig:polygonal_patches}
-\end{figure}
-
-The linear patch test consists of a square patch of elements with dimensions $L \times L$. The normal components of displacement on the $-X_1$ and $-X_2$ faces of the patch are constrained such that
-\begin{equation}
-	u_1 (X_1 = 0) = 0, \quad u_2 (X_2 = 0) = 0.
-\end{equation}
-A constant vertical traction $\bar{\mathbf{t}} = (0, \, T)$ is prescribed on the $+X_2$ face of the patch. For a linear elastic body under plane strain conditions, an exact solution for the in-plane displacement and stress fields is easily obtained:
-\begin{equation}
-	u_1 (\mathbf{X}) = - \frac{\nu}{2 \mu} T X_1, \quad u_2 (\mathbf{X}) = \frac{(1-\nu)}{2 \mu} T X_2,
-\end{equation}
-\begin{equation}
-	\sigma_{11} (\mathbf{X}) = \sigma_{12} (\mathbf{X}) = 0, \quad \sigma_{22} (\mathbf{X}) = T.
-\end{equation}
-
-For the quadratic patch test, we will consider a similarly constrained square patch as for the linear patch test. A constant body force $\mathbf{b} = (b_1, \, b_2)$ acts uniformly over the patch. Additionally, linearly varying tractions are applied to the unconstrained faces of the patch:
-\begin{equation}
-	\bar{t}_1 (X_1 = L) = - \frac{\lambda}{\lambda + 2 \mu} b_2 X_2, \quad \bar{t}_2 (X_1 = L) = 0,
-\end{equation}
-\begin{equation}
-	\bar{t}_2 (X_2 = L) = - \frac{\lambda}{\lambda + 2 \mu} b_1 X_2, \quad \bar{t}_1 (X_2 = L) = 0.
-\end{equation}
-For a linear elastic material under plane strain conditions, an exact solution may be obtained of the form:
-\begin{equation}
-	u_1 (\mathbf{X}) = \frac{b_1}{2 (\lambda + 2 \mu)} (L - X_1) X_1 + \frac{\nu (b_1 - b_2)}{2 \mu} L X_1,
-\end{equation}
-\begin{equation}
-	u_2 (\mathbf{X}) = \frac{b_2}{2 (\lambda + 2 \mu)} (L - X_2) X_2 + \frac{\nu (b_2 - b_1)}{2 \mu} L X_2,
-\end{equation}
-\begin{equation}
-	\sigma_{11} (\mathbf{X}) = b_1 (L - X_1) + \frac{\lambda}{\lambda + 2 \mu} b_2 X_2,
-\end{equation}
-\begin{equation}
-	\sigma_{22} (\mathbf{X}) = b_2 (L -  X_2) + \frac{\lambda}{\lambda + 2 \mu} b_1 X_1,
-\end{equation}
-\begin{equation}
-	\sigma_{12} (\mathbf{X}) = 0.
-\end{equation}
-A simplistic uniaxial case involving only a constant body force and no boundary tractions occurs when $\nu = 0$ and $b_1 = 0$:
-\begin{equation}
-	u_1 (\mathbf{X}) = 0, \quad u_2 (\mathbf{X}) = \frac{b_2}{2 (\lambda + 2 \mu)} (L - X_2) X_2,
-\end{equation}
-\begin{equation}
-	\sigma_{11} (\mathbf{X}) = \sigma_{12} (\mathbf{X}) = 0, \quad \sigma_{22} (\mathbf{X}) = b_2 (L -  X_2).
-\end{equation}
+Several finite element patch tests for CG-PEM and DG-PEM elements are investigated. The tests are similar to the ones introduced by Irons in the Appendix of \cite{Irons:65}. Passage of such tests is argued to be a necessary and sufficient condition for convergence \cite{Simo&Taylor:86}, though this claim has been disputed, namely by Stummel in \cite{Stummel:80}. Nonetheless, patch tests are useful indicators of the expected convergence properties for conforming finite elements. Linear and quadratic patch tests in both 2- and 3-dimensions are considered.
 
 Patch test errors were measured in terms of the normalized $L^2 (\Omega)$ error metrics for displacement and stress:
 \begin{equation}
@@ -263,10 +202,30 @@ Patch test errors were measured in terms of the normalized $L^2 (\Omega)$ error 
 \end{equation}
 where $\mathbf{u}$ and $\boldsymbol{\sigma}$ denote the exact solutions for the displacement and stress fields, respectively.
 
+For all of the tests considered, both the CG-PEM and DG-PEM utilized an edge-based partitioning scheme and composite mid-point quadrature rules for each element. Unless otherwise noted, the parameters for the DG-PEM were selected as $\epsilon = +1$, $\alpha_{\gamma0} = 10.0$, and $\alpha_{\gamma1} = 0.0$. Further, the DG-PEM was tested both with and without using the gradient correction scheme presented in \cite{Talischi:15}. These corrections were applied to the test function gradients alone (yielding a ``nonsymmetric correction'' scheme), or to both the trial and test function gradients (yielding a ``symmetric correction'' scheme).
+
 \subsection*{Linear Patch Tests in 2D}
 
-The two meshes depicted in Figure \ref{fig:patch_test_meshes} are considered. The PEM was used on the polygonal mesh, whereas the FEM with standard 4-nodes isoparametric elements was used on the quadrilateral mesh.
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=2.5in]{figures/linear_patch_test.pdf}
+    	\caption{Depiction of the 2D linear patch test.}
+    \label{fig:linear_patch_test}
+\end{figure}
 
+The linear patch test consists of a square patch of elements with dimensions $L \times L$, as shown in Figure \ref{fig:linear_patch_test}. The normal components of displacement on the $-X_1$ and $-X_2$ faces of the patch are constrained such that
+\begin{equation}
+	u_1 (X_1 = 0) = 0, \quad u_2 (X_2 = 0) = 0.
+\end{equation}
+A constant vertical traction $\bar{\mathbf{t}} = (0, \, T)$ is prescribed on the $+X_2$ face of the patch. For a linear elastic body under plane strain conditions, an exact solution for the in-plane displacement and stress fields is easily obtained:
+\begin{equation}
+	u_1 (\mathbf{X}) = - \frac{\nu}{2 \mu} T X_1, \quad u_2 (\mathbf{X}) = \frac{(1-\nu)}{2 \mu} T X_2,
+\end{equation}
+\begin{equation}
+	\sigma_{11} (\mathbf{X}) = \sigma_{12} (\mathbf{X}) = 0, \quad \sigma_{22} (\mathbf{X}) = T.
+\end{equation}
+
+The two meshes depicted in Figure \ref{fig:patch_test_meshes} are considered. The PEM was used on the polygonal mesh, whereas the FEM with standard 4-nodes isoparametric elements was used on the quadrilateral mesh.
 \begin{figure}[!h]
     \centering
     \includegraphics[width=4.0in]{figures/patch_test_meshes.pdf}
@@ -274,7 +233,7 @@ The two meshes depicted in Figure \ref{fig:patch_test_meshes} are considered. Th
     \label{fig:patch_test_meshes}
 \end{figure}
 
-Linear patch test errors for the FEM, CG-PEM, and DG-PEM were explored. Both the CG-PEM and DG-PEM utilized an edge-based partitioning scheme and composite mid-point quadrature rules for each element. Unless otherwise noted, the parameters for the DG-PEM were selected as $\epsilon = +1$, $\alpha_{\gamma0} = 10.0$, and $\alpha_{\gamma1} = 0.0$. Further, the DG-PEM was tested both with and without using the gradient correction scheme presented in \cite{Talischi:15}. These corrections were applied to the test function gradients alone (yielding a ``nonsymmetric correction'' scheme), or to both the trial and test function gradients (yielding a ``symmetric correction'' scheme). The results of these tests may be found in table \ref{tab:linear_patch_test}.
+Linear patch test errors for the FEM, CG-PEM, and DG-PEM are explored. The results of these tests may be found in table \ref{tab:linear_patch_test}.
 
 \begin{table}[!ht]
   \begin{center}
@@ -291,13 +250,13 @@ Linear patch test errors for the FEM, CG-PEM, and DG-PEM were explored. Both the
     \caption{Linear patch test results comparison for FEM, CG-PEM, and DG-PEM.}
     \vspace{-5pt}
     \label{tab:linear_patch_test}
-    \vspace{-25pt}
+    \vspace{-10pt}
   \end{center}
 \end{table}
 
-The classical FEM produces errors on the order of machine precision. The CG-PEM produces results that are only slightly less accurate. As expected, the errors for the CG-PEM are unaffected by the use (or disuse) of a gradient correction scheme. In contrast, the DG-PEM produces noticeable errors if no gradient correction scheme is employed. Using either of the symmetric or nonsymmetric gradient correction schemes with the DG-PEM yields comparable accuracy to the CG-PEM.
+The classical FEM produces errors on the order of machine precision. The CG-PEM produces results that are only slightly less accurate. As confirmed by (\ref{eq:cg_pem_integration_consistency}), the integration errors for the CG-PEM are negligible, and the resulting patch test errors are unaffected by the use (or disuse) of a gradient correction scheme. In contrast, the DG-PEM produces noticeable errors if no gradient correction scheme is employed. Using either of the symmetric or nonsymmetric gradient correction schemes with the DG-PEM yields comparable accuracy to the CG-PEM.
 
-These observations help to illuminate an important point regarding the consistent integration of the weak form. Consider the consistency equations in (\ref{eq:consistency}). It is remarked that any continuous field $\varphi_a \in C^0 (\Omega_e)$ integrated exactly in (\ref{eq:consistency}) will lead to direct satisfaction of quadrature consistency. Such is the case for the CG-PEM under the present circumstances. However, if $\varphi_a$ is not a continuous field, neither (\ref{eq:consistency}) nor quadrature consistency will be satisfied, in general. Such is the case for the DG-PEM, even when exact integration is used. The consequence is violation of patch tests. This can be mitigated through the use of a gradient correction scheme, or alternatively through an appropriate selection of the DG-PEM parameters. Specifically, in the limit as $\alpha_{\gamma0} \rightarrow \infty$, the DG-PEM reduces to the CG-PEM, and the resulting patch test errors can be eliminated. Table \ref{tab:linear_patch_test_parameter_study} demonstrates this behavior for increasing values of $\alpha_{\gamma0}$, in the absence of a gradient correction scheme.
+These observations help to illuminate an important point regarding integration consistency. Consider the consistency equations in (\ref{eq:consistency}). It is remarked that any continuous field $\varphi_a \in C^0 (\Omega_e)$ integrated exactly in (\ref{eq:consistency}) will lead to direct satisfaction of quadrature consistency. Such is the case for linear CG-PEM elements. However, if $\varphi_a$ is not a continuous field, neither (\ref{eq:consistency}) nor quadrature consistency will be satisfied, in general. Such is the case for the DG-PEM, even if exact integration is used. The consequence is violation of patch tests. This can be mitigated through the use of a gradient correction scheme, or alternatively through an appropriate selection of the DG-PEM parameters. Specifically, in the limit as $\alpha_{\gamma0} \rightarrow \infty$, the DG-PEM reduces to the CG-PEM, and the resulting patch test errors can be eliminated. Table \ref{tab:linear_patch_test_parameter_study} demonstrates this behavior for increasing values of $\alpha_{\gamma0}$, in the absence of a gradient correction scheme.
 
 \begin{table}[!ht]
   \begin{center}
@@ -314,7 +273,7 @@ These observations help to illuminate an important point regarding the consisten
     \caption{Computed values of $||\boldsymbol{\sigma}^h - \boldsymbol{\sigma}|| / ||\boldsymbol{\sigma}||$ for the DG-PEM using various penalty parameter settings. No gradient correction scheme was utilized. Identical trends were observed for $||\mathbf{u}^h - \mathbf{u}|| / ||\mathbf{u}||$.}
     \vspace{-5pt}
     \label{tab:linear_patch_test_parameter_study}
-    \vspace{-25pt}
+    \vspace{-10pt}
   \end{center}
 \end{table}
 
@@ -335,7 +294,7 @@ Additionally, it is noted that the DG-PEM recovers integration consistency in th
     \caption{The effects of interpolation error on patch test errors in the DG-PEM. No gradient correction scheme was utilized.}
     \vspace{-5pt}
     \label{tab:interpolation_patch_test_error}
-    \vspace{-25pt}
+    \vspace{-10pt}
   \end{center}
 \end{table}
 
@@ -388,17 +347,55 @@ The two hexahedral meshes depicted in Figure \ref{fig:hexahedral_patch_meshes} w
     \caption{3D linear patch test results comparison for FEM and DG-PEM.}
     \vspace{-5pt}
     \label{tab:linear_patch_test_3d}
-    \vspace{-25pt}
+    \vspace{-10pt}
   \end{center}
 \end{table}
 
-It is interesting to note that the FEM incurs a mild amount of error on the distorted hexahedral mesh. Given that the elements' interpolation error remains unchanged, this error is partially attributable to inaccuracies in the numerical integration used for the elements. Using higher-order Gaussian product rules on the isoparametric elements and their faces reduces the patch test errors to a certain extent, but nonetheless, some residual errors still remain.
+It is interesting to note that the FEM incurs mild errors on the distorted hexahedral mesh. Given that the elements' interpolation error remains unchanged, this error is partially attributable to inaccuracies in the numerical integration used for the elements. Using higher-order Gaussian product rules on the isoparametric elements and their faces reduces patch test errors to a limited extent. Nonetheless, some residual errors still remain.
 
 In contrast, the accuracy of the DG-PEM appears to be limited more by interpolation error. As before, these errors are attributable to poor conditioning of the DG-PEM systems of equations. The current evidence suggests that the conditioning of $\mathbf{J}$ becomes worse in higher spatial dimensions. The use of either the symmetric or nonsymmetric gradient correction scheme assists in restoring integration consistency, yielding patch test errors on the order of $E_1 (\Omega)$.
 
 \subsection*{Quadratic Patch Tests in 2D}
 
-The two quadrilateral meshes depicted in Figure \ref{fig:quadrilateral_patch_meshes} were used in conjunction with the FEM, using both 8-node serendipity and 9-node Lagrange isoparametric formulations. The PEM was used on the polygonal mesh depicted in Figure \ref{fig:quadratic_polygonal_patch_mesh}.
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=2.5in]{figures/quadratic_patch_test.pdf}
+    	\caption{Depiction of the 2D quadratic patch test.}
+    \label{fig:quadratic_patch_test}
+\end{figure}
+
+Like the linear patch test, the quadratic patch test considers a similarly constrained square patch of elements, as depicted in Figure \ref{fig:quadratic_patch_test}. A constant body force $\mathbf{b} = (b_1, \, b_2)$ acts uniformly over the patch. Additionally, linearly varying tractions are applied to the unconstrained faces of the patch:
+\begin{equation}
+	\bar{t}_1 (X_1 = L) = - \frac{\lambda}{\lambda + 2 \mu} b_2 X_2, \quad \bar{t}_2 (X_1 = L) = 0,
+\end{equation}
+\begin{equation}
+	\bar{t}_2 (X_2 = L) = - \frac{\lambda}{\lambda + 2 \mu} b_1 X_2, \quad \bar{t}_1 (X_2 = L) = 0.
+\end{equation}
+For a linear elastic material under plane strain conditions, an exact solution may be obtained of the form:
+\begin{equation}
+	u_1 (\mathbf{X}) = \frac{b_1}{2 (\lambda + 2 \mu)} (L - X_1) X_1 + \frac{\nu (b_1 - b_2)}{2 \mu} L X_1,
+\end{equation}
+\begin{equation}
+	u_2 (\mathbf{X}) = \frac{b_2}{2 (\lambda + 2 \mu)} (L - X_2) X_2 + \frac{\nu (b_2 - b_1)}{2 \mu} L X_2,
+\end{equation}
+\begin{equation}
+	\sigma_{11} (\mathbf{X}) = b_1 (L - X_1) + \frac{\lambda}{\lambda + 2 \mu} b_2 X_2,
+\end{equation}
+\begin{equation}
+	\sigma_{22} (\mathbf{X}) = b_2 (L -  X_2) + \frac{\lambda}{\lambda + 2 \mu} b_1 X_1,
+\end{equation}
+\begin{equation}
+	\sigma_{12} (\mathbf{X}) = 0.
+\end{equation}
+A special (uniaxial) case will be considered, involving only a constant body force and no boundary tractions (provided $\nu = 0$ and $b_1 = 0$):
+\begin{equation}
+	u_1 (\mathbf{X}) = 0, \quad u_2 (\mathbf{X}) = \frac{b_2}{2 (\lambda + 2 \mu)} (L - X_2) X_2,
+\end{equation}
+\begin{equation}
+	\sigma_{11} (\mathbf{X}) = \sigma_{12} (\mathbf{X}) = 0, \quad \sigma_{22} (\mathbf{X}) = b_2 (L -  X_2).
+\end{equation}
+
+The two quadrilateral meshes depicted in Figure \ref{fig:quadrilateral_patch_meshes} were used in conjunction with the FEM, using both 8-node serendipity and 9-node Lagrange isoparametric formulations. The DG-PEM was used on the polygonal mesh depicted in Figure \ref{fig:quadratic_polygonal_patch_mesh}.
 
 \begin{figure}[!h]
     \centering
@@ -414,7 +411,7 @@ The two quadrilateral meshes depicted in Figure \ref{fig:quadrilateral_patch_mes
     \label{fig:quadratic_polygonal_patch_mesh}
 \end{figure}
 
-Quadratic patch test errors for the FEM and DG-PEM were explored. The DG-PEM utilized an edge-based partitioning scheme and composite mid-point quadrature rules for each element. The DG-PEM bases was chosen such that $\varphi^h \in \mathcal{D}^h_2 (\Omega)$, yielding quadratically complete shape functions. Further, the DG-PEM was tested both with and without using the symmetric and nonsymmetric gradient correction schemes discussed previously. The results are presented in table \ref{tab:quadratic_patch_test}.
+Quadratic patch test errors for the FEM and DG-PEM were explored. The DG-PEM bases were chosen such that $\varphi^h \in \mathcal{D}^h_2 (\Omega)$, yielding quadratically complete shape functions. The results are presented in table \ref{tab:quadratic_patch_test}.
 
 \begin{table}[!ht]
   \begin{center}
@@ -433,17 +430,17 @@ Quadratic patch test errors for the FEM and DG-PEM were explored. The DG-PEM uti
     \caption{Quadratic patch test results comparison for FEM and DG-PEM.}
     \vspace{-5pt}
     \label{tab:quadratic_patch_test}
-    \vspace{-25pt}
+    \vspace{-10pt}
   \end{center}
 \end{table}
 
-It is interesting to note that the 8-node isoparametric quadrilaterals fail the quadratic patch test if the mesh becomes distorted. Only affinely distorted quadrilaterals of this type will exhibit quadratic completeness. Arbitrarily distorted elements will suffer from excessive interpolation errors, as observed in Table \ref{tab:quadratic_patch_test}. This behavior is discussed in greater detail in \cite{Arnold:02} and \cite{Arnold:01}. In comparison, the 9-node quadrilateral elements preserve quadratic completeness, even when distorted as in Figure \ref{fig:quadrilateral_patch_meshes}. However, it should be remarked that if the elements' edges are curved, both the 8- and 9-node isoparametric elements will lose 2nd order completeness and fail quadratic patch tests.
+It is interesting to note that the 8-node isoparametric quadrilaterals fail the quadratic patch test if the mesh becomes distorted. Only affinely distorted 8-node quadrilaterals will exhibit quadratic completeness. Arbitrarily distorted elements will suffer from excessive interpolation errors, as observed in Table \ref{tab:quadratic_patch_test}. This behavior is discussed in greater detail in \cite{Arnold:02} and \cite{Arnold:01}. In comparison, the 9-node quadrilateral elements preserve quadratic completeness, even when distorted as in Figure \ref{fig:quadrilateral_patch_meshes}. However, it should be remarked that if the elements' edges are curved, both the 8- and 9-node isoparametric elements will lose 2nd order completeness, and fail quadratic patch tests.
 
-To account for the effects of integration error, the DG-PEM requires the use of a gradient correction scheme. However, if a symmetric correction scheme is employed, it is observed that there is a loss of completeness in the representation of the solution gradients over the element, corresponding to an increase in the interpolation error. Only the nonsymmetric gradient correction method is able to achieve the desired level of accuracy in the quadratic patch test. It shall therefore be used exclusively throughout the remainder of our discussions.
+To account for the effects of integration error, the DG-PEM requires the use of a gradient correction scheme. However, if a symmetric correction scheme is employed, there is an observed loss of completeness in the representation of the solution gradients over the element, corresponding to an increase in the interpolation error. Only the nonsymmetric gradient correction method is able to achieve the desired level of accuracy in the quadratic patch test.
 
 \subsection*{Quadratic Patch Tests in 3D}
 
-The quadratic patch test described in the previous example may be extended directly to the 3-dimensional setting. As for the 3D linear patch test, the two hexahedral meshes depicted in Figure \ref{fig:hexahedral_patch_meshes} were used in conjunction with the FEM, this time using 20-node isoparametric elements. The DG-PEM was used on the ``serendipity'' polyhedral mesh depicted in Figure \ref{fig:quadratic_polyhedral_patch_mesh}, with similar parameter settings to those used for the 2D patch test. The results are displayed in Table \ref{tab:quadratic_patch_test_3d}.
+The quadratic patch test described in the previous example may be extended directly to the 3-dimensional setting if the special (uniaxial) case is considered. As with the 3D linear patch test, the two hexahedral meshes depicted in Figure \ref{fig:hexahedral_patch_meshes} were used in conjunction with the FEM, this time using 20-node isoparametric elements. The DG-PEM was used on the ``serendipity'' polyhedral mesh depicted in Figure \ref{fig:quadratic_polyhedral_patch_mesh}, with similar parameter settings to those used for the 2D quadratic patch test. The results are displayed in Table \ref{tab:quadratic_patch_test_3d}.
 
 \begin{figure}[!h]
     \centering
@@ -467,13 +464,13 @@ The quadratic patch test described in the previous example may be extended direc
     \caption{3D quadratic patch test results comparison for FEM and DG-PEM.}
     \vspace{-5pt}
     \label{tab:quadratic_patch_test_3d}
-    \vspace{-25pt}
+    \vspace{-10pt}
   \end{center}
 \end{table}
 
 As was the case in 2D, the 20-node isoparametric brick elements perform well on the regular (undistorted) mesh, but lose polynomial completeness on the distorted mesh. Correspondingly, there is an observed loss of accuracy in both $E_2 (\Omega)$ and the patch test error metrics.
 
-For the DG-PEM elements, we observe an interesting phenomenon with respect to the choice of gradient correction scheme. Under the present circumstances, applying a symmetric gradient correction (to both the trial and test functions) adversely impacts the polynomial completeness properties of the trial solution space. This result highlights the particular advantage of the nonsymmetric gradient correction scheme, which only modifies the test functions. Polynomial completeness of the trial solution space is therefore preserved, and patch test errors are rendered comparable with the (undistorted) FEM.
+For the DG-PEM elements, an interesting phenomenon is observed with respect to the choice of gradient correction scheme. As was the case for the 2D quadratic patch test, applying a symmetric gradient correction (to both the trial and test functions) adversely impacts the polynomial completeness properties of the trial solution space. The effect is more pronounced for the 3D patch test. This result highlights the particular advantage of the nonsymmetric gradient correction scheme, which only modifies the test functions. Polynomial completeness of the trial solution space is therefore preserved, and patch test errors are rendered comparable with the (undistorted) FEM. The nonsymmetric gradient correction scheme shall therefore be used exclusively throughout the remainder of this chapter.
 
 %Another quadratic patch test which involves no body force considers an elastic cantilever beam in pure bending, as depicted in Figure \ref{fig:bending_patch_test}. For clarity, this problem shall be referred to as the ``bending patch test.'' The support conditions of the (weakly) fixed beam are
 %\begin{equation}
@@ -492,21 +489,25 @@ For the DG-PEM elements, we observe an interesting phenomenon with respect to th
 
 \section{Tests for Element Quality}
 
-\subsection*{Conditioning of Individual Element Stiffness Matrices}
+The primary advantage of partitioned element methods is that they allow for the elements to take on virtually arbitrary shape. However, elements with non-convex or degenerate features may degrade the overall accuracy of the resulting numerical solution. The motivation for the present study is to assess the effects of element formulation upon a given element's susceptibility to geometric locking phenomena.
 
-Partitioned element methods allow for the elements to take on virtually arbitrary shape. Nonetheless, elements with non-convex or degenerate features may degrade the overall accuracy of the resulting numerical solution. This section attempts to characterize the behavior of a representative sampling of polygonal PEM elements by examining the eigenvalues of each element's elastic stiffness matrix.
-
-The motivation for the present study is to assess the effects of element formulation upon a given element's susceptibility to geometric locking phenomena. Heuristically: an element will be more sensitive to the effects of locking if its local stiffness matrix contains a number of eigenmodes (modes of deformation) whose corresponding eigenvalues are excessively large in comparison with the low-order deformation modes.
+Heuristically: an element will be more sensitive to the effects of locking if its local stiffness matrix contains a number of eigenmodes (modes of deformation) whose corresponding eigenvalues are excessively large in comparison with the low-order (affine) deformation modes. In turn, meshes containing such elements will likewise possess several high-energy modes of deformation, contributing to the phenomenon of ``mesh locking.''
 
 As a separate issue from locking, if a given element's local stiffness matrix is poorly conditioned, the global stiffness matrix of a mesh which contains said element may become poorly conditioned, as well. This may negatively impact the degree of solution accuracy that can be obtained due to floating point arithmetic. For implicit solid mechanics applications, the accuracy of any linear solver (whether direct or iterative) will be compromised by poor conditioning of the global stiffness matrix.
 
-For the elements considered, a comparison study was carried out to examine differences in the eigenvalue spectra of elements whose stiffness matrices were computed using various element formulations. Specifically, approximations to harmonic shape functions were obtained for each element using the VETFEM, the CG-PEM, and the DG-PEM. These results were compared against a computed reference solution for the harmonic shape functions.
+With these considerations borne in mind, several tests are conducted to examine the eigenvalue spectra of individual element stiffness matrices using varying element formulations and parameter settings. The eigenvalue spectra of several global stiffness matrices for polygonal meshes of variable quality are considered, as well.
 
-For each element, the elastic constants for Young's modulus and Poisson's ratio were chosen as $E = 1.0$ and $\nu = 0.0$, respectively. The choice of $\nu = 0.0$ is deliberate, and aims to decouple the effects of volumetric locking from the effects of geometric locking. All elements were scaled to have roughly unit diameter.
+\subsection*{Conditioning of Individual Element Stiffness Matrices}
+
+This section attempts to characterize the behavior of a representative sampling of polygonal PEM elements by examining the eigenvalues of each element's elastic stiffness matrix.
+
+For the elements considered, a comparison study is carried out to examine differences in the eigenvalue spectra of elements whose stiffness matrices were computed using various element formulations. Specifically, approximations to harmonic shape functions were obtained for each element using the VETFEM, the CG-PEM, and the DG-PEM. These results are compared against a computed reference solution for the harmonic shape functions.
+
+For each element, the elastic constants for Young's modulus and Poisson's ratio are chosen as $E = 1.0$ and $\nu = 0.0$, respectively. The choice of $\nu = 0.0$ is deliberate, and aims to decouple the effects of volumetric locking from the effects of geometric locking. For the purposes of comparison, all elements have roughly unit diameter.
 
 \subsubsection*{Examination of the Effects of Geometric Non-convexity}
 
-A study was carried out to assess the effects of geometric non-convexity on a given element's eigenvalue spectrum. Three element shapes were considered, including: (A) a regular convex polygon, (B) an element with two collinear edges, and (C) a non-convex polygon. These elements are illustrated in Figure \ref{fig:concave_element_shapes}.
+A study was carried out to assess the effects of geometric non-convexity on a given element's eigenvalue spectrum. Three element shapes are considered, including: (A) a regular convex polygon, (B) an element with two collinear edges, and (C) a non-convex polygon. These elements are illustrated in Figure \ref{fig:concave_element_shapes}.
 
 \begin{figure}[!h]
   \centering
@@ -569,7 +570,7 @@ Using the aforementioned approximations in place of the harmonic shape functions
 \label{tab:concave_stiffness_max_min_eigenvalue}
 \end{table}
 
-Irrespective of the chosen approximation method, the condition number for a given element's stiffness matrix becomes large as the degree of geometric non-convexity increases. The VETFEM yields a fairly accurate approximation for the eigenvalues of element A, but obtains an overly stiff approximation for element B, and overestimates the eigenvalues at the low end of the spectrum for element C. The CG-PEM appears to uniformly over-estimate the eigenvalue spectra of all elements A, B, and C, though not significantly. By contrast, the DG-PEM under-estimates the eigenvalues for elements B and C, though this behavior is observed to be contingent upon upon how the penalty parameters $\alpha_{\gamma0}$ and $\alpha_{\gamma1}$ are specified. Table \ref{tab:concave_stiffness_max_min_eigenvalue_parameter_study} illuminates the dependence of $\lambda_{\max}$ and $\lambda_{\min}$ (for element C) upon the choice of DG-PEM penalty parameters. Similar parameter dependencies are obtained for elements A and B.
+Irrespective of the chosen approximation method, the condition number for a given element's stiffness matrix becomes large as the degree of geometric non-convexity increases. The VETFEM yields a fairly accurate approximation for the eigenvalues of element A, but obtains an overly stiff approximation for element B, and overestimates the eigenvalues at the low end of the spectrum for element C. The CG-PEM appears to uniformly over-estimate the eigenvalue spectra of all elements A, B, and C (though not significantly). By contrast, the DG-PEM under-estimates the eigenvalues for elements B and C, though this behavior is observed to be contingent upon upon how the penalty parameters $\alpha_{\gamma0}$ and $\alpha_{\gamma1}$ are specified. Table \ref{tab:concave_stiffness_max_min_eigenvalue_parameter_study} illuminates the dependence of $\lambda_{\max}$ and $\lambda_{\min}$ (for element C) upon the choice of DG-PEM penalty parameters. Similar parameter dependencies are obtained for elements A and B.
 
 \begin{table}
 \centering
@@ -607,14 +608,13 @@ $\alpha_{\gamma1} = 10^{6}$	&	0.004748	&	0.004211	&	0.003660	&	0.002896 \\
 \label{tab:concave_stiffness_max_min_eigenvalue_parameter_study}
 \end{table}
 
-The results in table \ref{tab:concave_stiffness_max_min_eigenvalue_parameter_study} warrant a number of observations. The eigenvalue spectrum obtained for the DG-PEM converges to that of the CG-PEM as the value of $\alpha_{\gamma0}$ is increased (provided $\alpha_{\gamma1}$ is sufficiently small). Moreover, the shape functions will themselves converge to the $C^0$ continuous approximations obtained by the CG-PEM. This is the expected result.
-Additionally, if $\alpha_{\gamma0}$ is made sufficiently small, the eigenvalues will becomes relatively insensitive to the choice of $\alpha_{\gamma1}$. 
+The eigenvalue spectrum obtained for the DG-PEM converges to that of the CG-PEM as the value of $\alpha_{\gamma0}$ is increased (provided $\alpha_{\gamma1}$ is sufficiently small). Moreover, the shape functions will themselves converge to the $C^0$ continuous approximations obtained by the CG-PEM. Additionally, if $\alpha_{\gamma0}$ is made sufficiently small, the eigenvalues will becomes relatively insensitive to the choice of $\alpha_{\gamma1}$. 
 
 Conversely, as $\alpha_{\gamma0}$ is increased, the eigenvalues (and the corresponding shape function approximations) become more sensitive to the choice of $\alpha_{\gamma1}$. In such cases, $\alpha_{\gamma1}$ may be thought of as a ``regularization'' parameter, acting to effectively smooth out variations in the gradient of the shape functions over the element. For low-order DG-PEM, increasing $\alpha_{\gamma1}$ tends the element towards a uniform gradient formulation. Doing so risks rank-deficiency of the element's resulting stiffness matrix. If $\alpha_{\gamma0}$ and $\alpha_{\gamma1}$ are increased proportionally to one another, one recovers the behavior of the pure penalty DG-PEM corresponding to (\ref{eq:pure_penalty}).
 
 \subsubsection*{Examination of the Effects of Nearly Degenerate Features}
 
-A study was carried out to assess the effects of geometric degeneracy on a given element's eigenvalue spectrum. The two elements illustrated in Figure \ref{fig:degenerate_element_shapes} were considered: a regular pentagon, and an irregular pentagon with a comparatively short edge.
+A study was carried out to assess the effects of geometric degeneracy on a given element's eigenvalue spectrum. The two elements illustrated in Figure \ref{fig:degenerate_element_shapes} are considered: a regular pentagon, and an irregular pentagon with a comparatively short edge.
 
 \begin{figure}[!h]
   \centering
@@ -669,11 +669,11 @@ As in the previous example, the aforementioned approximations were used in place
 
 As noted in the previous example, the CG-PEM consistently over-estimates the eigenvalue spectra of the elements. Using a coarse (edge-based) partition further degrades the accuracy of the CG-PEM shape functions, to the extent that higher-order modes of deformation are severely over-stiff. Upon decreasing the edge length $l$ further, the maximum eigenvalue was observed to increase as $\lambda_{\max} \approx O (l^{-1})$. By comparison, the eigenvalue spectra for the VETFEM and DG-PEM remain small (well-conditioned), and relatively constant as $l \rightarrow 0$. The VETFEM, however, is observed to yield oscillatory solutions for the shape functions with decreasing $l$.
 
-While the aforementioned insensitivity of the DG-PEM's eigenvalue spectra to short edges appears to be a desirable quality, it remains to be seen whether this is indeed the case. Correspondingly, the following series of investigations seeks to evaluate the implications of this property in a practical context.
+It remains to be seen whether the aforementioned insensitivity of the DG-PEM's eigenvalue spectra to short edges is a desirable quality. The following series of investigations seeks to evaluate the implications of this behavior for several polygonal meshes.
 
 \subsection*{Meshes Consisting of Elements with Degenerate Edges}
 
-It is demonstrated herein that for certain element formulations, an over-abundance of short edges can potentially degrade the quality of the resulting finite element solution. Consider the two square patches depicted in Figure \ref{fig:polygonal_patches}, each containing 1,000 polygonal elements. Both meshes were generated using PolyMesher, a polygonal meshing tool detailed in \cite{Talischi:12}. The Voronoi mesh in Figure \ref{fig:patch_mesh} was obtained by a random point sampling process, and contains numerous elements with short edges. The mesh in Figure \ref{fig:lloyd_mesh} was obtained after 100 iterations of Lloyd's algorithm, yielding a polygonal mesh with reasonably well-proportioned elements. Additionally, any remaining short edges in the mesh of Figure \ref{fig:lloyd_mesh} were collapsed out according to the procedure described in \cite{Talischi:12}.
+The present study seeks to quantify the effects of having an over-abundance of short edges within a polygonal finite element mesh. The two square patches depicted in Figure \ref{fig:polygonal_patches} are considered, each containing 1,000 polygonal elements. Both meshes were generated using PolyMesher, a polygonal meshing tool detailed in \cite{Talischi:12}. The Voronoi mesh in Figure \ref{fig:patch_mesh} was obtained by a random point sampling process, and contains numerous elements with short edges. The mesh in Figure \ref{fig:lloyd_mesh} was obtained after 100 iterations of Lloyd's algorithm, yielding a polygonal mesh with reasonably well-proportioned elements. Additionally, any remaining short edges in the mesh of Figure \ref{fig:lloyd_mesh} were collapsed out according to the procedure described in \cite{Talischi:12}.
 \begin{figure}[!h]
     \centering
     \begin{subfigure}[b]{0.49\linewidth}
@@ -761,11 +761,11 @@ It is stressed that the results obtained for the DG-PEM will vary depending on t
     \caption{Computed values for the condition number $\kappa(\mathbf{K})$ of the global stiffness matrix $\mathbf{K}$ (excluding rigid body modes).}
     \vspace{-5pt}
     \label{tab:global_stiffness_condition_number}
-    \vspace{-25pt}
+    \vspace{-10pt}
   \end{center}
 \end{table}
 
-The condition number of the resulting global stiffness matrix will become large (asymptotically approaching that of the CG-PEM) as $\alpha_{\gamma0}$ is increased. Conversely, decreasing $\alpha_{\gamma0}$ lowers the condition number of $\mathbf{K}$, achieving an apparent lower-bound on $\kappa (\mathbf{K})$ in the limit as $\alpha_{\gamma0} \rightarrow 0$. Importantly, the resulting stiffness matrix does not contain spurious zero-energy modes, regardless of the choice of $\alpha_{\gamma0}$. Consequently, $\alpha_{\gamma0}$ should not be regarded as a type of hourglass control parameter, as any choice of $\alpha_{\gamma0} > 0$ will yield adequate stability.
+The condition number of the resulting global stiffness matrix will become large (asymptotically approaching that of the CG-PEM) as $\alpha_{\gamma0}$ is increased. Conversely, decreasing $\alpha_{\gamma0}$ lowers the condition number of $\mathbf{K}$, achieving an apparent lower-bound on $\kappa (\mathbf{K})$ in the limit as $\alpha_{\gamma0} \rightarrow 0$. Importantly, the resulting stiffness matrix does not contain spurious zero-energy modes, regardless of the choice of $\alpha_{\gamma0}$. Because any choice of $\alpha_{\gamma0} > 0$ yields stability, $\alpha_{\gamma0}$ should not be regarded as a type of hourglass control parameter.
 
 % FEPEM - lloyd
 % Max E = 1.6e+1
@@ -875,19 +875,19 @@ A series of studies were carried out to determine the convergence behavior of th
 \end{figure}
 To demonstrate optimal convergence of the PEM for higher-order elements, we will choose to investigate the 2D elastostatics problem of an infinite plate with a circular hole in uniaxial tension (depicted in figure \ref{fig:plate_with_hole_problem}), for which there exist analytical solutions of the resulting displacement and stress fields (obtained from reference \cite{Wikiversity:17}):
 \begin{equation}
-  u_1 (r,\theta) = \frac{Ta}{8\mu} \left[ \frac{r}{a} (\kappa + 1) \cos \theta + \frac{2a}{r} ((1+\kappa) \cos \theta + \cos 3 \theta) - \frac{2a^3}{r^3} \cos 3 \theta \right]
+  u_1 (r,\theta) = \frac{Ta}{8\mu} \left[ \frac{r}{a} (\kappa + 1) \cos \theta + \frac{2a}{r} ((1+\kappa) \cos \theta + \cos 3 \theta) - \frac{2a^3}{r^3} \cos 3 \theta \right],
 \end{equation}
 \begin{equation}
-  u_2 (r,\theta) = \frac{Ta}{8\mu} \left[ \frac{r}{a} (\kappa - 3) \sin \theta + \frac{2a}{r} ((1-\kappa) \sin \theta + \sin 3 \theta) - \frac{2a^3}{r^3} \sin 3 \theta \right]
+  u_2 (r,\theta) = \frac{Ta}{8\mu} \left[ \frac{r}{a} (\kappa - 3) \sin \theta + \frac{2a}{r} ((1-\kappa) \sin \theta + \sin 3 \theta) - \frac{2a^3}{r^3} \sin 3 \theta \right],
 \end{equation}
 \begin{equation}
-  \sigma_{11} (r, \theta) = T - T \frac{a^2}{r^2} \bigg( \frac{3}{2} \cos 2 \theta + \cos 4 \theta \bigg) + T \frac{3a^4}{2r^4} \cos 4 \theta
+  \sigma_{11} (r, \theta) = T - T \frac{a^2}{r^2} \bigg( \frac{3}{2} \cos 2 \theta + \cos 4 \theta \bigg) + T \frac{3a^4}{2r^4} \cos 4 \theta,
 \end{equation}
 \begin{equation}
-  \sigma_{22} (r, \theta) = - T \frac{a^2}{r^2} \bigg( \frac{1}{2} \cos 2 \theta - \cos 4 \theta \bigg) - T \frac{3a^4}{2r^4} \cos 4 \theta
+  \sigma_{22} (r, \theta) = - T \frac{a^2}{r^2} \bigg( \frac{1}{2} \cos 2 \theta - \cos 4 \theta \bigg) - T \frac{3a^4}{2r^4} \cos 4 \theta,
 \end{equation}
 \begin{equation}
-  \sigma_{12} (r, \theta) = - T \frac{a^2}{r^2} \bigg( \frac{1}{2} \sin 2 \theta + \sin 4 \theta \bigg) + T \frac{3a^4}{2r^4} \sin 4 \theta
+  \sigma_{12} (r, \theta) = - T \frac{a^2}{r^2} \bigg( \frac{1}{2} \sin 2 \theta + \sin 4 \theta \bigg) + T \frac{3a^4}{2r^4} \sin 4 \theta,
 \end{equation}
 where $T$ is the far-field value of the applied tensile stress, $a$ is the radius of the circular hole centered at $r=0$, $\kappa = 4 - 3\nu$ (under plane-strain conditions), and $\nu$ and $\mu$ are the the Poisson's ratio and shear modulus of the material, respectively.
 
@@ -915,7 +915,11 @@ A convergence study was carried out using a series of quadrilateral meshes with 
   \label{fig:plate_with_hole_errors}
 \end{figure}
 
-For a given element formulation, the \textit{rate} of convergence in the two error metrics $|| \mathbf{u}^h - \mathbf{u} || \leq C h^p || \mathbf{u} ||$ and $|| \boldsymbol{\sigma}^h - \boldsymbol{\sigma} || \leq C h^q || \boldsymbol{\sigma} ||$ will be characterized by the powers $p$ and $q$, respectively. The average and maximal rates of convergence for each element formulation across all levels of mesh refinement are displayed in Table \ref{tab:plate_with_hole_convergence_rates}.
+For a given element formulation, the \textit{rate} of convergence in the two error metrics
+\begin{equation}
+	|| \mathbf{u}^h - \mathbf{u} || \leq C h^p || \mathbf{u} ||, \quad || \boldsymbol{\sigma}^h - \boldsymbol{\sigma} || \leq C h^q || \boldsymbol{\sigma} ||,
+\end{equation}
+will be characterized by the powers $p$ and $q$, respectively. The average and maximal rates of convergence for each element formulation across all levels of mesh refinement are displayed in Table \ref{tab:plate_with_hole_convergence_rates}.
 
 \begin{table}[!ht]
   \begin{center}
@@ -931,21 +935,24 @@ For a given element formulation, the \textit{rate} of convergence in the two err
     \caption{Average and maximal convergence rates $p_{\text{avg}}$ and $q_{\text{avg}}$ for each method. The optimal rates are shown in parentheses.}
     \vspace{-5pt}
     \label{tab:plate_with_hole_convergence_rates}
-    \vspace{-25pt}
+    \vspace{-10pt}
   \end{center}
 \end{table}
 
-It should be noted that part of the solution error incurred for the coarse meshes may be attributable to the inexact representation of the problem domain (the circular hole). This would explain why the observed convergence rates are lower at coarser levels of refinement, but approach the optimal rates as the mesh is further refined.
+It should be noted that part of the solution error incurred for the coarse meshes may be attributable to the inexact representation of the problem geometry (the circular hole). This would explain why the observed convergence rates are lower at coarser levels of refinement, but approach the optimal rates as the mesh is further refined.
 
-In the limit as $h \rightarrow 0$, the DG-PEM quadrilateral elements converge at the optimal rates in both the displacement and stress error norms. Because the quadrilateral meshes in Figure \ref{fig:plate_with_hole_meshes} consist of non-affinely distorted elements, the FEM using isoparametric serendipity elements does not achieve the optimal rates of convergence. Overall, the DG-PEM appears to converge at slightly faster rates than the FEM. However, the solution errors at coarser levels of refinement tends to be better for the FEM, in general.
+In the limit as $h \rightarrow 0$, the DG-PEM quadrilateral elements converge at the optimal rates in both the displacement and stress error norms. Because the quadrilateral meshes in Figure \ref{fig:plate_with_hole_meshes} consist of non-affinely distorted elements, the FEM using isoparametric serendipity elements does not achieve the optimal rates of convergence. Overall, the DG-PEM appears to converge at slightly faster rates than the FEM. However, the solution errors at coarser levels of refinement tend to be better for the FEM, in general.
 
 Further work will seek to investigate the measured error and convergence rates of the PEM when the elements take on arbitrary shape, and for a variety of different formulations and penalization parameter settings.
 
-\section{Sensitivity to Locking Phenomena}
+\subsection*{Incompressible Twisting Annulus}
 
-\subsection*{Twisting Annulus}
-
-Consider an incompressible elastic annulus whose inner radius at $r = R_i$ is fixed, and whose outer radius $r = R_o$ rigidly rotates at an angular velocity of $\Phi$. The radially symmetric displacement boundary conditions for this motion are described by
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=4.0in]{figures/twisting_annulus_problem.pdf}  		\caption{Depiction of the twisting annulus problem.}
+  \label{fig:twisting_annulus_problem}
+\end{figure}
+Consider the incompressible elastic annulus depicted in Figure \ref{fig:twisting_annulus_problem}, whose inner radius at $r = R_i$ is fixed, and whose outer radius $r = R_o$ rigidly rotates at an angular velocity of $\Phi$. The radially symmetric displacement boundary conditions for this motion are described by
 \begin{equation}
 	u_r (R_i,t) = u_r (R_o,t) = 0, \quad u_z (R_i,t) = u_z (R_o,t) = 0,
 \end{equation}
@@ -954,109 +961,21 @@ Consider an incompressible elastic annulus whose inner radius at $r = R_i$ is fi
 \end{equation}
 for all $t \geq 0$.
 
-The elastic material is characterized by a linear hypoelastic material model of grade zero, obeying
+Let the incompressible elastic material be characterized by the isotropic hypoelastic model of grade zero, obeying
 \begin{equation}
   \dot{\boldsymbol{\sigma}} = \mathbb{C} : \mathbf{D} + \mathbf{W} \boldsymbol{\sigma} - \boldsymbol{\sigma} \mathbf{W},
 \end{equation}
+subject to the incompressibility condition: $\text{tr} (\mathbf{D}) = 0$.
 
-\subsubsection*{Exact Solution}
-
-An exact solution for the aforementioned problem may be obtained by considering the stress divergence equations in cylindrical polar coordinates:
+An analytical solution for the displacement and stress fields is derived in the Appendix. The result is given below:
 \begin{equation}
-  \nabla \cdot \boldsymbol{\sigma} = \left\{ \begin{array}{c} \frac{\partial \sigma_{rr}}{\partial r} + \frac{\sigma_{rr}}{r} + \frac{1}{r} \frac{\partial \sigma_{\theta r}}{\partial \theta} + \frac{\partial \sigma_{z r}}{\partial z} - \frac{\sigma_{\theta \theta}}{r} \\
-    \frac{1}{r} \frac{\partial \sigma_{\theta \theta}}{\partial \theta} + \frac{\partial \sigma_{r\theta}}{\partial r} + \frac{\sigma_{r\theta}}{r} + \frac{\sigma_{\theta r}}{r} + \frac{\partial \sigma_{z \theta}}{\partial z} \\
-    \frac{\partial \sigma_{z z}}{\partial z} + \frac{\partial \sigma_{r z}}{\partial r} + \frac{\sigma_{r z}}{r} + \frac{1}{r} \frac{\partial \sigma_{\theta z}}{\partial \theta} \end{array} \right\} = \mathbf{0}.
+  u_r = u_z = 0, \quad u_\theta = \frac{R_o^2}{r} \frac{r^2 - R_i^2}{R_o^{2} - R_i^{2}} \Phi t,
 \end{equation}
-By the assumptions of plane strain and axisymmetry, we rationalize that $\boldsymbol{\sigma} (r)$ is a function of $r$, alone, and therefore,
 \begin{equation}
-  \nabla \cdot \boldsymbol{\sigma} = \left\{ \begin{array}{c} \frac{\partial \sigma_{rr}}{\partial r} + \frac{\sigma_{rr} - \sigma_{\theta \theta}}{r} \\
-    \frac{\partial \sigma_{r\theta}}{\partial r} + \frac{2 \sigma_{r\theta}}{r} \\
-    \frac{\partial \sigma_{r z}}{\partial r} + \frac{\sigma_{r z}}{r} \end{array} \right\} = \mathbf{0}.
-\end{equation}
-Furthermore, by the assumptions of plane strain, we observe that $\sigma_{rz} = 0$ and $\sigma_{\theta z} = 0$. Additionally, if we impose the incompressibility condition $\nabla \cdot \mathbf{v} = \text{tr} (\mathbf{D}) = 0$, we find that
-\begin{equation}
-  \text{tr} (\dot{\boldsymbol{\sigma}}) = 0 \, \Rightarrow \, \text{tr} (\boldsymbol{\sigma}) = 0 \, \forall t.
-\end{equation}
-The deformation necessitates that $\sigma_{zz} = 0$, and therefore $\sigma_{\theta \theta} = - \sigma_{rr}$. Consequently, we are left with 2 governing differential equations for $\sigma_{rr}$ and $\sigma_{r \theta}$:
-\begin{equation}
-  \frac{\partial \sigma_{rr}}{\partial r} + \frac{2 \sigma_{rr}}{r} = 0, \quad \frac{\partial \sigma_{r\theta}}{\partial r} + \frac{2 \sigma_{r\theta}}{r} = 0,
-\end{equation}
-whose solutions are of the form
-\begin{equation}
-  \sigma_{rr} = \frac{a}{r^2}, \quad \sigma_{r\theta} = \frac{b}{r^2}.
-\end{equation}
-Consequently,
-\begin{equation}
-  \left\{ \begin{array}{c} \sigma_{rr} \\ \sigma_{\theta \theta} \\ \sigma_{r \theta} \end{array} \right\} = r^{-2} \left\{ \begin{array}{c} +a \\ -a \\ b \end{array} \right\}.
+  \sigma_{rr} = - \sigma_{\theta \theta} = \mu \frac{R_i^{2}}{r^{2}} \left[ \cos \left( 2 \frac{R_o^{2}}{R_o^{2} - R_i^{2}} \Phi t \right) - 1 \right], \quad \sigma_{r \theta} = \mu \frac{R_i^{2}}{r^{2}} \sin \left( 2 \frac{R_o^{2}}{R_o^{2} - R_i^{2}} \Phi t \right).
 \end{equation}
 
-Under the assumption of incompressibility, we may characterize the deformation via the velocity field $v_r = 0$, $v_z = 0$, and $v_\theta (r) = r \dot{\phi}(r)$, yielding the velocity gradient (in cylindrical polar coordinates):
-\begin{equation}
-  \mathbf{L} = \nabla \mathbf{v} = \left[ \begin{array}{ccc} v_{r,r} & v_{r,\theta}/r-v_\theta /r & v_{r,z} \\
-      v_{\theta,r} & v_{\theta,\theta}/r + v_r /r & v_{\theta,z} \\
-      v_{z,r} & v_{z,\theta} /r & v_{z,z} \end{array} \right] = 
-  \left[ \begin{array}{ccc} 0 & -\dot{\phi} & 0 \\
-      \dot{\phi} + r \dot{\phi}_{,r} & 0 & 0 \\
-      0 & 0 & 0 \end{array} \right],
-\end{equation}
-and the corresponding rate of deformation and spin tensors:
-\begin{equation}
-  \mathbf{D} = \frac{r \dot{\phi}_{,r}}{2} \left[ \begin{array}{ccc} 0 & 1 & 0 \\
-      1 & 0 & 0 \\
-      0 & 0 & 0 \end{array} \right], \quad \mathbf{W} = 
-  \frac{2 \dot{\phi} + r \dot{\phi}_{,r}}{2} \left[ \begin{array}{ccc} 0 & - 1 & 0 \\
-      1 & 0 & 0 \\
-      0 & 0 & 0 \end{array} \right].
-\end{equation}
-The resulting stress rate equations are
-\begin{equation}
-  \left\{ \begin{array}{c} \dot{\sigma}_{rr} \\ \dot{\sigma}_{\theta \theta} \\ \dot{\sigma}_{r \theta} \end{array} \right\} = \left\{ \begin{array}{c} 0 \\ 0 \\ \mu r \dot{\phi}_{,r} \end{array} \right\} + 
-  (2 \dot{\phi} + r \dot{\phi}_{,r}) \left\{ \begin{array}{c} - \sigma_{r \theta} \\ \sigma_{r \theta} \\ \sigma_{rr} \end{array} \right\},
-\end{equation}
-or
-\begin{equation}
-  \left\{ \begin{array}{c} \dot{a} \\ \dot{b} \end{array} \right\} = \left\{ \begin{array}{c} 0 \\ \mu r^3 \dot{\phi}_{,r} \end{array} \right\} + (2 \dot{\phi} + r \dot{\phi}_{,r}) \left[ \begin{array}{cc} 0 & -1 \\ 1 & 0 \end{array} \right] \left\{ \begin{array}{c} a \\ b \end{array} \right\},
-\end{equation}
-which must be valid $\forall r, \, t$. If we assume that $\dot{\phi} = f(r)$ is a function of $r$ (and not of $t$), then we obtain the condition
-\begin{equation}
-  3 f_{,r} + r f_{,rr} = 0,
-\end{equation}
-implying $f_{,r} = B r^{-3}$, and $\phi (r, t) = (A - B r^{-2} / 2)t$, thus
-\begin{equation}
-  \left\{ \begin{array}{c} \dot{a} \\ \dot{b} \end{array} \right\} = \left\{ \begin{array}{c} 0 \\ \mu B \end{array} \right\} + 2 A \left[ \begin{array}{cc} 0 & -1 \\ 1 & 0 \end{array} \right] \left\{ \begin{array}{c} a \\ b \end{array} \right\},
-\end{equation}
-and
-\begin{equation}
-  a(t) = - \frac{\mu B}{2 A} - C_2 \sin (2 A t) + C_1 \cos (2 A t),
-\end{equation}
-\begin{equation}
-  b(t) = C_1 \sin (2 A t) + C_2 \cos (2 A t).
-\end{equation}
-Imposing the initial conditions $a(0) = b(0) = 0$ results in:
-\begin{equation}
-  a(t) = \frac{\mu B}{2 A} \left[ \cos (2 A t) - 1 \right], \quad b(t) = \frac{\mu B}{2 A} \sin (2 A t).concave_stiffness_min_eigenvalue_parameter_study
-\end{equation}
-Imposing the boundary conditions $\phi(R_i,t) = 0 \, \, \forall t$, $\phi(R_o,t) = \Phi \, t \, \, \forall t$ yields:
-\begin{equation}
-  A = \frac{\Phi R_i^{-2}}{R_i^{-2} - R_o^{-2}}, \quad B = \frac{2 \Phi}{R_i^{-2} - R_o^{-2}}.
-\end{equation}
-
-The final analytical solution for the displacement and stress fields is presented below:
-\begin{equation}
-  u_r = 0, \quad u_\theta = r \Phi \frac{R_i^{-2} - r^{-2}}{R_i^{-2} - R_o^{-2}} t, \quad u_z = 0,
-\end{equation}
-\begin{equation}
-  \sigma_{rr} = - \sigma_{\theta \theta} = \mu \frac{r^{-2}}{R_i^{-2}} \left[ \cos \left( 2 \frac{\Phi R_i^{-2}}{R_i^{-2} - R_o^{-2}} t \right) - 1 \right],
-\end{equation}
-\begin{equation}
-  \sigma_{r \theta} = \mu \frac{r^{-2}}{R_i^{-2}} \sin \left( 2 \frac{\Phi R_i^{-2}}{R_i^{-2} - R_o^{-2}} t \right).
-\end{equation}
-
-\subsubsection*{Numerical Results}
-
-Because the element formulations that will be used herein possess only displacement degrees of freedom, we expect the finite element solutions to present inaccuracies due to the effects of volumetric locking. Moreover, it is not possible to run an analysis for a truly incompressible material (if the grade zero hypoelasticity model is to be utilized). For these reasons, it will suffice to examine solutions in the near-incompressible regime (i.e. $\nu = 0.4999$).
-
-Additionally, because an accurate prediction of the pressure field requires the use of a mixed formulation, we expect that the stress error metric in (\ref{eq:normalized_stress_error}) will be dominated by errors in the pressure field. For this reason, we will choose to examine only the errors in the deviatoric stress:
+Because the element formulations used herein possess only displacement degrees of freedom, it is not possible to run an analysis for a truly incompressible material (if the grade zero hypoelasticity model is to be utilized). For these reasons, it will suffice to examine solutions in the near-incompressible regime (i.e. $\nu = 0.4999$). Additionally, because an accurate prediction of the pressure field requires the use of a mixed formulation, we expect that the stress error metric in (\ref{eq:normalized_stress_error}) will be dominated by errors in the pressure field. For this reason, we will choose to examine only the errors in the deviatoric stress:
 \begin{equation}
 	\frac{||\mathbf{s}^h - \mathbf{s}||}{||\mathbf{s}||} = \sqrt{\frac{\int_{\mathcal{B}_0} (\mathbf{s}^h - \mathbf{s}) \colon (\mathbf{s}^h - \mathbf{s}) \, dV}{\int_{\mathcal{B}_0} \mathbf{s} \colon \mathbf{s} \, dV}},
 	\label{eq:normalized_stress_error}
@@ -1077,57 +996,44 @@ where $s_{ij} = \sigma_{ij} - \frac{1}{3} \delta_{ij} \sigma_{kk}$ denotes the s
   \label{fig:quad_annulus_meshes}
 \end{figure}
 
-\begin{figure}[!h]
-  \centering
-    \begin{subfigure}[b]{0.49\linewidth}
-            \centering
-            \includegraphics[width=3.3in]{figures/quad_l2_error.pdf}
-    			\caption{displacement error \label{fig:quad_l2_error}}
-    \end{subfigure}
-	\begin{subfigure}[b]{0.49\linewidth}
-            \centering
-            \includegraphics[width=3.3in]{figures/quad_h1_error.pdf}
-    			\caption{stress deviator error \label{fig:quad_h1_error}}
-    \end{subfigure} \caption{Convergence plots for the twisting annulus problem using standard isoparametric elements.}
-  \label{fig:quad_error}
-\end{figure}
+Convergence studies were carried out using the two series of polygonal and quadrilateral meshes depicted in Figures \ref{fig:annulus_meshes} and \ref{fig:quad_annulus_meshes}, respectively. The quadrilateral meshes were used in conjunction with the FEM, and consisted of either 4-node quadrilateral or 8-node serendipity quadrilateral elements. The polygonal meshes were used in conjunction with the DG-PEM, and consisted of either standard linear polygonal elements, or quadratic serendipity polygonal elements.
 
-\begin{figure}[!h]
-  \centering
-    \begin{subfigure}[b]{0.49\linewidth}
-            \centering
-            \includegraphics[width=3.3in]{figures/quad_l2_error.pdf}
-    			\caption{displacement error \label{fig:quad_l2_error}}
-    \end{subfigure}
-	\begin{subfigure}[b]{0.49\linewidth}
-            \centering
-            \includegraphics[width=3.3in]{figures/quad_h1_error.pdf}
-    			\caption{stress deviator error \label{fig:quad_h1_error}}
-    \end{subfigure} \caption{Convergence plots for the twisting annulus problem using standard isoparametric elements.}
-  \label{fig:quad_error}
-\end{figure}
+Displacement and deviatoric stress error norms were computed with reference to the exact solution. Convergence plots for these norms are provided in Figure \ref{fig:twisting_annulus_errors}.
 
-\subsection*{Thin Corner-Supported Plate}
+%\begin{figure}[!h]
+%  \centering
+%    \begin{subfigure}[b]{0.49\linewidth}
+%            \centering
+%            \includegraphics[width=3.3in]{figures/twisting_annulus_l2_errors.pdf}
+%    			\caption{displacement errors \label{fig:twisting_annulus_l2_errors}}
+%    \end{subfigure}
+%	\begin{subfigure}[b]{0.49\linewidth}
+%            \centering
+%            \includegraphics[width=3.3in]{figures/twisting_annulus_h1_errors.pdf}
+%    			\caption{stress errors \label{fig:twisting_annulus_h1_errors}}
+%    \end{subfigure} \caption{Convergence plots for the twisting annulus problem using FEM and DG-PEM.}
+%  \label{fig:twisting_annulus_errors}
+%\end{figure}
 
-Consider a thin plate 
-(Description of the corner-supported plate problem).
+%\subsection*{Thin Corner-Supported Plate}
+%
+%Consider a thin plate 
+%(Description of the corner-supported plate problem).
+%
+%\begin{figure}[!h]
+%  \centering
+%  \includegraphics[width=6.0in]{figures/plate_meshes.pdf}
+%  \caption{Hexahedral meshes with variable plate thickness $h$ and mesh perturbations $p$ for the corner-supported plate problem.}
+%  \label{fig:plate_meshes}
+%\end{figure}
+%
+%\subsubsection{Exact Solution}
+%
+%An exact solution for the vertical displacement field of the plate prob
 
-\begin{figure}[!h]
-  \centering
-  \includegraphics[width=6.0in]{figures/plate_meshes.pdf}
-  \caption{Hexahedral meshes with variable plate thickness $h$ and mesh perturbations $p$ for the corner-supported plate problem.}
-  \label{fig:plate_meshes}
-\end{figure}
+%\section{Computational Efficiency}
 
-\subsubsection{Exact Solution}
-
-An exact solution for the vertical displacement field of the plate prob
-
-\section{Computational Efficiency}
-
-\subsection{Performance Comparison}
-
-
+%\subsection{Performance Comparison}
 
 \section{Nonlinear Kinematics and Elastoplastic Material Behavior}
 
