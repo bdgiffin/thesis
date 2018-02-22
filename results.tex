@@ -932,7 +932,7 @@ will be characterized by the powers $p$ and $q$, respectively. The average and m
     DG-PEM (8-node quadrilateral) & 2.34 (3.0) & 3.02 (3.0) & 1.71 (2.0) & 2.42 (2.0) \\
     \hline
     \end{tabular}
-    \caption{Average and maximal convergence rates $p_{\text{avg}}$ and $q_{\text{avg}}$ for each method. The optimal rates are shown in parentheses.}
+    \caption{Average and maximal convergence rates for each method. The optimal rates are shown in parentheses.}
     \vspace{-5pt}
     \label{tab:plate_with_hole_convergence_rates}
     \vspace{-10pt}
@@ -945,14 +945,14 @@ In the limit as $h \rightarrow 0$, the DG-PEM quadrilateral elements converge at
 
 Further work will seek to investigate the measured error and convergence rates of the PEM when the elements take on arbitrary shape, and for a variety of different formulations and penalization parameter settings.
 
-\subsection*{Incompressible Twisting Annulus}
+\subsection*{Twisting Annulus}
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=4.0in]{figures/twisting_annulus_problem.pdf}  		\caption{Depiction of the twisting annulus problem.}
+  \includegraphics[width=3.0in]{figures/twisting_annulus_problem.pdf}  		\caption{Depiction of the twisting annulus problem.}
   \label{fig:twisting_annulus_problem}
 \end{figure}
-Consider the incompressible elastic annulus depicted in Figure \ref{fig:twisting_annulus_problem}, whose inner radius at $r = R_i$ is fixed, and whose outer radius $r = R_o$ rigidly rotates at an angular velocity of $\Phi$. The radially symmetric displacement boundary conditions for this motion are described by
+Consider the elastic annulus depicted in Figure \ref{fig:twisting_annulus_problem}, whose inner radius at $r = R_i$ is fixed, and whose outer radius $r = R_o$ rigidly rotates at an angular velocity of $\Phi$. The radially symmetric displacement boundary conditions for this motion are described by
 \begin{equation}
 	u_r (R_i,t) = u_r (R_o,t) = 0, \quad u_z (R_i,t) = u_z (R_o,t) = 0,
 \end{equation}
@@ -961,26 +961,27 @@ Consider the incompressible elastic annulus depicted in Figure \ref{fig:twisting
 \end{equation}
 for all $t \geq 0$.
 
-Let the incompressible elastic material be characterized by the isotropic hypoelastic model of grade zero, obeying
+Let the elastic material be characterized by the isotropic hypoelastic model of grade zero, obeying
 \begin{equation}
-  \dot{\boldsymbol{\sigma}} = \mathbb{C} : \mathbf{D} + \mathbf{W} \boldsymbol{\sigma} - \boldsymbol{\sigma} \mathbf{W},
+  \dot{\boldsymbol{\sigma}} = \mathbb{C} : \mathbf{D} + \mathbf{W} \boldsymbol{\sigma} - \boldsymbol{\sigma} \mathbf{W}.
 \end{equation}
-subject to the incompressibility condition: $\text{tr} (\mathbf{D}) = 0$.
 
-An analytical solution for the displacement and stress fields is derived in the Appendix. The result is given below:
+If the material is incompressible (i.e. if $\text{tr} (\mathbf{D}) = 0$), an analytical solution may be determined which is valid in the context of finite deformations. The solutions for the displacement and stress fields are derived in the Appendix. The resulting expressions are given below:
 \begin{equation}
   u_r = u_z = 0, \quad u_\theta = \frac{R_o^2}{r} \frac{r^2 - R_i^2}{R_o^{2} - R_i^{2}} \Phi t,
+  	\label{eq:annulus_u_exact}
 \end{equation}
 \begin{equation}
   \sigma_{rr} = - \sigma_{\theta \theta} = \mu \frac{R_i^{2}}{r^{2}} \left[ \cos \left( 2 \frac{R_o^{2}}{R_o^{2} - R_i^{2}} \Phi t \right) - 1 \right], \quad \sigma_{r \theta} = \mu \frac{R_i^{2}}{r^{2}} \sin \left( 2 \frac{R_o^{2}}{R_o^{2} - R_i^{2}} \Phi t \right).
+  	\label{eq:annulus_s_exact}
 \end{equation}
+According to \cite{Brannon:11}, the above solution for $\sigma_{r \theta}$ is also valid for compressible elastic materials.
 
-Because the element formulations used herein possess only displacement degrees of freedom, it is not possible to run an analysis for a truly incompressible material (if the grade zero hypoelasticity model is to be utilized). For these reasons, it will suffice to examine solutions in the near-incompressible regime (i.e. $\nu = 0.4999$). Additionally, because an accurate prediction of the pressure field requires the use of a mixed formulation, we expect that the stress error metric in (\ref{eq:normalized_stress_error}) will be dominated by errors in the pressure field. For this reason, we will choose to examine only the errors in the deviatoric stress:
+Because the element formulations used herein possess only displacement degrees of freedom, it is not possible to run an analysis for a truly incompressible material (if the grade zero hypoelasticity model is to be utilized). For these reasons, it will suffice to examine solutions in the near-incompressible regime (i.e. $\nu = 0.49$). Additionally, because an accurate prediction of the pressure field requires the use of a mixed formulation, we expect that the stress error metric in (\ref{eq:normalized_stress_error}) will be dominated by errors in the pressure field. For this reason, only the errors in the tangential shear stress will be examined:
 \begin{equation}
-	\frac{||\mathbf{s}^h - \mathbf{s}||}{||\mathbf{s}||} = \sqrt{\frac{\int_{\mathcal{B}_0} (\mathbf{s}^h - \mathbf{s}) \colon (\mathbf{s}^h - \mathbf{s}) \, dV}{\int_{\mathcal{B}_0} \mathbf{s} \colon \mathbf{s} \, dV}},
+	\frac{||\sigma_{r \theta}^h - \sigma_{r \theta}||}{||\sigma_{r \theta}||} = \sqrt{\frac{\int_{\mathcal{B}_0} (\sigma_{r \theta}^h - \sigma_{r \theta})^2 \, dV}{\int_{\mathcal{B}_0} \sigma_{r \theta}^2 \, dV}}.
 	\label{eq:normalized_stress_error}
 \end{equation}
-where $s_{ij} = \sigma_{ij} - \frac{1}{3} \delta_{ij} \sigma_{kk}$ denotes the stress deviator.
 
 \begin{figure}[!h]
   \centering
@@ -998,22 +999,42 @@ where $s_{ij} = \sigma_{ij} - \frac{1}{3} \delta_{ij} \sigma_{kk}$ denotes the s
 
 Convergence studies were carried out using the two series of polygonal and quadrilateral meshes depicted in Figures \ref{fig:annulus_meshes} and \ref{fig:quad_annulus_meshes}, respectively. The quadrilateral meshes were used in conjunction with the FEM, and consisted of either 4-node quadrilateral or 8-node serendipity quadrilateral elements. The polygonal meshes were used in conjunction with the DG-PEM, and consisted of either standard linear polygonal elements, or quadratic serendipity polygonal elements.
 
-Displacement and deviatoric stress error norms were computed with reference to the exact solution. Convergence plots for these norms are provided in Figure \ref{fig:twisting_annulus_errors}.
+The twisting annulus problem was run using finite deformations, albeit with relatively small strains (roughly 2.6\%). Shear stress error norms were computed with reference to the exact solution using the following problem parameters: $R_i = 0.5$, $R_o = 1.0$, $\Phi = 0.01$, $E = 1.0$, $\nu = 0.49$, $t \in [0, \, 1]$. 
 
-%\begin{figure}[!h]
-%  \centering
-%    \begin{subfigure}[b]{0.49\linewidth}
-%            \centering
-%            \includegraphics[width=3.3in]{figures/twisting_annulus_l2_errors.pdf}
-%    			\caption{displacement errors \label{fig:twisting_annulus_l2_errors}}
-%    \end{subfigure}
-%	\begin{subfigure}[b]{0.49\linewidth}
-%            \centering
-%            \includegraphics[width=3.3in]{figures/twisting_annulus_h1_errors.pdf}
-%    			\caption{stress errors \label{fig:twisting_annulus_h1_errors}}
-%    \end{subfigure} \caption{Convergence plots for the twisting annulus problem using FEM and DG-PEM.}
-%  \label{fig:twisting_annulus_errors}
-%\end{figure}
+For a given element formulation, the \textit{rate} of convergence in the shear stress error metric
+\begin{equation}
+	||\sigma_{r \theta}^h - \sigma_{r \theta}|| \leq C h^q ||\sigma_{r \theta}||,
+\end{equation}
+will be characterized by the power $q$. The average and maximal rates of convergence for each element formulation across all levels of mesh refinement are displayed in Table \ref{tab:twisting_annulus_convergence_rates}.
+
+\begin{table}[!ht]
+  \begin{center}
+    \begin{tabular}{| c || c | c |}
+    \hline
+           & $q_{\text{avg}}$ & $q_{\text{max}}$ \\ \hline \hline
+    4-node FEM       & 1.13 (1.0) & 1.22 (1.0) \\ \hline
+    linear DG-PEM    & 1.02 (1.0) & 1.17 (1.0) \\ \hline
+    8-node FEM       & 2.34 (2.0) & 2.40 (2.0) \\ \hline
+    quadratic DG-PEM & 1.71 (2.0) & 2.42 (2.0) \\
+    \hline
+    \end{tabular}
+    \caption{Average and maximal convergence rates and for each method. The optimal rates are shown in parentheses.}
+    \vspace{-5pt}
+    \label{tab:twisting_annulus_convergence_rates}
+    \vspace{-10pt}
+  \end{center}
+\end{table}
+
+Both the 4-node and 8-node FEM appear to exhibit super-convergent behavior. This is most likely attributable to the non-uniform mesh density of the quadrilateral meshes shown in Figure \ref{fig:quad_annulus_meshes}. Because the gradients in the solution fields (\ref{eq:annulus_u_exact}) and (\ref{eq:annulus_s_exact}) become steeper at smaller values of $r$, the quadrilateral meshes benefit from having a higher mesh density near $r = R_i$. By comparison, the polygonal meshes have roughly uniform mesh density. The linear DG-PEM converges at the optimal rate, but the rate of convergence for the quadratic DG-PEM is sub-optimal. A convergence plot is provided in Figure \ref{fig:twisting_annulus_errors} for the purposes of comparison.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=4.0in]{figures/twisting_annulus_h1_errors.pdf}
+    \caption{Shear stress error convergence plot for the twisting annulus problem using FEM and DG-PEM.}
+  \label{fig:twisting_annulus_errors}
+\end{figure}
+
+As a brief aside, if the DG-PEM is utilized on the series of quadrilateral meshes shown in Figure \ref{fig:quad_annulus_meshes}, the resulting convergence rates are on par with those of the FEM. This illustrates an important point: the choice of discretization has an impact on the solution accuracy.
 
 %\subsection*{Thin Corner-Supported Plate}
 %
@@ -1035,11 +1056,11 @@ Displacement and deviatoric stress error norms were computed with reference to t
 
 %\subsection{Performance Comparison}
 
-\section{Nonlinear Kinematics and Elastoplastic Material Behavior}
+\section{Large Deformation Problems with Elasto-plastic Material Behavior}
 
 A set of examples were explored to examine the behavior of the PEM in the context of both geometric and material nonlinearity.
 
-The $J_2$ model of elastoplasticity with linear isotropic hardening was implemented, employing the radial return algorithm described in \cite{LSDYNA}. This model will be utilized in the two problems considered herein, requiring the specification of the following material parameters: Young's modulus $E$, Poisson's ratio $\nu$, an initial yield stress $Y_0$, and a linear hardening modulus $E_h$.
+The $J_2$ model of hypo-elasto-plasticity with linear isotropic hardening was implemented, employing the radial return algorithm described in \cite{LSDYNA}. This model is utilized in the two problems considered herein, entailing the specification of the following material parameters: Young's modulus $E$, Poisson's ratio $\nu$, the initial yield stress $Y_0$, and the linear hardening modulus $E_h$.
 
 \subsection*{Ductile Necking Problem}
 

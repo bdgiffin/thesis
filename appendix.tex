@@ -22,11 +22,11 @@ The deformation necessitates that $\sigma_{zz} = 0$, and therefore $\sigma_{\the
 \end{equation}
 whose solutions are of the form
 \begin{equation}
-  \sigma_{rr} = \frac{a}{r^2}, \quad \sigma_{r\theta} = \frac{b}{r^2}.
+  \sigma_{rr} = \frac{\sigma}{r^2}, \quad \sigma_{r\theta} = \frac{\tau}{r^2},
 \end{equation}
-Consequently,
+where $\sigma(t)$ and $\tau(t)$ are independent functions of time, alone. Consequently,
 \begin{equation}
-  \left\{ \begin{array}{c} \sigma_{rr} \\ \sigma_{\theta \theta} \\ \sigma_{r \theta} \end{array} \right\} = r^{-2} \left\{ \begin{array}{c} +a \\ -a \\ b \end{array} \right\}.
+  \left\{ \begin{array}{c} \sigma_{rr} \\ \sigma_{\theta \theta} \\ \sigma_{r \theta} \end{array} \right\} = r^{-2} \left\{ \begin{array}{c} +\sigma \\ -\sigma \\ \tau \end{array} \right\}.
 \end{equation}
 
 Under the assumption of incompressibility, we may characterize the deformation via the velocity field $v_r = 0$, $v_z = 0$, and $v_\theta (r) = r \dot{\phi}(r)$, yielding the velocity gradient (in cylindrical polar coordinates):
@@ -40,44 +40,44 @@ Under the assumption of incompressibility, we may characterize the deformation v
 \end{equation}
 and the corresponding rate of deformation and spin tensors:
 \begin{equation}
-  \mathbf{D} = \frac{r \dot{\phi}_{,r}}{2} \left[ \begin{array}{ccc} 0 & 1 & 0 \\
-      1 & 0 & 0 \\
+  \mathbf{D} = \frac{r \dot{\phi}_{,r}}{2} \left[ \begin{array}{ccc} 0 & +1 & 0 \\
+      +1 & 0 & 0 \\
       0 & 0 & 0 \end{array} \right], \quad \mathbf{W} = 
   \frac{2 \dot{\phi} + r \dot{\phi}_{,r}}{2} \left[ \begin{array}{ccc} 0 & - 1 & 0 \\
-      1 & 0 & 0 \\
+      +1 & 0 & 0 \\
       0 & 0 & 0 \end{array} \right].
 \end{equation}
-The resulting stress rate equations are
+The stress rate equations resulting from $\dot{\boldsymbol{\sigma}} = \mathbb{C} : \mathbf{D} + \mathbf{W} \boldsymbol{\sigma} - \boldsymbol{\sigma} \mathbf{W}$ are
 \begin{equation}
   \left\{ \begin{array}{c} \dot{\sigma}_{rr} \\ \dot{\sigma}_{\theta \theta} \\ \dot{\sigma}_{r \theta} \end{array} \right\} = \left\{ \begin{array}{c} 0 \\ 0 \\ \mu r \dot{\phi}_{,r} \end{array} \right\} + 
   (2 \dot{\phi} + r \dot{\phi}_{,r}) \left\{ \begin{array}{c} - \sigma_{r \theta} \\ \sigma_{r \theta} \\ \sigma_{rr} \end{array} \right\},
 \end{equation}
 or
 \begin{equation}
-  \left\{ \begin{array}{c} \dot{a} \\ \dot{b} \end{array} \right\} = \left\{ \begin{array}{c} 0 \\ \mu r^3 \dot{\phi}_{,r} \end{array} \right\} + (2 \dot{\phi} + r \dot{\phi}_{,r}) \left[ \begin{array}{cc} 0 & -1 \\ 1 & 0 \end{array} \right] \left\{ \begin{array}{c} a \\ b \end{array} \right\},
+  \left\{ \begin{array}{c} \dot{\sigma} \\ \dot{\tau} \end{array} \right\} = \left\{ \begin{array}{c} 0 \\ \mu r^3 \dot{\phi}_{,r} \end{array} \right\} + (2 \dot{\phi} + r \dot{\phi}_{,r}) \left[ \begin{array}{cc} 0 & -1 \\ 1 & 0 \end{array} \right] \left\{ \begin{array}{c} \sigma \\ \tau \end{array} \right\},
 \end{equation}
-which must be valid $\forall r, \, t$. If we assume that $\dot{\phi} = f(r)$ is a function of $r$ (and not of $t$), then we obtain the condition
+which must be valid $\forall r, \, t$. Assume that $\dot{\phi}(r)$ is a function of $r$ (and not of $t$), corresponding to a steady state rate of deformation. By recognizing that $\sigma_{,r} = \tau_{,r} = 0$, we obtain the condition
 \begin{equation}
-  3 f_{,r} + r f_{,rr} = 0,
+  3 \dot{\phi}_{,r} + r \dot{\phi}_{,rr} = 0,
 \end{equation}
-implying $f_{,r} = B r^{-3}$, and $\phi (r, t) = (A - B r^{-2} / 2)t$, thus
+implying $\dot{\phi}_{,r} = B r^{-3}$, and $\phi (r, t) = (A - B r^{-2} / 2)t$. Thus
 \begin{equation}
-  \left\{ \begin{array}{c} \dot{a} \\ \dot{b} \end{array} \right\} = \left\{ \begin{array}{c} 0 \\ \mu B \end{array} \right\} + 2 A \left[ \begin{array}{cc} 0 & -1 \\ 1 & 0 \end{array} \right] \left\{ \begin{array}{c} a \\ b \end{array} \right\},
+  \left\{ \begin{array}{c} \dot{\sigma} \\ \dot{\tau} \end{array} \right\} = \left\{ \begin{array}{c} 0 \\ \mu B \end{array} \right\} + 2 A \left[ \begin{array}{cc} 0 & -1 \\ 1 & 0 \end{array} \right] \left\{ \begin{array}{c} \sigma \\ \tau \end{array} \right\},
 \end{equation}
 and
 \begin{equation}
-  a(t) = - \frac{\mu B}{2 A} - C_2 \sin (2 A t) + C_1 \cos (2 A t),
+  \sigma(t) = - \frac{\mu B}{2 A} - C_2 \sin (2 A t) + C_1 \cos (2 A t),
 \end{equation}
 \begin{equation}
-  b(t) = C_1 \sin (2 A t) + C_2 \cos (2 A t).
+  \tau(t) = C_1 \sin (2 A t) + C_2 \cos (2 A t).
 \end{equation}
-Imposing the initial conditions $a(0) = b(0) = 0$ results in:
+Imposing the initial conditions $\sigma(0) = \tau(0) = 0$ results in:
 \begin{equation}
-  a(t) = \frac{\mu B}{2 A} \left[ \cos (2 A t) - 1 \right], \quad b(t) = \frac{\mu B}{2 A} \sin (2 A t).
+  \sigma(t) = \frac{\mu B}{2 A} \left[ \cos (2 A t) - 1 \right], \quad \tau(t) = \frac{\mu B}{2 A} \sin (2 A t).
 \end{equation}
 Imposing the boundary conditions $\phi(R_i,t) = 0 \, \, \forall t$, $\phi(R_o,t) = \Phi \, t \, \, \forall t$ yields:
 \begin{equation}
-  A = \frac{\Phi R_i^{-2}}{R_i^{-2} - R_o^{-2}}, \quad B = \frac{2 \Phi}{R_i^{-2} - R_o^{-2}}.
+  A = \frac{R_o^{2}}{R_o^{2} - R_i^{2}} \Phi, \quad B = 2 \frac{R_o^{2} R_i^{2}}{R_o^{2} - R_i^{2}} \Phi.
 \end{equation}
 
 The final analytical solution for the displacement and stress fields is presented below:

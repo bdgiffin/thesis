@@ -1,7 +1,7 @@
 \contentsline {section}{List of Figures}{v}
 \contentsline {section}{List of Tables}{ix}
-\contentsline {section}{Abstract}{x}
-\contentsline {section}{Acknowledgments}{xi}
+\contentsline {section}{Abstract}{xi}
+\contentsline {section}{Acknowledgments}{xii}
 \contentsline {chapter}{\numberline {1}Introduction}{1}
 \contentsline {section}{\numberline {1.1}Historical Development}{1}
 \contentsline {section}{\numberline {1.2}Recent Developments in Polytopal Discretization}{9}
@@ -32,6 +32,6 @@
 \contentsline {section}{\numberline {5.2}Finite Element Patch Tests}{81}
 \contentsline {section}{\numberline {5.3}Tests for Element Quality}{90}
 \contentsline {section}{\numberline {5.4}Convergence Studies}{102}
-\contentsline {section}{\numberline {5.5}Nonlinear Kinematics and Elastoplastic Material Behavior}{108}
-\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{115}
-\contentsline {chapter}{\numberline {A}Exact Solution for the Incompressible Twisting Annulus Problem}{118}
+\contentsline {section}{\numberline {5.5}Large Deformation Problems with Elasto-plastic Material Behavior}{110}
+\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{116}
+\contentsline {chapter}{\numberline {A}Exact Solution for the Incompressible Twisting Annulus Problem}{119}
