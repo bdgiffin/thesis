@@ -12,50 +12,54 @@ A level-1 auxiliary file: appendix.aux
 Database file #1: bibliography.bib
 Warning--entry type for "Wikiversity:17" isn't style-file defined
 --line 599 of file bibliography.bib
+Warning--entry type for "ASM:18" isn't style-file defined
+--line 772 of file bibliography.bib
+Warning--entry type for "Erhart:11" isn't style-file defined
+--line 799 of file bibliography.bib
 Warning--to sort, need author, organization, or key in LSDYNA
 Warning--empty author in ASTM:08
 Warning--empty journal in Freund:95
 Warning--empty publisher in Wilson:73
 Warning--empty school in Wopschall:17
-You've used 84 entries,
+You've used 87 entries,
             2118 wiz_defined-function locations,
-            1056 strings with 17781 characters,
-and the built_in function-call counts, 26734 in all, are:
-= -- 2698
-> -- 1182
+            1072 strings with 18115 characters,
+and the built_in function-call counts, 27404 in all, are:
+= -- 2755
+> -- 1214
 < -- 2
-+ -- 493
-- -- 384
-* -- 1925
-:= -- 4536
-add.period$ -- 247
-call.type$ -- 84
-change.case$ -- 438
++ -- 507
+- -- 394
+* -- 1958
+:= -- 4646
+add.period$ -- 253
+call.type$ -- 87
+change.case$ -- 451
 chr.to.int$ -- 0
-cite$ -- 89
-duplicate$ -- 918
-empty$ -- 2086
-format.name$ -- 384
-if$ -- 5440
+cite$ -- 92
+duplicate$ -- 941
+empty$ -- 2151
+format.name$ -- 394
+if$ -- 5580
 int.to.chr$ -- 0
-int.to.str$ -- 84
+int.to.str$ -- 87
 missing$ -- 83
-newline$ -- 418
-num.names$ -- 164
-pop$ -- 348
+newline$ -- 430
+num.names$ -- 170
+pop$ -- 375
 preamble$ -- 1
-purify$ -- 361
+purify$ -- 372
 quote$ -- 0
-skip$ -- 635
+skip$ -- 657
 stack$ -- 0
-substring$ -- 2036
-swap$ -- 100
+substring$ -- 2058
+swap$ -- 104
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 324
+type$ -- 336
 warning$ -- 5
-while$ -- 279
-width$ -- 86
-write$ -- 902
-(There were 6 warnings)
+while$ -- 285
+width$ -- 89
+write$ -- 925
+(There were 8 warnings)

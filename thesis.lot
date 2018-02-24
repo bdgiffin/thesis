@@ -17,7 +17,7 @@
 \contentsline {table}{\numberline {5.12}{\ignorespaces Computed values for the condition number $\kappa (\mathbf {K})$ of the global stiffness matrix $\mathbf {K}$ (excluding rigid body modes).\relax }}{102}
 \contentsline {table}{\numberline {5.13}{\ignorespaces Average and maximal convergence rates for each method. The optimal rates are shown in parentheses.\relax }}{104}
 \contentsline {table}{\numberline {5.14}{\ignorespaces Average and maximal convergence rates and for each method. The optimal rates are shown in parentheses.\relax }}{109}
-\contentsline {table}{\numberline {5.15}{\ignorespaces Tensile test data results comparison.\relax }}{114}
-\contentsline {table}{\numberline {5.16}{\ignorespaces Change in base width and rod length.\relax }}{115}
+\contentsline {table}{\numberline {5.15}{\ignorespaces Tensile test data results comparison. The values of \% elongation were recorded after reaching 60\% reduction in area.\relax }}{113}
+\contentsline {table}{\numberline {5.16}{\ignorespaces Measurements of the rod's final base diameter $D_{\text {final}}$ and overall length $L_{\text {final}}$.\relax }}{115}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

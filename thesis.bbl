@@ -14,6 +14,10 @@ D.~N. Arnold, D.~Boffi, R.~S. Falk, and L.~Gastaldi.
 \newblock {\em Communications in Numerical Methods in Engineering},
   17(11):805--812, 2001.
 
+\bibitem{ParaView}
+Utkarsh Ayachit.
+\newblock {\em The ParaView Guide: A Parallel Visualization Application}.
+
 \bibitem{Babuska:71}
 Ivo Babu{\u{s}}ka.
 \newblock Error-bounds for finite element method.
@@ -159,6 +163,10 @@ Mohamed~S. Ebeida and Scott~A. Mitchell.
 Mohamed~Salah Ebeida.
 \newblock Vorocrust v. 1.0, Jul 2017.
 
+\bibitem{Erhart:11}
+Tobias Erhart.
+\newblock Review of solid element formulations in ls-dyna, 2011.
+
 \bibitem{Felippa:04}
 Carlos~A. Felippa.
 \newblock {\em Introduction to Finite Element Methods}.
@@ -223,12 +231,6 @@ W.~H. Gust.
 \newblock High impact deformation of metal cylinders at elevated temperatures.
 \newblock {\em Journal of Applied Physics}, 53(5):3566--3575, 1982.
 
-\bibitem{Hecker:73}
-S.~S. Hecker.
-\newblock Influence of deformation history on the yield locus and stress-strain
-  behavior of aluminum and copper.
-\newblock {\em Metallurgical Transactions}, 4:985--989, 1973.
-
 \bibitem{Hesthaven:10}
 Jan~S. Hesthaven and Tim Warburton.
 \newblock {\em Nodal Discontinuous Galerkin Methods: Algorithms, Analysis, and
@@ -248,6 +250,10 @@ Thomas J.~R. Hughes.
   Element Analysis}.
 \newblock Dover Publications, 2000.
 
+\bibitem{ASM:18}
+Aerospace Specification~Metals Inc.
+\newblock Aisi 4130 steel, normalized at 870°c (1600°f), 2018.
+
 \bibitem{Johnson&Cook:83}
 G.R. Johnson and W.H. Cook.
 \newblock A constitutive model and data for metals subjected to large strains,
@@ -264,6 +270,12 @@ Pushkar Joshi, Mark Meyer, Tony DeRose, Brian Green, and Tom Sanocki.
 Mika Juntunen and Rolf Stenberg.
 \newblock Nitsche's method for general boundary conditions.
 \newblock {\em Mechanics of Computation}, 78(267):1353--1374, 2009.
+
+\bibitem{Kim:05}
+Hyoung~Seop Kim, Sung~Ho Kim, and Woo-Seog Ryu.
+\newblock Finite element analysis of the onset of necking and the post-necking
+  behaviour during uniaxial tensile testing.
+\newblock {\em MATERIALS TRANSACTIONS}, 46(10):2159--2163, 2005.
 
 \bibitem{Lee&Bathe:93}
 Nam-Sua Lee and Klaus-J{\"{u}}rgen Bathe.
