@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.8.23)  23 FEB 2018 18:45
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.8.23)  24 FEB 2018 18:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -282,9 +282,6 @@ Package: subcaption 2013/02/03 v1.1-62 Sub-captions (AR)
 (./pem_formulation.aux) (./implementation.aux) (./results.aux
 
 LaTeX Warning: Label `eq:normalized_stress_error' multiply defined.
-
-
-LaTeX Warning: Label `fig:necking_meshes' multiply defined.
 
 ) (./future_work.aux) (./appendix.aux))
 \openout1 = `thesis.aux'.
@@ -938,7 +935,7 @@ Package pdftex.def Info: figures/twisting_annulus_h1_errors.pdf used on input l
 ine 1032.
 (pdftex.def)             Requested size: 289.07999pt x 235.65953pt.
  [109 <./figures/twisting_annulus_h1_errors.pdf>]
-<figures/tensile_specimen_dimensions.pdf, id=2463, 707.83098pt x 216.92482pt>
+<figures/tensile_specimen_dimensions.pdf, id=2463, 707.83092pt x 216.92484pt>
 File: figures/tensile_specimen_dimensions.pdf Graphic file (type pdf)
 
 <use figures/tensile_specimen_dimensions.pdf>
@@ -970,222 +967,215 @@ tiple pdfs with page group included in a single page
 
 pdfTeX warning: pdflatex (file ./figures/neck_poly_mesh.pdf): PDF inclusion: mu
 ltiple pdfs with page group included in a single page
->] <figures/necking_t0.pdf, id=2501, 360.66382pt x 287.3084pt>
-File: figures/necking_t0.pdf Graphic file (type pdf)
+>] <figures/necking_comparison.pdf, id=2501, 544.34937pt x 277.55139pt>
+File: figures/necking_comparison.pdf Graphic file (type pdf)
 
-<use figures/necking_t0.pdf>
-Package pdftex.def Info: figures/necking_t0.pdf used on input line 1122.
-(pdftex.def)             Requested size: 216.81pt x 172.71515pt.
+<use figures/necking_comparison.pdf>
+Package pdftex.def Info: figures/necking_comparison.pdf used on input line 1122
+.
+(pdftex.def)             Requested size: 433.62pt x 221.09274pt.
 
-<figures/necking_t1.pdf, id=2502, 360.66382pt x 287.3084pt>
-File: figures/necking_t1.pdf Graphic file (type pdf)
+<figures/necking_vonMises.pdf, id=2502, 544.34937pt x 277.55139pt>
+File: figures/necking_vonMises.pdf Graphic file (type pdf)
 
-<use figures/necking_t1.pdf>
-Package pdftex.def Info: figures/necking_t1.pdf used on input line 1127.
-(pdftex.def)             Requested size: 216.81pt x 172.71515pt.
-
-<figures/necking_t2.pdf, id=2503, 360.66382pt x 287.3084pt>
-File: figures/necking_t2.pdf Graphic file (type pdf)
-
-<use figures/necking_t2.pdf>
-Package pdftex.def Info: figures/necking_t2.pdf used on input line 1132.
-(pdftex.def)             Requested size: 216.81pt x 172.71515pt.
-
-<figures/necking_t3.pdf, id=2504, 360.66382pt x 287.3084pt>
-File: figures/necking_t3.pdf Graphic file (type pdf)
-
-<use figures/necking_t3.pdf>
-Package pdftex.def Info: figures/necking_t3.pdf used on input line 1137.
-(pdftex.def)             Requested size: 216.81pt x 172.71515pt.
+<use figures/necking_vonMises.pdf>
+Package pdftex.def Info: figures/necking_vonMises.pdf used on input line 1127.
+(pdftex.def)             Requested size: 433.62pt x 221.09274pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<figures/necking_deformed_iso.pdf, id=2505, 549.07135pt x 300.82388pt>
-File: figures/necking_deformed_iso.pdf Graphic file (type pdf)
+<figures/necking_stress_strain.pdf, id=2503, 471.27959pt x 343.11752pt>
+File: figures/necking_stress_strain.pdf Graphic file (type pdf)
 
-<use figures/necking_deformed_iso.pdf>
-Package pdftex.def Info: figures/necking_deformed_iso.pdf used on input line 11
-48.
-(pdftex.def)             Requested size: 224.03743pt x 122.74644pt.
+<use figures/necking_stress_strain.pdf>
+Package pdftex.def Info: figures/necking_stress_strain.pdf used on input line 1
+139.
+(pdftex.def)             Requested size: 252.94499pt x 184.1603pt.
 
-Overfull \hbox (0.93735pt too wide) in paragraph at lines 1148--1149
+Overfull \hbox (29.84491pt too wide) in paragraph at lines 1139--1140
  [][] 
  []
 
-<figures/necking_deformed_pem.pdf, id=2506, 549.07135pt x 300.82388pt>
-File: figures/necking_deformed_pem.pdf Graphic file (type pdf)
+<figures/necking_area_reduction.pdf, id=2504, 471.27959pt x 343.11752pt>
+File: figures/necking_area_reduction.pdf Graphic file (type pdf)
 
-<use figures/necking_deformed_pem.pdf>
-Package pdftex.def Info: figures/necking_deformed_pem.pdf used on input line 11
-53.
-(pdftex.def)             Requested size: 224.03743pt x 122.74644pt.
+<use figures/necking_area_reduction.pdf>
+Package pdftex.def Info: figures/necking_area_reduction.pdf used on input line 
+1144.
+(pdftex.def)             Requested size: 252.94499pt x 184.1603pt.
 
-Overfull \hbox (0.93735pt too wide) in paragraph at lines 1153--1154
+Overfull \hbox (29.84491pt too wide) in paragraph at lines 1144--1145
  [][] 
  []
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<figures/tensile_stress_strain.pdf, id=2507, 421.575pt x 325.63846pt>
-File: figures/tensile_stress_strain.pdf Graphic file (type pdf)
+<figures/before_distortion.pdf, id=2505, 532.09024pt x 490.80278pt>
+File: figures/before_distortion.pdf Graphic file (type pdf)
 
-<use figures/tensile_stress_strain.pdf>
-Package pdftex.def Info: figures/tensile_stress_strain.pdf used on input line 1
-189.
-(pdftex.def)             Requested size: 289.07999pt x 223.29948pt.
+<use figures/before_distortion.pdf>
+Package pdftex.def Info: figures/before_distortion.pdf used on input line 1154.
+
+(pdftex.def)             Requested size: 216.81pt x 199.98726pt.
+
+<figures/after_distortion.pdf, id=2506, 532.09024pt x 490.80278pt>
+File: figures/after_distortion.pdf Graphic file (type pdf)
+
+<use figures/after_distortion.pdf>
+Package pdftex.def Info: figures/after_distortion.pdf used on input line 1159.
+(pdftex.def)             Requested size: 216.81pt x 199.98726pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[112] [113 <./figures/necking_t0.pdf> <./figures/necking_t1.pdf
+[112] [113 <./figures/necking_comparison.pdf> <./figures/necking_vonMises.pdf
 
-pdfTeX warning: pdflatex (file ./figures/necking_t1.pdf): PDF inclusion: multip
-le pdfs with page group included in a single page
-> <./figures/necking_t2.pdf
+pdfTeX warning: pdflatex (file ./figures/necking_vonMises.pdf): PDF inclusion: 
+multiple pdfs with page group included in a single page
+>] [114 <./figures/necking_stress_strain.pdf> <./figures/necking_area_reduction
+.pdf
 
-pdfTeX warning: pdflatex (file ./figures/necking_t2.pdf): PDF inclusion: multip
-le pdfs with page group included in a single page
-> <./figures/necking_t3.pdf
+pdfTeX warning: pdflatex (file ./figures/necking_area_reduction.pdf): PDF inclu
+sion: multiple pdfs with page group included in a single page
+> <./figures/before_distortion.pdf
 
-pdfTeX warning: pdflatex (file ./figures/necking_t3.pdf): PDF inclusion: multip
-le pdfs with page group included in a single page
->] [114 <./figures/necking_deformed_iso.pdf> <./figures/necking_deformed_pem.pd
-f
+pdfTeX warning: pdflatex (file ./figures/before_distortion.pdf): PDF inclusion:
+ multiple pdfs with page group included in a single page
+> <./figures/after_distortion.pdf
 
-pdfTeX warning: pdflatex (file ./figures/necking_deformed_pem.pdf): PDF inclusi
-on: multiple pdfs with page group included in a single page
-> <./figures/tensile_stress_strain.pdf
-
-pdfTeX warning: pdflatex (file ./figures/tensile_stress_strain.pdf): PDF inclus
-ion: multiple pdfs with page group included in a single page
->] <figures/taylor_bar_hex_mesh.pdf, id=2574, 341.39888pt x 280.6003pt>
+pdfTeX warning: pdflatex (file ./figures/after_distortion.pdf): PDF inclusion: 
+multiple pdfs with page group included in a single page
+>] <figures/taylor_bar_hex_mesh.pdf, id=2586, 341.39888pt x 280.6003pt>
 File: figures/taylor_bar_hex_mesh.pdf Graphic file (type pdf)
 
 <use figures/taylor_bar_hex_mesh.pdf>
 Package pdftex.def Info: figures/taylor_bar_hex_mesh.pdf used on input line 126
-6.
+2.
 (pdftex.def)             Requested size: 216.81pt x 178.2006pt.
 
-<figures/taylor_bar_poly_mesh.pdf, id=2575, 341.39888pt x 280.6003pt>
+<figures/taylor_bar_poly_mesh.pdf, id=2587, 341.39888pt x 280.6003pt>
 File: figures/taylor_bar_poly_mesh.pdf Graphic file (type pdf)
 
 <use figures/taylor_bar_poly_mesh.pdf>
 Package pdftex.def Info: figures/taylor_bar_poly_mesh.pdf used on input line 12
-71.
+67.
 (pdftex.def)             Requested size: 216.81pt x 178.2006pt.
 
+<figures/taylor_bar_unmodified_eqps.pdf, id=2588, 349.88397pt x 305.59886pt>
+File: figures/taylor_bar_unmodified_eqps.pdf Graphic file (type pdf)
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+<use figures/taylor_bar_unmodified_eqps.pdf>
+Package pdftex.def Info: figures/taylor_bar_unmodified_eqps.pdf used on input l
+ine 1279.
+(pdftex.def)             Requested size: 216.81pt x 189.37141pt.
 
-<figures/taylor_bar_eqps000.pdf, id=2576, 280.26273pt x 306.27528pt>
-File: figures/taylor_bar_eqps000.pdf Graphic file (type pdf)
+<figures/taylor_bar_fbar_eqps.pdf, id=2589, 349.88397pt x 305.59886pt>
+File: figures/taylor_bar_fbar_eqps.pdf Graphic file (type pdf)
 
-<use figures/taylor_bar_eqps000.pdf>
-Package pdftex.def Info: figures/taylor_bar_eqps000.pdf used on input line 1283
-.
-(pdftex.def)             Requested size: 216.81pt x 236.94028pt.
-
-<figures/taylor_bar_eqps060.pdf, id=2577, 280.26273pt x 306.27528pt>
-File: figures/taylor_bar_eqps060.pdf Graphic file (type pdf)
-
-<use figures/taylor_bar_eqps060.pdf>
-Package pdftex.def Info: figures/taylor_bar_eqps060.pdf used on input line 1288
-.
-(pdftex.def)             Requested size: 216.81pt x 236.94028pt.
-
-<figures/taylor_bar_eqps120.pdf, id=2578, 280.26273pt x 306.27528pt>
-File: figures/taylor_bar_eqps120.pdf Graphic file (type pdf)
-
-<use figures/taylor_bar_eqps120.pdf>
-Package pdftex.def Info: figures/taylor_bar_eqps120.pdf used on input line 1293
-.
-(pdftex.def)             Requested size: 216.81pt x 236.94028pt.
-
-<figures/taylor_bar_eqps180.pdf, id=2579, 280.26273pt x 306.27528pt>
-File: figures/taylor_bar_eqps180.pdf Graphic file (type pdf)
-
-<use figures/taylor_bar_eqps180.pdf>
-Package pdftex.def Info: figures/taylor_bar_eqps180.pdf used on input line 1298
-.
-(pdftex.def)             Requested size: 216.81pt x 236.94028pt.
+<use figures/taylor_bar_fbar_eqps.pdf>
+Package pdftex.def Info: figures/taylor_bar_fbar_eqps.pdf used on input line 12
+84.
+(pdftex.def)             Requested size: 216.81pt x 189.37141pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<figures/taylor_bar_s12.pdf, id=2580, 340.87387pt x 285.5961pt>
-File: figures/taylor_bar_s12.pdf Graphic file (type pdf)
+<figures/taylor_bar_fem_unmodified.pdf, id=2590, 207.0323pt x 326.46779pt>
+File: figures/taylor_bar_fem_unmodified.pdf Graphic file (type pdf)
 
-<use figures/taylor_bar_s12.pdf>
-Package pdftex.def Info: figures/taylor_bar_s12.pdf used on input line 1309.
-(pdftex.def)             Requested size: 216.81pt x 181.65654pt.
+<use figures/taylor_bar_fem_unmodified.pdf>
+Package pdftex.def Info: figures/taylor_bar_fem_unmodified.pdf used on input li
+ne 1295.
+(pdftex.def)             Requested size: 151.76744pt x 239.32077pt.
 
-<figures/taylor_bar_s22.pdf, id=2581, 340.87387pt x 285.5961pt>
-File: figures/taylor_bar_s22.pdf Graphic file (type pdf)
+Overfull \hbox (6.06773pt too wide) in paragraph at lines 1295--1296
+ [][] 
+ []
 
-<use figures/taylor_bar_s22.pdf>
-Package pdftex.def Info: figures/taylor_bar_s22.pdf used on input line 1314.
-(pdftex.def)             Requested size: 216.81pt x 181.65654pt.
+<figures/taylor_bar_pem_unmodified.pdf, id=2591, 207.0323pt x 326.46779pt>
+File: figures/taylor_bar_pem_unmodified.pdf Graphic file (type pdf)
+
+<use figures/taylor_bar_pem_unmodified.pdf>
+Package pdftex.def Info: figures/taylor_bar_pem_unmodified.pdf used on input li
+ne 1300.
+(pdftex.def)             Requested size: 151.76744pt x 239.32077pt.
+
+Overfull \hbox (6.06773pt too wide) in paragraph at lines 1300--1301
+ [][] 
+ []
+
+<figures/taylor_bar_fem_fbar.pdf, id=2592, 207.0323pt x 326.46779pt>
+File: figures/taylor_bar_fem_fbar.pdf Graphic file (type pdf)
+
+<use figures/taylor_bar_fem_fbar.pdf>
+Package pdftex.def Info: figures/taylor_bar_fem_fbar.pdf used on input line 130
+5.
+(pdftex.def)             Requested size: 151.76744pt x 239.32077pt.
+
+Overfull \hbox (6.06773pt too wide) in paragraph at lines 1305--1306
+ [][] 
+ []
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-) [115] [116 <./figures/taylor_bar_hex_mesh.pdf> <./figures/taylor_bar_poly_mes
-h.pdf
+) [115 <./figures/taylor_bar_hex_mesh.pdf> <./figures/taylor_bar_poly_mesh.pdf
 
 pdfTeX warning: pdflatex (file ./figures/taylor_bar_poly_mesh.pdf): PDF inclusi
 on: multiple pdfs with page group included in a single page
->] [117 <./figures/taylor_bar_eqps000.pdf> <./figures/taylor_bar_eqps060.pdf
+>] [116 <./figures/taylor_bar_unmodified_eqps.pdf> <./figures/taylor_bar_fbar_e
+qps.pdf
 
-pdfTeX warning: pdflatex (file ./figures/taylor_bar_eqps060.pdf): PDF inclusion
-: multiple pdfs with page group included in a single page
-> <./figures/taylor_bar_eqps120.pdf
+pdfTeX warning: pdflatex (file ./figures/taylor_bar_fbar_eqps.pdf): PDF inclusi
+on: multiple pdfs with page group included in a single page
+> <./figures/taylor_bar_fem_unmodified.pdf
 
-pdfTeX warning: pdflatex (file ./figures/taylor_bar_eqps120.pdf): PDF inclusion
-: multiple pdfs with page group included in a single page
-> <./figures/taylor_bar_eqps180.pdf
+pdfTeX warning: pdflatex (file ./figures/taylor_bar_fem_unmodified.pdf): PDF in
+clusion: multiple pdfs with page group included in a single page
+> <./figures/taylor_bar_pem_unmodified.pdf
 
-pdfTeX warning: pdflatex (file ./figures/taylor_bar_eqps180.pdf): PDF inclusion
-: multiple pdfs with page group included in a single page
->] [118 <./figures/taylor_bar_s12.pdf> <./figures/taylor_bar_s22.pdf
+pdfTeX warning: pdflatex (file ./figures/taylor_bar_pem_unmodified.pdf): PDF in
+clusion: multiple pdfs with page group included in a single page
+> <./figures/taylor_bar_fem_fbar.pdf
 
-pdfTeX warning: pdflatex (file ./figures/taylor_bar_s22.pdf): PDF inclusion: mu
-ltiple pdfs with page group included in a single page
+pdfTeX warning: pdflatex (file ./figures/taylor_bar_fem_fbar.pdf): PDF inclusio
+n: multiple pdfs with page group included in a single page
 >]
 \openout2 = `future_work.aux'.
 
  (./future_work.tex
 Chapter 6.
-[119
+[117
 
 
 
-] [120]) [121]
+] [118]) [119]
 \openout2 = `appendix.aux'.
 
  (./appendix.tex
 Appendix A.
-[122
+[120
 
 
 
-] [123]) [124] (./thesis.bbl
+] [121]) [122] (./thesis.bbl
 Missing character: There is no Ã in font cmti12!
 Missing character: There is no © in font cmti12!
 Missing character: There is no Ã in font cmti12!
 Missing character: There is no © in font cmti12!
 Missing character: There is no Ã in font cmti12!
 Missing character: There is no © in font cmti12!
- [125
+ [123
 
 
-] [126]
+] [124]
 Missing character: There is no Ã in font cmr12!
 Missing character: There is no ¡ in font cmr12!
 Missing character: There is no Ã in font cmr12!
 Missing character: There is no © in font cmr12!
- [127]
+ [125]
 Missing character: There is no Â in font cmr12!
 Missing character: There is no ° in font cmr12!
 Missing character: There is no Â in font cmr12!
@@ -1193,11 +1183,11 @@ Missing character: There is no ° in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ” in font cmr12!
- [128] [129] [130]
+ [126] [127] [128]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ” in font cmr12!
-) [131]
+) [129]
 [1] [2] (./thesis.aux (./introduction.aux) (./solid_mechanics.aux)
 (./pem_formulation.aux) (./implementation.aux) (./results.aux)
 (./future_work.aux) (./appendix.aux))
@@ -1213,10 +1203,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6707 strings out of 494985
- 103448 string characters out of 6180356
- 194579 words of memory out of 5000000
- 9690 multiletter control sequences out of 15000+600000
+ 6696 strings out of 494985
+ 103519 string characters out of 6180356
+ 194568 words of memory out of 5000000
+ 9681 multiletter control sequences out of 15000+600000
  15430 words of font info for 56 fonts, out of 8000000 for 9000
  40 hyphenation exceptions out of 8191
  38i,14n,49p,1430b,487s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1240,11 +1230,11 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/public/tex-gyr
-e/qhvr.pfb>
-Output written on thesis.pdf (146 pages, 14303770 bytes).
+e/qcsr.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qhvr.pfb>
+Output written on thesis.pdf (144 pages, 13204870 bytes).
 PDF statistics:
- 2766 PDF objects out of 2984 (max. 8388607)
- 1774 compressed objects within 18 object streams
+ 2773 PDF objects out of 2984 (max. 8388607)
+ 1778 compressed objects within 18 object streams
  0 named destinations out of 1000 (max. 500000)
- 306 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 296 words of extra memory for PDF output out of 10000 (max. 10000000)
 

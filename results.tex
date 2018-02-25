@@ -1064,16 +1064,16 @@ A simple $J_2$ model for hypo-elasto-plasticity with linear isotropic hardening 
 
 \subsection*{Necking of a Ductile Steel Tensile Specimen}
 
-A tensile test for a 4130 steel plate specimen with square cross-section was simulated under isothermal conditions. The test setup was based in part upon the experimental procedures discussed in \cite{Gerberich:62}. The dimensions of the plate specimen illustrated in Figure \ref{fig:tensile_specimen_dimensions} conform with the ASTM 2008 standard \cite{ASTM:08}. The $J_2$ elasto-plasticity model was utilized, with the following model parameters chosen based upon the data provided by \cite{ASM:18}: $E =$ 29,700 ksi, $\nu = 0.29$, $Y_0 = 63.1$ ksi, and $E_h = 0.0$ ksi. Perfect plasticity was assumed to induce the rapid onset of necking within the specimen, as suggested in \cite{Kim:05}.
+A tensile test for a 4130 steel plate specimen with square cross-section was simulated under isothermal conditions. The test setup was based in part upon the experimental procedures discussed in \cite{Gerberich:62}. The dimensions of the plate specimen illustrated in Figure \ref{fig:tensile_specimen_dimensions} conform with the ASTM 2008 standard \cite{ASTM:08}. The $J_2$ elasto-plasticity model was utilized with the following model parameters chosen based upon the data provided by \cite{ASM:18}: $E =$ 29,700 ksi, $\nu = 0.29$, $Y_0 = 63.1$ ksi, and $E_h = 0.0$ ksi. Perfect plasticity was assumed to induce the immediate onset of necking within the specimen, as suggested in \cite{Kim:05}.
 
 \begin{figure}[!h]
   \centering
   \includegraphics[width=6.0in]{figures/tensile_specimen_dimensions.pdf}
-  \caption{Tensile specimen dimensions, in inches. The thickness of the plate specimen shown is $0.5$ in.}
+  \caption{Tensile specimen dimensions, in inches. The thickness of the plate specimen shown is $0.5$ in., resulting in a square cross-section along the gage length. The area shown in grey represents the modeling domain.}
   \label{fig:tensile_specimen_dimensions}
 \end{figure}
 
-The tests were run as three-dimensional analyses under quasi-static loading conditions. The meshes shown in Figures \ref{fig:necking_hex_mesh} and \ref{fig:necking_poly_mesh} were used in conjunction with the FEM and DG-PEM, respectively. The DG-PEM employed the standard parameter settings utilized in previous problems. Both meshes consist of roughly 400 elements. To assist with the initiation of necking, each mesh also contains a small geometric defect mid-way along the gage length: a 1\% reduction in the cross-sectional area of the specimen.
+The tests were run as three-dimensional analyses under quasi-static loading conditions. The meshes shown in Figures \ref{fig:necking_hex_mesh} and \ref{fig:necking_poly_mesh} were used in conjunction with the FEM and DG-PEM, respectively. The DG-PEM employed the standard parameter settings utilized in previous problems. Both meshes consisted of roughly 400 elements. To assist with the initiation of necking, each mesh also contained a small geometric defect mid-way along the gage length: a 1\% reduction in the cross-sectional area of the specimen.
 
 \begin{figure}[!h]
   \centering
@@ -1092,7 +1092,7 @@ The tests were run as three-dimensional analyses under quasi-static loading cond
 
 Values of true (Cauchy) stress and engineering strain were measured from the analysis results via the post-processing tools available in ParaView \cite{ParaView}. The vertical component of Cauchy stress was averaged over the necked area of the specimen to determine an average tensile stress. To maintain consistency with the experimental procedures in \cite{Gerberich:62}, the engineering strain and percent elongation of the specimen were measured over a gage length of 2 inches. The \% reduction in area of the specimen was also recorded.
 
-Without the use of an adequate model for ductile fracture, it is not possible to predict when rupture will occur within the specimen. Nonetheless, an ad hoc metric of 60\% reduction in area will be used to \textit{estimate} the point at which rupture occurs.
+Without the use of an adequate model for ductile fracture, it is not possible to predict when rupture will occur within the specimen. Nonetheless, an ad hoc metric of 60\% reduction in area will be used to \textit{estimate} the point of rupture.
 
 % listed in Table \ref{tab:tensile_specimen_properties}.
 %\begin{table}[!ht]
@@ -1113,47 +1113,53 @@ Without the use of an adequate model for ductile fracture, it is not possible to
 %  \end{center}
 %\end{table}
 
-The visualized results of the simulations are depicted in Figures \ref{fig:necking_vm} and \ref{fig:necking_meshes}, showing a clear discrepancy between the FEM and (DG-)PEM. The FEM model predicted the onset of necking at roughly 0.6 \% elongation, exhibiting softening behavior almost immediately after reaching the initial point of yielding. At 1.8 \% elongation, the FEM simulation was terminated due to element inversion (see Figure \ref{fig:necking_deformed_iso}.) By comparison, the PEM model exhibited hardening behavior, reaching 1.8 \% elongation prior to the onset of necking. At 3.6 \% elongation, the PEM simulation succumbed to element inversion (see Figure \ref{fig:necking_deformed_pem}.)
+The visualized results of the simulations are depicted in Figure \ref{fig:necking_comparison}. 
 
 \begin{figure}[!h]
-    \centering
+  \centering
+    \begin{subfigure}[b]{1.0\linewidth}
+            \centering
+            \includegraphics[width=6.0in]{figures/necking_comparison.pdf}
+    			\caption{equivalent plastic strain $\bar{\epsilon}^p$ \label{fig:necking_eqps}}
+    \end{subfigure}
+	\begin{subfigure}[b]{1.0\linewidth}
+            \centering
+            \includegraphics[width=6.0in]{figures/necking_vonMises.pdf}
+    			\caption{von Mises stress $\sigma_v$ \label{fig:necking_vonMises}}
+    \end{subfigure} \caption{Comparison of necking behavior at 16.5\% elongation, depicting deformed shapes and color map values of equivalent plastic strain $\bar{\epsilon}^p$ and von Mises stress $\sigma_v$ (ksi).}
+  \label{fig:necking_comparison}
+\end{figure}
+
+Plots of the computed stress vs. engineering strain curves from each simulation are depicted in Figure \ref{fig:necking_stress_strain}.
+
+\begin{figure}[!h]
+  \centering
     \begin{subfigure}[b]{0.49\linewidth}
             \centering
-            \includegraphics[width=3.0in]{figures/necking_t0.pdf}
-    			\caption{0.0 \% elongation \label{fig:necking_t0}}
+            \includegraphics[width=3.5in]{figures/necking_stress_strain.pdf}
+    			\caption{True stress vs. engineering strain \label{fig:necking_stress_strain}}
     \end{subfigure}
 	\begin{subfigure}[b]{0.49\linewidth}
             \centering
-            \includegraphics[width=3.0in]{figures/necking_t1.pdf}
-    			\caption{0.6 \% elongation \label{fig:necking_t1}}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\linewidth}
-            \centering
-            \includegraphics[width=3.0in]{figures/necking_t2.pdf}
-    			\caption{1.8 \% elongation \label{fig:necking_t2}}
-    \end{subfigure}
-	\begin{subfigure}[b]{0.49\linewidth}
-            \centering
-            \includegraphics[width=3.0in]{figures/necking_t3.pdf}
-    			\caption{3.7 \% elongation (PEM only) \label{fig:necking_t3}}
-    \end{subfigure}
-    \caption{Comparison of necking behavior at various stages of loading, depicting computed values of von Mises stress $\sigma_v$.}
-    \label{fig:necking_vm}
+            \includegraphics[width=3.5in]{figures/necking_area_reduction.pdf}
+    			\caption{Reduced area vs. engineering strain \label{fig:necking_area_reduction}}
+    \end{subfigure} \caption{Plotted results for the FEM and DG-PEM models, both with and without the kinematic enhancement discussed in \cite{Rashid:06}. View of the bottom of the mesh.}
+  \label{fig:necking_plots}
 \end{figure}
 
 \begin{figure}[!h]
   \centering
     \begin{subfigure}[b]{0.49\linewidth}
             \centering
-            \includegraphics[width=3.1in]{figures/necking_deformed_iso.pdf}
-    			\caption{FEM at 1.8 \% elongation \label{fig:necking_deformed_iso}}
+            \includegraphics[width=3.0in]{figures/before_distortion.pdf}
+    			\caption{$t = 0.0$ ms \label{fig:before_distortion}}
     \end{subfigure}
 	\begin{subfigure}[b]{0.49\linewidth}
             \centering
-            \includegraphics[width=3.1in]{figures/necking_deformed_pem.pdf}
-    			\caption{PEM at 3.7 \% elongation \label{fig:necking_deformed_pem}}
-    \end{subfigure} \caption{Comparison of necking behavior at the time of element inversion for each analysis, depicting the deformed shape, and computed values of equivalent plastic strain $\bar{\epsilon}^p$.}
-  \label{fig:necking_meshes}
+            \includegraphics[width=3.0in]{figures/after_distortion.pdf}
+    			\caption{$t = 0.002$ ms \label{fig:after_distortion}}
+    \end{subfigure} \caption{DG-PEM element inversion when using the kinematic enhancement of \cite{Rashid:06}.}
+  \label{fig:element_inversion}
 \end{figure}
 
 %\begin{figure}[!h]
@@ -1181,15 +1187,6 @@ The visualized results of the simulations are depicted in Figures \ref{fig:necki
 %    \caption{Comparison of necking behavior at various times during the analysis, depicting deformed shape, and values of equivalent plastic strain.}
 %    \label{fig:necking_eqps}
 %\end{figure}
-
-Plots of the computed stress vs. engineering strain curves from each simulation are depicted in Figure \ref{fig:tensile_stress_strain}. The results obtained by the PEM model suggest that strain hardening will take place within the specimen, reaching an (averaged) ultimate tensile stress of 178 ksi. For the FEM model, the specimen quickly softens after reaching the initial yield point at 172 ksi.
-
-\begin{figure}[!h]
-  \centering
-  \includegraphics[width=4.0in]{figures/tensile_stress_strain.pdf}
-  \caption{Plotted values of true stress vs. engineering strain using FEM and DG-PEM.}
-  \label{fig:tensile_stress_strain}
-\end{figure}
 
 %\begin{table}
 %\centering
@@ -1224,24 +1221,23 @@ Plots of the computed stress vs. engineering strain curves from each simulation 
 %\label{tab:tensile_test_data_results}
 %\end{table}
 
-Without the use of an adequate model for ductile fracture, it is not possible to predict when rupture will occur within the specimen. It is therefore not proper to claim that rupture will occur within the specimen when the elements ultimately invert. However, it may be sufficient to claim that the \% elongation at which element inversion occurs should provide an upper bound on the \% elongation at which ductile rupture takes place. With these upper bounds in mind, consider the results in Table \ref{tab:tensile_test_data_results} in comparison with the experimentally measured values.
+
 
 \begin{table}
 \centering
 \begin{tabular}{| c || c | c |}
     \hline
                & \% elongation (2 in) & $\max\{\sigma_{22}\}$ (ksi) \\ \hline \hline
-    FEM (with enhancement)    & 14.65 & 70.74 \\ \hline
-    DG-PEM (with enhancement) & 12.89 & 72.15 \\
+    FEM (enhanced)    & 14.65 & 70.74 \\ \hline
+    DG-PEM (enhanced) & 12.89 & 72.15 \\ \hline
+    Reference         & - & - \\
     \hline
 \end{tabular}
 \caption{Tensile test data results comparison. The values of \% elongation were recorded after reaching 60\% reduction in area.}
 \label{tab:tensile_test_data_results}
 \end{table}
 
-Neither simulation comes particularly close to reproducing the experimental results. This may attributable to a number of potential factors: failure to account for the effects of material variability, inadequacy of the chosen linear hardening plasticity model, poorly calibrated model parameters, or coarseness of the meshes that were utilized. Irrespective of these shortcomings, however, it is difficult to rationalize the difference between the results obtained by the FEM and the PEM. 
-
-Interestingly, if the PEM is employed on the hexahedral mesh in Figure \ref{fig:necking_hex_mesh}, the results are comparable with those of the FEM. This observation seems to indicate that the results are sensitive to the particular choice of discretization. Running the problem on a more highly refined mesh (with additional elements through the thickness of the plate) results in much stiffer behavior. The specimen continues to harden well beyond 6 \% elongation, with no onset of necking. This latter observation seems to indicate that some form of locking may be affecting the results on the finer meshes that were considered.
+Interestingly, if the PEM is employed on the hexahedral mesh in Figure \ref{fig:necking_hex_mesh}, the results are comparable with those of the FEM. This observation seems to indicate that the results are sensitive to the particular choice of discretization. Moreover, it suggests that the chosen polyhedral discretizations are less sensitive to the effects of volumetric locking. The consequences of this sensitivity are further explored in the subsequent problem.
 
 \subsection*{Taylor Bar Impact Problem}
 
@@ -1255,7 +1251,7 @@ Frictionless contact between the rod and the rigid surface corresponding to $X_3
 \begin{equation}
 	\bar{t}_1 = \bar{t}_2 = 0, \quad \bar{t}_3 = p \langle -u_3|u_3|  \rangle.
 \end{equation}
-In the above, $u_3$ corresponds to the vertical displacement of a given point on the bottom face of the rod, $\langle \cdot \rangle$ denote the Macaulay brackets, and $p$ is a penalty stiffness parameter. For the problem at hand, an ad hoc value of $p = 6.0E+016$ was chosen (following a process of trial-and-error).
+In the above, $u_3$ corresponds to the vertical displacement of a given point on the bottom face of the rod, $\langle \cdot \rangle$ denote the Macaulay brackets, and $p$ is a penalty stiffness parameter. For the problem at hand, an ad hoc value of $p = 6.0 \times 10^{10} \, \text{GPa}/\text{mm}^2$ was chosen (following a process of trial-and-error).
 
 The meshes shown in Figures \ref{fig:taylor_bar_hex_mesh} and \ref{fig:taylor_bar_poly_mesh} were used in conjunction with the FEM and DG-PEM, respectively. The DG-PEM employed the standard parameter settings utilized in previous problems. Both meshes consisted of roughly 1000 elements, each.
 
@@ -1280,53 +1276,50 @@ As for the
     \centering
     \begin{subfigure}[b]{0.49\linewidth}
             \centering
-            \includegraphics[width=3.0in]{figures/taylor_bar_eqps000.pdf}
-    			\caption{$t= 0.0 \times 10^{-5}$ sec. \label{fig:taylor_bar_eqps_0}}
+            \includegraphics[width=3.0in]{figures/taylor_bar_unmodified_eqps.pdf}
+    			\caption{FEM vs. PEM \label{fig:taylor_bar_unmodified_eqps}}
     \end{subfigure}
 	\begin{subfigure}[b]{0.49\linewidth}
             \centering
-            \includegraphics[width=3.0in]{figures/taylor_bar_eqps060.pdf}
-    			\caption{$t= 1.2 \times 10^{-5}$ sec. \label{fig:taylor_bar_eqps_1}}
+            \includegraphics[width=3.0in]{figures/taylor_bar_fbar_eqps.pdf}
+    			\caption{(enhanced) FEM vs. (unenhanced) PEM \label{fig:taylor_bar_fbar_eqps}}
     \end{subfigure}
-    \begin{subfigure}[b]{0.49\linewidth}
-            \centering
-            \includegraphics[width=3.0in]{figures/taylor_bar_eqps120.pdf}
-    			\caption{$t= 2.4 \times 10^{-5}$ sec. \label{fig:taylor_bar_eqps_2}}
-    \end{subfigure}
-	\begin{subfigure}[b]{0.49\linewidth}
-            \centering
-            \includegraphics[width=3.0in]{figures/taylor_bar_eqps180.pdf}
-    			\caption{$t=3.6 \times 10^{-5}$ sec. \label{fig:taylor_bar_eqps_3}}
-    \end{subfigure}
-    \caption{Comparison of results between the FEM and PEM models at various times during the analysis, depicting deformed shape and color map values of equivalent plastic strain $\bar{\epsilon}^p$.}
+    \caption{Comparison of results between the FEM and PEM models at the final time $t = 0.08$ ms, depicting deformed shape and color map values of equivalent plastic strain $\bar{\epsilon}^p$.}
     \label{fig:taylor_bar_eqps}
 \end{figure}
 
 \begin{figure}[!h]
   \centering
-    \begin{subfigure}[b]{0.49\linewidth}
+    \begin{subfigure}[b]{0.32\linewidth}
             \centering
-            \includegraphics[width=3.0in]{figures/taylor_bar_s12.pdf}
-    			\caption{$\sigma_{12}$ \label{fig:taylor_bar_s12}}
+            \includegraphics[width=2.1in]{figures/taylor_bar_fem_unmodified.pdf}
+    			\caption{FEM \label{fig:taylor_bar_fem_unmodified}}
     \end{subfigure}
-	\begin{subfigure}[b]{0.49\linewidth}
+	\begin{subfigure}[b]{0.32\linewidth}
             \centering
-            \includegraphics[width=3.0in]{figures/taylor_bar_s22.pdf}
-    			\caption{$\sigma_{22}$ \label{fig:taylor_bar_s22}}
-    \end{subfigure} \caption{Comparison of stresses within the FEM and PEM models at $t = 3.6 \times 10^{-5}$ seconds. In each diagram, the FEM model occupies the $-X_2$ half-space, and the PEM model occupies the $+X_2$ half-space.}
+            \includegraphics[width=2.1in]{figures/taylor_bar_pem_unmodified.pdf}
+    			\caption{DG-PEM \label{fig:taylor_bar_pem_unmodified}}
+    \end{subfigure} 
+    \begin{subfigure}[b]{0.32\linewidth}
+            \centering
+            \includegraphics[width=2.1in]{figures/taylor_bar_fem_fbar.pdf}
+    			\caption{FEM (enhanced) \label{fig:taylor_bar_fem_fbar}}
+    \end{subfigure} 
+    \caption{Comparison of von Mises stress $\sigma_v$ (in Pascals) within the FEM and PEM models at the final time $t = 0.08$ ms.}
   \label{fig:taylor_bar_stresses}
 \end{figure}
 
-An interesting result occurs if the kinematic enhancement of \cite{Rashid:06} is used on the polyhedral mesh. Specifically, 
+An interesting result occurs if the kinematic enhancement of \cite{Rashid:06} is used on the polyhedral mesh. Specifically, it becomes unstable, as shown in Figure X.
 
 \begin{table}[!ht]
   \begin{center}
     \begin{tabular}{| c || c | c |}
     \hline
                 & $D_{\text{final}}$ (mm) & $L_{\text{final}}$ (mm) \\ \hline \hline
-    FEM (no enhancement)      & 11.37 & 23.04 \\ \hline
-    FEM (with enhancement)    & 13.91 & 23.60 \\ \hline
-    DG-PEM (no enhancement)   & 13.47 & 23.38 \\
+    FEM               & 11.37 & 23.04 \\ \hline
+    DG-PEM            & 13.47 & 23.38 \\ \hline
+    FEM (enhanced)    & 13.91 & 23.60 \\ \hline
+    DG-PEM (enhanced) & (unstable) & (unstable) \\ \hline
     \hline
     \end{tabular}
     \caption{Measurements of the rod's final base diameter $D_{\text{final}}$ and overall length $L_{\text{final}}$.}
