@@ -1,6 +1,6 @@
 \chapter{A Numerical Evaluation of the PEM} \label{ch:results}
 %
-This chapter provides a detailed numerical assessment of several partitioned element methods, with specific emphasis placed upon the DG-PEM. A numerical measure of polynomial reproducibility is introduced and utilized to investigate the level of interpolation error incurred by different formulations of the PEM. Linear and quadratic finite element patch tests are conducted in both 2- and 3-dimensions, with comparisons drawn between the FEM and the PEM. The behavior of irregularly-shaped polygonal elements is investigated, and the effects of short element edges within 2-dimensional Voronoi meshes are examined further. Convergence studies are carried out to compare the accuracy of the PEM with that of the FEM. The chapter concludes with a number of demonstrative problems, illustrating the ability of the PEM to handle nonlinear deformations and material behavior.
+This chapter provides a detailed numerical assessment of several partitioned element methods, with specific emphasis placed upon the DG-PEM. A numerical measure of polynomial reproducibility is introduced and utilized to investigate the level of interpolation error incurred by different formulations of the PEM. Linear and quadratic finite element patch tests are conducted in both 2- and 3-dimensions, with comparisons drawn between the FEM and the PEM. The behavior of irregularly-shaped polygonal elements is investigated, and the effects of short element edges within 2-dimensional Voronoi meshes are examined further. Convergence studies are carried out to compare the accuracy of the PEM with that of the FEM. The chapter concludes with a number of demonstrative problems, illustrating the ability of the PEM to accommodate finite deformations and elasto-plastic material behavior.
 
 \section{Tests for Polynomial Reproducibility}
 
@@ -237,7 +237,7 @@ Linear patch test errors for the FEM, CG-PEM, and DG-PEM are explored. The resul
 
 \begin{table}[!ht]
   \begin{center}
-    \begin{tabular}{| c || c | c |}
+    \begin{tabular}{| l || c | c |}
     \hline
            & $||\mathbf{u}^h - \mathbf{u}|| / ||\mathbf{u}||$ & $||\boldsymbol{\sigma}^h - \boldsymbol{\sigma}|| / ||\boldsymbol{\sigma}||$ \\ \hline \hline
     FEM (4-node quadrilaterals) & 5.1568E-015 & 7.7395E-016 \\ \hline
@@ -260,7 +260,7 @@ These observations help to illuminate an important point regarding integration c
 
 \begin{table}[!ht]
   \begin{center}
-    \begin{tabular}{| c || c | c | c | c | c |}
+    \begin{tabular}{| l || c | c | c | c | c |}
     \hline
     DG-PEM & $\alpha_{\gamma0} = 10^{-6}$ & $\alpha_{\gamma0} = 10^{-3}$ & $\alpha_{\gamma0} = 10^{0}$ & $\alpha_{\gamma0} = 10^{3}$ & $\alpha_{\gamma0} = 10^{6}$ \\ \hline \hline
     	$\alpha_{\gamma1} = 0.0$ & 2.8433E-009 & 2.8152E-006 & 3.3114E-004 & 4.8035E-006 & 4.8278E-009 \\ \hline
@@ -281,7 +281,7 @@ Additionally, it is noted that the DG-PEM recovers integration consistency in th
 
 \begin{table}[!ht]
   \begin{center}
-    \begin{tabular}{| c || c | c | c | c |}
+    \begin{tabular}{| l || c | c | c | c |}
     \hline
     DG-PEM & $\kappa(\mathbf{J})$ &  $E_1 (\Omega)$ & $||\mathbf{u}^h - \mathbf{u}|| / ||\mathbf{u}||$ & $||\boldsymbol{\sigma}^h - \boldsymbol{\sigma}|| / ||\boldsymbol{\sigma}||$ \\ \hline \hline
     $\alpha_{\gamma0} = 10^{0}$ & 4.3653E+000 & 3.7339E-015 & 3.9872E-005 & 3.3113E-004 \\ \hline
@@ -334,7 +334,7 @@ The two hexahedral meshes depicted in Figure \ref{fig:hexahedral_patch_meshes} w
 
 \begin{table}[!ht]
   \begin{center}
-    \begin{tabular}{| c || c | c | c |}
+    \begin{tabular}{| l || c | c | c |}
     \hline
            & $E_1 (\Omega)$ & $||\mathbf{u}^h - \mathbf{u}|| / ||\mathbf{u}||$ & $||\boldsymbol{\sigma}^h - \boldsymbol{\sigma}|| / ||\boldsymbol{\sigma}||$ \\ \hline \hline
     FEM (regular hexahedra) & 2.4441E-016 & 1.5371E-015 & 8.1102E-016 \\ \hline
@@ -415,7 +415,7 @@ Quadratic patch test errors for the FEM and DG-PEM were explored. The DG-PEM bas
 
 \begin{table}[!ht]
   \begin{center}
-    \begin{tabular}{| c || c | c | c |}
+    \begin{tabular}{| l || c | c | c |}
     \hline
            & $E_2 (\Omega)$ & $||\mathbf{u}^h - \mathbf{u}|| / ||\mathbf{u}||$ & $||\boldsymbol{\sigma}^h - \boldsymbol{\sigma}|| / ||\boldsymbol{\sigma}||$ \\ \hline \hline
     FEM (regular 8-node quadrilaterals) & 9.0812E-016 & 1.7437E-009 & 1.3950E-008 \\ \hline
@@ -451,7 +451,7 @@ The quadratic patch test described in the previous example may be extended direc
 
 \begin{table}[!ht]
   \begin{center}
-    \begin{tabular}{| c || c | c | c |}
+    \begin{tabular}{| l || c | c | c |}
     \hline
            & $E_2 (\Omega)$ & $||\mathbf{u}^h - \mathbf{u}|| / ||\mathbf{u}||$ & $||\boldsymbol{\sigma}^h - \boldsymbol{\sigma}|| / ||\boldsymbol{\sigma}||$ \\ \hline \hline
     FEM (regular hexahedra) & 6.1677E-016 & 6.9751E-009 & 2.7900E-008 \\ \hline
@@ -576,7 +576,7 @@ Irrespective of the chosen approximation method, the condition number for a give
 \centering
 \begin{subtable}{1.0\textwidth}
 \centering
-\begin{tabular}{| c || c | c | c | c |}
+\begin{tabular}{| l || c | c | c | c |}
     \hline
 DG-PEM & $\alpha_{\gamma0} = 10^{-3}$ & $\alpha_{\gamma0} = 10^{0}$ & $\alpha_{\gamma0} = 10^{3}$ & $\alpha_{\gamma0} = 10^{6}$ \\ \hline \hline
 $\alpha_{\gamma1} = 0.0$	& 5.9210 & 5.4949 & 8.6484 & 8.7108 \\ \hline
@@ -591,7 +591,7 @@ $\alpha_{\gamma1} = 10^{6}$ & 5.9210 & 5.0935 & 3.8699 & 3.9640 \\
 \\
 \begin{subtable}{1.0\textwidth}
 \centering
-\begin{tabular}{| c || c | c | c | c |}
+\begin{tabular}{| l || c | c | c | c |}
     \hline
 DG-PEM & $\alpha_{\gamma0} = 10^{-3}$	&	$\alpha_{\gamma0} = 10^{0}$	&	$\alpha_{\gamma0} = 10^{3}$	&	$\alpha_{\gamma0} = 10^{6}$ \\ \hline \hline
 $\alpha_{\gamma1} = 0.0$	&	0.004747	&	0.003554	&	0.006920	&	0.006943 \\ \hline
@@ -748,7 +748,7 @@ For the Lloyd mesh, both the CG-PEM and DG-PEM produce fairly comparable eigenva
 It is stressed that the results obtained for the DG-PEM will vary depending on the choice of penalty parameters $\alpha_{\gamma0}$ and $\alpha_{\gamma1}$. As $\alpha_{\gamma0} \rightarrow \infty$ the behavior of the CG-PEM is recovered. The corresponding variability in the condition number of $\mathbf{K}$ is characterized in Table \ref{tab:global_stiffness_condition_number}.
 \begin{table}[!ht]
   \begin{center}
-    \begin{tabular}{| c || c | c |}
+    \begin{tabular}{| l || c | c |}
     \hline
            & Voronoi mesh & Lloyd mesh \\ \hline \hline
     CG-PEM & 9.1e+05 & 4.6e+03 \\ \hline
@@ -864,7 +864,7 @@ The condition number of the resulting global stiffness matrix will become large 
 
 \section{Convergence Studies}
 
-A series of studies were carried out to determine the convergence behavior of the DG-PEM. Several studies were conducted to verify that the DG-PEM yields a convergent sequences of approximations to a given problem under mesh refinement. A few relatively simple two- and three-dimensional elasticity problems are considered. Convergence results for the DG-PEM are compared against FEM, using both linear and quadratic elements in each case.
+A series of studies were carried out to determine the convergence behavior of the DG-PEM. Several studies were conducted to verify that the DG-PEM yields convergent sequences of approximations under mesh refinement. A few relatively simple two- and three-dimensional elasticity problems are considered. Convergence results for the DG-PEM are compared against FEM. Convergence of both linear and quadratic PEM elements are established.
 
 \subsection*{Infinite Elastic Plate in Far-Field Tension}
 
@@ -923,7 +923,7 @@ will be characterized by the powers $p$ and $q$, respectively. The average and m
 
 \begin{table}[!ht]
   \begin{center}
-    \begin{tabular}{| c || c | c || c | c |}
+    \begin{tabular}{| l || c | c || c | c |}
     \hline
            & $p_{\text{avg}}$ & $p_{\text{max}}$ & $q_{\text{avg}}$ & $q_{\text{max}}$ \\ \hline \hline
     FEM (4-node quadrilateral)    & 1.66 (2.0) & 1.94 (2.0) & 0.66 (1.0) & 0.96 (1.0) \\ \hline
@@ -945,7 +945,7 @@ In the limit as $h \rightarrow 0$, the DG-PEM quadrilateral elements converge at
 
 Further work will seek to investigate the measured error and convergence rates of the PEM when the elements take on arbitrary shape, and for a variety of different formulations and penalization parameter settings.
 
-\subsection*{Twisting Annulus}
+\subsection*{Incompressible Twisting Annulus}
 
 \begin{figure}[!h]
   \centering
@@ -961,12 +961,11 @@ Consider the elastic annulus depicted in Figure \ref{fig:twisting_annulus_proble
 \end{equation}
 for all $t \geq 0$.
 
-Let the elastic material be characterized by the isotropic hypoelastic model of grade zero, obeying
+Let the elastic material be characterized by the isotropic hypoelastic model of grade zero, consistent with the Jaumann stress rate:
 \begin{equation}
   \dot{\boldsymbol{\sigma}} = \mathbb{C} : \mathbf{D} + \mathbf{W} \boldsymbol{\sigma} - \boldsymbol{\sigma} \mathbf{W}.
 \end{equation}
-
-If the material is incompressible (i.e. if $\text{tr} (\mathbf{D}) = 0$), an analytical solution may be determined which is valid in the context of finite deformations. The solutions for the displacement and stress fields are derived in the Appendix. The resulting expressions are given below:
+If the material is incompressible (if $\text{tr} (\mathbf{D}) = 0$), an analytical solution may be determined which is valid in the context of finite deformations. The solutions for the displacement and stress fields are derived in the Appendix. The resulting expressions are given below:
 \begin{equation}
   u_r = u_z = 0, \quad u_\theta = \frac{R_o^2}{r} \frac{r^2 - R_i^2}{R_o^{2} - R_i^{2}} \Phi t,
   	\label{eq:annulus_u_exact}
@@ -975,66 +974,101 @@ If the material is incompressible (i.e. if $\text{tr} (\mathbf{D}) = 0$), an ana
   \sigma_{rr} = - \sigma_{\theta \theta} = \mu \frac{R_i^{2}}{r^{2}} \left[ \cos \left( 2 \frac{R_o^{2}}{R_o^{2} - R_i^{2}} \Phi t \right) - 1 \right], \quad \sigma_{r \theta} = \mu \frac{R_i^{2}}{r^{2}} \sin \left( 2 \frac{R_o^{2}}{R_o^{2} - R_i^{2}} \Phi t \right).
   	\label{eq:annulus_s_exact}
 \end{equation}
-According to \cite{Brannon:11}, the above solution for $\sigma_{r \theta}$ is also valid for compressible elastic materials.
 
-Because the element formulations used herein possess only displacement degrees of freedom, it is not possible to run an analysis for a truly incompressible material (if the grade zero hypoelasticity model is to be utilized). For these reasons, it will suffice to examine solutions in the near-incompressible regime (i.e. $\nu = 0.49$). Additionally, because an accurate prediction of the pressure field requires the use of a mixed formulation, we expect that the stress error metric in (\ref{eq:normalized_stress_error}) will be dominated by errors in the pressure field. For this reason, only the errors in the tangential shear stress will be examined:
+Because the element formulations used herein possess only displacement degrees of freedom, it is not possible to run an analysis for a truly incompressible material. It suffices to examine solutions in the near-incompressible regime (i.e. $\nu = 0.4999$). Additionally, because an accurate prediction of the pressure field requires the use of a mixed formulation, the stress error metric in (\ref{eq:normalized_stress_error}) will be dominated by errors in the pressure field. For this reason, only the errors in the deviatoric stress field will be examined:
 \begin{equation}
-	\frac{||\sigma_{r \theta}^h - \sigma_{r \theta}||}{||\sigma_{r \theta}||} = \sqrt{\frac{\int_{\mathcal{B}_0} (\sigma_{r \theta}^h - \sigma_{r \theta})^2 \, dV}{\int_{\mathcal{B}_0} \sigma_{r \theta}^2 \, dV}}.
-	\label{eq:normalized_stress_error}
+	\frac{||\mathbf{s}^h - \mathbf{s}||}{||\mathbf{s}||} = \sqrt{\frac{\int_{\mathcal{B}_0} (\mathbf{s}^h - \mathbf{s}) \colon (\mathbf{s}^h - \mathbf{s}) \, dV}{\int_{\mathcal{B}_0} \mathbf{s} \colon \mathbf{s} \, dV}},
+	\label{eq:deviator_stress_error}
 \end{equation}
+where $s_{ij} = \sigma_{ij} - \frac{1}{3} \sigma_{kk} \delta_{ij}$ denotes the stress deviator.
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=6.0in]{figures/annulus_meshes.pdf}
-  \caption{Polygonal meshes with varying levels of refinement for the twisting annulus problem.}
-  \label{fig:annulus_meshes}
+  \includegraphics[width=5.0in]{figures/hex_annulus_meshes.pdf}
+  \caption{Hexahedral meshes with varying levels of refinement for the twisting annulus problem.}
+  \label{fig:hex_annulus_meshes}
 \end{figure}
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=6.0in]{figures/quad_annulus_meshes.pdf}
-  \caption{Quadrilateral meshes with varying levels of refinement for the twisting annulus problem.}
-  \label{fig:quad_annulus_meshes}
+  \includegraphics[width=5.0in]{figures/hexp_annulus_meshes.pdf}
+  \caption{Distorted hexahedral meshes with varying levels of refinement for the twisting annulus problem.}
+  \label{fig:hexp_annulus_meshes}
 \end{figure}
 
-Convergence studies were carried out using the two series of polygonal and quadrilateral meshes depicted in Figures \ref{fig:annulus_meshes} and \ref{fig:quad_annulus_meshes}, respectively. The quadrilateral meshes were used in conjunction with the FEM, and consisted of either 4-node quadrilateral or 8-node serendipity quadrilateral elements. The polygonal meshes were used in conjunction with the DG-PEM, and consisted of either standard linear polygonal elements, or quadratic serendipity polygonal elements.
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=5.0in]{figures/poly_annulus_meshes.pdf}
+  \caption{Polyhedral meshes with varying levels of refinement for the twisting annulus problem.}
+  \label{fig:poly_annulus_meshes}
+\end{figure}
 
-The twisting annulus problem was run using finite deformations, albeit with relatively small strains (roughly 2.6\%). Shear stress error norms were computed with reference to the exact solution using the following problem parameters: $R_i = 0.5$, $R_o = 1.0$, $\Phi = 0.01$, $E = 1.0$, $\nu = 0.49$, $t \in [0, \, 1]$. 
+Convergence studies were carried out using the three series of polyhedral and hexahedral meshes depicted in Figures \ref{fig:hex_annulus_meshes}, \ref{fig:hexp_annulus_meshes}, and \ref{fig:poly_annulus_meshes}. The hexahedral meshes were used in conjunction with the FEM, whereas the polyhedral meshes were used in conjunction with the DG-PEM. Each mesh consisted of a single layer of elements in the $z$-direction. All $z$-displacements were constrained such that the assumptions of plane strain remained valid.
 
-For a given element formulation, the \textit{rate} of convergence in the shear stress error metric
+The twisting annulus problem was run using finite deformations, albeit with relatively small strains (roughly 0.26\%). Error norms were computed with reference to the exact solution using the following problem parameters: $R_i = 0.5$, $R_o = 1.0$, $\Phi = 0.001$, $E = 1.0$, $\nu = 0.4999$, $t \in [0.0, \, 1.0]$.
+
+For a given element formulation, the \textit{rate} of convergence in the two error metrics
 \begin{equation}
-	||\sigma_{r \theta}^h - \sigma_{r \theta}|| \leq C h^q ||\sigma_{r \theta}||,
+	|| \mathbf{u}^h - \mathbf{u} || \leq C h^p || \mathbf{u} ||, \quad || \mathbf{s}^h - \mathbf{s} || \leq C h^q || \mathbf{s} ||,
 \end{equation}
-will be characterized by the power $q$. The average and maximal rates of convergence for each element formulation across all levels of mesh refinement are displayed in Table \ref{tab:twisting_annulus_convergence_rates}.
+will be characterized by the powers $p$ and $q$, respectively. The average and maximal rates of convergence for each element type across all levels of mesh refinement are displayed in Table \ref{tab:twisting_annulus_convergence_rates}.
+
+%\begin{table}[!ht]
+%  \begin{center}
+%    \begin{tabular}{| c || c | c |}
+%    \hline
+%           & $q_{\text{avg}}$ & $q_{\text{max}}$ \\ \hline \hline
+%    4-node FEM       & 1.13 (1.0) & 1.22 (1.0) \\ \hline
+%    linear DG-PEM    & 1.02 (1.0) & 1.17 (1.0) \\ \hline
+%    8-node FEM       & 2.34 (2.0) & 2.40 (2.0) \\ \hline
+%    quadratic DG-PEM & 1.71 (2.0) & 2.42 (2.0) \\
+%    \hline
+%    \end{tabular}
+%    \caption{Average and maximal convergence rates and for each method. The optimal rates are shown in parentheses.}
+%    \vspace{-5pt}
+%    \label{tab:twisting_annulus_convergence_rates}
+%    \vspace{-10pt}
+%  \end{center}
+%\end{table}
 
 \begin{table}[!ht]
   \begin{center}
-    \begin{tabular}{| c || c | c |}
+    \begin{tabular}{| l || c | c || c | c |}
     \hline
-           & $q_{\text{avg}}$ & $q_{\text{max}}$ \\ \hline \hline
-    4-node FEM       & 1.13 (1.0) & 1.22 (1.0) \\ \hline
-    linear DG-PEM    & 1.02 (1.0) & 1.17 (1.0) \\ \hline
-    8-node FEM       & 2.34 (2.0) & 2.40 (2.0) \\ \hline
-    quadratic DG-PEM & 1.71 (2.0) & 2.42 (2.0) \\
+           & $p_{\text{avg}}$ & $p_{\text{max}}$ & $q_{\text{avg}}$ & $q_{\text{max}}$ \\ \hline \hline
+    Hexahedra (FEM)                & 1.61 (2.0) & 2.72 (2.0) & 1.01 (1.0) & 1.01 (1.0) \\ \hline
+    Hexahedra (enhanced)           & 1.91 (2.0) & 2.66 (2.0) & 1.01 (1.0) & 1.01 (1.0) \\ \hline
+    Distorted Hexahedra (FEM)      & -0.66 (2.0) & 0.57 (2.0) & -0.03 (1.0) & 0.35 (1.0) \\ \hline
+    Distorted Hexahedra (enhanced) & 0.51 (2.0) & 0.66 (2.0) & 0.28 (1.0) & 0.39 (1.0) \\ \hline
+    Polyhedra (DG-PEM)             & 0.23 (2.0) & 0.92 (2.0) & 0.67 (1.0) & 1.04 (1.0) \\ \hline
+    Polyhedra (enhanced)           & 2.05 (2.0) & 2.74 (2.0) & 1.11 (1.0) & 1.20 (1.0) \\
     \hline
     \end{tabular}
-    \caption{Average and maximal convergence rates and for each method. The optimal rates are shown in parentheses.}
+    \caption{Average and maximal convergence rates for each element type. The optimal rates are shown in parentheses.}
     \vspace{-5pt}
     \label{tab:twisting_annulus_convergence_rates}
     \vspace{-10pt}
   \end{center}
 \end{table}
 
-Both the 4-node and 8-node FEM appear to exhibit super-convergent behavior. This is most likely attributable to the non-uniform mesh density of the quadrilateral meshes shown in Figure \ref{fig:quad_annulus_meshes}. Because the gradients in the solution fields (\ref{eq:annulus_u_exact}) and (\ref{eq:annulus_s_exact}) become steeper at smaller values of $r$, the quadrilateral meshes benefit from having a higher mesh density near $r = R_i$. By comparison, the polygonal meshes have roughly uniform mesh density. The linear DG-PEM converges at the optimal rate, but the rate of convergence for the quadratic DG-PEM is sub-optimal. A convergence plot is provided in Figure \ref{fig:twisting_annulus_errors} for the purposes of comparison.
+The undistorted hexahedral meshes in Figure \ref{fig:hex_annulus_meshes} appear to exhibit super-convergent behavior. This is most likely attributable to the nature of the deformation field. The enhanced DG-PEM converges at the optimal rates, but the rate of convergence for the standard DG-PEM is sub-optimal. A convergence plot is provided in Figure \ref{fig:twisting_annulus_errors} for the purposes of comparison.
 
 \begin{figure}[!h]
-    \centering
-    \includegraphics[width=4.0in]{figures/twisting_annulus_h1_errors.pdf}
-    \caption{Shear stress error convergence plot for the twisting annulus problem using FEM and DG-PEM.}
+  \centering
+    \begin{subfigure}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[width=3.3in]{figures/twisting_annulus_l2_errors.pdf}
+    			\caption{displacement errors \label{fig:twisting_annulus_l2_errors}}
+    \end{subfigure}
+	\begin{subfigure}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[width=3.3in]{figures/twisting_annulus_h1_errors.pdf}
+    			\caption{stress deviator errors \label{fig:twisting_annulus_h1_errors}}
+    \end{subfigure} \caption{Convergence plots for the twisting annulus problem using FEM for hexahedra and DG-PEM for polyhedra.}
   \label{fig:twisting_annulus_errors}
 \end{figure}
 
-As a brief aside, if the DG-PEM is utilized on the series of quadrilateral meshes shown in Figure \ref{fig:quad_annulus_meshes}, the resulting convergence rates are on par with those of the FEM. This illustrates an important point: the choice of discretization has an impact on the solution accuracy.
+As a brief aside, if the DG-PEM is utilized on either of the series of hexahedral meshes shown in Figures \ref{fig:hex_annulus_meshes} and \ref{fig:hexp_annulus_meshes}, the resulting convergence rates are on par with those of the FEM. This illustrates an important point: the choice of discretization has an impact on the solution accuracy.
 
 %\subsection*{Thin Corner-Supported Plate}
 %
@@ -1069,7 +1103,7 @@ A tensile test for a 4130 steel plate specimen with square cross-section was sim
 \begin{figure}[!h]
   \centering
   \includegraphics[width=6.0in]{figures/tensile_specimen_dimensions.pdf}
-  \caption{Tensile specimen dimensions, in inches. The thickness of the plate specimen shown is $0.5$ in., resulting in a square cross-section along the gage length. The area shown in grey represents the modeling domain.}
+  \caption{Tensile specimen dimensions, in inches. The thickness of the plate specimen shown is $0.5$ in., resulting in a square cross-section along the gage length. The area shown in grey represents the eighth-symmetric modeling domain.}
   \label{fig:tensile_specimen_dimensions}
 \end{figure}
 
@@ -1143,7 +1177,7 @@ Plots of the computed stress vs. engineering strain curves from each simulation 
             \centering
             \includegraphics[width=3.5in]{figures/necking_area_reduction.pdf}
     			\caption{Reduced area vs. engineering strain \label{fig:necking_area_reduction}}
-    \end{subfigure} \caption{Plotted results for the FEM and DG-PEM models, both with and without the kinematic enhancement discussed in \cite{Rashid:06}. View of the bottom of the mesh.}
+    \end{subfigure} \caption{Plotted results for the FEM and DG-PEM models, both with and without the kinematic enhancement discussed in \cite{Rashid:06}.}
   \label{fig:necking_plots}
 \end{figure}
 
@@ -1158,7 +1192,7 @@ Plots of the computed stress vs. engineering strain curves from each simulation 
             \centering
             \includegraphics[width=3.0in]{figures/after_distortion.pdf}
     			\caption{$t = 0.002$ ms \label{fig:after_distortion}}
-    \end{subfigure} \caption{DG-PEM element inversion when using the kinematic enhancement of \cite{Rashid:06}.}
+    \end{subfigure} \caption{DG-PEM element inversion when using the kinematic enhancement of \cite{Rashid:06}. View of the bottom of the mesh.}
   \label{fig:element_inversion}
 \end{figure}
 
@@ -1250,8 +1284,9 @@ The experimental procedures detailed in \cite{Johnson&Cook:83} and \cite{Gust:82
 Frictionless contact between the rod and the rigid surface corresponding to $X_3 = 0.0$ was modeled via the inclusion of a penalty traction of the form:
 \begin{equation}
 	\bar{t}_1 = \bar{t}_2 = 0, \quad \bar{t}_3 = p \langle -u_3|u_3|  \rangle.
+	\label{eq:penalty_traction}
 \end{equation}
-In the above, $u_3$ corresponds to the vertical displacement of a given point on the bottom face of the rod, $\langle \cdot \rangle$ denote the Macaulay brackets, and $p$ is a penalty stiffness parameter. For the problem at hand, an ad hoc value of $p = 6.0 \times 10^{10} \, \text{GPa}/\text{mm}^2$ was chosen (following a process of trial-and-error).
+In (\ref{eq:penalty_traction}), $u_3$ corresponds to the vertical displacement of a given point on the bottom face of the rod, $\langle \cdot \rangle$ denote the Macaulay brackets, and $p$ is a penalty stiffness parameter. For the problem at hand, an ad hoc value of $p = 6.0 \times 10^{10} \, \text{GPa}/\text{mm}^2$ was chosen (following a process of trial-and-error).
 
 The meshes shown in Figures \ref{fig:taylor_bar_hex_mesh} and \ref{fig:taylor_bar_poly_mesh} were used in conjunction with the FEM and DG-PEM, respectively. The DG-PEM employed the standard parameter settings utilized in previous problems. Both meshes consisted of roughly 1000 elements, each.
 
@@ -1313,7 +1348,7 @@ An interesting result occurs if the kinematic enhancement of \cite{Rashid:06} is
 
 \begin{table}[!ht]
   \begin{center}
-    \begin{tabular}{| c || c | c |}
+    \begin{tabular}{| l || c | c |}
     \hline
                 & $D_{\text{final}}$ (mm) & $L_{\text{final}}$ (mm) \\ \hline \hline
     FEM               & 11.37 & 23.04 \\ \hline

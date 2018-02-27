@@ -32,6 +32,6 @@
 \contentsline {section}{\numberline {5.2}Finite Element Patch Tests}{81}
 \contentsline {section}{\numberline {5.3}Tests for Element Quality}{90}
 \contentsline {section}{\numberline {5.4}Convergence Studies}{102}
-\contentsline {section}{\numberline {5.5}Large Deformation Problems with Elasto-plastic Material Behavior}{110}
-\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{117}
-\contentsline {chapter}{\numberline {A}Exact Solution for the Incompressible Twisting Annulus Problem}{120}
+\contentsline {section}{\numberline {5.5}Large Deformation Problems with Elasto-plastic Material Behavior}{109}
+\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{118}
+\contentsline {chapter}{\numberline {A}Exact Solution for the Incompressible Twisting Annulus Problem}{121}
