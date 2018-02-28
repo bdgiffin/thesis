@@ -501,7 +501,7 @@ With these considerations borne in mind, several tests are conducted to examine 
 
 This section attempts to characterize the behavior of a representative sampling of polygonal PEM elements by examining the eigenvalues of each element's elastic stiffness matrix.
 
-For the elements considered, a comparison study is carried out to examine differences in the eigenvalue spectra of elements whose stiffness matrices were computed using various element formulations. Specifically, approximations to harmonic shape functions were obtained for each element using the VETFEM, the CG-PEM, and the DG-PEM. These results are compared against a computed reference solution for the harmonic shape functions.
+For the elements considered, a comparison study is carried out to examine differences in the eigenvalue spectra of elements whose stiffness matrices were computed using various element formulations. Specifically, approximations to harmonic shape functions were obtained for each element using the CG-PEM, the DG-PEM, and a contemporary variant of the VETFEM arising from (\ref{eq:vetfem}). These results are compared against a computed reference solution for the harmonic shape functions.
 
 For each element, the elastic constants for Young's modulus and Poisson's ratio are chosen as $E = 1.0$ and $\nu = 0.0$, respectively. The choice of $\nu = 0.0$ is deliberate, and aims to decouple the effects of volumetric locking from the effects of geometric locking. For the purposes of comparison, all elements have roughly unit diameter.
 
@@ -1152,7 +1152,7 @@ A tensile test for a 4130 steel plate specimen with square cross-section was sim
   \label{fig:tensile_specimen_dimensions}
 \end{figure}
 
-The tests were simulated under quasi-static loading conditions. The meshes shown in Figures \ref{fig:necking_hex_mesh} and \ref{fig:necking_poly_mesh} were used in conjunction with the FEM and DG-PEM, respectively. Both meshes consisted of roughly 400 elements. To assist with the initiation of necking, each mesh also contained a small geometric defect mid-way along the gage length: a 1\% reduction in the cross-sectional area of the specimen.
+The tests were simulated under quasi-static loading conditions. The (reflected) eighth-symmetric meshes shown in Figures \ref{fig:necking_hex_mesh} and \ref{fig:necking_poly_mesh} were used in conjunction with the FEM and DG-PEM, respectively. Both meshes consisted of roughly 400 elements. To assist with the initiation of necking, each mesh also contained a small geometric defect mid-way along the gage length: a 1\% reduction in the cross-sectional area of the specimen.
 
 \begin{figure}[!h]
   \centering
@@ -1170,8 +1170,6 @@ The tests were simulated under quasi-static loading conditions. The meshes shown
 \end{figure}
 
 Values of true (Cauchy) stress and engineering strain were measured from the analysis results via the post-processing tools available in ParaView \cite{ParaView}. The vertical component of Cauchy stress was averaged over the necked area of the specimen to determine an average tensile stress. To maintain consistency with the experimental procedures in \cite{Gerberich:62}, the engineering strain and percent elongation of the specimen were measured over a gage length of 2 inches. The \% reduction in area of the specimen was also recorded at the location of necking.
-
-Without the use of an adequate model for ductile fracture, it is not possible to predict when rupture will occur within the specimen. Nonetheless, an ad hoc metric of 60\% reduction in area is used herein to \textit{estimate} the point of rupture, with the \% elongation at failure recorded at this point in the analysis.
 
 % listed in Table \ref{tab:tensile_specimen_properties}.
 %\begin{table}[!ht]
@@ -1192,7 +1190,7 @@ Without the use of an adequate model for ductile fracture, it is not possible to
 %  \end{center}
 %\end{table}
 
-The visualized results of the simulations are depicted in Figure \ref{fig:necking_comparison}. When the kinematic enhancement is utilized, the results obtained using the FEM and the DG-PEM are comparable to one another. Both formulations succumb to of volumetric locking if the enhancement is omitted. However, the polyhedral discretization used with the DG-PEM is less sensitive to the effects of locking, consistent with previous observations.
+The visualized results of the simulations are depicted in Figure \ref{fig:necking_comparison}. When the kinematic enhancement is utilized, the results obtained using the FEM and the DG-PEM are comparable to one another. Both formulations succumb to volumetric locking if the enhancement is omitted. However, the polyhedral discretization used with the DG-PEM is less sensitive to the effects of locking, consistent with previous observations.
 
 \begin{figure}[!h]
   \centering
@@ -1204,12 +1202,12 @@ The visualized results of the simulations are depicted in Figure \ref{fig:neckin
 	\begin{subfigure}[b]{1.0\linewidth}
             \centering
             \includegraphics[width=6.0in]{figures/necking_vonMises.pdf}
-    			\caption{von Mises stress $\sigma_v$ \label{fig:necking_vonMises}}
+    			\caption{von Mises stress $\sigma_v$ (ksi) \label{fig:necking_vonMises}}
     \end{subfigure} \caption{Comparison of necking behavior at 16.5\% elongation, depicting deformed shapes and color map values of equivalent plastic strain $\bar{\epsilon}^p$ and von Mises stress $\sigma_v$ (ksi).}
   \label{fig:necking_comparison}
 \end{figure}
 
-Plots of the computed (Cauchy) stress vs. engineering strain curves from each simulation are depicted in Figure \ref{fig:necking_stress_strain}. Additionally, Figure \ref{fig:necking_area_reduction} compares the decrease in the necked area of the specimen vs. engineering strain. In each plot, the results for the FEM and the DG-PEM are very similar if the kinematic enhancement is employed. If the enhancement is not utilized, the FEM performs more poorly than the DG-PEM, exhibiting little to no necking behavior.
+Plots of the computed (Cauchy) stress vs. engineering strain curves from each simulation are depicted in Figure \ref{fig:necking_stress_strain}. Additionally, Figure \ref{fig:necking_area_reduction} compares the decrease in the necked area of the specimen vs. engineering strain. In each plot, the results for the FEM and the DG-PEM provide comparable accuracy if the kinematic enhancement is employed. If the enhancement is not utilized, the FEM performs more poorly than the DG-PEM, exhibiting little to no necking behavior.
 
 \begin{figure}[!h]
   \centering
@@ -1285,23 +1283,23 @@ Plots of the computed (Cauchy) stress vs. engineering strain curves from each si
 %\label{tab:tensile_test_data_results}
 %\end{table}
 
-Table \ref{tab:tensile_test_data_results} shows the recorded values of \% elongation at failure and maximum tensile stress for the FEM and DG-PEM simulations. These results were compared against a more refined solution obtained using the FEM, showing that the DG-PEM performs well on the polyhedral mesh.
+Without the use of an adequate model for ductile fracture, it is not possible to predict when rupture will occur within the specimen. Nonetheless, an ad hoc metric of 60\% reduction in area is used herein to \textit{estimate} the point of rupture, with the \% elongation at failure recorded at this point in the analysis. Table \ref{tab:tensile_test_data_results} shows the recorded values of \% elongation at failure and maximum tensile stress for the FEM and DG-PEM simulations. These results were compared against a more refined solution obtained using the FEM, showing that the DG-PEM performs comparatively well on the polyhedral mesh at coarser levels of refinement.
 
 \begin{table}
 \centering
-\begin{tabular}{| c || c | c |}
+\begin{tabular}{| l || c | c |}
     \hline
                & \% elongation at failure & max tensile stress (ksi) \\ \hline \hline
     FEM (enhanced)    & 14.65 & 70.74 \\ \hline
     DG-PEM (enhanced) & 12.89 & 72.15 \\ \hline
-    Reference         & - & - \\
+    FEM (refined)     & 13.35 & 75.58 \\
     \hline
 \end{tabular}
 \caption{Tensile test data results comparison. The values of \% elongation were recorded after reaching 60\% reduction in area.}
 \label{tab:tensile_test_data_results}
 \end{table}
 
-If the PEM is employed on the hexahedral mesh in Figure \ref{fig:necking_hex_mesh}, the results are comparable with those of the FEM. As noted in the previous problem, this suggests that the chosen polyhedral discretization is less sensitive to the effects of volumetric locking. The consequences of this decreased sensitivity are further explored in the subsequent problem.
+If the PEM is employed on the hexahedral mesh in Figure \ref{fig:necking_hex_mesh}, the results are comparable with those of the FEM. As noted in the twisting annulus problem, this suggests that arbitrary polyhedral discretizations may be less sensitive to the effects of volumetric locking. The consequences of this decreased sensitivity are further explored in the subsequent problem.
 
 \subsection*{Taylor Bar Impact Problem}
 
@@ -1318,7 +1316,7 @@ Frictionless contact between the rod and a rigid surface corresponding to $X_3 =
 \end{equation}
 In (\ref{eq:penalty_traction}), $u_3$ corresponds to the vertical displacement of a given point on the bottom face of the rod, $\langle \cdot \rangle$ denote the Macaulay brackets, and $p$ is a penalty stiffness parameter. For the problem at hand, an ad hoc value of $p = 6.0 \times 10^{10} \, \text{GPa}/\text{mm}^2$ was chosen (following a process of trial-and-error).
 
-The meshes shown in Figures \ref{fig:taylor_bar_hex_mesh} and \ref{fig:taylor_bar_poly_mesh} were used in conjunction with the FEM and DG-PEM, respectively. The DG-PEM employed the standard parameter settings utilized in previous problems. Both meshes consisted of roughly 1000 elements, each.
+The (reflected) quarter-symmetric meshes shown in Figures \ref{fig:taylor_bar_hex_mesh} and \ref{fig:taylor_bar_poly_mesh} were used in conjunction with the FEM and DG-PEM, respectively. Both meshes consisted of roughly 1000 elements, each.
 
 \begin{figure}[!h]
   \centering
@@ -1335,7 +1333,24 @@ The meshes shown in Figures \ref{fig:taylor_bar_hex_mesh} and \ref{fig:taylor_ba
   \label{fig:taylor_bar_meshes}
 \end{figure}
 
-As for the 
+Because high plastic flow is expected, volumetric locking is a concern. Once again, the kinematic enhancement of \cite{Rashid:06} is employed to address this issue. However, an interesting result occurs for the Taylor impact problem if the kinematic enhancement is applied to the polyhedral mesh in Figure \ref{fig:taylor_bar_poly_mesh}. Specifically, the polyhedral mesh becomes tangled, as illustrated in Figure \ref{fig:element_inversion}. The elements become overly flexible with respect to the isochoric modes of deformation, and inertial effects are sufficient to cause the elements to ultimately invert after just a few time steps. For this reason, a complete analysis could not be run for the DG-PEM using the kinematic enhancement.
+
+\begin{figure}[!h]
+  \centering
+    \begin{subfigure}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[width=2.0in]{figures/before_distortion.pdf}
+    			\caption{$t = 0.0$ ms \label{fig:before_distortion}}
+    \end{subfigure}
+	\begin{subfigure}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[width=2.0in]{figures/after_distortion.pdf}
+    			\caption{$t = 0.002$ ms \label{fig:after_distortion}}
+    \end{subfigure} \caption{DG-PEM element inversion when using the kinematic enhancement of \cite{Rashid:06}, viewed from the bottom of the mesh (the impacting surface).}
+  \label{fig:element_inversion}
+\end{figure}
+
+Figures \ref{fig:taylor_bar_eqps} and \ref{fig:taylor_bar_stresses} provide illustrations of the results of each simulation. Without the kinematic enhancement, the hexahedral FEM mesh clearly suffers from volumetric locking. Interestingly, the polyhedral DG-PEM mesh does not appear to exhibit any serious symptoms of volumetric locking, yielding comparable results to the kinematically enhanced FEM solution.
 
 \begin{figure}[!h]
     \centering
@@ -1374,22 +1389,7 @@ As for the
   \label{fig:taylor_bar_stresses}
 \end{figure}
 
-An interesting result occurs if the kinematic enhancement of \cite{Rashid:06} is used on the polyhedral mesh. Specifically, it becomes unstable, as shown in Figure \ref{fig:element_inversion}.
-
-\begin{figure}[!h]
-  \centering
-    \begin{subfigure}[b]{0.49\linewidth}
-            \centering
-            \includegraphics[width=3.0in]{figures/before_distortion.pdf}
-    			\caption{$t = 0.0$ ms \label{fig:before_distortion}}
-    \end{subfigure}
-	\begin{subfigure}[b]{0.49\linewidth}
-            \centering
-            \includegraphics[width=3.0in]{figures/after_distortion.pdf}
-    			\caption{$t = 0.002$ ms \label{fig:after_distortion}}
-    \end{subfigure} \caption{DG-PEM element inversion when using the kinematic enhancement of \cite{Rashid:06}. View of the bottom of the mesh.}
-  \label{fig:element_inversion}
-\end{figure}
+To provide a more quantitative comparison of the results obtained for each method, two canonical deformation metrics are considered: the rod's final base diameter $D_{\text{final}}$ and compressed length $L_{\text{final}}$, measured after the rod has achieved full impact. The results are displayed in Table \ref{tab:change_in_length_measurements}, and compared against a more refined solution obtained using the FEM. Despite the apparent stability issues pertaining to the kinematic enhancement, the data indicate that the DG-PEM performs favorably in comparison with the FEM.
 
 \begin{table}[!ht]
   \begin{center}
@@ -1400,11 +1400,14 @@ An interesting result occurs if the kinematic enhancement of \cite{Rashid:06} is
     DG-PEM            & 13.47 & 23.38 \\ \hline
     FEM (enhanced)    & 13.91 & 23.60 \\ \hline
     DG-PEM (enhanced) & (unstable) & (unstable) \\ \hline
+    FEM (refined)     & 13.88 & 23.59 \\
     \hline
     \end{tabular}
     \caption{Measurements of the rod's final base diameter $D_{\text{final}}$ and overall length $L_{\text{final}}$.}
     \vspace{-5pt}
     \label{tab:change_in_length_measurements}
-    \vspace{-25pt}
+    \vspace{-10pt}
   \end{center}
 \end{table}
+
+The issue of element inversion when using arbitrary polyhedral discretizations for highly dynamic problems warrants further investigation. Evidently, the kinematic enhancement of \cite{Rashid:06} is not adequate for general element shapes. Because arbitrary polyhedra possess more nodes (degrees of freedom) than traditional hexahedra, a ``mean'' dilatation formulation is likely to result in under-constrained modes of deformation. A more intricate, and element-specific enhancement is needed. This issue is left as the subject of future work.
