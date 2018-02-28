@@ -36,19 +36,20 @@
 \contentsline {figure}{\numberline {5.18}{\ignorespaces Depiction of the smallest non-zero eigenvalues and corresponding eigenmodes computed using the DG-PEM ($\epsilon = +1$, $\alpha _{\gamma 0} = 10$, $\alpha _{\gamma 1} = 0$). $N$ denotes the size of the global stiffness matrix $\mathbf {K}$, and $\lambda _{N} = \lambda _{N-1} = \lambda _{N-2} = 0$ correspond to the zero-energy modes of deformation.\relax }}{101}
 \contentsline {figure}{\numberline {5.19}{\ignorespaces Infinite plate with a circular hole placed in uniaxial tension.\relax }}{102}
 \contentsline {figure}{\numberline {5.20}{\ignorespaces Quadrilateral meshes with varying levels of refinement.\relax }}{104}
-\contentsline {figure}{\numberline {5.21}{\ignorespaces Convergence plots for the plate with hole problem using FEM and DG-PEM.\relax }}{105}
+\contentsline {figure}{\numberline {5.21}{\ignorespaces Convergence plots for the plate with hole problem using FEM and DG-PEM.\relax }}{104}
 \contentsline {figure}{\numberline {5.22}{\ignorespaces Depiction of the twisting annulus problem.\relax }}{106}
 \contentsline {figure}{\numberline {5.23}{\ignorespaces Hexahedral meshes with varying levels of refinement for the twisting annulus problem.\relax }}{107}
-\contentsline {figure}{\numberline {5.24}{\ignorespaces Distorted hexahedral meshes with varying levels of refinement for the twisting annulus problem.\relax }}{107}
-\contentsline {figure}{\numberline {5.25}{\ignorespaces Polyhedral meshes with varying levels of refinement for the twisting annulus problem.\relax }}{108}
+\contentsline {figure}{\numberline {5.24}{\ignorespaces Distorted hexahedral meshes with varying levels of refinement for the twisting annulus problem.\relax }}{108}
+\contentsline {figure}{\numberline {5.25}{\ignorespaces Polyhedral meshes with varying levels of refinement for the twisting annulus problem.\relax }}{109}
 \contentsline {figure}{\numberline {5.26}{\ignorespaces Convergence plots for the twisting annulus problem using FEM for hexahedra and DG-PEM for polyhedra.\relax }}{110}
-\contentsline {figure}{\numberline {5.27}{\ignorespaces Tensile specimen dimensions, in inches. The thickness of the plate specimen shown is $0.5$ in., resulting in a square cross-section along the gage length. The area shown in grey represents the eighth-symmetric modeling domain.\relax }}{111}
-\contentsline {figure}{\numberline {5.28}{\ignorespaces Plate specimen meshes used for the tensile necking problem, modeled as an eighth-symmetric problem.\relax }}{111}
-\contentsline {figure}{\numberline {5.29}{\ignorespaces Comparison of necking behavior at 16.5\% elongation, depicting deformed shapes and color map values of equivalent plastic strain $\cc@accent {"7016}{\epsilon }^p$ and von Mises stress $\sigma _v$ (ksi).\relax }}{113}
-\contentsline {figure}{\numberline {5.30}{\ignorespaces Plotted results for the FEM and DG-PEM models, both with and without the kinematic enhancement discussed in \cite {Rashid:06}.\relax }}{114}
-\contentsline {figure}{\numberline {5.31}{\ignorespaces DG-PEM element inversion when using the kinematic enhancement of \cite {Rashid:06}. View of the bottom of the mesh.\relax }}{114}
-\contentsline {figure}{\numberline {5.32}{\ignorespaces Impact specimen meshes used for the Taylor bar problem, modeled using quarter-symmetry.\relax }}{115}
-\contentsline {figure}{\numberline {5.33}{\ignorespaces Comparison of results between the FEM and PEM models at the final time $t = 0.08$ ms, depicting deformed shape and color map values of equivalent plastic strain $\cc@accent {"7016}{\epsilon }^p$.\relax }}{116}
-\contentsline {figure}{\numberline {5.34}{\ignorespaces Comparison of von Mises stress $\sigma _v$ (in Pascals) within the FEM and PEM models at the final time $t = 0.08$ ms.\relax }}{116}
+\contentsline {figure}{\numberline {5.27}{\ignorespaces Comparison of pressure fields for various element types and formulations. Color scales are kept consistent between similar mesh types.\relax }}{111}
+\contentsline {figure}{\numberline {5.28}{\ignorespaces Tensile specimen dimensions, in inches. The thickness of the plate specimen shown is $0.5$ in., resulting in a square cross-section along the gage length. The area shown in grey represents the eighth-symmetric modeling domain.\relax }}{112}
+\contentsline {figure}{\numberline {5.29}{\ignorespaces Plate specimen meshes used for the tensile necking problem, modeled as an eighth-symmetric problem.\relax }}{113}
+\contentsline {figure}{\numberline {5.30}{\ignorespaces Comparison of necking behavior at 16.5\% elongation, depicting deformed shapes and color map values of equivalent plastic strain $\cc@accent {"7016}{\epsilon }^p$ and von Mises stress $\sigma _v$ (ksi).\relax }}{114}
+\contentsline {figure}{\numberline {5.31}{\ignorespaces Plotted results for the FEM and DG-PEM models, both with and without the kinematic enhancement discussed in \cite {Rashid:06}.\relax }}{115}
+\contentsline {figure}{\numberline {5.32}{\ignorespaces DG-PEM element inversion when using the kinematic enhancement of \cite {Rashid:06}. View of the bottom of the mesh.\relax }}{115}
+\contentsline {figure}{\numberline {5.33}{\ignorespaces Impact specimen meshes used for the Taylor bar problem, modeled using quarter-symmetry.\relax }}{116}
+\contentsline {figure}{\numberline {5.34}{\ignorespaces Comparison of results between the FEM and PEM models at the final time $t = 0.08$ ms, depicting deformed shape and color map values of equivalent plastic strain $\cc@accent {"7016}{\epsilon }^p$.\relax }}{117}
+\contentsline {figure}{\numberline {5.35}{\ignorespaces Comparison of von Mises stress $\sigma _v$ (in Pascals) within the FEM and PEM models at the final time $t = 0.08$ ms.\relax }}{117}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

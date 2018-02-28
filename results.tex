@@ -864,7 +864,7 @@ The condition number of the resulting global stiffness matrix will become large 
 
 \section{Convergence Studies}
 
-A series of studies were carried out to determine the convergence behavior of the DG-PEM. Several studies were conducted to verify that the DG-PEM yields convergent sequences of approximations under mesh refinement. A few relatively simple two- and three-dimensional elasticity problems are considered. Convergence results for the DG-PEM are compared against FEM. Convergence of both linear and quadratic PEM elements are established.
+A handful of studies were conducted to assess the convergence behavior of the DG-PEM. These studies sought to verify that the DG-PEM yields convergent sequences of approximations under mesh refinement. A few relatively simple two- and three-dimensional elasticity problems are considered. The results obtained for the DG-PEM are compared against the results for the classical FEM. Convergence of both linear and quadratic PEM elements is established, and convergence in the incompressible limit is examined for discretizations consisting of hexahedra and arbitrary polyhedra.
 
 \subsection*{Infinite Elastic Plate in Far-Field Tension}
 
@@ -873,7 +873,7 @@ A series of studies were carried out to determine the convergence behavior of th
   \includegraphics[width=4.0in]{figures/plate_with_hole.pdf}  \caption{Infinite plate with a circular hole placed in uniaxial tension.}
   \label{fig:plate_with_hole_problem}
 \end{figure}
-To demonstrate optimal convergence of the PEM for higher-order elements, we will choose to investigate the 2D elastostatics problem of an infinite plate with a circular hole in uniaxial tension (depicted in figure \ref{fig:plate_with_hole_problem}), for which there exist analytical solutions of the resulting displacement and stress fields (obtained from reference \cite{Wikiversity:17}):
+To demonstrate optimal convergence of the PEM for higher-order elements, consider the 2D elastostatics problem of an infinite plate with a circular hole in uniaxial tension (depicted in figure \ref{fig:plate_with_hole_problem}). The following analytical solutions for the displacement and stress fields were obtained from reference \cite{Wikiversity:17}:
 \begin{equation}
   u_1 (r,\theta) = \frac{Ta}{8\mu} \left[ \frac{r}{a} (\kappa + 1) \cos \theta + \frac{2a}{r} ((1+\kappa) \cos \theta + \cos 3 \theta) - \frac{2a^3}{r^3} \cos 3 \theta \right],
 \end{equation}
@@ -893,12 +893,13 @@ where $T$ is the far-field value of the applied tensile stress, $a$ is the radiu
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=6.0in]{figures/plate_with_hole_meshes.pdf}
+  \includegraphics[width=6.0in]{figures/quad_hole_meshes.pdf}
   \caption{Quadrilateral meshes with varying levels of refinement.}
   \label{fig:plate_with_hole_meshes}
 \end{figure}
+A convergence study was carried out using a series of quadrilateral meshes with varying levels of refinement, discretizing the restricted problem domain $X_i \in [ -1, +1], \, \, i = 1, \, 2$ with $a = 0.25$ (see figure \ref{fig:plate_with_hole_meshes}.) The meshes consisted of either 4-node quadrilateral or 8-node serendipity quadrilateral elements. In each case, the elements employed either an isoparametric formulation, or a sufficiently high-order DG-PEM formulation (i.e. $k=1$ for 4-node quadrilaterals, and $k=2$ for 8-node quadrilaterals.) Displacement boundary conditions were prescribed to be consistent with the exact solution on the restricted domain boundary.
 
-A convergence study was carried out using a series of quadrilateral meshes with varying levels of refinement, discretizing the restricted problem domain $X_i \in [ -1, +1]$ (see figure \ref{fig:plate_with_hole_meshes}.) The meshes consisted of either 4-node quadrilateral or 8-node serendipity quadrilateral elements, and employed either an isoparametric formulation, or a sufficiently high-order DG-PEM formulation (i.e. $k=1$ for 4-node quadrilaterals, and $k=2$ for 8-node quadrilaterals.) Displacement boundary conditions were prescribed to be consistent with the exact solution on the restricted boundary. Displacement and stress error norms were computed with reference to the exact solution. Convergence plots for the displacement and stress error norms are provided in Figures \ref{fig:plate_with_hole_l2_errors} and \ref{fig:plate_with_hole_h1_errors}, respectively.
+Displacement and stress error norms were computed with reference to the exact solution for the following problem parameters: $E = 29000.0$, $\nu = 0.3$, and $T = 1.0$. Convergence plots for the displacement and stress error norms are provided in Figures \ref{fig:plate_with_hole_l2_errors} and \ref{fig:plate_with_hole_h1_errors}, respectively.
 
 \begin{figure}[!h]
   \centering
@@ -919,7 +920,7 @@ For a given element formulation, the \textit{rate} of convergence in the two err
 \begin{equation}
 	|| \mathbf{u}^h - \mathbf{u} || \leq C h^p || \mathbf{u} ||, \quad || \boldsymbol{\sigma}^h - \boldsymbol{\sigma} || \leq C h^q || \boldsymbol{\sigma} ||,
 \end{equation}
-will be characterized by the powers $p$ and $q$, respectively. The average and maximal rates of convergence for each element formulation across all levels of mesh refinement are displayed in Table \ref{tab:plate_with_hole_convergence_rates}.
+is characterized by the powers $p$ and $q$, respectively. The average and maximal rates of convergence for each element formulation across all levels of mesh refinement are displayed in Table \ref{tab:plate_with_hole_convergence_rates}.
 
 \begin{table}[!ht]
   \begin{center}
@@ -941,9 +942,9 @@ will be characterized by the powers $p$ and $q$, respectively. The average and m
 
 It should be noted that part of the solution error incurred for the coarse meshes may be attributable to the inexact representation of the problem geometry (the circular hole). This would explain why the observed convergence rates are lower at coarser levels of refinement, but approach the optimal rates as the mesh is further refined.
 
-In the limit as $h \rightarrow 0$, the DG-PEM quadrilateral elements converge at the optimal rates in both the displacement and stress error norms. Because the quadrilateral meshes in Figure \ref{fig:plate_with_hole_meshes} consist of non-affinely distorted elements, the FEM using isoparametric serendipity elements does not achieve the optimal rates of convergence. Overall, the DG-PEM appears to converge at slightly faster rates than the FEM. However, the solution errors at coarser levels of refinement tend to be better for the FEM, in general.
+In the limit as $h \rightarrow 0$, the linear and quadratic DG-PEM converge at the optimal rates in both the displacement and stress error norms. Because the quadrilateral meshes in Figure \ref{fig:plate_with_hole_meshes} consist of non-affinely distorted elements, the FEM using 8-node serendipity elements does not achieve the optimal rates of convergence. Overall, the DG-PEM appears to converge at slightly faster rates than the FEM. However, the solution errors at coarser levels of refinement tend to be smaller for the FEM, in general.
 
-Further work will seek to investigate the measured error and convergence rates of the PEM when the elements take on arbitrary shape, and for a variety of different formulations and penalization parameter settings.
+Future work will seek to investigate the measured error and convergence rates of the PEM when the elements take on arbitrary shape, and for a variety of different formulations and penalization parameter settings.
 
 \subsection*{Incompressible Twisting Annulus}
 
@@ -961,11 +962,11 @@ Consider the elastic annulus depicted in Figure \ref{fig:twisting_annulus_proble
 \end{equation}
 for all $t \geq 0$.
 
-Let the elastic material be characterized by the isotropic hypoelastic model of grade zero, consistent with the Jaumann stress rate:
+Let the elastic material be characterized by the isotropic hypoelastic model of grade zero, consistent with the Jaumann rate of stress:
 \begin{equation}
   \dot{\boldsymbol{\sigma}} = \mathbb{C} : \mathbf{D} + \mathbf{W} \boldsymbol{\sigma} - \boldsymbol{\sigma} \mathbf{W}.
 \end{equation}
-If the material is incompressible (if $\text{tr} (\mathbf{D}) = 0$), an analytical solution may be determined which is valid in the context of finite deformations. The solutions for the displacement and stress fields are derived in the Appendix. The resulting expressions are given below:
+If the material is incompressible (if $\text{tr} (\mathbf{D}) = 0$), an analytical solution may be determined which is valid for finite deformations. The solutions for the displacement and stress fields are derived in the Appendix. The resulting expressions are given below:
 \begin{equation}
   u_r = u_z = 0, \quad u_\theta = \frac{R_o^2}{r} \frac{r^2 - R_i^2}{R_o^{2} - R_i^{2}} \Phi t,
   	\label{eq:annulus_u_exact}
@@ -975,7 +976,9 @@ If the material is incompressible (if $\text{tr} (\mathbf{D}) = 0$), an analytic
   	\label{eq:annulus_s_exact}
 \end{equation}
 
-Because the element formulations used herein possess only displacement degrees of freedom, it is not possible to run an analysis for a truly incompressible material. It suffices to examine solutions in the near-incompressible regime (i.e. $\nu = 0.4999$). Additionally, because an accurate prediction of the pressure field requires the use of a mixed formulation, the stress error metric in (\ref{eq:normalized_stress_error}) will be dominated by errors in the pressure field. For this reason, only the errors in the deviatoric stress field will be examined:
+Because the element formulations used herein possess only displacement degrees of freedom, it is not possible to run an analysis for a truly incompressible material. It suffices to examine numerical solutions in the near-incompressible regime (i.e. $\nu = 0.4999$). To combat the issue of volumetric locking, the kinematic enhancement suggested in \cite{Rashid:06} was implemented, and utilized in conjunction with each of the element formulations considered herein. Element formulations which have been ``enhanced'' in this manner are henceforth indicated as such.
+
+Additionally, because an accurate prediction of the pressure field would otherwise require the use of a mixed formulation, the stress error metric in (\ref{eq:normalized_stress_error}) will be dominated by errors in the pressure field. For this reason, only the errors in the deviatoric stress field will be examined:
 \begin{equation}
 	\frac{||\mathbf{s}^h - \mathbf{s}||}{||\mathbf{s}||} = \sqrt{\frac{\int_{\mathcal{B}_0} (\mathbf{s}^h - \mathbf{s}) \colon (\mathbf{s}^h - \mathbf{s}) \, dV}{\int_{\mathcal{B}_0} \mathbf{s} \colon \mathbf{s} \, dV}},
 	\label{eq:deviator_stress_error}
@@ -1003,15 +1006,15 @@ where $s_{ij} = \sigma_{ij} - \frac{1}{3} \sigma_{kk} \delta_{ij}$ denotes the s
   \label{fig:poly_annulus_meshes}
 \end{figure}
 
-Convergence studies were carried out using the three series of polyhedral and hexahedral meshes depicted in Figures \ref{fig:hex_annulus_meshes}, \ref{fig:hexp_annulus_meshes}, and \ref{fig:poly_annulus_meshes}. The hexahedral meshes were used in conjunction with the FEM, whereas the polyhedral meshes were used in conjunction with the DG-PEM. Each mesh consisted of a single layer of elements in the $z$-direction. All $z$-displacements were constrained such that the assumptions of plane strain remained valid.
+Convergence studies were carried out using the hexahedral and polyhedral meshes depicted in Figures \ref{fig:hex_annulus_meshes}, \ref{fig:hexp_annulus_meshes}, and \ref{fig:poly_annulus_meshes}. The hexahedral meshes were used in conjunction with the FEM, whereas the polyhedral meshes were used in conjunction with the DG-PEM. Each mesh consisted of a single layer of elements in the $z$-direction. All $z$-displacements were constrained, consistent with the assumptions of plane strain.
 
-The twisting annulus problem was run using finite deformations, albeit with relatively small strains (roughly 0.26\%). Error norms were computed with reference to the exact solution using the following problem parameters: $R_i = 0.5$, $R_o = 1.0$, $\Phi = 0.001$, $E = 1.0$, $\nu = 0.4999$, $t \in [0.0, \, 1.0]$.
+Finite deformations were considered in the analysis, albeit at relatively small strains (roughly 0.26\%). Error norms were computed with reference to the exact solution using the following problem parameters: $R_i = 0.5$, $R_o = 1.0$, $\Phi = 0.001$, $E = 1.0$, $\nu = 0.4999$, $t \in [0.0, \, 1.0]$.
 
-For a given element formulation, the \textit{rate} of convergence in the two error metrics
+For a given element formulation, the rate of convergence in the two error metrics
 \begin{equation}
 	|| \mathbf{u}^h - \mathbf{u} || \leq C h^p || \mathbf{u} ||, \quad || \mathbf{s}^h - \mathbf{s} || \leq C h^q || \mathbf{s} ||,
 \end{equation}
-will be characterized by the powers $p$ and $q$, respectively. The average and maximal rates of convergence for each element type across all levels of mesh refinement are displayed in Table \ref{tab:twisting_annulus_convergence_rates}.
+is characterized by the powers $p$ and $q$, respectively. The average and maximal rates of convergence for each element type across all levels of mesh refinement are displayed in Table \ref{tab:twisting_annulus_convergence_rates}. A convergence plot is provided in Figure \ref{fig:twisting_annulus_errors} for the purposes of comparison.
 
 %\begin{table}[!ht]
 %  \begin{center}
@@ -1044,14 +1047,12 @@ will be characterized by the powers $p$ and $q$, respectively. The average and m
     Polyhedra (enhanced)           & 2.05 (2.0) & 2.74 (2.0) & 1.11 (1.0) & 1.20 (1.0) \\
     \hline
     \end{tabular}
-    \caption{Average and maximal convergence rates for each element type. The optimal rates are shown in parentheses.}
+    \caption{Average and maximal convergence rates for each element type/formulation. The optimal rates are shown in parentheses.}
     \vspace{-5pt}
     \label{tab:twisting_annulus_convergence_rates}
     \vspace{-10pt}
   \end{center}
 \end{table}
-
-The undistorted hexahedral meshes in Figure \ref{fig:hex_annulus_meshes} appear to exhibit super-convergent behavior. This is most likely attributable to the nature of the deformation field. The enhanced DG-PEM converges at the optimal rates, but the rate of convergence for the standard DG-PEM is sub-optimal. A convergence plot is provided in Figure \ref{fig:twisting_annulus_errors} for the purposes of comparison.
 
 \begin{figure}[!h]
   \centering
@@ -1068,7 +1069,47 @@ The undistorted hexahedral meshes in Figure \ref{fig:hex_annulus_meshes} appear 
   \label{fig:twisting_annulus_errors}
 \end{figure}
 
-As a brief aside, if the DG-PEM is utilized on either of the series of hexahedral meshes shown in Figures \ref{fig:hex_annulus_meshes} and \ref{fig:hexp_annulus_meshes}, the resulting convergence rates are on par with those of the FEM. This illustrates an important point: the choice of discretization has an impact on the solution accuracy.
+Interestingly, the undistorted hexahedral meshes of Figure \ref{fig:hex_annulus_meshes} do not present symptoms of volumetric locking. On these meshes, both the standard and enhanced element formulations converge at roughly the same rates in the displacement and stress error norms.
+
+In contrast, the distorted hexahedral meshes of Figure \ref{fig:hexp_annulus_meshes} succumb to spurious oscillations in the pressure field, regardless of whether the kinematic enhancement of \cite{Rashid:06} is employed. Figures \ref{fig:hexp_pressure} and \ref{fig:hexp_fbar_pressure} illustrate the characteristic ``checkerboard'' pattern in the pressure field that arises for the distorted meshes. The corresponding rates of convergence are only slightly improved for the enhanced formulation.
+
+\begin{figure}[!h]
+  \centering
+    \begin{subfigure}[b]{0.32\linewidth}
+            \centering
+            \includegraphics[width=2.1in]{figures/hex_pressure.pdf}
+    			\caption{Hexahedra \label{fig:hex_pressure}}
+    \end{subfigure}
+	\begin{subfigure}[b]{0.32\linewidth}
+            \centering
+            \includegraphics[width=2.1in]{figures/hexp_pressure.pdf}
+    			\caption{Distorted \label{fig:hexp_pressure}}
+    \end{subfigure} 
+    \begin{subfigure}[b]{0.32\linewidth}
+            \centering
+            \includegraphics[width=2.1in]{figures/poly_pressure.pdf}
+    			\caption{Polyhedra \label{fig:poly_pressure}}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.32\linewidth}
+            \centering
+            \includegraphics[width=2.1in]{figures/hex_fbar_pressure.pdf}
+    			\caption{Hexahedra (enhanced) \label{fig:hex_fbar_pressure}}
+    \end{subfigure}
+	\begin{subfigure}[b]{0.32\linewidth}
+            \centering
+            \includegraphics[width=2.1in]{figures/hexp_fbar_pressure.pdf}
+    			\caption{Distorted (enhanced) \label{fig:hexp_fbar_pressure}}
+    \end{subfigure} 
+    \begin{subfigure}[b]{0.32\linewidth}
+            \centering
+            \includegraphics[width=2.1in]{figures/poly_fbar_pressure.pdf}
+    			\caption{Polyhedra (enhanced) \label{fig:poly_fbar_pressure}}
+    \end{subfigure} 
+    \caption{Comparison of pressure fields for various element types and formulations. Color scales are kept consistent between similar mesh types.}
+  \label{fig:twisting_annulus_stresses}
+\end{figure}
+
+The arbitrary polyhedral meshes of Figure \ref{fig:poly_annulus_meshes} are less sensitive to the effects of volumetric locking. Optimal rates of convergence are fully restored when the kinematic enhancement is utilized. As a brief aside, if the DG-PEM is utilized on either of the two series of hexahedral meshes shown in Figures \ref{fig:hex_annulus_meshes} and \ref{fig:hexp_annulus_meshes}, the resulting convergence rates are effectively the same as those of the FEM. This illustrates an important point: the particular choice of \textit{discretization} (rather than element formulation) directly impacts sensitivity to volumetric locking.
 
 %\subsection*{Thin Corner-Supported Plate}
 %
