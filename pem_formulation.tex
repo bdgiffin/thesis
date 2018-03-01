@@ -25,26 +25,26 @@ This chapter defines a general class of polytopal element formulations referred 
 		% are certain approximation methods more suitable than others?
 			% FEM? DG? VEM?
 
-Partitioned element methods are finite element-like methods which approach the task of constructing approximations to an arbitrary polytopal element's nodal shape functions by partitioning the element into sub-domains (quadrature cells). The element partition serves a dual purpose: it is used to establish a composite quadrature rule for the element, and to define a finite dimensional function space, from which the element's shape functions are selected as the solutions to corresponding boundary value problems, defined locally on the element.
+Partitioned element methods are finite-element-like methods which approach the task of constructing approximations to an arbitrary polytopal element's nodal shape functions by partitioning the element into sub-domains (quadrature cells). The element partition serves a dual purpose: it is used to establish a composite quadrature rule for the element, and to define a finite dimensional function space, from which the element's shape functions are selected as the solutions to corresponding boundary value problems, defined locally on the element.
 
 	% want efficient and stable quadrature rules
 Partitioned element methods are motivated by the idea that it is generally easier and more efficient to define complicated functions over arbitrary domains if the functions are defined in a piecewise polynomial fashion over simpler sub-domains. This is precisely the mentality which likewise motivates the finite element method and other related numerical approximation methods.
 
-The PEM is driven by the need for establishing stable and efficient quadrature rules on arbitrary polytopes. Unlike virtual element methods which typically circumvent the use of quadrature altogether, partitioned element methods recognize the necessity of using domain quadrature rules to evaluate nonlinear residual and stiffness contributions. The use of sufficient quadrature also yields a stable integration of the weak form which does not rely upon unphysical stabilization parameters.
+The PEM is driven by the need for establishing stable and efficient quadrature rules on arbitrary polytopes. Unlike virtual element, methods which typically circumvent the use of quadrature altogether, partitioned element methods recognize the necessity of using domain quadrature rules to evaluate nonlinear residual and stiffness contributions. The use of sufficient quadrature also yields a stable integration of the weak form that does not rely upon unphysical stabilization parameters.
 
 	% depart from the idea of shape functions defined pointwise
-In contrast with traditional perspectives which regard the shape functions as being continuously defined on element domains (i.e. generalized barycentric coordinates), the PEM exploits the fact that the shape functions and their gradients only need to be evaluated at a discrete number of quadrature points. With this in mind, PEM approximation spaces are deliberately constructed around the quadrature cell partition of the element, and consequently resemble finite element approximation spaces.
+In contrast with traditional perspectives, which regard the shape functions as being continuously defined on element domains (i.e. generalized barycentric coordinates), the PEM exploits the fact that the shape functions and their gradients only need to be evaluated at a discrete number of quadrature points. With this in mind, PEM approximation spaces are deliberately constructed around the quadrature cell partition of the element, and consequently resemble finite element approximation spaces.
 
 	% enforce constraints to attain reproducibility & consistency
-The resulting approximations to the element's shape functions are altogether subject to the conditions of approximability, compatibility, stability, and quadrature consistency, as discussed in chapter \ref{ch:solid_mechanics}. Together, these conditions impose a number of unique requirements upon the element's partition, it's corresponding quadrature rules, and the associated cell-based approximation spaces.
+The resulting approximations to the element's shape functions are altogether subject to the conditions of approximability, compatibility, stability, and quadrature consistency, as discussed in chapter \ref{ch:solid_mechanics}. Together, these conditions impose a number of unique requirements upon the element's partition, its corresponding quadrature rules, and the associated cell-based approximation spaces.
 
-In the following sections, an abstract framework for the PEM is established, describing the shape function boundary value problems defined on an element, and their corresponding approximations. We further enumerate several specific partitioned element methods, and provide an assessment of their potential strengths and weaknesses.
+In the following sections, an abstract framework for the PEM is established, describing the shape-function boundary value problems defined on an element, and their corresponding approximations. We further enumerate several specific partitioned element methods, and provide an assessment of their potential strengths and weaknesses.
 
 %PEM encompasses the special case where each element consists of a single sub-domain. Such approaches will henceforth be referred to as \textit{single-cell} methods, which share certain similarities with the VEM and VETFEM. Single-cell methods are not particularly robust when applied to arbitrary polyhedral meshes (namely those generated by B-rep intersection); they perform poorly if the element's geometry is sufficiently complicated.
 
 \section{Definition of Polytopal Element Shape Functions}
 
-	Consider the structure of an arbitrary polyhedral element $\Omega \subset \mathbb{R}^3$, as depicted in Figure \ref{fig:polyhedral_element}. The element's boundary $\partial \Omega$ may be subdivided into polygonal faces $F \subset \partial \Omega$, such that each face $F$ is shared entirely with an adjacent element of the mesh, or with the mesh boundary. In turn, the boundary of each such face $F$ may be subdivided into linear edges $E \subset \partial F$, such that each edge $E$ is shared by one other face of the element. The end-points of each edge are called nodes, denoted $V$, and may be shared by multiple edges.
+	Consider the structure of an arbitrary polyhedral element $\Omega \subset \mathbb{R}^3$, as depicted in Figure \ref{fig:polyhedral_element}. The element's boundary $\partial \Omega$ may be subdivided into polygonal faces $F \subset \partial \Omega$, such that each face $F$ is shared entirely with a single adjacent element of the mesh, or with the mesh boundary. In turn, the boundary of each such face $F$ may be subdivided into linear edges $E \subset \partial F$, such that each edge $E$ is shared by exactly one other face of the element. The end-points of each edge are called nodes, denoted $V$, and may be shared by multiple edges.
 	
 \begin{figure} [!ht]
 	\centering
@@ -76,7 +76,7 @@ In the following sections, an abstract framework for the PEM is established, des
 	% Additionally, the PEM considers the boundary of each element to be partitioned into a collection of $2$-dimensional polygonal faces $\partial \Omega = \cup_{i = 1}^{N_F} F_i$, where a given face $F$ is either a shared interface between two elements $F = \partial \Omega_a \cap \partial \Omega_b \neq \emptyset$ ($a \neq b$), or else it is a part of the domain boundary $F \subset \partial \Omega_a \cap \partial \mathcal{B}_0 \neq \emptyset$.
 	% The boundary of each face $\partial F$ is likewise recursively partitioned into $1$-dimensional edges $\partial F = \cup_{i = 1}^{N_E} E_i$, whose end-points are the geometric verticies (the nodes) of the polyhedral element in question, which bear the primary degrees of freedom.
 	
-	The advantage of defining shape functions in this manner is that it affords a great deal of flexibility in the construction of arbitrary order interpolants (or enhancement functions), while maintaining $C^0 (\mathcal{B}_0)$ continuity at inter-element interfaces. Moreover, given that the shape functions are uniquely defined at every point $\mathbf{X} \in \Omega$, they can be made amenable to post-processing and visualization-related tasks, if so desired.
+	The advantage of defining shape functions in this manner is that it affords a great deal of flexibility in the construction of arbitrary order interpolants (or enhancement functions), while maintaining $C^0 (\mathcal{B}_0)$ continuity at inter-element interfaces. Moreover, given that the shape functions are uniquely defined at every point $\mathbf{X} \in \overline{\Omega}$, they can be made amenable to post-processing and visualization-related tasks, if so desired.
 	
 %	In the following sections, we will explore a few specific choices for the differential operator $\mathcal{L}$ and the forcing functions $f$ defined on the element and its faces, etc.
 
@@ -184,7 +184,7 @@ In the following sections, an abstract framework for the PEM is established, des
 		\item[(II)] $a_* a_{\Omega} (\mathbf{v},\mathbf{v}) \leq a^h_{\Omega} (\mathbf{v}^h,\mathbf{v}^h) \leq a^* a_{\Omega} (\mathbf{v},\mathbf{v}) \quad \forall \mathbf{v} \in \mathcal{V}^h (\Omega).$
 	\end{itemize}
 	
-	An important distinction should be made with regard to the requirements placed upon a given variational method used to construct approximations $\varphi^h$ to (generalized) harmonic shape functions $\varphi$: it is not strictly necessary for the approximations to converge to $\varphi$ as the dimension of $\mathcal{U}^h (\Omega)$ is systematically increased. Provided the above conditions are met, convergence of the overarching finite element method is altogether achieved, even if relatively coarse/low-order approximations to the shape functions are utilized. Moreover, relaxing the requirements placed upon the approximations (particularly with regard to continuity) can have advantageous side-effects: the resulting finite element solution is made less sensitive to the choice of discretization, and issues pertaining to elements with non-convex or degenerate features can be partially ameliorated.
+	An important distinction should be made with regard to the requirements placed upon a given variational method used to construct approximations $\varphi^h$ to (generalized) harmonic shape functions $\varphi$: it is not strictly necessary for the approximations to converge to $\varphi$ as the dimension of $\mathcal{U}^h (\Omega)$ is systematically increased. Provided the above conditions are met, convergence of the overarching finite element method is altogether achieved, even if relatively coarse/low-order approximations to the shape functions are utilized. Moreover, relaxing the requirements placed upon the approximations (particularly with regard to continuity) can have advantageous side-effects: the resulting finite element solution is made less sensitive to the choice of discretization, and poor stiffness matrix conditioning for elements with non-convex or degenerate features can be partially ameliorated. These considerations are investigated further in chapter \ref{ch:results}.
 	
 	The above considerations have prompted an investigation into the use of (discontinuous) low-order polynomial approximations to harmonic shape functions. These approximations are discussed in the following section.
 	
@@ -203,7 +203,7 @@ In the following sections, an abstract framework for the PEM is established, des
 	\begin{equation}
 	\mathcal{L}(\varphi,\lambda) \equiv \frac{1}{2} \int_{\Omega} \nabla \varphi \cdot \nabla \varphi \, dV - \int_{\Omega} f_{\Omega} \, \varphi \, dV + \int_{\partial \Omega} \left[ \varphi - \bar{\varphi} \right] \lambda \, dA,
 \end{equation}
-	involving the specification of a Lagrange multiplier field $\lambda \in \Lambda (\partial \Omega) = \left\{ \lambda \in L^2 (\partial \Omega) \right\}$, and it's corresponding discrete approximation $\lambda^h \in \Lambda^h (\partial \Omega) \subset \Lambda (\partial \Omega)$. Differentiation of the Lagrangian yields two sets of equations in terms of the approximations $\varphi^h \in \mathcal{U}^h (\Omega)$ and $\lambda^h \in \Lambda^h (\partial \Omega)$:
+	involving the specification of a Lagrange multiplier field $\lambda \in \Lambda (\partial \Omega) = \left\{ \lambda \in L^2 (\partial \Omega) \right\}$, and its corresponding discrete approximation $\lambda^h \in \Lambda^h (\partial \Omega) \subset \Lambda (\partial \Omega)$. Differentiation of the Lagrangian yields two sets of equations in terms of the approximations $\varphi^h \in \mathcal{U}^h (\Omega)$ and $\lambda^h \in \Lambda^h (\partial \Omega)$:
 	\begin{equation}
 		\int_{\Omega} \nabla \varphi^h \cdot \nabla \eta^h \, dV - \int_\Omega f_\Omega \eta^h \, dV + \int_{\partial \Omega} \lambda^h \eta^h \, dA = 0 \quad \forall \eta^h \in \mathcal{U}^h (\Omega),
 	\end{equation}
@@ -271,7 +271,7 @@ A few preliminary definitions regarding the element's partition are given, follo
 \begin{figure} [!ht]
 	\centering
 	\includegraphics[width = 6.0in]{figures/polyhedron_partition.pdf}
-	\caption{A representative polyhedral element $\Omega \subset \mathbb{R}^3$, and it's hierarchical partition into cells, facets, segments, and vertices.}
+	\caption{A representative polyhedral element $\Omega \subset \mathbb{R}^3$, and its hierarchical partition into cells, facets, segments, and vertices.}
 	\label{fig:partitioned_element}
 \end{figure}
 
@@ -279,7 +279,7 @@ A few preliminary definitions regarding the element's partition are given, follo
 	
 	In turn, let $\mathcal{T}_{\sigma} (F)$ denote the partition of a given face $F \subset \partial \Omega$ into polygonal facets $\sigma \subset F$. The boundary of each facet consists of linear segments $\gamma \subset \partial \sigma$. For a given face $F$, let $\Gamma_\sigma$ denote the set of all interior facet interfaces (segments) shared by two facets belonging to $F$, such that a given linear segment $\gamma$ belongs either to $\Gamma_\sigma$ or $\partial F$.
 	
-	Finally, $\mathcal{T}_{\gamma} (E)$ denotes the partition of a given edge $E \subset \partial F$ into linear segments $\gamma \subset E$. The endpoints of each segment are called vertices, denoted $v$. For a given edge $E$, denote by $\Gamma_\gamma$ the set of all interior segment interfaces (vertices) shared by two segments belonging to $E$, such that a given vertex $v$ belongs either to $\Gamma_\gamma$ or $\partial E$. As well, each node $V$ corresponds to a single vertex $v$, though not all vertices coincide a node.
+	Finally, $\mathcal{T}_{\gamma} (E)$ denotes the partition of a given edge $E \subset \partial F$ into linear segments $\gamma \subset E$. The endpoints of each segment are called vertices, denoted $v$. For a given edge $E$, denote by $\Gamma_\gamma$ the set of all interior segment interfaces (vertices) shared by two segments belonging to $E$, such that a given vertex $v$ belongs either to $\Gamma_\gamma$ or $\partial E$. As well, each node $V$ corresponds to a single vertex $v$, though not all vertices coincide with a node.
 	
 	A number of simple partitioning schemes are proposed, and illustrated in Figure \ref{fig:partitioning_types}:
 	\begin{figure} [!ht]
@@ -290,7 +290,7 @@ A few preliminary definitions regarding the element's partition are given, follo
 	\end{figure}
 	\begin{itemize}
 		\item \textbf{Edge-based}: For star-convex shapes -- the vertex-averaged centroid is used to subdivide the element into triangles (in 2D) or tetrahedra (in 3D) associated with each linear edge of the element.
-		\item \textbf{Node-based}: For arbitrary shapes -- the element is sub-divided into quadrature cells corresponding to the tributary area surrounding each node.
+		\item \textbf{Node-based}: For arbitrary shapes -- the element is sub-divided into quadrature cells corresponding to tributary regions surrounding each node.
 		\item \textbf{Random Delaunay}: For arbitrary shapes -- the element is sub-divided into a Delaunay triangulation (in 2D) or tetrahedralization (in 3D), whose corresponding vertices are generated via a random point sampling process.
 		\item \textbf{Random Voronoi}: For arbitrary shapes -- the element is sub-divided into Voronoi cells, whose corresponding voronoi sites are generated via a constrained maximal Poisson-disk sampling process, as described in \cite{Ebeida:11}.
 	\end{itemize}
@@ -339,7 +339,7 @@ A few preliminary definitions regarding the element's partition are given, follo
 	
 	A natural extension of the method to higher-order serendipity elements would be to consider $p-$refinement of an element's tetrahedral subdivision to recover higher-order polynomial completeness, i.e. to guarantee $\mathcal{U}^h (\Omega) \supset P^k (\Omega)$ for some desired polynomial order $k$. The construction of shape functions on a given element would likely bear a much higher computational cost with increasing polynomial degree, owing to the increased size of the local FE problems on $\Omega$. Moreover, the specification of efficient yet stable and accurate numerical quadratures would present an additional challenge.
 	
-	A separate generalization would be to consider subdividing the elements into arbitrary polyhedra, solving (\ref{eq:weak_poisson}) by means of the virtual element method. This would allow for a more natural collocation of quadrature cells with the specified subdivision, resembling the partitioned element method proposed in \cite{Rashid:12}.
+	The notion of subdividing the elements into conforming finite elements presents an obvious complication, however. The primary obstacle for traditional finite element methods is the process of obtaining a mesh. Requiring that the elements be partitioned into canonical finite elements does not obviate the meshing problem; it only defers the problem to the element formulation. Moreover, obtaining an FE partition for an arbitrary polyhedral element presents similar challenges to meshing a complicated problem domain. A separate generalization would be to consider subdividing the elements into arbitrary polyhedra, solving (\ref{eq:weak_poisson}) by means of the virtual element method. This would allow for a more natural collocation of quadrature cells with the specified subdivision, resembling the partitioned element method proposed in \cite{Rashid:12}.
 	
 	As will be discussed in chapter \ref{ch:results}, a particular complication arises for harmonic shape functions and their corresponding $C^0 (\Omega)$ approximations on irregularly shaped elements: the solution to Laplace's equation may possess extremely sharp gradients if the geometry of the element contains reflex corners or nearly degenerate features (i.e. short edges). A consequence of this is poor conditioning of the element's local stiffness matrix, leading to excessively stiff modes of deformation (locking), and issues of numerical conditioning in the linear solution process.
 	
@@ -675,7 +675,7 @@ Methods for partitioning the elements into sub-domains which yield stable and ef
 		
 	\subsection*{Composite Quadrature Rules}
 	
-	Given a partition of an element into polytopal sub-domains (quadrature cells), one may utilize low order quadrature rules over each sub-domain, thereby yielding a composite quadrature rule over the element as a whole, whose overall accuracy is determined by the order of accuracy used within each sub-domain.
+	Given a partition of an element into polytopal sub-domains (quadrature cells), one may utilize low order quadrature rules over each sub-domain, thereby yielding a composite quadrature rule over the element as a whole, whose overall accuracy is determined by the order of accuracy used within each sub-domain, and the distribution of quadrature cells within the element.
 	
 	The simplest quadrature rule of this form is the composite mid-point scheme, where the quadrature points are located at the centroids of each sub-domain. Such a rule exactly integrates polynomials up to first order, and provides reasonable accuracy when integrating polynomials of higher-order (\cite{Rashid:12} provides a numerical assessment of the accuracy of composite mid-point quadratures.) Moreover, the integration points are guaranteed to be interior to each sub-domain (and the element as a whole), provided each cell is convex.
 	
@@ -697,7 +697,7 @@ Methods for partitioning the elements into sub-domains which yield stable and ef
 	\begin{equation}
 		\mathbf{X} = \mathbf{X}_\sigma + \sum_{i=1}^{d-1} X_i \, \hat{\mathbf{X}}_i,
 	\end{equation}
-	where $\mathbf{X}_\sigma$ is any reference location positioned on the hyperplane which contains $\sigma$, and the orthonormal set $\left\{ \hat{\mathbf{X}}_i \right\}_{i=1}^{d-1}$ defines a parameterization of the in-plane coordinates on $\sigma$. This leads to the observation $\mathbf{X} \cdot \mathbf{N}_\sigma = \mathbf{X}_\sigma \cdot \mathbf{N}_\sigma \, \, \forall \mathbf{X} \in \sigma$, and thus
+	where $\mathbf{X}_\sigma$ is any reference location positioned on the plane which contains $\sigma$, and the orthonormal set $\left\{ \hat{\mathbf{X}}_i \right\}_{i=1}^{d-1}$ defines a parameterization of the in-plane coordinates on $\sigma$. This leads to the observation $\mathbf{X} \cdot \mathbf{N}_\sigma = \mathbf{X}_\sigma \cdot \mathbf{N}_\sigma \, \, \forall \mathbf{X} \in \sigma$, and thus
 	\begin{equation}
 		\int_{\omega} \mathbf{X}^\alpha \, dV = \frac{1}{d+|\alpha|} \sum_{\sigma \in \partial \omega} (\mathbf{X}_\sigma \cdot \mathbf{N}_{\sigma}) \int_{\sigma} \, \mathbf{X}^\alpha \, dA.
 	\end{equation}
@@ -730,7 +730,10 @@ Methods for partitioning the elements into sub-domains which yield stable and ef
     \end{equation}
     for every test function $\phi$, where $k$ represents the degree of polynomial completeness exhibited by the space of trial solutions. Given the discrete conditions:
     \begin{equation}
-		\phi(\mathbf{X}_b) = \varphi(\mathbf{X}_b) \, \forall b, \quad \phi(\mathbf{X}_q) = \varphi(\mathbf{X}_q) \, \forall q, \quad \nabla \phi(\mathbf{X}_q) = \nabla \varphi (\mathbf{X}_q) + \boldsymbol{\xi} (\mathbf{X}_q) \, \forall q,
+		\phi(\mathbf{X}_b) = \varphi(\mathbf{X}_b) \, \forall \mathbf{X}_b \in \partial \Omega, 
+	\end{equation}
+	\begin{equation}
+		\phi(\mathbf{X}_q) = \varphi(\mathbf{X}_q) \, \forall \mathbf{X}_q \in \Omega, \quad \nabla \phi(\mathbf{X}_q) = \nabla \varphi (\mathbf{X}_q) + \boldsymbol{\xi} (\mathbf{X}_q) \, \forall \mathbf{X}_q \in \Omega,
     	\end{equation}
     	we obtain $\boldsymbol{\xi} (\mathbf{X}_q)$ as the solution to the quadratic minimization problem:
     	\begin{equation}
