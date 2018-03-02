@@ -353,21 +353,29 @@ A few preliminary definitions regarding the element's partition are given, follo
 	\begin{equation}
 		\int_\Omega \nabla \varphi \cdot \nabla \eta \, dV = \int_\Omega \left[ \nabla \cdot (\varphi \, \nabla \eta) - \varphi \, \nabla^2 \eta \right] \, dV \quad \forall \eta \in P^k (\Omega),
 	\end{equation}
-	and
+	and the boundary condition ($\varphi = \bar{\varphi}$ on $\partial \Omega$) implies
 	\begin{equation}
-		\int_{\partial \Omega} (\mathbf{N} \cdot \nabla \eta) \, \bar{\varphi} \, dA = \int_\Omega \left[ \nabla^2 \eta \, \varphi + f_{\Omega} \, \eta \right] \, dV + \int_{\Omega} \nabla \cdot (\eta \, \nabla \varphi) \, dV \quad \forall \eta \in P^k (\Omega).
+		\int_\Omega \nabla \cdot (\varphi \, \nabla \eta) \, dV = \int_{\partial \Omega} (\mathbf{N} \cdot \nabla \eta) \, \bar{\varphi} \, dA \quad \forall \eta \in P^k (\Omega).
 	\end{equation}
-	For the case where $\eta \in P^1 (\Omega)$, we have $\nabla^2 \eta = 0 \, \, \forall \eta \in P^1 (\Omega)$. Additionally, noting that $\nabla \cdot (\eta \nabla \varphi) = \nabla \eta \cdot \nabla \varphi + \eta \, \nabla^2 \varphi$, we observe:
+	Thus:
 	\begin{equation}
-		\int_{\Omega} \nabla \eta \cdot \nabla \varphi \, dV - \int_{\partial \Omega} (\mathbf{N} \cdot \nabla \eta) \, \bar{\varphi} \, dA = \int_\Omega (\nabla^2 \varphi + f_{\Omega}) \, \eta \, dV = 0 \quad \forall \eta \in P^1 (\Omega).
+		\int_{\partial \Omega} (\mathbf{N} \cdot \nabla \eta) \, \bar{\varphi} \, dA = \int_\Omega \left[ \varphi \, \nabla^2 \eta + f_{\Omega} \, \eta \right] \, dV + \int_{\Omega} \nabla \cdot (\eta \, \nabla \varphi) \, dV \quad \forall \eta \in P^k (\Omega).
+	\end{equation}
+	Additionally, noting that $\nabla \cdot (\eta \nabla \varphi) = \nabla \varphi \cdot \nabla \eta + \eta \, \nabla^2 \varphi$, we observe that
+	\begin{equation}
+		\int_{\Omega} \left[ \nabla \varphi \cdot \nabla \eta + \varphi \, \nabla^2 \eta \right] \, dV - \int_{\partial \Omega} (\mathbf{N} \cdot \nabla \eta) \, \bar{\varphi} \, dA = \int_\Omega (\nabla^2 \varphi + f_{\Omega}) \, \eta \, dV \quad \forall \eta \in P^k (\Omega),
+	\end{equation}
+	which necessitates that the following expression hold for all $\eta \in P^k (\Omega)$:
+	\begin{equation}
+		\int_{\Omega} \nabla \varphi \cdot \nabla \eta \, dV + \int_{\Omega} \varphi \, \nabla^2 \eta \, dV = \int_{\partial \Omega} (\mathbf{N} \cdot \nabla \eta) \, \bar{\varphi} \, dA \quad \forall \eta \in P^k (\Omega).
 	\end{equation}
 	
-	Further, consider a low-order finite element approximation space $\mathcal{U}^h (\Omega) \supset P^1 (\Omega)$ defined on a corresponding partition $\mathcal{T}_\omega (\Omega)$ of $\Omega$. If $\varphi^h \in \mathcal{U}^h (\Omega) \subset \mathcal{U} (\Omega)$ consists of piecewise linear polynomials in each cell $\omega \in \mathcal{T}_\omega (\Omega)$, then $\nabla^2 \varphi^h|_{\omega} = 0$. Provided $f_{\Omega} \equiv 0$, the above expression implies that the approximate solution $\varphi^h \in \mathcal{U}^h (\Omega) \subset \mathcal{U} (\Omega)$ to (\ref{eq:weak_poisson}) will satisfy the first-order integration consistency conditions:
+	Consider a finite element approximation space $\mathcal{U}^h (\Omega) \supset P^k (\Omega)$ defined on a corresponding partition $\mathcal{T}_\omega (\Omega)$ of $\Omega$. The above expression implies that the approximate solution $\varphi^h \in \mathcal{U}^h (\Omega) \subset \mathcal{U} (\Omega)$ to (\ref{eq:weak_poisson}) satisfies the integration consistency conditions:
 	\begin{equation}
-		\int_{\Omega} \nabla \varphi^h \, dV = \int_{\partial \Omega} \mathbf{N} \, \bar{\varphi} \, dA.
+		\int_{\Omega} \mathbf{v} \cdot \nabla \varphi^h \, dV + \int_{\Omega} \varphi^h \, \nabla \cdot \mathbf{v} \, dV = \int_{\partial \Omega} \mathbf{v} \cdot \mathbf{N} \, \bar{\varphi} \, dA \quad \forall \mathbf{v} \in \left[ P^{(k-1)} (\Omega) \right]^d,
 		\label{eq:cg_pem_integration_consistency}
 	\end{equation}
-	If (\ref{eq:cg_pem_integration_consistency}) is integrated exactly by the element's quadrature rules, the resulting CG-PEM elements will pass linear finite element patch tests. If the element's partition consists of linear triangles and tetrahedra, a composite mid-point quadrature scheme proves to be sufficient to this end.
+	where $\mathbf{v} = \nabla \eta$ for some $\eta \in P^k (\Omega)$. If (\ref{eq:cg_pem_integration_consistency}) is integrated exactly by the element's quadrature rules, the resulting CG-PEM elements will pass finite element patch tests up to k$^{\text{th}}$ order. If the element's partition consists of linear triangles and tetrahedra, a composite mid-point quadrature scheme proves to be sufficient to this end.
 
 \subsection*{Discontinuous Galerkin Approximations to \\ (Generalized) Harmonic Shape Functions}
 
@@ -447,23 +455,25 @@ and
 \begin{equation}
 	\int_{\partial \omega} \eta \frac{\partial \varphi^h}{\partial N_{\sigma}} \, dA = \int_{\omega} \left[ \eta \, \nabla^2 \varphi^h + \nabla \varphi^h \cdot \nabla \eta \right] \, dA
 \end{equation}
-for all $\omega \in \mathcal{T}_\omega (\Omega)$. For the case where $\eta \in P^1 (\Omega)$, we have $\nabla^2 \eta = 0 \, \, \forall \eta \in P^1 (\Omega)$. Consequently,
+for all $\omega \in \mathcal{T}_\omega (\Omega)$. Consequently,
 	\begin{equation}
-	\sum_{\sigma \in \Gamma_\omega \cup \partial \Omega} \int_{\sigma} \frac{\partial \eta}{\partial N_{\sigma}} \, [\![ \varphi^h ]\!] \, dA = \sum_{\omega \in \mathcal{T}_\omega (\Omega)} \int_{\omega} \nabla \varphi^h \cdot \nabla \eta \, dV,
+	\sum_{\sigma \in \Gamma_\omega \cup \partial \Omega} \int_{\sigma} \frac{\partial \eta}{\partial N_{\sigma}} \, [\![ \varphi^h ]\!] \, dA = \sum_{\omega \in \mathcal{T}_\omega (\Omega)} \int_{\omega} \left[ \nabla \varphi^h \cdot \nabla \eta + \varphi^h \, \nabla^2 \eta \right] \, dV,
 	\end{equation}
 	\begin{equation}
-	 \sum_{\sigma \in \partial \Omega} \int_{\sigma} \eta \frac{\partial \varphi^h}{\partial N_{\sigma}} \, dA = \sum_{\omega \in \mathcal{T}_\omega (\Omega)} \int_{\omega} \left[ \nabla \varphi^h \cdot \nabla \eta + \eta \nabla^2 \varphi^h \right] \, dV,
+	 \sum_{\sigma \in \partial \Omega} \int_{\sigma} \eta \frac{\partial \varphi^h}{\partial N_{\sigma}} \, dA = \sum_{\omega \in \mathcal{T}_\omega (\Omega)} \int_{\omega} \left[ \nabla \varphi^h \cdot \nabla \eta + \eta \, \nabla^2 \varphi^h \right] \, dV,
 	\end{equation}
 and (\ref{eq:weak_compatibility}) reduces to
 	\begin{eqnarray}
 		\left( \sum_{\omega \in \mathcal{T}_\omega (\Omega)} \int_{\omega} \nabla \varphi^h \cdot \nabla \eta \, dV
+		+ \sum_{\omega \in \mathcal{T}_\omega (\Omega)} \int_{\omega} \varphi^h \, \nabla^2 \eta \, dV
 		- \sum_{\sigma \in \partial \Omega} \int_{\sigma} \frac{\partial \eta}{\partial N_{\sigma}} \bar{\varphi} \, dA \right) \epsilon \nonumber \\ 
-		= \sum_{\sigma \in \partial \Omega} \frac{\alpha_{\sigma0}}{|\sigma|^{\beta_0}} \int_{\sigma} \eta \, (\bar{\varphi} - \varphi^h) \, dA + \sum_{\omega \in \mathcal{T}_\omega (\Omega)} \int_{\omega} (\nabla^2 \varphi^h + f_{\Omega}) \, \eta \, dV \quad \forall \eta \in P^1 (\Omega).
+		= \sum_{\sigma \in \partial \Omega} \frac{\alpha_{\sigma0}}{|\sigma|^{\beta_0}} \int_{\sigma} \eta \, (\bar{\varphi} - \varphi^h) \, dA + \sum_{\omega \in \mathcal{T}_\omega (\Omega)} \int_{\omega} (\nabla^2 \varphi^h + f_{\Omega}) \, \eta \, dV \quad \forall \eta \in P^k (\Omega).
 	\end{eqnarray}
 	
 	If $\varphi^h \in \mathcal{D}^h_1 (\Omega)$, then $\nabla^2 \varphi^h|_{\omega} = 0 \, \, \forall \omega \in \mathcal{T}_\omega (\Omega)$. Provided $f_{\Omega} \equiv 0$, the above expression implies that the approximate solution $\varphi^h \in \mathcal{U}^h (\Omega) \subset \mathcal{U} (\Omega)$ to (\ref{eq:dg_poisson}) will obey:
 	\begin{eqnarray}
 		\left( \sum_{\omega \in \mathcal{T}_\omega (\Omega)} \int_{\omega} \nabla \varphi^h \cdot \nabla \eta \, dV
+		+ \sum_{\omega \in \mathcal{T}_\omega (\Omega)} \int_{\omega} \varphi^h \, \nabla^2 \eta \, dV
 		- \sum_{\sigma \in \partial \Omega} \int_{\sigma} \frac{\partial \eta}{\partial N_{\sigma}} \bar{\varphi} \, dA \right) \epsilon \nonumber \\ 
 		= \sum_{\sigma \in \partial \Omega} \frac{\alpha_{\sigma0}}{|\sigma|^{\beta_0}} \int_{\sigma} \eta \, (\bar{\varphi} - \varphi^h) \, dA \quad \forall \eta \in P^1 (\Omega).
 		\label{eq:weak_compatibility_enforcement}

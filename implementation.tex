@@ -2,11 +2,11 @@
 %
 The implementation of any partitioned element method must address two primary challenges: the subdivision of an element into cells, and the solution of shape function-specific boundary value problems by way of the chosen PEM formulation. The first of these two tasks may be accomplished by various means. However, careful attention must be paid to the stability requirements of the PEM, such that the resulting quadrature cell partition yields stable approximations to harmonic shape functions, and an equally stable integration rule for the element. Specifying such a discretization is not trivial for arbitrary shapes. For this reason, we will confine our attention to strictly star-convex elements, for which we propose a relatively simple (edge-based) element partitioning algorithm.
 
-The present implementational framework is directed at obtaining DG-PEM approximations to harmonic shape functions on arbitrary polytopes -- i.e. solving (\ref{eq:dg_poisson}) on an appropriately defined partition of the element. A discussion of the pertinent data structures and solution methods is provided, and a number of concluding remarks are given with regard to numerical robustness of the proposed methodology.
+The present implementational framework is directed at obtaining DG-PEM approximations to harmonic shape functions on arbitrary polytopes -- i.e. solving (\ref{eq:dg_poisson}) on an appropriately defined partition of the element. A discussion of the pertinent data structures and solution methods is provided, and several concluding remarks are given with regard to numerical robustness of the proposed methodology.
 
 \section{Arbitrary Polytopal Meshes}
 
-	Traditional finite element methods typically permit the elements to only take the form of certain canonical shapes with fixed topology (most commonly tetrahedra or hexahedra). This yields several benefits with regard to the data and storage requirements necessary to represent a given element in a computational setting. Frequently, it suffices to describe the geometry of a canonical shape (such as a hexahedron) by providing a list of the element's nodal coordinates, along with an ordered sequence of the element's nodal IDs, which fully determines its resulting topology according to some conventional node numbering scheme (refer to Figure \ref{fig:canonical_orderings} as a representative example.)
+	Traditional finite element methods typically permit the elements to only take the form of certain canonical shapes with fixed topology (most commonly tetrahedra or hexahedra). This yields several benefits with regard to the data and storage requirements necessary to represent a given element in a computational setting. Frequently, it suffices to describe the geometry of a canonical shape (such as a hexahedron) by providing a list of the element's nodal coordinates, along with an ordered sequence of the element's nodal IDs, which fully determines its resulting topology according to some conventional node numbering scheme (refer to Figure \ref{fig:canonical_orderings} as representative examples.)
 	\begin{figure} [!ht]
 		\centering
 		\includegraphics[width = 4.0in]{figures/canonical_orderings.pdf}
@@ -46,7 +46,7 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 		\item A list of the linear edges $\left\{ E_{c} \right\}_{c=1}^{N^{F_b}_E}$ which belong to $\partial F_b$; each linear edge $E_c$ is in turn represented as an ordered list of local node IDs $\left\{ n_i \right\}_{i=1}^{N^{E_c}_V}$.
 	\end{itemize}
 	
-	Unlike canonical finite element shapes, the ordering of the element's nodal IDs is effectively arbitrary, and does not induce a topology. Rather, the element's topology is determined by virtue of its polygonal faces, and their respective (conventionally clockwise) local node orderings. Consequently, each edge of a given polyhedron is defined implicitly as the intersection of two adjacent faces' ordered node sets. Such a scheme may be easily generalized to accommodate serendipity elements containing additional nodes along element edges, as illustrated in Figure \ref{fig:polyhedron_data_quadratic}.
+	Unlike canonical finite element shapes, the ordering of the element's nodal IDs is effectively arbitrary, and does not induce a topology. Rather, the element's topology is determined by virtue of its polygonal faces, and their respective (conventionally counter-clockwise) local node orderings. Consequently, each edge of a given polyhedron is defined implicitly as the intersection of two adjacent faces' ordered node sets. Such a scheme may be easily generalized to accommodate serendipity elements containing additional nodes along element edges, as illustrated in Figure \ref{fig:polyhedron_data_quadratic}.
 	\begin{figure} [!ht]
 		\centering
 		\includegraphics[width = 6.0in]{figures/polyhedron_data_quadratic.pdf}
@@ -58,7 +58,7 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 
 	Traditional Lagrangian finite element methods require each element $\Omega_e \subset \mathcal{B}_0$ to carry the following data (at a minimum) for the purposes of evaluating weak form integrals:
 	\begin{itemize}
-		\item A list of quadrature weights $\left\{ w_q \right\}_{q=1}^{N^{\Omega_e}_{qp}}$ associated with the quadrature points of the element. The sub-index $q$ induces a local \textit{quadrature point ID}.
+		\item A list of quadrature weights and corresponding locations $\left\{ w_q, \, \mathbf{X}_q \right\}_{q=1}^{N^{\Omega_e}_{qp}}$ associated with the quadrature points of the element. The sub-index $q$ induces a local \textit{quadrature point ID}.
 		\item Evaluations of the element's nodal shape functions $\left\{ \varphi_a (\mathbf{X}_q) \right\}_{q=1}^{N^{\Omega_e}_{qp}} \, \, \forall a = 1, \ldots, N^{\Omega_e}_V$ at each quadrature point location $\mathbf{X}_q$.
 		\item Gradients (with respect to the element's reference coordinates $\mathbf{X}$ at time $t = 0$) of the element's nodal shape functions $\left\{ \nabla_X \varphi_a (\mathbf{X}_q) \right\}_{q=1}^{N^{\Omega_e}_{qp}} \, \, \forall a = 1, \ldots, N^{\Omega_e}_V$.
 		\item (Optionally) if the element relies upon some form of gradient correction scheme (or more generally, if a Petrov-Galerkin method is employed): evaluations and/or gradients of the element's test functions $\left\{ \phi_a (\mathbf{X}_q), \, \nabla_X \phi_a (\mathbf{X}_q) \right\}_{q=1}^{N^{\Omega_e}_{qp}} \, \, \forall a = 1, \ldots, N^{\Omega_e}_V$ must be stored, as well.
@@ -70,7 +70,7 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 		\item A list of quadrature weights $\left\{ w_q \right\}_{q=1}^{N^{F_b}_{qp}}$ for each quadrature point of the face.
 		\item Evaluations of the face's nodal shape functions $\left\{ \varphi_a (\mathbf{X}_q) \right\}_{q=1}^{N^{F_b}_{qp}} \, \, \forall a = 1, \ldots, N^{F_b}_V$ at each quadrature point location $\mathbf{X}_q$.
 		\item Gradients (with respect to the face's in-plane reference coordinates $\mathbf{X}$ at $t = 0$) of the face's nodal shape functions $\left\{ \nabla_X \varphi_a (\mathbf{X}_q) \right\}_{q=1}^{N^{F_b}_{qp}} \, \, \forall a = 1, \ldots, N^{F_b}_V$.
-		\item If a Petrov-Galerkin method is employed: evaluations and/or gradients of the face's test functions $\left\{ \phi_a (\mathbf{X}_q), \, \nabla_X \phi_a (\mathbf{X}_q) \right\}_{q=1}^{N^{F_b}_{qp}} \, \, \forall a = 1, \ldots, N^{F_b}_V$.
+		\item If a Petrov-Galerkin method is employed: evaluations of the face's test functions $\left\{ \phi_a (\mathbf{X}_q) \right\}_{q=1}^{N^{F_b}_{qp}} \, \, \forall a = 1, \ldots, N^{F_b}_V$.
 		\item Outward unit normals $\left\{ \mathbf{N}_q \right\}_{q=1}^{N^{F_b}_{qp}}$ to the face $F_b$ at each quadrature point.
 	\end{itemize}
 	
@@ -90,9 +90,9 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 	
 \section{Element Partitioning Schemes}
 
-	The process of obtaining a suitable partition for a given element constitutes the greatest challenge facing partitioned element methods -- an issue of computational geometry, primarily. The secondary complication arises from the conditions of stability that the element must satisfy: the shape function approximations, and the corresponding quadrature rules defined on the element's partition must guarantee a sufficiently stable integration of the weak form. For relatively simple shapes, a number of stable partitioning schemes exist. However, for arbitrary shapes, it becomes difficult -- if not impossible -- for a heuristically-driven discretization scheme to guarantee that the resulting partition will satisfy the aforementioned stability requirements.
+	The process of obtaining a suitable partition for a given element constitutes the greatest challenge facing partitioned element methods -- an issue of computational geometry, primarily. A secondary complication arises from the conditions of stability that the element must satisfy: the shape function approximations, and the corresponding quadrature rules defined on the element's partition, must guarantee a sufficiently stable integration of the weak form. For relatively simple shapes, a number of stable partitioning schemes exist. However, for arbitrary shapes, it becomes difficult -- if not impossible -- for a heuristically-driven discretization scheme to guarantee that the resulting partition will satisfy the aforementioned stability requirements.
 
-	For this reason, we will limit our subsequent discussion to \textit{star-convex} element geometries. For such shapes, a relatively simple partitioning scheme is suggested, resembling the decomposition used in the edge-based smoothed finite element method. In the absence of degenerate features, the resulting partition is verified to provide sufficiently stable shape function approximations and quadrature rules.
+	For this reason, we will limit our subsequent discussion to \textit{star-convex} element geometries. For such shapes, a relatively simple partitioning scheme is suggested, resembling the decomposition used in the edge-based smoothed finite element method \cite{Liu:09}. Even in the presence of nearly-degenerate features, the resulting partition has been verified to provide sufficiently stable shape function approximations and quadrature rules.
 
 \subsection*{Edge-Based Partitioning for Star-Convex Elements}
 
@@ -108,7 +108,7 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 		\item[1.)] Identify all edges of the polyhedron, and subdivide them into linear segments; each segment should join two adjacent nodes of a given edge.
 		\item[2.)] For each face, compute its vertex-averaged centroid $\bar{\mathbf{X}}^{F_j}_0$, and subdivide the face into triangular facets which emanate from $\bar{\mathbf{X}}^{F_j}_0$; each facet should share at most two segments (at least one segment) with $\partial F_j$.
 		\item[3a.)] Compute the element's vertex-averaged centroid $\bar{\mathbf{X}}^{\Omega}_0$, and subdivide the element into tetrahedra which emanate from $\bar{\mathbf{X}}^{\Omega}_0$; each tetrahedron should share a single facet with $\partial \Omega$.
-		\item[3b.)] Lump into cells any tetrahedra which share a segment belonging to an edge of $\Omega$; each cell should consist of exactly two tetrahedra.
+		\item[3b.)] Lump into cells any tetrahedra that share a segment belonging to an edge of $\Omega$; each cell should consist of exactly two tetrahedra.
 	\end{itemize}
 	An illustration of this process is depicted in Figure \ref{fig:partitioning_algorithm}. A similar algorithm may be applied to each boundary face $F_b \subset \Gamma^N_0$, entailing only the first two steps described above.
 	\begin{figure} [!ht]
@@ -320,7 +320,7 @@ where
 	+ & \frac{1}{2} (\epsilon-1) \sum_{\zeta \in \partial \varepsilon \cap \Gamma_\varepsilon} \int_{\zeta} \left( \psi^{\varepsilon}_a \right) \left( \mathbf{N}_{\zeta} \cdot \nabla \psi^{\varepsilon}_a \right) \, d \zeta \nonumber \\
 	+ & \sum_{\zeta \in \partial \varepsilon} \frac{\alpha_{\zeta0}}{|\zeta|^{\beta_0}} \int_{\zeta} \left( \psi_a^{\varepsilon} \right)^2 \, d \zeta + \sum_{\zeta \in \partial \varepsilon \cap \Gamma_\varepsilon} \frac{\alpha_{\zeta1}}{|\zeta|^{\beta_1}} \int_{\zeta} \left( \mathbf{N}_{\zeta} \cdot \nabla \psi^{\varepsilon}_a \right)^2 \, d \zeta.
 \end{align}
-A brief remark should be made regarding the positivity of $J^\varepsilon_{aa}$, and its relation to the particular choice of DG method (i.e. whether the SIPG, NIPG, or IIPG is chosen). As discussed in \cite{Riviere:08}, the NIPG method with $\epsilon = +1$ will yield strictly positive diagonal entries provided $\alpha_{\zeta0} > 0$, resulting in the coercivity of $\mathbf{J}$. If the SIPG ($\epsilon = -1$) or IIPG ($\epsilon = 0$) methods are employed, then the penalty parameters must be made sufficiently large enough to guarantee coercivity, stability.
+A brief remark should be made regarding the positivity of $J^\varepsilon_{aa}$, and its relation to the particular choice of DG method (i.e. whether the SIPG, NIPG, or IIPG is chosen). As discussed in \cite{Riviere:08}, the NIPG method with $\epsilon = +1$ will yield strictly positive diagonal entries provided $\alpha_{\zeta0} > 0$, resulting in the coercivity of $\mathbf{J}$. If the SIPG ($\epsilon = -1$) or IIPG ($\epsilon = 0$) methods are employed, then the penalty parameters must be made sufficiently large enough to guarantee coercivity and stability.
 
 The subsequent discussion examines the case where $\epsilon = +1$, yielding strictly positive diagonal entries:
 \begin{equation}

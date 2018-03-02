@@ -297,6 +297,12 @@ Guang Lin, Jiangguo Liu, and Farrah Sadre-Marandi.
 \newblock {\em Journal of Computational and Applied Mathematics}, 273:346--362,
   2015.
 
+\bibitem{Liu:09}
+G.R. Liu, T.~Nguyen-Thoi, and K.Y. Lam.
+\newblock An edge-based smoothed finite element method (es-fem) for static,
+  free and forced vibration analyses of solids.
+\newblock {\em Journal of Sound and Vibration}, 320(4):1100 -- 1130, 2009.
+
 \bibitem{MacNeal:87}
 Richard~H. MacNeal.
 \newblock A theorem regarding the locking of tapered four-noded membrane
@@ -338,7 +344,7 @@ Lin Mu, Junping Wang, and Xiu Ye.
 
 \bibitem{Oden:98}
 J.Tinsley Oden, Ivo Babu\^{s}ka, and Carlos~Erik Baumann.
-\newblock A discontinuoushpfinite element method for diffusion problems.
+\newblock A discontinuous hp-finite element method for diffusion problems.
 \newblock {\em J. Comput. Phys.}, 146(2):491--519, October 1998.
 
 \bibitem{Bathe&Pantuso:97}

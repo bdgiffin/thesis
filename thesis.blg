@@ -11,55 +11,55 @@ A level-1 auxiliary file: future_work.aux
 A level-1 auxiliary file: appendix.aux
 Database file #1: bibliography.bib
 Warning--entry type for "Wikiversity:17" isn't style-file defined
---line 599 of file bibliography.bib
+--line 610 of file bibliography.bib
 Warning--entry type for "ASM:18" isn't style-file defined
---line 772 of file bibliography.bib
+--line 783 of file bibliography.bib
 Warning--entry type for "Erhart:11" isn't style-file defined
---line 799 of file bibliography.bib
+--line 810 of file bibliography.bib
 Warning--to sort, need author, organization, or key in LSDYNA
 Warning--empty author in ASTM:08
 Warning--empty journal in Freund:95
 Warning--empty publisher in Wilson:73
 Warning--empty school in Wopschall:17
-You've used 87 entries,
+You've used 88 entries,
             2118 wiz_defined-function locations,
-            1072 strings with 18115 characters,
-and the built_in function-call counts, 27404 in all, are:
-= -- 2755
-> -- 1214
+            1079 strings with 18323 characters,
+and the built_in function-call counts, 27796 in all, are:
+= -- 2793
+> -- 1232
 < -- 2
-+ -- 507
-- -- 394
-* -- 1958
-:= -- 4646
-add.period$ -- 253
-call.type$ -- 87
-change.case$ -- 451
++ -- 515
+- -- 400
+* -- 1992
+:= -- 4710
+add.period$ -- 256
+call.type$ -- 88
+change.case$ -- 457
 chr.to.int$ -- 0
-cite$ -- 92
-duplicate$ -- 941
-empty$ -- 2151
-format.name$ -- 394
-if$ -- 5580
+cite$ -- 93
+duplicate$ -- 952
+empty$ -- 2182
+format.name$ -- 400
+if$ -- 5661
 int.to.chr$ -- 0
-int.to.str$ -- 87
-missing$ -- 83
-newline$ -- 430
-num.names$ -- 170
-pop$ -- 375
+int.to.str$ -- 88
+missing$ -- 84
+newline$ -- 435
+num.names$ -- 172
+pop$ -- 379
 preamble$ -- 1
-purify$ -- 372
+purify$ -- 377
 quote$ -- 0
-skip$ -- 657
+skip$ -- 664
 stack$ -- 0
-substring$ -- 2058
-swap$ -- 104
+substring$ -- 2097
+swap$ -- 105
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 336
+type$ -- 340
 warning$ -- 5
-while$ -- 285
-width$ -- 89
-write$ -- 925
+while$ -- 288
+width$ -- 90
+write$ -- 936
 (There were 8 warnings)

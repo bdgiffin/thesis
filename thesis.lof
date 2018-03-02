@@ -1,6 +1,6 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces A depiction of the motion of material points in a body $\Omega $.\relax }}{16}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces A depiction of the motion of material points in a body $\Omega $ at time $t$.\relax }}{16}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces A representative polyhedral element $\Omega \subset \mathbb {R}^3$, a polygonal face $F \subset \partial \Omega $, a linear edge $E \subset \partial F$, and a node $V$.\relax }}{35}
 \contentsline {figure}{\numberline {3.2}{\ignorespaces The harmonic shape function corresponding to the indicated node $V$, defined hierarchically on each edge, face, and the element.\relax }}{36}
