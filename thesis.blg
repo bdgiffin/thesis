@@ -10,56 +10,62 @@ A level-1 auxiliary file: results.aux
 A level-1 auxiliary file: future_work.aux
 A level-1 auxiliary file: appendix.aux
 Database file #1: bibliography.bib
+I was expecting a `,' or a `}'---line 291 of file bibliography.bib
+ :   
+ :   bib2html_pubtype = {Book},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
 Warning--entry type for "Wikiversity:17" isn't style-file defined
---line 610 of file bibliography.bib
+--line 640 of file bibliography.bib
 Warning--entry type for "ASM:18" isn't style-file defined
---line 783 of file bibliography.bib
+--line 813 of file bibliography.bib
 Warning--entry type for "Erhart:11" isn't style-file defined
---line 810 of file bibliography.bib
+--line 840 of file bibliography.bib
 Warning--to sort, need author, organization, or key in LSDYNA
 Warning--empty author in ASTM:08
 Warning--empty journal in Freund:95
+Warning--empty year in kinematics_paper
 Warning--empty publisher in Wilson:73
 Warning--empty school in Wopschall:17
-You've used 88 entries,
+You've used 90 entries,
             2118 wiz_defined-function locations,
-            1079 strings with 18323 characters,
-and the built_in function-call counts, 27796 in all, are:
-= -- 2793
-> -- 1232
+            1089 strings with 18677 characters,
+and the built_in function-call counts, 28361 in all, are:
+= -- 2842
+> -- 1269
 < -- 2
-+ -- 515
-- -- 400
-* -- 1992
-:= -- 4710
-add.period$ -- 256
-call.type$ -- 88
-change.case$ -- 457
++ -- 530
+- -- 412
+* -- 2029
+:= -- 4812
+add.period$ -- 262
+call.type$ -- 90
+change.case$ -- 468
 chr.to.int$ -- 0
-cite$ -- 93
-duplicate$ -- 952
-empty$ -- 2182
-format.name$ -- 400
-if$ -- 5661
+cite$ -- 96
+duplicate$ -- 975
+empty$ -- 2222
+format.name$ -- 412
+if$ -- 5773
 int.to.chr$ -- 0
-int.to.str$ -- 88
-missing$ -- 84
-newline$ -- 435
-num.names$ -- 172
-pop$ -- 379
+int.to.str$ -- 90
+missing$ -- 86
+newline$ -- 445
+num.names$ -- 177
+pop$ -- 395
 preamble$ -- 1
-purify$ -- 377
+purify$ -- 387
 quote$ -- 0
-skip$ -- 664
+skip$ -- 677
 stack$ -- 0
-substring$ -- 2097
-swap$ -- 105
+substring$ -- 2108
+swap$ -- 107
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 340
-warning$ -- 5
-while$ -- 288
-width$ -- 90
-write$ -- 936
-(There were 8 warnings)
+type$ -- 346
+warning$ -- 6
+while$ -- 292
+width$ -- 92
+write$ -- 956
+(There was 1 error message)

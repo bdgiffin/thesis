@@ -231,6 +231,12 @@ W.~H. Gust.
 \newblock High impact deformation of metal cylinders at elevated temperatures.
 \newblock {\em Journal of Applied Physics}, 53(5):3566--3575, 1982.
 
+\bibitem{kinematics_paper}
+Omar Hafez, Brian Giffin, Sam Mish, and Mark~M. Rashid.
+\newblock An incremental kinematics implementation for finite element
+  applications in finite deformation continuum mechanics.
+\newblock {\em (In progress)}.
+
 \bibitem{Hesthaven:10}
 Jan~S. Hesthaven and Tim Warburton.
 \newblock {\em Nodal Discontinuous Galerkin Methods: Algorithms, Analysis, and
@@ -243,6 +249,12 @@ Hans~M. Hilber, Thomas J.~R. Hughes, and Robert~L. Taylor.
   structural dynamics.
 \newblock {\em Earthquake Engineering \& Structural Dynamics}, 5(3):283--292,
   1977.
+
+\bibitem{Sukumar:17}
+K.~Hormann and N.~Sukumar, editors.
+\newblock {\em Generalized Barycentric Coordinates in Computer Graphics and
+  Computational Mechanics}.
+\newblock CRC Press, Boca Raton, FL, 2017.
 
 \bibitem{Hughes:00}
 Thomas J.~R. Hughes.

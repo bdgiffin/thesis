@@ -186,11 +186,11 @@ Up to this point, we have discussed only the essential relationships which exist
 
 \subsection*{The Strong Form Statement of Equilibrium} \label{sec:strongform}
 
-In the context of solid mechanics, the solution of a given boundary value problem usually refers to a complete description of the primary field variable(s) of interest, namely the displacement field $\mathbf{u} (\mathbf{X},t)$ at all locations $\mathbf{X} \in \mathcal{B}_0$, and at some discrete time $t > 0$. Under the requirements of compatibility, we presume that the displacement field is a spatially continuous function, whose derivatives up to second order are defined everywhere, i.e. $\mathbf{u} \in \left[ C^2 (\mathcal{B}_0) \right]^d$.
+In the context of solid mechanics, the solution of a given boundary value problem entails a complete description of the primary field variable(s). In the semi-discrete case, this refers primarily to the displacement field $\mathbf{u} (\mathbf{X},t_n)$ at all locations $\mathbf{X} \in \mathcal{B}_0$, and at all discrete times $\left\{ t_n \right\}_{n=0}^{N_t}$ beginning at $t_0 = 0$. Under the requirements of compatibility, we presume that the displacement field is a spatially continuous function, whose derivatives up to second order are defined everywhere, i.e. $\mathbf{u} \in \left[ C^2 (\mathcal{B}_0) \right]^d$.
 
-Let us examine a quasi-static solid mechanics model problem of the following form: consider an open domain $\mathcal{B}_0 \subset \mathbb{R}^d$ whose boundary $\partial \mathcal{B}_0$ consists of the partition $\left\{ \Gamma^D_0, \Gamma^N_0 \right\}$. Let $\mathbf{u} = \bar{\mathbf{u}}(t) \, \, \forall \mathbf{X} \in \Gamma^D_0$ constitute a prescribed Dirichlet boundary condition imposed upon the displacement field, and $\mathbf{n} \cdot \boldsymbol{\sigma} = \bar{\mathbf{t}}(t) \, \, \forall \mathbf{X} \in \Gamma^N_0$ be a Neumann boundary condition imposed upon the surface traction. Additionally, let us suppose that an applied body force $\mathbf{b}(t)$ acts upon all points $\mathbf{X} \in \mathcal{B}_0$. At a particular time $t > 0$, we should like to determine the displacement field $\mathbf{u} \in \mathcal{S} = \left\{ \mathbf{u} \in \left[ C^2 (\mathcal{B}_0) \right]^d \colon \mathbf{u} = \bar{\mathbf{u}} \, \, \forall \mathbf{x} \in \Gamma^D_0 \right\}$ which satisfies the equations of equilibrium in a point-wise sense:
+Let us examine a quasi-static solid mechanics model problem of the following form: consider an open domain $\mathcal{B}_0 \subset \mathbb{R}^d$ whose boundary $\partial \mathcal{B}_0$ consists of the partition $\left\{ \Gamma^D_0, \Gamma^N_0 \right\}$. Let $\mathbf{u} = \bar{\mathbf{u}}(t) \, \, \forall \mathbf{X} \in \Gamma^D_0$ constitute a prescribed Dirichlet boundary condition imposed upon the displacement field, and $\mathbf{n} \cdot \boldsymbol{\sigma} = \bar{\mathbf{t}}(t) \, \, \forall \mathbf{X} \in \Gamma^N_0$ be a Neumann boundary condition imposed upon the surface traction. Additionally, let us suppose that an applied body force $\mathbf{b}(t)$ acts upon all points $\mathbf{X} \in \mathcal{B}_0$. For every $t \in \left\{ t_n \right\}_{n=0}^{N_t}$, we should like to determine the displacement field $\mathbf{u} (t) \in \mathcal{S} = \left\{ \mathbf{u} \in \left[ C^2 (\mathcal{B}_0) \right]^d \colon \mathbf{u} = \bar{\mathbf{u}} \, \, \forall \mathbf{x} \in \Gamma^D_0 \right\}$ which satisfies the equations of equilibrium in a point-wise sense:
 \begin{equation}
-  \rho \mathbf{b} + \nabla_x \cdot \boldsymbol{\sigma} = \mathbf{0} \quad \forall \mathbf{x} \in \mathcal{B}_t,
+  \rho \mathbf{b} + \nabla_x \cdot \boldsymbol{\sigma} = \mathbf{0} \quad \forall \mathbf{x} \in \mathcal{B}_{t},
 \end{equation}
 and where we suppose that a constitutive model has been defined in order to relate some measure of the deformation (e.g. $\mathbf{F} = \mathbf{1} + \nabla_X \mathbf{u}$) to the stress (e.g. $\boldsymbol{\sigma} = f (\mathbf{F})$). Equivalently, we may write the equations of equilibrium in terms of quantities related to the reference configuration of the body:
 \begin{equation}
@@ -204,7 +204,7 @@ It should be emphasized that the Dirichlet boundary conditions and the requireme
 
 In general, solutions to the strong form problem are not easily obtained. For this reason, it proves to be much more convenient to work with the (equivalent) ``weak form'' statement of the boundary value problem:
 
-\textit{Find $\mathbf{u}(t) \in \mathcal{S} = \left\{ \mathbf{u} \in \left[H^{1} (\mathcal{B}_0)\right]^d \colon \mathbf{u} = \bar{\mathbf{u}} \, \, \forall \mathbf{X} \in \Gamma^D_0 \right\}$ such that}
+\textit{For every $t \in \left\{ t_n \right\}_{n=0}^{N_t}$, find $\mathbf{u}(t) \in \mathcal{S} = \left\{ \mathbf{u} \in \left[H^{1} (\mathcal{B}_0)\right]^d \colon \mathbf{u} = \bar{\mathbf{u}} \, \, \forall \mathbf{X} \in \Gamma^D_0 \right\}$ such that}
 \begin{equation}
   \mathcal{R}(\mathbf{u}, \mathbf{v}) = \int_{\mathcal{B}_t} \rho \mathbf{b} \cdot \mathbf{v} \, dv + \int_{\Gamma^N_t} \bar{\mathbf{t}} \cdot \mathbf{v} \, da - \int_{\mathcal{B}_t} \boldsymbol{\sigma} \colon \nabla_x \mathbf{v} \, dv = 0 \quad \forall \mathbf{v} \in \mathcal{V},
   \label{eq:weakeulerian}
@@ -262,39 +262,39 @@ Elements consisting of regular shapes (tetrahedra, hexahedra) also provide a nat
 \subsection*{Consistent Linearization of the Weak Form}
 
 	% Discuss and present a consistent linearization of the weak form
-	In order to determine the solution $\mathbf{u}^h \in \mathcal{S}^h$ satisfying the weak form equations, we will choose to employ a Newton-Raphson algorithm:
-	
+	In order to determine the solution $\mathbf{u}^h (t_n) \in \mathcal{S}^h$ satisfying the weak form equations at time $t_n$, the following Newton-Raphson algorithm is employed:
 \begin{algorithm}
  \caption{Newton-Raphson Iteration}
  \label{alg:newtonraphson}
- 	Compute initial guess $u_{jb}^{(0)}$ \;
-	\While{$||R_{ia}|| < \epsilon$}{
- 		Assemble $K_{iajb} = \partial R_{ia} / \partial u_{jb}$ \;
- 		Update $u_{jb}^{(k+1)} \leftarrow u_{jb}^{(k)} - K_{jbia}^{-1}  R_{ia}$ \;
+ 	Compute initial guess $\Delta \mathbf{u}$ \;
+	\While{$||\mathbf{R} (\mathbf{u}^h (t_{n-1})+\Delta {\mathbf{u}})|| < \epsilon$}{
+ 		Assemble $\mathbf{K} = \partial \mathbf{R} / \partial \Delta \mathbf{u}$ \;
+ 		Update $\Delta \mathbf{u} \leftarrow \Delta \mathbf{u} - \mathbf{K}^{-1}  \mathbf{R}$ \;
  	}
+ 	Update $\mathbf{u}^h (t_{n}) = \mathbf{u}^h (t_{n-1}) + \Delta {\mathbf{u}}$ \;
 \end{algorithm}
 
-	Here, $R_{ia}$ denotes the residual (vector), and $K_{iajb}$ denotes the stiffness matrix -- the Jacobian of the residual with respect to the independent unknowns $u_{jb}$ (the nodal displacements). The above iteration procedure is repeated until the stopping criterion $||R_{ia}|| < \epsilon$ is reached, for some specified residual measure $||\cdot||$, and tolerance $\epsilon$.
+	$\mathbf{R}$ denotes the residual (vector), and $\mathbf{K}$ denotes the stiffness matrix -- the Jacobian of the residual with respect to the incremental nodal displacements $\Delta \mathbf{u} = \mathbf{u}^h (t_{n}) - \mathbf{u}^h (t_{n-1})$. The iteration procedure is repeated until the stopping criterion $||\mathbf{R}|| < \epsilon$ is reached, for some specified residual measure $||\cdot||$, and tolerance $\epsilon$.
 		
-	Given the residual equations $R_{ia} (\mathbf{u}^h) = 0 \, \forall i, \, a$, we may express their first partial derivatives $\partial R_{ia} / \partial u_{jb}$ with respect to the independent unknowns $u_{jb}$ as
+	Given the residual equations $R_{ia} (\mathbf{u}^h) = 0 \, \forall i, \, a$, we may express their first partial derivatives $\partial R_{ia} / \partial \Delta u_{jb}$ with respect to the independent unknowns $\Delta u_{jb}$ as
 	\begin{equation}
-	  \frac{\partial R_{ia}}{\partial u_{jb}} =
-	  \int_{\Gamma^N_0} \frac{\partial \bar{p}_i}{\partial u_{jb}}  \phi_a \, dA
-	 - \int_{\mathcal{B}_0} \frac{\partial P_{ik}}{\partial u_{jb}} \phi_{a,k} \, dV,
+	  \frac{\partial R_{ia}}{\partial \Delta u_{jb}} =
+	  \int_{\Gamma^N_0} \frac{\partial \bar{p}_i}{\partial \Delta u_{jb}}  \phi_a \, dA
+	 - \int_{\mathcal{B}_0} \frac{\partial P_{ik}}{\partial \Delta u_{jb}} \phi_{a,k} \, dV,
 	\end{equation}
 	indicating two primary terms ($\bar{\mathbf{p}}$ and $\mathbf{P}$) which must be linearized. Subsequent discussions will focus on the linearization of the first Piola-Kirchhoff stress.
 	
 \subsection*{Nonlinear Deformation and Incremental Kinematics}
 
-	Let us contemplate the linearization of $\partial P_{ik} / \partial u_{jb}$ by applying the chain-rule:
+	Let us contemplate the linearization of $\partial P_{ik} / \partial \Delta u_{jb}$ by applying the chain-rule:
 	\begin{equation}
-		\frac{\partial P_{ik}}{\partial u_{jb}} = \frac{\partial P_{ik}}{\partial F_{lm}} \frac{\partial F_{lm}}{\partial u_{jb}},
+		\frac{\partial P_{ik}}{\partial \Delta u_{jb}} = \frac{\partial P_{ik}}{\partial F_{lm}} \frac{\partial F_{lm}}{\partial \Delta u_{jb}},
 	\end{equation}
 	revealing the deformation ``gradient operator:''
 	\begin{equation}
-		\frac{\partial F_{lm}}{\partial u_{jb}} = \delta_{jl} \varphi_{b,m}.
+		\frac{\partial F_{lm}}{\partial \Delta u_{jb}} = \delta_{jl} \varphi_{b,m}.
 	\end{equation}
-	If an enhanced strain formulation is employed, only the gradient operator would need to be modified; the subsequent expressions pertaining to $\partial P_{ik} / \partial F_{lm}$ would remain unchanged.
+	If an enhanced strain formulation is employed (such as the mean dilatation approach of de Souza Neto et al. \cite{Souza:96}), only the gradient operator would need to be modified; the subsequent expressions pertaining to $\partial P_{ik} / \partial F_{lm}$ would remain unchanged.
 
 	% Present consistent linearization for finite deformations
 	
@@ -308,40 +308,44 @@ Elements consisting of regular shapes (tetrahedra, hexahedra) also provide a nat
 	\end{equation}
 	If the material model allows for the Cauchy stress to be written directly as a function of the deformation gradient (i.e. $\boldsymbol{\sigma} = f(\mathbf{F})$, as is the case for Cauchy-elastic material models), then a consistent linearization for $\partial \sigma_{ij} / \partial F_{lm}$ may be obtained by direct differentiation.
 	
-	Otherwise (for hypoelastic material models of the form $\dot{\boldsymbol{\sigma}} = g(\boldsymbol{\sigma}, \mathbf{L})$), we must consider the integral of the stress rate over some finite time interval $\Delta t = t_{k+1} - t_{k}$:
+	Otherwise (for hypoelastic material models of the form $\dot{\boldsymbol{\sigma}} = g(\boldsymbol{\sigma}, \mathbf{L})$), the integral of the stress rate over some finite time interval $\Delta t = t_{n} - t_{n-1}$ is required:
 	\begin{equation}
-		\boldsymbol{\sigma}_{k+1} = \boldsymbol{\sigma}_k + \int_{t_{k}}^{t_{k+1}} \dot{\boldsymbol{\sigma}} \, dt.
+		\boldsymbol{\sigma} (t_{n}) = \boldsymbol{\sigma} (t_{n-1}) + \int_{t_{n-1}}^{t_{n}} \dot{\boldsymbol{\sigma}} (\boldsymbol{\sigma}, \mathbf{L}) \, dt.
+		\label{eq:stress_update}
 	\end{equation}
-	The corresponding increment of motion is characterized by $\hat{\mathbf{F}} = \mathbf{F}_{k+1} \mathbf{F}^{-1}_{k} = \hat{\mathbf{R}} \hat{\mathbf{U}}$, which is used to update the stress via the following incremental algorithm (proposed in \cite{Rashid:93}):
+	The corresponding increment of deformation is denoted $\hat{\mathbf{F}} = \mathbf{F} (t_{n}) \mathbf{F}^{-1} (t_{n-1}) = \hat{\mathbf{R}} \hat{\mathbf{U}}$. In the incremental kinematics algorithm of Rashid \cite{Rashid:93}, the incremental deformation $\hat{\mathbf{F}}$ is applied sequentially, in two distinct steps which consist of: a constant rate of stretching $\mathbf{D} = \frac{1}{\Delta t} \log \hat{\mathbf{U}}$ with $\mathbf{W} = 0$, followed by an impulsive (rigid) rotation $\hat{\mathbf{R}}$. Following this procedure, equation (\ref{eq:stress_update}) becomes:
 	\begin{equation}
-		\boldsymbol{\sigma}_{k+1} = \hat{\mathbf{R}} \left[ \boldsymbol{\sigma}_k + \int_{t_k}^{t_{k+1}} \accentset{\circ}{\boldsymbol{\sigma}} (\mathbf{D}) \, dt \right] \hat{\mathbf{R}}^T,
+		\boldsymbol{\sigma} (t_{n}) = \hat{\mathbf{R}} \left[ \boldsymbol{\sigma} (t_{n-1}) + \int_{t_{n-1}}^{t_{n}} \dot{\boldsymbol{\sigma}} (\boldsymbol{\sigma}, \mathbf{D}) \, dt \right] \hat{\mathbf{R}}^T.
 	\end{equation}
-	where $\mathbf{D} = \frac{1}{\Delta t} \log \hat{\mathbf{U}}$ denotes the time-averaged rate of deformation over the time step. The resulting algorithmically consistent tangent $\partial \sigma_{ij} / \partial F_{lm}$ is computed as
+	The resulting algorithmically consistent tangent $\partial \sigma_{ij} / \partial F_{lm}$ is computed as
 	\begin{equation}
 		\frac{\partial \sigma_{ij}}{\partial F_{lm}} = \frac{\partial \hat{R}_{ik}}{\partial F_{lm}} \hat{R}_{nk} \sigma_{nj} + \sigma_{in} \hat{R}_{nk} \frac{\partial \hat{R}_{jk}}{\partial F_{lm}} + \hat{R}_{ik} C_{knpq} \hat{R}_{jn} \frac{\partial D_{pq}}{\partial F_{lm}} \Delta t,
 	\end{equation}
-	where $C_{knpq} \equiv \partial \accentset{\circ}{\sigma}_{kn} / \partial D_{pq}$ (the material tangent modulus) is supplied by the constitutive model. The computation of $\partial \hat{R}_{ik} / \partial F_{lm}$ and $\partial D_{pq} / \partial F_{lm}$ may be accurately carried out with the aid of the following expressions:
-	\begin{equation}
-		\frac{\partial \hat{D}_{pq}}{\partial \hat{U}_{ij}} = \frac{1}{\Delta t} \sum_{r,s} \hat{Q}_{qr} \hat{Q}_{jr} \mathcal{H} (f, \hat{\lambda}_r, \hat{\lambda}_s) \hat{Q}_{ps} \hat{Q}_{is}; \quad f (\lambda) = \log (\lambda),
-	\end{equation}
-	\begin{equation}
-		\frac{\partial \hat{U}_{ij}}{\partial \hat{B}_{kl}} = \sum_{r,s} \hat{Q}_{jr} \hat{Q}_{lr} \mathcal{H} (g, \hat{\lambda}_r^2, \hat{\lambda}_s^2) \hat{Q}_{is} \hat{Q}_{ks}; \quad g (\lambda) = \sqrt{\lambda},
-	\end{equation}
+	where $C_{knpq} \equiv \partial \sigma_{kn} / \partial D_{pq}$ (the material tangent modulus) is supplied by the constitutive model.
+	
+	The accurate computation of $\partial \hat{R}_{ik} / \partial F_{lm}$ and $\partial D_{pq} / \partial F_{lm}$ pose several nuanced challenges, requiring expressions for tensor derivatives of tensor functions ($\log \hat{\mathbf{U}}$, in particular). Recently, closed form expressions for the aforementioned derivatives have been developed, which utilize the eigendecomposition of $\hat{\mathbf{U}}$. The relevant procedures are too complicated to discuss in sufficient detail here. A forthcoming publication that addresses precisely this subject is currently in progress \cite{kinematics_paper}.
+	
 %	\begin{equation}
-%		\frac{\partial \hat{B}_{kj}}{\partial F_{lm}} = \frac{\partial \hat{B}_{kj}}{\partial \hat{F}_{iq}} \frac{\partial \hat{F}_{iq}}{\partial F_{lm}} = \left[ \delta_{kq} \hat{F}_{ij} + \hat{F}_{ik} \delta_{jq} \right] \delta_{il} \bar{F}^{-1}_{mq} = \bar{F}^{-1}_{mk} \hat{F}_{lj} + \hat{F}_{lk} \bar{F}^{-1}_{mj},
+%		\frac{\partial \hat{D}_{pq}}{\partial \hat{U}_{ij}} = \frac{1}{\Delta t} \sum_{r,s} \hat{Q}_{qr} \hat{Q}_{jr} \mathcal{H} (f, \hat{\lambda}_r, \hat{\lambda}_s) \hat{Q}_{ps} \hat{Q}_{is}; \quad f (\lambda) = \log (\lambda),
 %	\end{equation}
-	\begin{equation}
-		\frac{\partial \hat{B}_{kj}}{\partial F_{lm}} = F^{-1}_{mi} (\hat{F}_{ik} \hat{F}_{lj} + \hat{F}_{ij} \hat{F}_{lk}),
-	\end{equation}
-	\begin{equation}
-		\frac{\partial \hat{R}_{ik}}{\partial F_{lm}} = \delta_{il} \hat{R}_{mj} F^{-1}_{jk} - \hat{R}_{in} \frac{\partial \hat{U}_{nj}}{\partial F_{lm}} \hat{U}_{jk}^{-1},
-	\end{equation}
-	where we define
-	\begin{equation}
-		\mathcal{H} (f, x, y) \equiv \left\{ \begin{array}{cc} f'(x), & x = y \\
-		\frac{f(x) - f(y)}{x - y} & x \neq y \end{array} \right. ,
-	\end{equation}
-	and $\hat{\mathbf{U}} = \hat{\mathbf{Q}} \hat{\boldsymbol{\Lambda}} \hat{\mathbf{Q}}^T$ represents the eigendecomposition of $\hat{\mathbf{U}}$, and $\hat{\lambda}_i$ denote the corresponding eigenvalues of $\hat{\mathbf{U}}$.
+%	\begin{equation}
+%		\frac{\partial \hat{U}_{ij}}{\partial \hat{B}_{kl}} = \sum_{r,s} \hat{Q}_{jr} \hat{Q}_{lr} \mathcal{H} (g, \hat{\lambda}_r^2, \hat{\lambda}_s^2) \hat{Q}_{is} \hat{Q}_{ks}; \quad g (\lambda) = \sqrt{\lambda},
+%	\end{equation}
+%%	\begin{equation}
+%%		\frac{\partial \hat{B}_{kj}}{\partial F_{lm}} = \frac{\partial \hat{B}_{kj}}{\partial \hat{F}_{iq}} \frac{\partial \hat{F}_{iq}}{\partial F_{lm}} = \left[ \delta_{kq} \hat{F}_{ij} + \hat{F}_{ik} \delta_{jq} \right] \delta_{il} \bar{F}^{-1}_{mq} = \bar{F}^{-1}_{mk} \hat{F}_{lj} + \hat{F}_{lk} \bar{F}^{-1}_{mj},
+%%	\end{equation}
+%	\begin{equation}
+%		\frac{\partial \hat{B}_{kj}}{\partial F_{lm}} = F^{-1}_{mi} (\hat{F}_{ik} \hat{F}_{lj} + \hat{F}_{ij} \hat{F}_{lk}),
+%	\end{equation}
+%	\begin{equation}
+%		\frac{\partial \hat{R}_{ik}}{\partial F_{lm}} = \delta_{il} \hat{R}_{mj} F^{-1}_{jk} - \hat{R}_{in} \frac{\partial \hat{U}_{nj}}{\partial F_{lm}} \hat{U}_{jk}^{-1},
+%	\end{equation}
+%	where we define
+%	\begin{equation}
+%		\mathcal{H} (f, x, y) \equiv \left\{ \begin{array}{cc} f'(x), & x = y \\
+%		\frac{f(x) - f(y)}{x - y} & x \neq y \end{array} \right. ,
+%	\end{equation}
+%	and $\hat{\mathbf{U}} = \hat{\mathbf{Q}} \hat{\boldsymbol{\Lambda}} \hat{\mathbf{Q}}^T$ represents the eigendecomposition of $\hat{\mathbf{U}}$, and $\hat{\lambda}_i$ denote the corresponding eigenvalues of $\hat{\mathbf{U}}$.
 
 \section{Requirements for Convergence of an \\ Approximation Method}
 
@@ -416,7 +420,7 @@ Considering the variational formulation of the model boundary value problem in (
 \end{equation}
 This property is referred to as \textit{Galerkin exactness}, and is particularly relevant to the satisfaction of finite element patch tests, which demonstrate Galerkin exactness when the exact solution is a low-order polynomial.
 
-In particular, given a stress field $P_{ij} (\mathbf{u})$ arising from the exact solution $\mathbf{u} \in \mathcal{S}^h$, and for the given boundary conditions $\bar{p}_i = P_{ij} N_j$ and $\rho_0 b_i = - P_{ij,j}$, we may express the residual equations as
+In particular, given a stress field $P_{ij}$ arising from the exact solution $\mathbf{u} \in \mathcal{S}^h$, and for the given boundary conditions $\bar{p}_i = P_{ij} N_j$ and $\rho_0 b_i = - P_{ij,j}$, we may express the residual equations as
 \begin{equation}
 	R_{ia} = \int_{\mathcal{B}_0} P_{ij} \phi_{a,j} \, dV + \int_{\mathcal{B}_0} P_{ij,j} \phi_a \, dV - \int_{\partial \mathcal{B}_0} P_{ij} N_j \phi_a \, dA = 0 \quad \forall i, \, a.
 \end{equation}

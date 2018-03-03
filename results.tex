@@ -186,7 +186,9 @@ $\alpha_{\gamma1} = 10^{6}$	& 1.77E+012 & 2.45E+009 & 2.52E+008 & 3.07E+005 \\
 \label{tab:thin_interpolation_error_and_condJ_k1}
 \end{table}
 
-Careful selection of $\alpha_{\gamma0}$ and $\alpha_{\gamma1}$ is warranted for the sake of minimizing the resulting interpolation error. For general applications in which an edge-based partitioning scheme is employed, it is suggested that the parameter values be chosen such that $\alpha_{\gamma0} = 10.0$ and $\alpha_{\gamma1} = 0.0$. Nonetheless, a more thorough parameter sensitivity analysis is recommended.
+The results in table \ref{tab:thin_interpolation_error_and_condJ_k1} indicate that the interpolation error becomes more sensitive to the choice of $\alpha_{\gamma0}$ and $\alpha_{\gamma1}$ for elements with large aspect ratios. A careful selection of the DG-PEM penalty parameters is therefore warranted for the sake of minimizing the resulting interpolation error. For general applications in which an edge-based partitioning scheme is employed, it is suggested that the parameter values be chosen such that $\alpha_{\gamma0} = 10.0$ and $\alpha_{\gamma1} = 0.0$. Nonetheless, a more thorough parameter sensitivity analysis is recommended.
+
+One option for overcoming the aforementioned sensitivity issues for thin elements would be to consider a scaled ``parent element'' domain. This would entail anisotropically scaling each element to have unit aspect ratio prior to constructing its shape functions. The resulting shape functions would then be transformed via an inverse scaling operation into the element's physical coordinates. This rescaling operation would need to be performed with care, however, so as to maintain consistency in the representation of the elements' shape functions on shared faces (in order to maintain (\ref{eq:face_constraint})).
 
 \section{Finite Element Patch Tests}
 
@@ -225,7 +227,7 @@ A constant vertical traction $\bar{\mathbf{t}} = (0, \, T)$ is prescribed on the
 	\sigma_{11} (\mathbf{X}) = \sigma_{12} (\mathbf{X}) = 0, \quad \sigma_{22} (\mathbf{X}) = T.
 \end{equation}
 
-The two meshes depicted in Figure \ref{fig:patch_test_meshes} are considered. The PEM was used on the polygonal mesh, whereas the FEM with standard 4-nodes isoparametric elements was used on the quadrilateral mesh.
+The two meshes depicted in Figure \ref{fig:patch_test_meshes} are considered. The PEM was used on the polygonal mesh, whereas the FEM with standard 4-node isoparametric elements was used on the quadrilateral mesh.
 \begin{figure}[!h]
     \centering
     \includegraphics[width=4.0in]{figures/patch_test_meshes.pdf}

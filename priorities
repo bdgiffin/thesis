@@ -1,0 +1,37 @@
+-revise meshes used for the twisting annulus problem
+	(make sure both meshes have uniform gradation in the radial direction, for consistency)
+-implement 2d version of F-bar method
+	-look at effects of convergence both w/ and w/o the F-bar method in 2d problem
+-alternatively, just make the meshes 3-dimensional, and run as 3d problem (plane strain constraints)
+	(arguably the simplest approach, doubles as a test for convergence in 3d)
+	-only run on linear meshes (expect bad behavior of quadratic elements)
+	-tests: 3d convergence, F-bar improvement, polyhedral mesh improvement for volumetric locking
+	-informs results/discussion for finite deformation problems
+-investigate effects of having short element edges
+	-does this impact F-bar stability?
+	-does this impact convergence?
+	(look at twisting annulus problem: look at meshes with comparable elements, different shapes)
+		-compare ACCURACY (not convergence) at a fixed discretization level
+		-a test for element quality, effectively, showing behavior w/ short edges, especially
+
+-finish discussions for the large deformation elasto-plastic problems
+
+-(optional) run the plate bending problem, and investigate bending sensitivity to distortions
+	-curcial for testing high-order PEM in 3d
+
+-complete conclusions section of the report
+	-identify apparent strengths and weaknesses of the PEM (is it worth it?)
+
+REVISIONS:
+
+CH3:
+
+In this general setting, we are simply establishing the spaces of functions to which the elements' shape functions belong. As of yet, we make no specification as to whether the elements are partitioned into cells, though this possibility is accomodated by our particular choice of function spaces. The construction much resembles that of a DiSk method (ref), in that degrees of freedom are presumed to exist at each skeletal level on the element, but within this framework, they are condensed out and represented exclusively in terms of the nodal degrees of freedom.
+
+Harmonic shape functions may not be an optimal choice for the elements' shape functions. Evidence suggests that the convergence properties of a finite element method using harmonic shape functions is highly sensitive to the shape of the elements \cite{Gillette:16}. Elements with non-convex features, especially, may severely degrade the behavior of the method. For this reason, an exploration of other forms for the shape functions (arising from a different choice of elliptic operator L) is warranted. The primary issue would be in maintaining the desirable properties of harmonic functions (completeness and ellipticity) while eliminating its poorer qualities (ostensibly sharp gradients in the locality of re-entrant corners). Nonetheless, harmonic functions are represented in the proceeding sections and chapters of this work, being representative of a broader class of shape functions which could be devised using precisely the same partitioned element framework considered herein.
+
+CH4:
+
+The PEM can be applied to a variety of different choices for elliptic operators other than the Laplace operator (which yields harmonic shape functions). Harmonic shape functions are desirable because they are uniquely defined, and therefore guarantee ellipticity of the resulting PEM systems of equations.
+
+

@@ -4,7 +4,7 @@
 
 	% A high-level description of the research setting:
 		% Efficient & accurate approximation methods for nonlinear solid mechanics
-	For decades, finite element methods (FEM) have been widely used by engineers and physicists in the modeling of solid continua. Numerous extensions of the method have been developed to model more complex physical processes, including nonlinear kinematic and material behavior.
+	For decades, finite element methods (FEM) have been widely used by engineers and physicists in the modeling of solid continua. Numerous extensions of the method have been developed to model more complex physical processes, including large deformations and nonlinear material behavior.
 	% A high% level statement of the fundamental problem(s):
 		% FE solution accuracy is compromised by the issues of locking and mesh quality
 		% Proposed solutions handle some, but not all of these problems
@@ -14,13 +14,13 @@
 		% Thesis presents a polytopal element framework to address these issues
 		% Polyhedral discretization is aimed at overcoming issues of mesh quality
 		% Framework is amenable to classical FE procedures used to address locking
-	This thesis presents a novel polytopal element framework in an effort to address the aforementioned issues as a whole. The use of arbitrary polygonal and polyhedral shapes in place of canonical isoparametric element shapes seeks to resolve the issue of distortion sensitivity directly, obviating issues of meshing and mesh quality, while maintaining many of the desirable features of the FEM and its extensions.
+	This thesis presents a novel polytopal element framework in an effort to address the aforementioned issues as a whole. The use of arbitrary polygonal and polyhedral shapes in place of canonical isoparametric elements seeks to resolve the issue of distortion sensitivity directly, obviating issues of meshing and mesh quality, while maintaining many of the desirable features of the FEM and its extensions.
 
 \section{Historical Development} % (what has led up to polyhedral discretizations)
 
 	% Origin of finite element methods, applied to solid mechanics problems
 		% Finite elements developed initially for LINEAR, structural problems
-	According to \cite{Felippa:04}, finite element methods originated in the 1950s to address engineering challenges in, among other things, the design of aircraft. The method was subsequently given a more rigorous mathematical treatment by early contributors (Irons, Melosh, Strang), and its usage permeated to other fields of study (namely, structural engineering). Following the advent of the isoparametric element concept, displacement-based finite element formulations gained widespread popularity. Most early applications considered only linear kinematic and material behavior.
+	According to the historical account of Felippa \cite{Felippa:04}, finite element methods originated in the 1950s to address engineering challenges in, among other things, the design of aircraft. The method was subsequently given a more rigorous mathematical treatment by early contributors (Irons, Melosh, Strang), and its usage permeated to other fields of study (namely, structural engineering). Following the advent of the isoparametric element concept, displacement-based finite element formulations gained widespread popularity. Most early applications considered only small displacements and linear material behavior.
 	% Subsequently, more complicated models were developed to accomodate nonlinearities:
 		% Finite deformations incorporated to handle non-linear geometric effects
 		% Advanced constitutive models developed for plastic and viscoelastic materials
@@ -40,7 +40,7 @@
 			% application of other BC's (FSI pressure coupling) also straightforward
 	Over half a century after its initial development, the finite element method is still widely used, and recognized as the industry standard technology for modeling complicated structural and dynamic systems. Its reigning popularity can be attributed to several desirable features of the method:
 	\begin{itemize}
-		\item The compact support property of the isoparametric basis functions helps to facilitate more efficient solution methodologies. In particular, the assembly of finite element systems of equations is made more efficient by an element-wise assembly process.
+		\item The compact support property of the isoparametric basis functions helps to facilitate more efficient solution methodologies. In particular, the assembly of finite element systems of equations is rendered more efficient (and modular) by an element-wise assembly process.
 		\item The Kronecker delta property and precise description of mesh boundaries allow for a relatively straightforward application of boundary conditions and contact constraints.
 		\item Numerical quadrature on element domains derived from product Gauss rules balances accuracy, efficiency, and stability. Domain quadrature rules also naturally accommodate nonlinear kinematic behavior and ``black box'' constitutive models.
 	\end{itemize}	
@@ -104,14 +104,14 @@
 		% Selective Reduced Integration techniques
 			% developed to handle incompressibility constraint
 			% works fairly well, though may fail inf-sup
-		Other attempts to adapt mixed formulations for more general use with arbitrary material models without relying upon an explicit interpolation of the stress or strain fields include \textit{selective reduced integration} (SRI) and equivalent \textit{strain projection} techniques. These methods were fairly successful in overcoming the issues of volumetric locking via the B-bar projection approach for linear problems discussed in \cite{Hughes:00}, and via the F-bar approach for nonlinear problems discussed in \cite{Souza:96}. Though these methods can be both effective and efficient, their success has been limited to the problem of volumetric locking; they are somewhat less successful with regard to treating other forms of locking, such as shear locking in continuum finite elements (as noted in \cite{Malkus&Hughes:78}). Also, SRI can lead to stability problems if the strain projection spaces are not selected carefully.
+		Other attempts to adapt mixed formulations for more general use with arbitrary material models without relying upon an explicit interpolation of the stress or strain fields include \textit{selective reduced integration} (SRI) and equivalent \textit{strain projection} techniques. These methods were fairly successful in overcoming the issues of volumetric locking via the B-bar projection approach for linear problems discussed in \cite{Hughes:00}, and via the F-bar approach for nonlinear problems discussed in \cite{Souza:96}. Though these methods can be both effective and efficient, their success has been limited to the problem of volumetric locking; they are somewhat less successful with regard to treating other forms of locking, such as shear locking in continuum finite elements \cite{Malkus&Hughes:78}. Also, SRI can lead to stability problems if the strain projection spaces are not selected carefully.
 		
 		% Hourglass stiffness and viscosity
 			% use underintegration of the element (single point quadrature)
 			% supplement with (small) artificial stiffness & viscosity parameters
 			% efficient computationally, especially for explicit dynamics
 			% an ad hoc solution, sensitive to the choice of HG parameters
-		At the opposite end of the spectrum -- in recognition of the inherent issues of stability plaguing mixed methods and reduced integration techniques, methodologies employing \textit{orthogonal hourglass control} have been suggested \cite{Flanagan:81}. These approaches consider the use of low-order quadrature rules to avoid common locking phenomena, supplemented by artificial stiffness terms to maintain stability while preserving essential convergence characteristics. While these formulations tend to be highly efficient computationally (particularly for explicit dynamics analyses), the obvious disadvantage of these approaches relates to their reliance upon user-specified artificial stiffness and viscosity parameters. Appropriate selection of these parameters is not always a trivial matter, and often warrants problem-specific investigations via sensitivity analyses.
+		At the opposite end of the spectrum -- in recognition of the inherent issues of stability plaguing mixed methods and reduced integration techniques, methodologies employing \textit{orthogonal hourglass control} have been suggested \cite{Flanagan:81}. These approaches consider the use of low-order quadrature rules to avoid common locking phenomena, supplemented by artificial stiffness terms to maintain stability while preserving essential convergence characteristics. While these formulations tend to be highly efficient computationally (particularly for explicit dynamics), the obvious disadvantage of these approaches relates to their reliance upon user-specified artificial stiffness and viscosity parameters. Appropriate selection of these parameters is not always a trivial matter, and often warrants problem-specific investigations via sensitivity analyses.
 			
 		% Important point: most of these methods restricted to standard (hex) elements
 			% not easily generalizable/extensible to other elements/methods
@@ -127,7 +127,7 @@
 		% Efforts toward meshing & element quality led to new methods & discretizations
 		Driven primarily by concerns over meshing (and additionally by concerns over element quality), a variety of alternative approximation methods have been explored in recent decades. %The general consensus is that the construction of an approximation space should be disconnected (to a variable extent) from the particular choice of discretization. In particular, isoparametric finite element basis functions are conveniently defined in terms of the discretization, but may not necessarily result in a suitable approximation space for the given problem at hand.
 		
-		% Say something about how we should like to define approximations spaces in a more flexible way. Additionally, consider the fact that these methods are intended/aimed at avoiding the meshing problem altogether. (Mesh-free methods, in particular, are driven by the desire to avoid having to create a mesh in the first place; not by element quality.)
+		% Say something about how we should like to define approximation spaces in a more flexible way. Additionally, consider the fact that these methods are intended/aimed at avoiding the meshing problem altogether. (Mesh-free methods, in particular, are driven by the desire to avoid having to create a mesh in the first place; not by element quality.)
 		
 		% Meshfree methods
 			% avoid issues of mesh sensitivity altogether -- abandon the mesh
@@ -202,7 +202,7 @@ where $V(K,k) \subset \left[ P^k (\Omega) \right]^d$ is a subspace of the vector
 	% Justify current demand for reliable and robust polyhedral element methods
 	For these reasons, efficient and robust polyhedral element formulations are in high demand, leading to a proliferation of new approaches. A number of these are discussed in the following section.
 
-\section{Recent Developments in Polytopal Discretization} % (polyhedral finite element methods)
+\section{Recent Advances in Polytopal Element Methods} % (polyhedral finite element methods)
 
 	% Reiterate the main motivation behind polyhedral discretizations
 		% Want to avoid meshing limitations while preserving desirable FEM properties
@@ -215,7 +215,7 @@ where $V(K,k) \subset \left[ P^k (\Omega) \right]^d$ is a subspace of the vector
 
 	\subsection*{Continuous Interpolation on Arbitrary Polytopes}
 		% Overview of efforts to define interpolants directly on polytopal domains
-		A key advantage of isoparametric elements relates to their straight-forward, point-wise definition of an element's shape functions. In an effort to preserve this desirable characteristic, various authors have sought to explicitly define shape functions directly on arbitrary polytopal element domains. These efforts have led to the creation of a broad family of interpolation schemes, collectively referred to as \textit{generalized barycentric coordinates}.
+		A key advantage of isoparametric elements relates to their straight-forward, point-wise definition of an element's shape functions. In an effort to preserve this desirable characteristic, various authors have sought to explicitly define shape functions directly on arbitrary polytopal element domains. These efforts have led to the creation of a broad family of interpolation schemes, collectively referred to as \textit{generalized barycentric coordinates} \cite{Sukumar:17}.
 		
 		% Briefly describe the idea of generalized barycentric coordinates
 			% harmonic/Laplace coordinates
@@ -260,7 +260,7 @@ where $V(K,k) \subset \left[ P^k (\Omega) \right]^d$ is a subspace of the vector
 			% define only SF values and gradients at discrete points
 			% requires a partition of the element into cells
 			% element formulation more robust with finer partition
-		Although the VETFEM was developed to handle arbitrary polygonal elements, it was observed to suffer from sensitivity to geometric degeneracies and element non-convexity. In response to these issues, a \textit{discrete data polyhedral finite element method} (DDPFEM) proposed in \cite{Selimotic:08} was suggested to exploit the fact that for typical solid mechanics applications, it is generally only necessary to evaluate the element's shape functions (and their derivatives) at a discrete number of quadrature points. The proposed method shares several characteristics in common with the VETFEM, utilizing a similarly posed constrained minimization procedure to obtain the precise values and gradients of the shape functions at discrete points on the element's interior. One of the cited challenges with this approach pertains to the appropriate selection of an efficient quadrature rule for the elements.
+		Although the VETFEM was developed to handle arbitrary polygonal elements, it was observed to suffer from sensitivity to geometric degeneracies and element non-convexity. In response to these issues, a \textit{discrete data polyhedral finite element method} (DDPFEM) proposed in \cite{Selimotic:08} was suggested to exploit the fact that for typical solid mechanics applications, it is generally only necessary to evaluate the element's shape functions (and their derivatives) at a discrete number of quadrature points. The proposed method shares several characteristics in common with the VETFEM, utilizing a similarly posed constrained minimization procedure to obtain the precise values and gradients of the shape functions at discrete points within a given element. One of the cited challenges with this approach pertains to the appropriate selection of an efficient quadrature rule for the elements.
 			
 		% PEM (partitioned element method)
 			% embraces element partition idea
