@@ -8,19 +8,19 @@
 	% A high% level statement of the fundamental problem(s):
 		% FE solution accuracy is compromised by the issues of locking and mesh quality
 		% Proposed solutions handle some, but not all of these problems
-	In spite of these advances, traditional finite element methods have been plagued by recurrent issues of numerical accuracy pertaining to locking and poor mesh quality. Various strategies have been proposed to overcome some of these issues, though few have been able to address the underlying problem of element distortion sensitivity.
+	In spite of these advances, traditional finite element methods have been plagued by recurrent issues of meshing, and numerical inaccuracies pertaining to locking and poor mesh quality. Various strategies have been proposed to overcome some of these issues, though few have been able to address them as a whole.
 	
 	% A high-level statement of the proposed solution(s):
 		% Thesis presents a polytopal element framework to address these issues
 		% Polyhedral discretization is aimed at overcoming issues of mesh quality
 		% Framework is amenable to classical FE procedures used to address locking
-	This thesis presents a novel polytopal element framework in an effort to address the aforementioned issues as a whole. The use of arbitrary polygonal and polyhedral shapes in place of canonical isoparametric elements seeks to resolve the issue of distortion sensitivity directly, obviating issues of meshing and mesh quality, while maintaining many of the desirable features of the FEM and its extensions.
+	This thesis presents a novel polytopal element framework in an effort to address the collective issues of discretization sensitivity, and discretization, generally. The use of arbitrary polygonal and polyhedral shapes in place of canonical isoparametric elements seeks to resolve the issue of distortion sensitivity directly, obviating issues of meshing and mesh quality, while maintaining many of the desirable features of the FEM and its extensions.
 
 \section{Historical Development} % (what has led up to polyhedral discretizations)
 
 	% Origin of finite element methods, applied to solid mechanics problems
 		% Finite elements developed initially for LINEAR, structural problems
-	According to the historical account of Felippa \cite{Felippa:04}, finite element methods originated in the 1950s to address engineering challenges in, among other things, the design of aircraft. The method was subsequently given a more rigorous mathematical treatment by early contributors (Irons, Melosh, Strang), and its usage permeated to other fields of study (namely, structural engineering). Following the advent of the isoparametric element concept, displacement-based finite element formulations gained widespread popularity. Most early applications considered only small displacements and linear material behavior.
+	According to the historical account given by Felippa \cite{Felippa:04}, finite element methods originated in the 1950s to address engineering challenges in the design of aircraft, among other things. The method was subsequently given a more rigorous mathematical treatment by early contributors (Irons, Melosh, Strang), and its usage permeated to other fields of study (namely, structural engineering). Following the advent of the isoparametric element concept, displacement-based finite element formulations gained widespread popularity. Most early applications considered only small displacements and linear material behavior.
 	% Subsequently, more complicated models were developed to accomodate nonlinearities:
 		% Finite deformations incorporated to handle non-linear geometric effects
 		% Advanced constitutive models developed for plastic and viscoelastic materials
@@ -59,10 +59,12 @@
 	However, despite these advantageous characteristics, finite element methods have suffered from two major (related) issues:
 	\begin{itemize}
 		\item[I.)] Standard element formulations are prone to the effects of numerical locking phenomena, which can significantly degrade the accuracy of the method. These issues are more prevalent for low-order elements, especially for linear triangles and tetrahedra. Moreover, very thin or distorted elements tend to exhibit more severe pathologies.
-		\item[II.)] The process of discretizing complex geometries into traditional finite element shapes is not always possible with current automated meshing techniques. Contemporary meshing tools typically require extensive human intervention to produce meshes for complex shapes. This process is further encumbered by the aforementioned concerns over locking, to the extent that it becomes difficult -- if not impossible -- to produce quality discretizations within a reasonable amount of time.
+		\item[II.)] The process of discretizing complex geometries into traditional finite element shapes is not always possible with current automated meshing techniques. Contemporary meshing tools typically require extensive human intervention to produce meshes for complex shapes. This process is further encumbered by the aforementioned concerns over locking, to the extent that it becomes difficult -- if not impossible -- to produce quality discretizations within a reasonable amount of time. To compound this problem, the issue of re-meshing for problems involving severe plastic deformations presents a major challenge for Lagrangian approaches \cite{Hattangady:99}.
 	\end{itemize}
 	
-	Despite recent efforts to pursue automated quad-dominant \cite{Remacle:12} and hex-dominant \cite{Xifeng:17} meshing algorithms which seek to optimize certain mesh quality metrics, the inherent problem of element distortion sensitivity still remains. Consequently, substantial efforts have been made to address the locking problem through a variety of approaches. An overview of locking and its remedies is given in the following section.
+	Blacker \cite{Blacker:00} presents a comprehensive overview of the issues pertaining to meshing, and Owen \cite{Owen:14} provides a survey of several meshing technologies in common usage. An updated overview of several new methods for automated hexahedral meshing may be found in \cite{Staten:07}. In recent years, numerous efforts have sought to improve upon these existing techniques. Owen and Shelton \cite{Owen:14} have demonstrated improvements in solution accuracy through the use of an automated mesh ``sculpting'' procedure. Qian and Zhang \cite{Qian:12} have made advancements toward the generation of conforming meshes for complex part assemblies. Kremer et al. \cite{Kremer:14} have investigated a novel technique for generating all-hexahedral meshes from quad surface meshes. Recent efforts to pursue automated quad-dominant \cite{Remacle:12} and hex-dominant \cite{Xifeng:17} meshing algorithms have also gained increasing attention. Despite these advances, few -- if any -- of the aforementioned approaches are capable generating quality meshes for truly arbitrary geometries.
+	
+	Even with the advent of new hexahedral-dominant meshing technologies, however, the inherent problems of locking and distortion sensitivity still limit the solution accuracy of traditional isoparametric elements. Consequently, substantial efforts have been made to address the locking problem through a variety of approaches. An overview of locking and its remedies is given in the following section.
 
 	\subsection*{Locking in Finite Elements}
 	

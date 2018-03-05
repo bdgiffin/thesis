@@ -58,6 +58,11 @@ J.~E. Bishop.
 \newblock {\em International Journal for Numerical Methods in Engineering},
   97:1--31, 2014.
 
+\bibitem{Blacker:00}
+Ted Blacker.
+\newblock Meeting the challenge for automated conformal hexahedral meshing.
+\newblock 11 2000.
+
 \bibitem{Brannon:11}
 Rebecca Brannon.
 \newblock Annulus twist as a verification test.
@@ -237,6 +242,11 @@ Omar Hafez, Brian Giffin, Sam Mish, and Mark~M. Rashid.
   applications in finite deformation continuum mechanics.
 \newblock {\em (In progress)}.
 
+\bibitem{Hattangady:99}
+N.~V. Hattangady, M.~S. Shephard, and A.~B. Chaudhary.
+\newblock Towards realistic automated 3d modelling of metal forming problems.
+\newblock {\em Engineering with Computers}, 15(4):356--374, Dec 1999.
+
 \bibitem{Hesthaven:10}
 Jan~S. Hesthaven and Tim Warburton.
 \newblock {\em Nodal Discontinuous Galerkin Methods: Algorithms, Analysis, and
@@ -288,6 +298,14 @@ Hyoung~Seop Kim, Sung~Ho Kim, and Woo-Seog Ryu.
 \newblock Finite element analysis of the onset of necking and the post-necking
   behaviour during uniaxial tensile testing.
 \newblock {\em MATERIALS TRANSACTIONS}, 46(10):2159--2163, 2005.
+
+\bibitem{Kremer:14}
+Michael Kremer, David Bommes, Isaak Lim, and Leif Kobbelt.
+\newblock Advanced automatic hexahedral mesh generation from surface quad
+  meshes.
+\newblock In Josep Sarrate and Matthew Staten, editors, {\em Proceedings of the
+  22nd International Meshing Roundtable}, pages 147--164, Cham, 2014. Springer
+  International Publishing.
 
 \bibitem{Lee&Bathe:93}
 Nam-Sua Lee and Klaus-J{\"{u}}rgen Bathe.
@@ -359,11 +377,25 @@ J.Tinsley Oden, Ivo Babu\^{s}ka, and Carlos~Erik Baumann.
 \newblock A discontinuous hp-finite element method for diffusion problems.
 \newblock {\em J. Comput. Phys.}, 146(2):491--519, October 1998.
 
+\bibitem{Owen:14}
+Steven~J. Owen and Tim~R. Shelton.
+\newblock Validation of grid-based hex meshes with computational solid
+  mechanics.
+\newblock In Josep Sarrate and Matthew Staten, editors, {\em Proceedings of the
+  22nd International Meshing Roundtable}, pages 39--56, Cham, 2014. Springer
+  International Publishing.
+
 \bibitem{Bathe&Pantuso:97}
 Daniel Pantuso and Klaus-J{\"{u}}rgen Bathe.
 \newblock On the stability of mixed finite elements in large strain analysis of
   incompressible solids.
 \newblock {\em Finite Elements in Analysis and Design}, 28:83--104, 1997.
+
+\bibitem{Qian:12}
+Jin Qian and Yongjie Zhang.
+\newblock Automatic unstructured all-hexahedral mesh generation from b-reps for
+  non-manifold cad assemblies.
+\newblock {\em Engineering with Computers}, 28(4):345--359, Oct 2012.
 
 \bibitem{Rashid:93}
 M.~M. Rashid.
@@ -442,6 +474,12 @@ J.~C. Simo and M.~S. Rifai.
   incompatible modes.
 \newblock {\em International Journal for Numerical Methods in Engineering},
   29:1595--1638, 1990.
+
+\bibitem{Staten:07}
+Matthew~L Staten, Michael Borden, Jason~F Shepherd, and Steven~J Owen.
+\newblock New strategies for unstructured all-hexahedral mesh generation.
+\newblock Technical report, Sandia National Laboratories (SNL-NM), Albuquerque,
+  NM (United States); Sandia National Laboratories.,, 2007.
 
 \bibitem{Stummel:79}
 Friedrich Stummel.

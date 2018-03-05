@@ -3,21 +3,21 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Computed values of $E_1 (\Omega )$ and $\kappa (\mathbf {J})$ for the element in Figure 5.1\hbox {}, using various DG-PEM penalty parameter settings.\relax }}{80}
-\contentsline {table}{\numberline {5.2}{\ignorespaces Computed values of $E_1 (\Omega )$ and $\kappa (\mathbf {J})$ for a comparatively thin element with an aspect ratio of 100:1, using various DG-PEM penalty parameter settings.\relax }}{81}
-\contentsline {table}{\numberline {5.3}{\ignorespaces Linear patch test results comparison for FEM, CG-PEM, and DG-PEM.\relax }}{84}
-\contentsline {table}{\numberline {5.4}{\ignorespaces Computed values of $||\boldsymbol {\sigma }^h - \boldsymbol {\sigma }|| / ||\boldsymbol {\sigma }||$ for the DG-PEM using various penalty parameter settings. No gradient correction scheme was utilized. Identical trends were observed for $||\mathbf {u}^h - \mathbf {u}|| / ||\mathbf {u}||$.\relax }}{85}
-\contentsline {table}{\numberline {5.5}{\ignorespaces The effects of interpolation error on patch test errors in the DG-PEM. No gradient correction scheme was utilized.\relax }}{86}
-\contentsline {table}{\numberline {5.6}{\ignorespaces 3D linear patch test results comparison for FEM and DG-PEM.\relax }}{87}
-\contentsline {table}{\numberline {5.7}{\ignorespaces Quadratic patch test results comparison for FEM and DG-PEM.\relax }}{90}
-\contentsline {table}{\numberline {5.8}{\ignorespaces 3D quadratic patch test results comparison for FEM and DG-PEM.\relax }}{91}
-\contentsline {table}{\numberline {5.9}{\ignorespaces Comparison of maximum and minimum (non-zero) eigenvalues of the element stiffness matrices for the elements shown in Figure 5.10\hbox {}.\relax }}{95}
-\contentsline {table}{\numberline {5.10}{\ignorespaces Comparison of maximum and minimum (non-zero) eigenvalues of the element stiffness matrix for element C, computed for various DG-PEM penalty parameter values.\relax }}{96}
-\contentsline {table}{\numberline {5.11}{\ignorespaces Comparison of maximum and minimum (non-zero) eigenvalues of the element stiffness matrices computed for the elements shown in Figure 5.13\hbox {}.\relax }}{99}
-\contentsline {table}{\numberline {5.12}{\ignorespaces Computed values for the condition number $\kappa (\mathbf {K})$ of the global stiffness matrix $\mathbf {K}$ (excluding rigid body modes).\relax }}{102}
-\contentsline {table}{\numberline {5.13}{\ignorespaces Average and maximal convergence rates for each method. The optimal rates are shown in parentheses.\relax }}{106}
-\contentsline {table}{\numberline {5.14}{\ignorespaces Average and maximal convergence rates for each element type/formulation. The optimal rates are shown in parentheses.\relax }}{110}
-\contentsline {table}{\numberline {5.15}{\ignorespaces Tensile test data results comparison. The values of \% elongation were recorded after reaching 60\% reduction in area.\relax }}{117}
-\contentsline {table}{\numberline {5.16}{\ignorespaces Measurements of the rod's final base diameter $D_{\text {final}}$ and overall length $L_{\text {final}}$.\relax }}{120}
+\contentsline {table}{\numberline {5.1}{\ignorespaces Computed values of $E_1 (\Omega )$ and $\kappa (\mathbf {J})$ for the element in Figure 5.1\hbox {}, using various DG-PEM penalty parameter settings.\relax }}{81}
+\contentsline {table}{\numberline {5.2}{\ignorespaces Computed values of $E_1 (\Omega )$ and $\kappa (\mathbf {J})$ for a comparatively thin element with an aspect ratio of 100:1, using various DG-PEM penalty parameter settings.\relax }}{82}
+\contentsline {table}{\numberline {5.3}{\ignorespaces Linear patch test results comparison for FEM, CG-PEM, and DG-PEM.\relax }}{85}
+\contentsline {table}{\numberline {5.4}{\ignorespaces Computed values of $||\boldsymbol {\sigma }^h - \boldsymbol {\sigma }|| / ||\boldsymbol {\sigma }||$ for the DG-PEM using various penalty parameter settings. No gradient correction scheme was utilized. Identical trends were observed for $||\mathbf {u}^h - \mathbf {u}|| / ||\mathbf {u}||$.\relax }}{86}
+\contentsline {table}{\numberline {5.5}{\ignorespaces The effects of interpolation error on patch test errors in the DG-PEM. No gradient correction scheme was utilized.\relax }}{87}
+\contentsline {table}{\numberline {5.6}{\ignorespaces 3D linear patch test results comparison for FEM and DG-PEM.\relax }}{88}
+\contentsline {table}{\numberline {5.7}{\ignorespaces Quadratic patch test results comparison for FEM and DG-PEM.\relax }}{91}
+\contentsline {table}{\numberline {5.8}{\ignorespaces 3D quadratic patch test results comparison for FEM and DG-PEM.\relax }}{92}
+\contentsline {table}{\numberline {5.9}{\ignorespaces Comparison of maximum and minimum (non-zero) eigenvalues of the element stiffness matrices for the elements shown in Figure 5.10\hbox {}.\relax }}{96}
+\contentsline {table}{\numberline {5.10}{\ignorespaces Comparison of maximum and minimum (non-zero) eigenvalues of the element stiffness matrix for element C, computed for various DG-PEM penalty parameter values.\relax }}{97}
+\contentsline {table}{\numberline {5.11}{\ignorespaces Comparison of maximum and minimum (non-zero) eigenvalues of the element stiffness matrices computed for the elements shown in Figure 5.13\hbox {}.\relax }}{100}
+\contentsline {table}{\numberline {5.12}{\ignorespaces Computed values for the condition number $\kappa (\mathbf {K})$ of the global stiffness matrix $\mathbf {K}$ (excluding rigid body modes).\relax }}{103}
+\contentsline {table}{\numberline {5.13}{\ignorespaces Average and maximal convergence rates for each method. The optimal rates are shown in parentheses.\relax }}{107}
+\contentsline {table}{\numberline {5.14}{\ignorespaces Average and maximal convergence rates for each element type/formulation. The optimal rates are shown in parentheses.\relax }}{111}
+\contentsline {table}{\numberline {5.15}{\ignorespaces Tensile test data results comparison. The values of \% elongation were recorded after reaching 60\% reduction in area.\relax }}{118}
+\contentsline {table}{\numberline {5.16}{\ignorespaces Measurements of the rod's final base diameter $D_{\text {final}}$ and overall length $L_{\text {final}}$.\relax }}{121}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
