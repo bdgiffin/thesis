@@ -16,8 +16,8 @@
 \contentsline {table}{\numberline {5.11}{\ignorespaces Comparison of maximum and minimum (non-zero) eigenvalues of the element stiffness matrices computed for the elements shown in Figure 5.13\hbox {}.\relax }}{100}
 \contentsline {table}{\numberline {5.12}{\ignorespaces Computed values for the condition number $\kappa (\mathbf {K})$ of the global stiffness matrix $\mathbf {K}$ (excluding rigid body modes).\relax }}{103}
 \contentsline {table}{\numberline {5.13}{\ignorespaces Average and maximal convergence rates for each method. The optimal rates are shown in parentheses.\relax }}{107}
-\contentsline {table}{\numberline {5.14}{\ignorespaces Average and maximal convergence rates for each element type/formulation. The optimal rates are shown in parentheses.\relax }}{111}
-\contentsline {table}{\numberline {5.15}{\ignorespaces Tensile test data results comparison. The values of \% elongation were recorded after reaching 60\% reduction in area.\relax }}{118}
+\contentsline {table}{\numberline {5.14}{\ignorespaces Average and maximal convergence rates for each element type/formulation. The optimal rates are shown in parentheses.\relax }}{112}
+\contentsline {table}{\numberline {5.15}{\ignorespaces Tensile test data results comparison. The values of \% elongation were recorded after reaching 60\% reduction in area.\relax }}{116}
 \contentsline {table}{\numberline {5.16}{\ignorespaces Measurements of the rod's final base diameter $D_{\text {final}}$ and overall length $L_{\text {final}}$.\relax }}{121}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

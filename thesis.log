@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.8.23)  4 MAR 2018 19:01
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.8.23)  5 MAR 2018 18:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -430,11 +430,14 @@ LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <29.86> not available
 [1
 
 
-] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13]) [14] [15]
+] [2] [3] [4] [5]
+
+LaTeX Warning: Citation `Acosta:00' on page 6 undefined on input line 124.
+
+[6] [7] [8] [9] [10] [11] [12] [13] [14]) [15]
 \openout2 = `solid_mechanics.aux'.
 
-
-(./solid_mechanics.tex
+ (./solid_mechanics.tex
 Chapter 2.
 [16
 
@@ -733,12 +736,8 @@ File: figures/concave_element_comparison.pdf Graphic file (type pdf)
 Package pdftex.def Info: figures/concave_element_comparison.pdf used on input l
 ine 532.
 (pdftex.def)             Requested size: 361.34999pt x 370.61371pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[94 <./figures/concave_element_shapes.pdf>] [95 <./figures/concave_element_part
-itions.pdf> <./figures/concave_element_comparison.pdf
+ [94 <./figures/concave_element_shapes.pdf>] [95 <./figures/concave_element_par
+titions.pdf> <./figures/concave_element_comparison.pdf
 
 pdfTeX warning: pdflatex (file ./figures/concave_element_comparison.pdf): PDF i
 nclusion: multiple pdfs with page group included in a single page
@@ -809,7 +808,33 @@ File: figures/lloyd_edge_ratios.pdf Graphic file (type pdf)
 <use figures/lloyd_edge_ratios.pdf>
 Package pdftex.def Info: figures/lloyd_edge_ratios.pdf used on input line 724.
 (pdftex.def)             Requested size: 216.81pt x 164.4589pt.
- [101 <./figures/patch_edge_lengths.pdf> <./figures/lloyd_edge_lengths.pdf
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<figures/eigenvalue_distributions.pdf, id=1521, 412.6658pt x 318.39249pt>
+File: figures/eigenvalue_distributions.pdf Graphic file (type pdf)
+
+<use figures/eigenvalue_distributions.pdf>
+Package pdftex.def Info: figures/eigenvalue_distributions.pdf used on input lin
+e 739.
+(pdftex.def)             Requested size: 361.34999pt x 278.80164pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<figures/patch_eigenmodes_DGPEM.pdf, id=1522, 1045.53882pt x 710.13707pt>
+File: figures/patch_eigenmodes_DGPEM.pdf Graphic file (type pdf)
+
+<use figures/patch_eigenmodes_DGPEM.pdf>
+Package pdftex.def Info: figures/patch_eigenmodes_DGPEM.pdf used on input line 
+746.
+(pdftex.def)             Requested size: 361.34999pt x 245.43098pt.
+ [101]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[102 <./figures/patch_edge_lengths.pdf> <./figures/lloyd_edge_lengths.pdf
 
 pdfTeX warning: pdflatex (file ./figures/lloyd_edge_lengths.pdf): PDF inclusion
 : multiple pdfs with page group included in a single page
@@ -821,40 +846,14 @@ pdfTeX warning: pdflatex (file ./figures/patch_edge_ratios.pdf): PDF inclusion:
 
 pdfTeX warning: pdflatex (file ./figures/lloyd_edge_ratios.pdf): PDF inclusion:
  multiple pdfs with page group included in a single page
->] <figures/eigenvalue_distributions.pdf, id=1565, 412.6658pt x 318.39249pt>
-File: figures/eigenvalue_distributions.pdf Graphic file (type pdf)
-
-<use figures/eigenvalue_distributions.pdf>
-Package pdftex.def Info: figures/eigenvalue_distributions.pdf used on input lin
-e 739.
-(pdftex.def)             Requested size: 361.34999pt x 278.80164pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<figures/patch_eigenmodes_DGPEM.pdf, id=1566, 1045.53882pt x 710.13707pt>
-File: figures/patch_eigenmodes_DGPEM.pdf Graphic file (type pdf)
-
-<use figures/patch_eigenmodes_DGPEM.pdf>
-Package pdftex.def Info: figures/patch_eigenmodes_DGPEM.pdf used on input line 
-746.
-(pdftex.def)             Requested size: 361.34999pt x 245.43098pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[102] [103 <./figures/eigenvalue_distributions.pdf>]
+>] [103 <./figures/eigenvalue_distributions.pdf>]
 <figures/plate_with_hole.pdf, id=1582, 583.53358pt x 406.87007pt>
 File: figures/plate_with_hole.pdf Graphic file (type pdf)
 
 <use figures/plate_with_hole.pdf>
 Package pdftex.def Info: figures/plate_with_hole.pdf used on input line 875.
 (pdftex.def)             Requested size: 289.07999pt x 201.55962pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[104 <./figures/patch_eigenmodes_DGPEM.pdf>]
+ [104 <./figures/patch_eigenmodes_DGPEM.pdf>]
 <figures/quad_hole_meshes.pdf, id=1654, 855.9483pt x 623.82248pt>
 File: figures/quad_hole_meshes.pdf Graphic file (type pdf)
 
@@ -939,7 +938,16 @@ Package pdftex.def Info: figures/poly_annulus_meshes.pdf used on input line 100
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<figures/twisting_annulus_l2_errors.pdf, id=2193, 996.44574pt x 1080.37784pt>
+[109]
+
+LaTeX Warning: Text page 110 contains only floats.
+
+[110 <./figures/hex_annulus_meshes.pdf> <./figures/hexp_annulus_meshes.pdf
+
+pdfTeX warning: pdflatex (file ./figures/hexp_annulus_meshes.pdf): PDF inclusio
+n: multiple pdfs with page group included in a single page
+>]
+<figures/twisting_annulus_l2_errors.pdf, id=2202, 996.44574pt x 1080.37784pt>
 File: figures/twisting_annulus_l2_errors.pdf Graphic file (type pdf)
 
 <use figures/twisting_annulus_l2_errors.pdf>
@@ -951,7 +959,7 @@ Overfull \hbox (15.39113pt too wide) in paragraph at lines 1063--1064
  [][] 
  []
 
-<figures/twisting_annulus_h1_errors.pdf, id=2194, 996.75745pt x 1080.5343pt>
+<figures/twisting_annulus_h1_errors.pdf, id=2203, 996.75745pt x 1080.5343pt>
 File: figures/twisting_annulus_h1_errors.pdf Graphic file (type pdf)
 
 <use figures/twisting_annulus_h1_errors.pdf>
@@ -966,16 +974,7 @@ Overfull \hbox (15.39113pt too wide) in paragraph at lines 1068--1069
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[109]
-
-LaTeX Warning: Text page 110 contains only floats.
-
-[110 <./figures/hex_annulus_meshes.pdf> <./figures/hexp_annulus_meshes.pdf
-
-pdfTeX warning: pdflatex (file ./figures/hexp_annulus_meshes.pdf): PDF inclusio
-n: multiple pdfs with page group included in a single page
->] [111 <./figures/poly_annulus_meshes.pdf>]
-<figures/hex_pressure.pdf, id=2209, 269.30263pt x 274.29353pt>
+<figures/hex_pressure.pdf, id=2204, 269.30263pt x 274.29353pt>
 File: figures/hex_pressure.pdf Graphic file (type pdf)
 
 <use figures/hex_pressure.pdf>
@@ -986,7 +985,7 @@ Overfull \hbox (6.06773pt too wide) in paragraph at lines 1082--1083
  [][] 
  []
 
-<figures/hexp_pressure.pdf, id=2210, 269.30263pt x 274.29353pt>
+<figures/hexp_pressure.pdf, id=2205, 269.30263pt x 274.29353pt>
 File: figures/hexp_pressure.pdf Graphic file (type pdf)
 
 <use figures/hexp_pressure.pdf>
@@ -997,7 +996,7 @@ Overfull \hbox (6.06773pt too wide) in paragraph at lines 1087--1088
  [][] 
  []
 
-<figures/poly_pressure.pdf, id=2211, 269.30263pt x 274.29353pt>
+<figures/poly_pressure.pdf, id=2206, 269.30263pt x 274.29353pt>
 File: figures/poly_pressure.pdf Graphic file (type pdf)
 
 <use figures/poly_pressure.pdf>
@@ -1008,7 +1007,7 @@ Overfull \hbox (6.06773pt too wide) in paragraph at lines 1092--1093
  [][] 
  []
 
-<figures/hex_fbar_pressure.pdf, id=2212, 269.30263pt x 274.29353pt>
+<figures/hex_fbar_pressure.pdf, id=2207, 269.30263pt x 274.29353pt>
 File: figures/hex_fbar_pressure.pdf Graphic file (type pdf)
 
 <use figures/hex_fbar_pressure.pdf>
@@ -1020,7 +1019,7 @@ Overfull \hbox (6.06773pt too wide) in paragraph at lines 1097--1098
  [][] 
  []
 
-<figures/hexp_fbar_pressure.pdf, id=2213, 269.30263pt x 274.29353pt>
+<figures/hexp_fbar_pressure.pdf, id=2208, 269.30263pt x 274.29353pt>
 File: figures/hexp_fbar_pressure.pdf Graphic file (type pdf)
 
 <use figures/hexp_fbar_pressure.pdf>
@@ -1032,7 +1031,7 @@ Overfull \hbox (6.06773pt too wide) in paragraph at lines 1102--1103
  [][] 
  []
 
-<figures/poly_fbar_pressure.pdf, id=2214, 269.30263pt x 274.29353pt>
+<figures/poly_fbar_pressure.pdf, id=2209, 269.30263pt x 274.29353pt>
 File: figures/poly_fbar_pressure.pdf Graphic file (type pdf)
 
 <use figures/poly_fbar_pressure.pdf>
@@ -1047,8 +1046,8 @@ Overfull \hbox (6.06773pt too wide) in paragraph at lines 1107--1108
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[112 <./figures/twisting_annulus_l2_errors.pdf> <./figures/twisting_annulus_h1_
-errors.pdf
+[111 <./figures/poly_annulus_meshes.pdf>] [112 <./figures/twisting_annulus_l2_e
+rrors.pdf> <./figures/twisting_annulus_h1_errors.pdf
 
 pdfTeX warning: pdflatex (file ./figures/twisting_annulus_h1_errors.pdf): PDF i
 nclusion: multiple pdfs with page group included in a single page
@@ -1080,11 +1079,8 @@ File: figures/tensile_specimen_dimensions.pdf Graphic file (type pdf)
 Package pdftex.def Info: figures/tensile_specimen_dimensions.pdf used on input 
 line 1152.
 (pdftex.def)             Requested size: 433.62pt x 132.88995pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[114] <figures/neck_hex_mesh.pdf, id=2946, 471.27959pt x 340.68405pt>
+ [114]
+<figures/neck_hex_mesh.pdf, id=2946, 471.27959pt x 340.68405pt>
 File: figures/neck_hex_mesh.pdf Graphic file (type pdf)
 
 <use figures/neck_hex_mesh.pdf>
@@ -1119,11 +1115,11 @@ File: figures/necking_vonMises.pdf Graphic file (type pdf)
 <use figures/necking_vonMises.pdf>
 Package pdftex.def Info: figures/necking_vonMises.pdf used on input line 1206.
 (pdftex.def)             Requested size: 433.62pt x 221.09274pt.
- [116 <./figures/necking_comparison.pdf> <./figures/necking_vonMises.pdf
 
-pdfTeX warning: pdflatex (file ./figures/necking_vonMises.pdf): PDF inclusion: 
-multiple pdfs with page group included in a single page
->] <figures/necking_stress_strain.pdf, id=2998, 471.27959pt x 343.11752pt>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<figures/necking_stress_strain.pdf, id=2982, 471.27959pt x 343.11752pt>
 File: figures/necking_stress_strain.pdf Graphic file (type pdf)
 
 <use figures/necking_stress_strain.pdf>
@@ -1135,7 +1131,7 @@ Overfull \hbox (29.84491pt too wide) in paragraph at lines 1218--1219
  [][] 
  []
 
-<figures/necking_area_reduction.pdf, id=2999, 471.27959pt x 343.11752pt>
+<figures/necking_area_reduction.pdf, id=2983, 471.27959pt x 343.11752pt>
 File: figures/necking_area_reduction.pdf Graphic file (type pdf)
 
 <use figures/necking_area_reduction.pdf>
@@ -1147,12 +1143,19 @@ Overfull \hbox (29.84491pt too wide) in paragraph at lines 1223--1224
  [][] 
  []
 
-[117 <./figures/necking_stress_strain.pdf> <./figures/necking_area_reduction.pd
-f
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[116] [117 <./figures/necking_comparison.pdf> <./figures/necking_vonMises.pdf
+
+pdfTeX warning: pdflatex (file ./figures/necking_vonMises.pdf): PDF inclusion: 
+multiple pdfs with page group included in a single page
+>] [118 <./figures/necking_stress_strain.pdf> <./figures/necking_area_reduction
+.pdf
 
 pdfTeX warning: pdflatex (file ./figures/necking_area_reduction.pdf): PDF inclu
 sion: multiple pdfs with page group included in a single page
->] [118] <figures/taylor_bar_hex_mesh.pdf, id=3019, 341.39888pt x 280.6003pt>
+>] <figures/taylor_bar_hex_mesh.pdf, id=3019, 341.39888pt x 280.6003pt>
 File: figures/taylor_bar_hex_mesh.pdf Graphic file (type pdf)
 
 <use figures/taylor_bar_hex_mesh.pdf>
@@ -1186,7 +1189,12 @@ Package pdftex.def Info: figures/after_distortion.pdf used on input line 1349.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<figures/taylor_bar_unmodified_eqps.pdf, id=3023, 349.88397pt x 305.59886pt>
+[119 <./figures/taylor_bar_hex_mesh.pdf> <./figures/taylor_bar_poly_mesh.pdf
+
+pdfTeX warning: pdflatex (file ./figures/taylor_bar_poly_mesh.pdf): PDF inclusi
+on: multiple pdfs with page group included in a single page
+>]
+<figures/taylor_bar_unmodified_eqps.pdf, id=3040, 349.88397pt x 305.59886pt>
 File: figures/taylor_bar_unmodified_eqps.pdf Graphic file (type pdf)
 
 <use figures/taylor_bar_unmodified_eqps.pdf>
@@ -1194,7 +1202,7 @@ Package pdftex.def Info: figures/taylor_bar_unmodified_eqps.pdf used on input l
 ine 1361.
 (pdftex.def)             Requested size: 216.81pt x 189.37141pt.
 
-<figures/taylor_bar_fbar_eqps.pdf, id=3024, 349.88397pt x 305.59886pt>
+<figures/taylor_bar_fbar_eqps.pdf, id=3041, 349.88397pt x 305.59886pt>
 File: figures/taylor_bar_fbar_eqps.pdf Graphic file (type pdf)
 
 <use figures/taylor_bar_fbar_eqps.pdf>
@@ -1202,10 +1210,7 @@ Package pdftex.def Info: figures/taylor_bar_fbar_eqps.pdf used on input line 13
 66.
 (pdftex.def)             Requested size: 216.81pt x 189.37141pt.
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<figures/taylor_bar_fem_unmodified.pdf, id=3025, 207.0323pt x 326.46779pt>
+<figures/taylor_bar_fem_unmodified.pdf, id=3042, 207.0323pt x 326.46779pt>
 File: figures/taylor_bar_fem_unmodified.pdf Graphic file (type pdf)
 
 <use figures/taylor_bar_fem_unmodified.pdf>
@@ -1217,7 +1222,7 @@ Overfull \hbox (6.06773pt too wide) in paragraph at lines 1377--1378
  [][] 
  []
 
-<figures/taylor_bar_pem_unmodified.pdf, id=3026, 207.0323pt x 326.46779pt>
+<figures/taylor_bar_pem_unmodified.pdf, id=3043, 207.0323pt x 326.46779pt>
 File: figures/taylor_bar_pem_unmodified.pdf Graphic file (type pdf)
 
 <use figures/taylor_bar_pem_unmodified.pdf>
@@ -1229,7 +1234,7 @@ Overfull \hbox (6.06773pt too wide) in paragraph at lines 1382--1383
  [][] 
  []
 
-<figures/taylor_bar_fem_fbar.pdf, id=3027, 207.0323pt x 326.46779pt>
+<figures/taylor_bar_fem_fbar.pdf, id=3044, 207.0323pt x 326.46779pt>
 File: figures/taylor_bar_fem_fbar.pdf Graphic file (type pdf)
 
 <use figures/taylor_bar_fem_fbar.pdf>
@@ -1244,11 +1249,7 @@ Overfull \hbox (6.06773pt too wide) in paragraph at lines 1387--1388
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[119 <./figures/taylor_bar_hex_mesh.pdf> <./figures/taylor_bar_poly_mesh.pdf
-
-pdfTeX warning: pdflatex (file ./figures/taylor_bar_poly_mesh.pdf): PDF inclusi
-on: multiple pdfs with page group included in a single page
->]) [120 <./figures/before_distortion.pdf> <./figures/after_distortion.pdf
+[120 <./figures/before_distortion.pdf> <./figures/after_distortion.pdf
 
 pdfTeX warning: pdflatex (file ./figures/after_distortion.pdf): PDF inclusion: 
 multiple pdfs with page group included in a single page
@@ -1260,8 +1261,8 @@ nclusion: multiple pdfs with page group included in a single page
 
 pdfTeX warning: pdflatex (file ./figures/taylor_bar_fbar_eqps.pdf): PDF inclusi
 on: multiple pdfs with page group included in a single page
->] [121 <./figures/taylor_bar_fem_unmodified.pdf> <./figures/taylor_bar_pem_unm
-odified.pdf
+>]) [121 <./figures/taylor_bar_fem_unmodified.pdf> <./figures/taylor_bar_pem_un
+modified.pdf
 
 pdfTeX warning: pdflatex (file ./figures/taylor_bar_pem_unmodified.pdf): PDF in
 clusion: multiple pdfs with page group included in a single page
@@ -1269,54 +1270,54 @@ clusion: multiple pdfs with page group included in a single page
 
 pdfTeX warning: pdflatex (file ./figures/taylor_bar_fem_fbar.pdf): PDF inclusio
 n: multiple pdfs with page group included in a single page
->]
+>] [122]
 \openout2 = `future_work.aux'.
 
  (./future_work.tex
 Chapter 6.
-[122
+[123
 
 
 
-] [123] [124]) [125]
+] [124] [125]) [126]
 \openout2 = `appendix.aux'.
 
  (./appendix.tex
 Appendix A.
-[126
+[127
 
 
 
-] [127]) [128] (./thesis.bbl
+] [128]) [129] (./thesis.bbl
 Missing character: There is no Ã in font cmti12!
 Missing character: There is no © in font cmti12!
 Missing character: There is no Ã in font cmti12!
 Missing character: There is no © in font cmti12!
 Missing character: There is no Ã in font cmti12!
 Missing character: There is no © in font cmti12!
- [129
+ [130
 
 
-] [130]
+] [131]
 Missing character: There is no Ã in font cmr12!
 Missing character: There is no ¡ in font cmr12!
 Missing character: There is no Ã in font cmr12!
 Missing character: There is no © in font cmr12!
- [131]
-Missing character: There is no Â in font cmr12!
-Missing character: There is no ° in font cmr12!
-Missing character: There is no Â in font cmr12!
-Missing character: There is no ° in font cmr12!
  [132]
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ° in font cmr12!
+Missing character: There is no Â in font cmr12!
+Missing character: There is no ° in font cmr12!
+ [133]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ” in font cmr12!
- [133] [134]
+ [134] [135]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ” in font cmr12!
- [135])
-[136] [1] [2] (./thesis.aux (./introduction.aux) (./solid_mechanics.aux)
+ [136])
+[137] [1] [2] (./thesis.aux (./introduction.aux) (./solid_mechanics.aux)
 (./pem_formulation.aux) (./implementation.aux) (./results.aux)
 (./future_work.aux) (./appendix.aux))
 
@@ -1326,12 +1327,15 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+
+LaTeX Warning: There were undefined references.
+
  ) 
 Here is how much of TeX's memory you used:
- 6766 strings out of 494985
- 105401 string characters out of 6180356
+ 6767 strings out of 494985
+ 105412 string characters out of 6180356
  193839 words of memory out of 5000000
- 9743 multiletter control sequences out of 15000+600000
+ 9744 multiletter control sequences out of 15000+600000
  15430 words of font info for 56 fonts, out of 8000000 for 9000
  40 hyphenation exceptions out of 8191
  38i,14n,49p,1430b,487s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1356,10 +1360,10 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist
 type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/public/tex-gyr
 e/qcsr.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qhvr.pfb>
-Output written on thesis.pdf (151 pages, 14220989 bytes).
+Output written on thesis.pdf (152 pages, 14222483 bytes).
 PDF statistics:
- 3265 PDF objects out of 3580 (max. 8388607)
- 2102 compressed objects within 22 object streams
+ 3268 PDF objects out of 3580 (max. 8388607)
+ 2104 compressed objects within 22 object streams
  0 named destinations out of 1000 (max. 500000)
  336 words of extra memory for PDF output out of 10000 (max. 10000000)
 

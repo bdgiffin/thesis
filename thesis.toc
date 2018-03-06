@@ -4,7 +4,7 @@
 \contentsline {section}{Acknowledgments}{xii}
 \contentsline {chapter}{\numberline {1}Introduction}{1}
 \contentsline {section}{\numberline {1.1}Historical Development}{1}
-\contentsline {section}{\numberline {1.2}Recent Advances in Polytopal Element Methods}{9}
+\contentsline {section}{\numberline {1.2}Recent Advances in Polytopal Element Methods}{10}
 \contentsline {section}{\numberline {1.3}Scope of the Present Work}{14}
 \contentsline {chapter}{\numberline {2}An Overview of Computational Solid Mechanics}{16}
 \contentsline {section}{\numberline {2.1}The Lagrangian Description of Motion}{17}
@@ -33,5 +33,5 @@
 \contentsline {section}{\numberline {5.3}Tests for Element Quality}{93}
 \contentsline {section}{\numberline {5.4}Convergence Studies}{104}
 \contentsline {section}{\numberline {5.5}Large Deformation Problems with Elasto-plastic Material Behavior}{114}
-\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{122}
-\contentsline {chapter}{\numberline {A}An Exact Solution for the Incompressible Twisting Annulus Problem}{126}
+\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{123}
+\contentsline {chapter}{\numberline {A}An Exact Solution for the Incompressible Twisting Annulus Problem}{127}
