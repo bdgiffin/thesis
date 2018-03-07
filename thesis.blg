@@ -10,63 +10,64 @@ A level-1 auxiliary file: results.aux
 A level-1 auxiliary file: future_work.aux
 A level-1 auxiliary file: appendix.aux
 Database file #1: bibliography.bib
-I was expecting a `,' or a `}'---line 379 of file bibliography.bib
+I was expecting a `,' or a `}'---line 519 of file bibliography.bib
  :   
  :   bib2html_pubtype = {Book},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
 Warning--entry type for "Wikiversity:17" isn't style-file defined
---line 728 of file bibliography.bib
+--line 868 of file bibliography.bib
 Warning--entry type for "ASM:18" isn't style-file defined
---line 901 of file bibliography.bib
+--line 1041 of file bibliography.bib
 Warning--entry type for "Erhart:11" isn't style-file defined
---line 928 of file bibliography.bib
+--line 1068 of file bibliography.bib
 Warning--to sort, need author, organization, or key in LSDYNA
 Warning--empty journal in Blacker:00
+Warning--can't use both author and editor fields in Chen:07
 Warning--empty author in ASTM:08
 Warning--empty journal in Freund:95
 Warning--empty year in kinematics_paper
 Warning--empty publisher in Wilson:73
 Warning--empty school in Wopschall:17
-You've used 96 entries,
+You've used 106 entries,
             2118 wiz_defined-function locations,
-            1127 strings with 19844 characters,
-and the built_in function-call counts, 30597 in all, are:
-= -- 3068
-> -- 1382
-< -- 4
-+ -- 572
-- -- 448
-* -- 2189
-:= -- 5183
-add.period$ -- 282
-call.type$ -- 96
-change.case$ -- 503
+            1196 strings with 21727 characters,
+and the built_in function-call counts, 34548 in all, are:
+= -- 3455
+> -- 1578
+< -- 7
++ -- 650
+- -- 513
+* -- 2508
+:= -- 5827
+add.period$ -- 312
+call.type$ -- 106
+change.case$ -- 563
 chr.to.int$ -- 0
-cite$ -- 103
-duplicate$ -- 1059
-empty$ -- 2385
-format.name$ -- 448
-if$ -- 6244
+cite$ -- 114
+duplicate$ -- 1191
+empty$ -- 2683
+format.name$ -- 513
+if$ -- 7065
 int.to.chr$ -- 0
-int.to.str$ -- 96
-missing$ -- 91
-newline$ -- 475
-num.names$ -- 193
-pop$ -- 430
+int.to.str$ -- 106
+missing$ -- 102
+newline$ -- 525
+num.names$ -- 215
+pop$ -- 480
 preamble$ -- 1
-purify$ -- 415
+purify$ -- 466
 quote$ -- 0
-skip$ -- 740
+skip$ -- 833
 stack$ -- 0
-substring$ -- 2244
-swap$ -- 127
-text.length$ -- 4
+substring$ -- 2555
+swap$ -- 157
+text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 370
-warning$ -- 7
-while$ -- 316
-width$ -- 98
-write$ -- 1024
+type$ -- 408
+warning$ -- 8
+while$ -- 355
+width$ -- 109
+write$ -- 1136
 (There was 1 error message)

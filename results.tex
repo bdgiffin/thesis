@@ -258,7 +258,7 @@ Linear patch test errors for the FEM, CG-PEM, and DG-PEM are explored. The resul
 
 The classical FEM produces errors on the order of machine precision. The CG-PEM produces results that are only slightly less accurate. As confirmed by (\ref{eq:cg_pem_integration_consistency}), the integration errors for the CG-PEM are negligible, and the resulting patch test errors are unaffected by the use (or disuse) of a gradient correction scheme. In contrast, the DG-PEM produces noticeable errors if no gradient correction scheme is employed. Using either of the symmetric or nonsymmetric gradient correction schemes with the DG-PEM yields comparable accuracy to the CG-PEM.
 
-These observations help to illuminate an important point regarding integration consistency. Consider the consistency equations in (\ref{eq:consistency}). It is remarked that any continuous field $\varphi_a \in C^0 (\Omega_e)$ integrated exactly in (\ref{eq:consistency}) will lead to direct satisfaction of quadrature consistency. Such is the case for linear CG-PEM elements. However, if $\varphi_a$ is not a continuous field, neither (\ref{eq:consistency}) nor quadrature consistency will be satisfied, in general. Such is the case for the DG-PEM, even if exact integration is used. The consequence is violation of patch tests. This can be mitigated through the use of a gradient correction scheme, or alternatively through an appropriate selection of the DG-PEM parameters. Specifically, in the limit as $\alpha_{\gamma0} \rightarrow \infty$, the DG-PEM reduces to the CG-PEM, and the resulting patch test errors can be eliminated. Table \ref{tab:linear_patch_test_parameter_study} demonstrates this behavior for increasing values of $\alpha_{\gamma0}$, in the absence of a gradient correction scheme.
+These observations help to illuminate an important point regarding integration consistency. Consider the consistency equations in (\ref{eq:consistency}). It is remarked that any continuous field $\varphi_a \in C^0 (\Omega_e)$ integrated exactly in (\ref{eq:consistency}) will lead to direct satisfaction of quadrature consistency. Such is the case for linear CG-PEM elements. However, if $\varphi_a$ is not a continuous field, neither (\ref{eq:consistency}) nor quadrature consistency will be satisfied, in general. Such is the case for the DG-PEM, even if exact integration is used. The consequence is violation of patch tests. This can be mitigated through the use of a gradient correction scheme, or alternatively through an appropriate selection of the DG-PEM parameters. Specifically, in the limit as $\alpha_{\gamma0} \rightarrow \infty$, the DG-PEM recovers the behavior of the CG-PEM, and the resulting patch test errors can be eliminated. Table \ref{tab:linear_patch_test_parameter_study} demonstrates this behavior for increasing values of $\alpha_{\gamma0} > \alpha_{\gamma1}$, in the absence of a gradient correction scheme.
 
 \begin{table}[!ht]
   \begin{center}
@@ -521,7 +521,7 @@ The harmonic shape functions defined on these elements were approximated using t
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=3.5in]{figures/concave_element_partitions.pdf}  \caption{Delaunay partitions for elements A, B, and C.}
+  \includegraphics[width=3.5in]{figures/concave_element_partitions.pdf}  \caption{Random Delaunay partitions for elements A, B, and C.}
   \label{fig:concave_element_partitions}
 \end{figure}
 
@@ -572,7 +572,7 @@ Using the aforementioned approximations in place of the harmonic shape functions
 \label{tab:concave_stiffness_max_min_eigenvalue}
 \end{table}
 
-Irrespective of the chosen approximation method, the condition number for a given element's stiffness matrix becomes large as the degree of geometric non-convexity increases. The VETFEM yields a fairly accurate approximation for the eigenvalues of element A, but obtains an overly stiff approximation for element B, and overestimates the eigenvalues at the low end of the spectrum for element C. The CG-PEM appears to uniformly over-estimate the eigenvalue spectra of all elements A, B, and C (though not significantly). By contrast, the DG-PEM under-estimates the eigenvalues for elements B and C, though this behavior is observed to be contingent upon upon how the penalty parameters $\alpha_{\gamma0}$ and $\alpha_{\gamma1}$ are specified. Table \ref{tab:concave_stiffness_max_min_eigenvalue_parameter_study} illuminates the dependence of $\lambda_{\max}$ and $\lambda_{\min}$ (for element C) upon the choice of DG-PEM penalty parameters. Similar parameter dependencies are obtained for elements A and B.
+Irrespective of the chosen approximation method, the condition number for a given element's stiffness matrix becomes large as the degree of geometric non-convexity increases. The VETFEM yields a fairly accurate approximation for the eigenvalues of element A, but obtains an overly stiff approximation for element B, and overestimates the eigenvalues at the low end of the spectrum for element C. The CG-PEM appears to uniformly over-estimate the eigenvalue spectra of all elements A, B, and C (though not significantly). By contrast, the DG-PEM under-estimates the eigenvalues for elements B and C, though this behavior is observed to be contingent upon how the penalty parameters $\alpha_{\gamma0}$ and $\alpha_{\gamma1}$ are specified. Table \ref{tab:concave_stiffness_max_min_eigenvalue_parameter_study} illuminates the dependence of $\lambda_{\max}$ and $\lambda_{\min}$ (for element C) upon the choice of DG-PEM penalty parameters. Similar parameter dependencies are obtained for elements A and B.
 
 \begin{table}
 \centering
@@ -610,7 +610,7 @@ $\alpha_{\gamma1} = 10^{6}$	&	0.004748	&	0.004211	&	0.003660	&	0.002896 \\
 \label{tab:concave_stiffness_max_min_eigenvalue_parameter_study}
 \end{table}
 
-The eigenvalue spectrum obtained for the DG-PEM converges to that of the CG-PEM as the value of $\alpha_{\gamma0}$ is increased (provided $\alpha_{\gamma1}$ is sufficiently small). Moreover, the shape functions will themselves converge to the $C^0$ continuous approximations obtained by the CG-PEM. Additionally, if $\alpha_{\gamma0}$ is made sufficiently small, the eigenvalues will becomes relatively insensitive to the choice of $\alpha_{\gamma1}$. 
+The eigenvalue spectrum obtained for the DG-PEM converges to that of the CG-PEM as the value of $\alpha_{\gamma0}$ is increased (provided $\alpha_{\gamma1}$ is sufficiently small). Moreover, the shape functions will themselves converge to the $C^0$ continuous approximations obtained by the CG-PEM. Additionally, if $\alpha_{\gamma0}$ is made sufficiently small, the eigenvalues will become relatively insensitive to the choice of $\alpha_{\gamma1}$. 
 
 Conversely, as $\alpha_{\gamma0}$ is increased, the eigenvalues (and the corresponding shape function approximations) become more sensitive to the choice of $\alpha_{\gamma1}$. In such cases, $\alpha_{\gamma1}$ may be thought of as a ``regularization'' parameter, acting to effectively smooth out variations in the gradient of the shape functions over the element. For low-order DG-PEM, increasing $\alpha_{\gamma1}$ tends the element towards a uniform gradient formulation. Doing so risks rank-deficiency of the element's resulting stiffness matrix. If $\alpha_{\gamma0}$ and $\alpha_{\gamma1}$ are increased proportionally to one another, one recovers the behavior of the pure penalty DG-PEM corresponding to (\ref{eq:pure_penalty}).
 
@@ -701,7 +701,7 @@ Further, denote by $|E|$ the length of any edge $E \subset \partial \Omega_e$, a
 	\rho_e = \max_{E \subset \partial \Omega_e} \frac{|E|}{h_e}.
 \end{equation}
 
-For the meshes depicted in Figure \ref{fig:polygonal_patches}, the aforementioned edge length metrics were computed for all elements and edges in each mesh. Several histograms which characterize this data are provided in Figure \ref{fig:patch_edge_metrics}.
+For the meshes depicted in Figure \ref{fig:polygonal_patches}, the aforementioned edge length metrics were computed for all elements and edges in each mesh. Several histograms that characterize this data are provided in Figure \ref{fig:patch_edge_metrics}.
 \begin{figure}[!h]
     \centering
     \begin{subfigure}[b]{0.49\linewidth}
@@ -1139,7 +1139,7 @@ These observations lead to a related line of inquiry: can a given discretization
 
 \section{Large Deformation Problems with Elasto-plastic Material Behavior}
 
-A set of examples were explored to examine the behavior of the DG-PEM in the context of both geometric and material nonlinearity. The primary motivation for the present study is to evaluate the DG-PEM's ability to handle problems involving high plastic flow. Such problems pose two primary, yet opposing challenges: excessive plastic deformation may lead to mesh tangling and element inversion, and certain element types may succumb to volumetric locking, thereby preventing plastic deformation from occurring. To combat the latter problem, the kinematic enhancement suggested in \cite{Rashid:06} is utilized in conjunction with the element formulations considered herein. Unless noted otherwise, the DG-PEM employed the standard parameter settings utilized in previous problems.
+A few examples were explored to examine the behavior of the DG-PEM in the context of both geometric and material nonlinearity. The primary motivation for the present study is to evaluate the DG-PEM's ability to handle problems involving high plastic flow. Such problems pose two primary, yet opposing challenges: excessive plastic deformation may lead to mesh tangling and element inversion, and certain element types may succumb to volumetric locking, thereby preventing plastic deformation from occurring. To combat the latter problem, the kinematic enhancement suggested in \cite{Rashid:06} is utilized in conjunction with the element formulations considered herein. Unless noted otherwise, the DG-PEM employed the standard parameter settings utilized in previous problems.
 
 A simple $J_2$ model for hypo-elasto-plasticity with linear isotropic hardening was implemented, employing the canonical radial return algorithm discussed in \cite{LSDYNA}. This model is utilized in the two problems considered in this section, entailing the specification of the following material parameters: Young's modulus $E$, Poisson's ratio $\nu$, an initial yield stress $Y_0$, and a linear hardening modulus $E_h$.
 
@@ -1318,7 +1318,7 @@ Frictionless contact between the rod and a rigid surface corresponding to $X_3 =
 \end{equation}
 In (\ref{eq:penalty_traction}), $u_3$ corresponds to the vertical displacement of a given point on the bottom face of the rod, $\langle \cdot \rangle$ denote the Macaulay brackets, and $p$ is a penalty stiffness parameter. For the problem at hand, an ad hoc value of $p = 6.0 \times 10^{10} \, \text{GPa}/\text{mm}^2$ was chosen (following a process of trial-and-error).
 
-The (reflected) quarter-symmetric meshes shown in Figures \ref{fig:taylor_bar_hex_mesh} and \ref{fig:taylor_bar_poly_mesh} were used in conjunction with the FEM and DG-PEM, respectively. Both meshes consisted of roughly 1000 elements, each.
+The (reflected) quarter-symmetric meshes shown in Figures \ref{fig:taylor_bar_hex_mesh} and \ref{fig:taylor_bar_poly_mesh} were used in conjunction with the FEM and DG-PEM, respectively. Both meshes consisted of roughly 1000 elements each.
 
 \begin{figure}[!h]
   \centering
@@ -1412,4 +1412,4 @@ To provide a more quantitative comparison of the results obtained for each metho
   \end{center}
 \end{table}
 
-The issue of element inversion when using arbitrary polyhedral discretizations for highly dynamic problems warrants further investigation. Evidently, the kinematic enhancement of \cite{Rashid:06} is not adequate for general element shapes. Because arbitrary polyhedra possess more nodes (degrees of freedom) than traditional hexahedra, a ``mean'' dilatation formulation is likely to result in under-constrained modes of deformation. A more intricate, and element-specific enhancement is needed. This issue is left as the subject of future work.
+The issue of element inversion when using arbitrary polyhedral discretizations for highly dynamic problems warrants further investigation. Evidently, the kinematic enhancement of \cite{Rashid:06} is not adequate for general element shapes. Because arbitrary polyhedra possess more nodes (degrees of freedom) than traditional hexahedra, a \textit{mean} dilatation formulation is likely to result in under-constrained modes of deformation. A more intricate, and element-specific enhancement is needed. This issue is left as the subject of future work.

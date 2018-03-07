@@ -1,7 +1,13 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{100}
 
 \bibitem{LSDYNA}
 {\em LS-DYNA Keyword User's Manual, Volume II: Material Models}.
+
+\bibitem{Acosta:00}
+Gabriel Acosta and Ricardo~G. Dur{\'a}n.
+\newblock Error estimates for cq1 isoparametric elements satisfying a weak
+  angle condition.
+\newblock {\em SIAM J. Numerical Analysis}, 38:1073--1088, 2000.
 
 \bibitem{Arnold:02}
 D.~N. Arnold, D.~Boffi, and R.~S. Falk.
@@ -13,6 +19,13 @@ D.~N. Arnold, D.~Boffi, R.~S. Falk, and L.~Gastaldi.
 \newblock Finite element approximation on quadrilateral meshes.
 \newblock {\em Communications in Numerical Methods in Engineering},
   17(11):805--812, 2001.
+
+\bibitem{Askes:15}
+Harm Askes, Antonio Rodríguez-Ferran, and Jack Hetherington.
+\newblock The effects of element shape on the critical time step in explicit
+  time integrators for elasto-dynamics.
+\newblock {\em International Journal for Numerical Methods in Engineering},
+  101(11):809--824, 2015.
 
 \bibitem{ParaView}
 Utkarsh Ayachit.
@@ -51,6 +64,18 @@ G.P. Bazeley, Y.K. Cheung, B.M. Irons, and O.C. Zienkiewicz.
   solutions.
 \newblock {\em Proc. Conf. Matrix Methods in Structural Mechanics}, 1965.
 
+\bibitem{Beissel:96}
+Stephen Beissel and Ted Belytschko.
+\newblock Nodal integration of the element-free galerkin method.
+\newblock {\em Computer Methods in Applied Mechanics and Engineering},
+  139(1):49 -- 74, 1996.
+
+\bibitem{Belytschko:94}
+T.~Belytschko, Y.~Y. Lu, and L.~Gu.
+\newblock Element-free galerkin methods.
+\newblock {\em International Journal for Numerical Methods in Engineering},
+  37(2):229--256, 1994.
+
 \bibitem{Bishop:14}
 J.~E. Bishop.
 \newblock A displacement-based finite element formulation for general polyhedra
@@ -86,6 +111,19 @@ Jiun-Shyan Chen, Michael Hillman, and Marcus R\"{u}ter.
   meshfree methods.
 \newblock {\em International Journal for Numerical Methods in Engineering},
   95:387--418, 2013.
+
+\bibitem{Chen:01}
+Jiun-Shyan Chen, Cheng-Tang Wu, Sangpil Yoon, and Yang You.
+\newblock A stabilized conforming nodal integration for galerkin mesh-free
+  methods.
+\newblock {\em International Journal for Numerical Methods in Engineering},
+  50(2):435--466, 2001.
+
+\bibitem{Chen:07}
+J.S. Chen, W.~Hu, M.A. Puso, Y.~Wu, and X.~Zhang.
+\newblock {\em Strain Smoothing for Stabilization and Regularization of
+  Galerkin Meshfree Methods}, pages 57--75.
+\newblock Springer Berlin Heidelberg, Berlin, Heidelberg, 2007.
 
 \bibitem{Chi:17}
 H.~Chi, L.~Beir{\~{a}}o da~Veiga, and G.~H. Paulino.
@@ -320,6 +358,14 @@ Qiaoluan~H. Li and Junping Wang.
 \newblock {\em Numerical Methods for Partial Differential Equations},
   29:2004--2024, 2013.
 
+\bibitem{Libersky:91}
+L.~D. {Libersky} and A.~G. {Petschek}.
+\newblock {Smooth particle hydrodynamics with strength of materials}.
+\newblock In H.~E. {Trease}, M.~F. {Fritts}, and W.~P. {Crowley}, editors, {\em
+  Advances in the Free-Lagrange Method Including Contributions on Adaptive
+  Gridding and the Smooth Particle Hydrodynamics Method}, volume 395 of {\em
+  Lecture Notes in Physics, Berlin Springer Verlag}, pages 248--257, 1991.
+
 \bibitem{Lin:15}
 Guang Lin, Jiangguo Liu, and Farrah Sadre-Marandi.
 \newblock A comparative study on the weak galerkin, discontinuous galerkin, and
@@ -332,6 +378,12 @@ G.R. Liu, T.~Nguyen-Thoi, and K.Y. Lam.
 \newblock An edge-based smoothed finite element method (es-fem) for static,
   free and forced vibration analyses of solids.
 \newblock {\em Journal of Sound and Vibration}, 320(4):1100 -- 1130, 2009.
+
+\bibitem{Liu:95}
+Wing~Kam Liu, Sukky Jun, and Yi~Fei Zhang.
+\newblock Reproducing kernel particle methods.
+\newblock {\em International Journal for Numerical Methods in Fluids},
+  20(8-9):1081--1106, 1995.
 
 \bibitem{MacNeal:87}
 Richard~H. MacNeal.
@@ -365,6 +417,13 @@ L.~Mu, J.~Wang, and X.~Ye.
   problems on polytopal meshes.
 \newblock {\em International Journal of Numerical Analysis and Modeling},
   12:31--53, 2015.
+
+\bibitem{Mu:14}
+Lin Mu, Junping Wang, Yanqiu Wang, and Xiu Ye.
+\newblock Interior penalty discontinuous galerkin method on very general
+  polygonal and polyhedral meshes.
+\newblock {\em Journal of Computational and Applied Mathematics}, 255:432 --
+  440, 2014.
 
 \bibitem{Mu:15:1}
 Lin Mu, Junping Wang, and Xiu Ye.
@@ -497,6 +556,12 @@ N.~Sukumar.
 \newblock Construction of polygonal interpolants: a maximum entropy approach.
 \newblock {\em International Journal for Numerical Methods in Engineering},
   61:2159--2181, 2004.
+
+\bibitem{Sukumar:98}
+N.~Sukumar, B.~Moran, and T.~Belytschko.
+\newblock The natural element method in solid mechanics.
+\newblock {\em International Journal for Numerical Methods in Engineering},
+  43(5):839--887, 1998.
 
 \bibitem{Suri:91}
 Manil Suri.

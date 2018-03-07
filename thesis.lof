@@ -26,7 +26,7 @@
 \contentsline {figure}{\numberline {5.8}{\ignorespaces Patch of serendipity polygonal elements.\relax }}{90}
 \contentsline {figure}{\numberline {5.9}{\ignorespaces Patch of serendipity polyhedral elements.\relax }}{92}
 \contentsline {figure}{\numberline {5.10}{\ignorespaces A representative sampling of hexagonal elements: (A) strictly convex, (B) two collinear edges, (C) non-convex.\relax }}{94}
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Delaunay partitions for elements A, B, and C.\relax }}{95}
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Random Delaunay partitions for elements A, B, and C.\relax }}{95}
 \contentsline {figure}{\numberline {5.12}{\ignorespaces Comparison of the shape functions computed for elements A, B, and C using the VETFEM, CG-PEM, and DG-PEM.\relax }}{95}
 \contentsline {figure}{\numberline {5.13}{\ignorespaces Two convex pentagonal elements: (left) regular pentagon with edges of equal length $l = 1.0$, (right) pentagon with a comparatively short edge of length $l = 0.01$.\relax }}{98}
 \contentsline {figure}{\numberline {5.14}{\ignorespaces Comparison of shape functions computed for the two pentagonal elements with $l=1.0$ and $l=0.01$ using VETFEM, CG-PEM, and DG-PEM.\relax }}{99}

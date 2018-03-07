@@ -121,7 +121,7 @@
 				% led to development of alternative methods/discretizations
 		Ultimately, the foregoing methodologies have had only limited success in resolving the full spectrum of locking problems, particularly with regard to geometric locking phenomena. Moreover, many of the proposed enhancements are limited to specific element types (typically low-order quadrilaterals or hexahedra), and are not readily generalizable to other discretizations.
 		
-		To a large extent, the approximating power of the FEM is controlled by its ability to adequately represent relatively smooth solutions over individual elements, or patches of elements. Local polynomial reproducibility therefore determines the ``approximability'' of a given function space. Loss of polynomial completeness leads to a corresponding loss of accuracy and convergence. However, even elements which exhibit completeness may still lose accuracy/convergence under certain conditions, such as when the elements possess sufficiently large interior angles \cite{Acosta:00}. In the case of isoparametric elements, distorted shapes may possess poor completeness properties, with even mild distortions having a severe impact on the approximability of a given finite element function space. For this reason, considerable efforts have been invested in recent years towards the development of alternative discretizations and numerical methods, a few of which are discussed in the following section.
+		On the whole, the approximating power of the FEM is controlled to a lesser extent by the accuracy of the numerical integration rules used, and to a much greater extent by its ability to adequately represent smooth solutions over individual elements (or patches of elements). Local polynomial reproducibility ultimately determines the ``approximability'' of a given function space, with loss of polynomial completeness leading to a corresponding loss of accuracy and convergence. In the case of isoparametric elements, non-affine distortions may severely impact the polynomial completeness of certain element types \cite{Lee&Bathe:93}. However, even elements which retain polynomial completeness may still lose accuracy/convergence in certain configurations, such as when the elements possess sufficiently large interior angles \cite{Acosta:00}. For this reason, considerable efforts have been invested in recent years towards the development of alternative discretizations and numerical methods, a few of which are discussed in the following section.
 		
 		% Say something about how accuracy is controlled by loss of completeness, integration consistency. 
 		
@@ -129,7 +129,9 @@
 	
 	\subsection*{Alternative Numerical Methods and Discretizations}
 		% Efforts toward meshing & element quality led to new methods & discretizations
-		Driven primarily by concerns over meshing (and additionally by concerns over element quality), a variety of alternative approximation methods have been explored in recent decades. %The general consensus is that the construction of an approximation space should be disconnected (to a variable extent) from the particular choice of discretization. In particular, isoparametric finite element basis functions are conveniently defined in terms of the discretization, but may not necessarily result in a suitable approximation space for the given problem at hand.
+		Driven primarily by concerns over meshing (and additionally by concerns over element quality), a variety of alternative approximation methods have been developed in recent decades. Such methods admit more general discretizations and approximation spaces in an effort to circumvent problems pertaining to conforming finite element mesh generation.
+		
+		 %The general consensus is that the construction of an approximation space should be disconnected (to a variable extent) from the particular choice of discretization. In particular, isoparametric finite element basis functions are conveniently defined in terms of the discretization, but may not necessarily result in a suitable approximation space for the given problem at hand.
 		
 		% Say something about how we should like to define approximation spaces in a more flexible way. Additionally, consider the fact that these methods are intended/aimed at avoiding the meshing problem altogether. (Mesh-free methods, in particular, are driven by the desire to avoid having to create a mesh in the first place; not by element quality.)
 		
@@ -143,17 +145,17 @@
 			% boundaries are not well-defined; handling of BCs and contact is hard
 			% suffers from issues of numerical integration; lose consistency
 			% need to define a background mesh for integration (NOT mesh-free)
-		In direct response to these considerations, so-called \textit{mesh-free} methods were developed in an effort to construct approximation spaces that are defined independently of a mesh. Mesh-free methods encompass a broad class of approximation schemes, including smoothed particle hydrodynamics (SPH), the element-free Galerkin (EFG) method, the natural element method (NEM), and the reproducing kernel particle method (RKPM), among others. A majority of these methods rely upon an \textit{a priori} specification of weighting functions used to construct an associated set of polynomially reproducing basis functions. The resulting mesh-free basis yields relatively smooth solutions which are less sensitive to the specific choice and distribution of weighting functions.
+		In direct response to the concerns over meshing, so-called \textit{mesh-free} methods were developed in an effort to construct approximation spaces that are defined with reference to an arbitrary collection of points, rather than a finite element partition of the domain. Mesh-free methods encompass a broad class of approximation schemes. For solid mechanics applications, these include: smoothed particle hydrodynamics \cite{Libersky:91}, the element-free Galerkin method \cite{Belytschko:94}, the natural element method \cite{Sukumar:98}, and the reproducing kernel particle method \cite{Liu:95}, among others. A majority of these methods rely upon an \textit{a priori} specification of weighting functions used to construct an associated set of polynomially reproducing basis functions. The resulting mesh-free bases yield smooth solutions, which are relatively insensitive to the specific choice and distribution of weighting kernels.
 		
 		% fix: specific choice and distribution of weighting functions
 		
-		The departure from defining an approximation space on a structured partition of the domain presents a number of challenges, however. Specifically, mesh-free methods still require the definition of a background mesh to effect numerical integration of the weak form, partially invalidating the namesake of the method. Moreover, because the mesh-free basis functions are typically non-polynomial in form (and because their supports are not disjoint on element domains), they are more challenging to accurately integrate. 
+		The departure from defining an approximation space on a partition of the domain presents a number of challenges, however. Specifically, mesh-free methods still require the definition of a background mesh to effect numerical integration of the weak form, partially invalidating the namesake of the method. Nodal integration techniques have been suggested to partially overcome this issue \cite{Beissel:96}, though such schemes are generally susceptible to numerical instabilities. Stabilized nodal integration methods have been developed in response to these problems (\cite{Chen:01}, \cite{Chen:07}). Nonetheless, because the mesh-free basis functions are typically non-polynomial in form (and because their supports are not aligned with the integration cells), integration errors may result in loss of polynomial consistency and solution accuracy. Chen et al. have proposed a means of overcoming these issues through a \textit{variationally consistent integration} scheme \cite{Chen:13}, which is generally applicable to background integration and nodal integration techniques, alike.
 
 		% Discuss nodal integration methods, issues of stability, etc.
 		
 		% Shepard? Sherman?
 		
-		Chen et al. have proposed a means of overcoming these issues in \cite{Chen:13} through a \textit{variationally consistent integration} scheme, though this approach is susceptible to numerical instabilities. Additionally, because the basis functions do not in general exhibit the Kronecker delta property, the application of boundary conditions and contact constraints becomes less straightforward. Several techniques have been proposed to address this issue \cite{Mendez:04}, including Lagrange multiplier methods, Nitsche's method, and mesh blending at domain boundaries.
+		Because the mesh-free basis functions will not necessarily exhibit the Kronecker delta property, the application of essential boundary conditions and contact constraints becomes less straightforward. Several techniques have been proposed to address this issue \cite{Mendez:04}, including Lagrange multiplier methods, Nitsche's method, and mesh blending at domain boundaries.
 			
 		% Discontinuous Galerkin methods
 			% accomodate arbitrary polytopal domains
@@ -164,7 +166,7 @@
 			% penalty parameters are problem dependent, must be chosen carefully
 		As another alternative, \textit{discontinuous Galerkin} (DG) methods have gained recent attention due to their more flexible representation of solution fields as piecewise polynomials over individual elements, resulting in solution discontinuities at element boundaries. To stabilize the resulting approximation space, DG methods supplement the weak form with interior penalty terms that seek to minimize these discontinuities. A detailed review of several primal interior penalty DG schemes may be found in \cite{Riviere:08}. DG methods are advantageous in that they may accommodate arbitrary element shapes, and exhibit desirable distortion robustness characteristics.
 		
-		DG approaches are not without their own problems, however. One commonly cited issue relates to the fact that DG methods can become sensitive to the choice of penalty parameters used to weakly enforce inter-element continuity and boundary conditions. Indeed, the selection of these parameters is problem dependent. Additionally, DG methods tend to suffer from poor numerical conditioning problems if the discretization does not conform to relatively stringent regularity requirements, thereby limiting the types of discretizations used with the method.
+		DG approaches are not without their own problems, however. One commonly cited issue relates to the fact that DG methods can become sensitive to the choice of penalty parameters used to weakly enforce inter-element continuity and boundary conditions. Indeed, the selection of these parameters is problem dependent. Additionally, DG methods tend to suffer from poor numerical conditioning problems if the discretization does not conform to relatively stringent regularity requirements \cite{Mu:14} (element edges cannot be too small), thereby limiting the types of discretizations used with the method.
 		
 		% Add reference to regularity requirements of elements.
 			
@@ -211,7 +213,7 @@ where $V(K,k) \subset \left[ P^k (\Omega) \right]^d$ is a subspace of the vector
 	% Reiterate the main motivation behind polyhedral discretizations
 		% Want to avoid meshing limitations while preserving desirable FEM properties
 			% definition of quadrature rules & precise boundary description
-	Polytopal element methods combine many of the attractive features of FEM with the geometric flexibility afforded by arbitrary element shapes, the primary motivation for which arises from the aforementioned concerns over discretization sensitivity. Most of these methods share a few distinguishing features in common with one another: mesh degrees of freedom are borne by nodes -- the geometric vertices of (low-order) elements; nodal basis functions are compactly supported over adjoining element domains, and satisfy the Kronecker delta property; basis functions are defined directly on the element's physical domain, rather than on a parent domain.
+	Polytopal element methods combine many of the attractive features of FEM with the geometric flexibility afforded by arbitrary element shapes, the primary motivation for which arises from the aforementioned concerns over meshing and discretization sensitivity. Most of these methods share a few distinguishing features in common with one another: mesh degrees of freedom are borne by nodes -- the geometric vertices of (low-order) elements; nodal basis functions are compactly supported over adjoining element domains, and satisfy the Kronecker delta property; basis functions are defined directly on the element's physical domain, rather than on a parent domain.
 	
 	% Discuss meshing problem more!
 	
@@ -278,7 +280,7 @@ where $V(K,k) \subset \left[ P^k (\Omega) \right]^d$ is a subspace of the vector
 
 	% Lead into the present work, following last category: ``partitioned element methods''
 		% select the PEM approach as the one of particular interest for this thesis
-	In light of these developments, we choose to recognize a new class of methods, herein collectively referred to as \textit{partitioned element methods}. These may be viewed as a generalization of the original PEM presented in \cite{Rashid:12}. It is the subject of this thesis to further explore these methods, and to expose their particular merits and potential shortcomings.
+	In light of these developments, we choose to recognize a new class of methods, herein collectively referred to as \textit{partitioned element methods}. These may be viewed as a generalization of the original approach presented in \cite{Rashid:12}. It is the subject of this thesis to further explore these methods, and to expose their particular merits and potential shortcomings.
 
 \section{Scope of the Present Work}
 
@@ -288,19 +290,20 @@ where $V(K,k) \subset \left[ P^k (\Omega) \right]^d$ is a subspace of the vector
 		% A local BVP is solved to obtain shape functions on the partition
 		% Solution method depends on choice of local approximation method; many choices
 		% Quadrature rules on the element are informed by the partition
-	In this work, we put forth a general framework for partitioned element methods -- a collection of different approaches for constructing approximate representations of element shape functions on arbitrary polytopes. These methods are characterized by several distinguishing features:
+	In this work, we define a general framework for \textit{partitioned element methods} (PEM) -- a family of approaches for constructing approximate representations of element shape functions on arbitrary polytopes. These methods are characterized by several distinguishing features:
 	\begin{itemize}
-		\item[(1)] Elements are discretized (partitioned) into non-overlapping polygonal cells. These cells are used to inform the quadrature rule of the element.
-		\item[(2)] A local approximation space is defined on the partitioned element geometry.
-		\item[(3)] A set of BVPs and appropriate constraints are posed, whose solutions yield the shape functions of the element.
-		\item[(4)] A stable numerical scheme is developed to obtain approximate solutions to these BVPs using the approximation space defined in (2).
+		\item[(1)] Elements are discretized (partitioned) into non-overlapping polytopal cells. These cells inform the quadrature rule of the element.
+		\item[(2)] The elements' shape functions are defined to be piecewise polynomial in each cell.
+		\item[(3)] Nodal shape functions are determined as the solutions to a series of boundary value problems, defined hierarchically on each element and its bounding faces, edges.
 	\end{itemize}
-	Numerous formulations are possible within this framework; a few of these are explored within the scope of this thesis.
+	Numerous approaches are possible within this framework; a few of these are explored within the scope of this thesis.
 	
 	% Assert that nonlinearities (material & kinematic) are accomodated in this framework
 	% Describe how this framework can accomodate standard anti% locking formulations
 		% Allude to the incorporation of these methods as part of present research
-	 The proposed application area of interest for these methods is in nonlinear solid mechanics. The efficacy of the methods explored will be assessed within this context, particularly with regard to their ability to naturally accommodate nonlinear kinematic and material behavior. The robustness of the resulting elements, and their performance in the face of locking phenomena will be evaluated. Additionally, several methodologies which leverage the partitioned element framework to combat certain forms of locking will be discussed.
+	 The partitioned element methods developed herein are intended for applications in nonlinear solid mechanics. The efficacy of these methods will be assessed with regard to their ability to accommodate large deformations and nonlinear material behavior. The robustness of each method with respect to element shape, and its performance in the face of locking phenomena will be examined.
+	 
+	 % Additionally, several methodologies which leverage the partitioned element framework to combat certain forms of locking will be discussed.
 
 	% Overview of contents each chapter
 		% Chapter 2 establishes the computational solid mechanics BVP
@@ -309,4 +312,4 @@ where $V(K,k) \subset \left[ P^k (\Omega) \right]^d$ is a subspace of the vector
 		% Chapter 5 details an implementational framework for the PEM
 		% Chapter 6 provides a number of numerical investigations into the PEM
 		% Chapter 7 discusses opportunities for further research & development
-	The remainder of this dissertation is organized as follows: chapter \ref{ch:solid_mechanics} establishes the context of nonlinear computational solid mechanics, chapter \ref{ch:pem} presents the overarching framework for partitioned element methods, chapter \ref{ch:implementation} details a particular implementational framework for the PEM, chapter \ref{ch:results} provides a number of numerical investigations of the PEM, and chapter \ref{ch:future_work} concludes with a discussion of opportunities for further research and development.
+	The remainder of this dissertation is organized as follows: chapter \ref{ch:solid_mechanics} establishes the context of nonlinear computational solid mechanics, chapter \ref{ch:pem} presents the overarching framework for partitioned element methods, chapter \ref{ch:implementation} details a particular implementational framework for a DG-based variant of the PEM, chapter \ref{ch:results} provides a number of numerical investigations of the PEM, and chapter \ref{ch:future_work} concludes with a discussion of opportunities for further research and development.
