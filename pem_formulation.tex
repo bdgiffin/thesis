@@ -30,7 +30,7 @@ Partitioned element methods are finite-element-like methods which approach the t
 	% want efficient and stable quadrature rules
 Partitioned element methods are motivated by the idea that it is generally easier and more efficient to define complicated functions over arbitrary domains if the functions are defined in a piecewise polynomial fashion over simpler sub-domains. This is precisely the mentality which likewise motivates the finite element method and other related numerical approximation methods.
 
-The PEM is driven by the need for establishing stable and efficient quadrature rules on arbitrary polytopes. Unlike virtual element, methods which typically circumvent the use of quadrature altogether, partitioned element methods recognize the necessity of using domain quadrature rules to evaluate nonlinear residual and stiffness contributions. The use of sufficient quadrature also yields a stable integration of the weak form that does not rely upon unphysical stabilization parameters.
+The PEM is driven by the need for establishing stable and efficient quadrature rules on arbitrary polytopes. Unlike virtual element methods, which typically circumvent the use of quadrature altogether, partitioned element methods recognize the necessity of using domain quadrature rules to evaluate nonlinear residual and stiffness contributions. The use of sufficient quadrature also yields a stable integration of the weak form that does not rely upon unphysical stabilization parameters.
 
 	% depart from the idea of shape functions defined pointwise
 In contrast with traditional perspectives, which regard the shape functions as being continuously defined on element domains (i.e. generalized barycentric coordinates), the PEM exploits the fact that the shape functions and their gradients only need to be evaluated at a discrete number of quadrature points. With this in mind, PEM approximation spaces are deliberately constructed around the quadrature cell partition of the element, and consequently resemble finite element approximation spaces.
@@ -44,7 +44,7 @@ In the following sections, an abstract framework for the PEM is established, des
 
 \section{Definition of Polytopal Element Shape Functions}
 
-	Consider the structure of an arbitrary polyhedral element $\Omega \subset \mathbb{R}^3$, as depicted in Figure \ref{fig:polyhedral_element}. The element's boundary $\partial \Omega$ may be subdivided into polygonal faces $F \subset \partial \Omega$, such that each face $F$ is shared entirely with a single adjacent element of the mesh, or with the mesh boundary. In turn, the boundary of each such face $F$ may be subdivided into linear edges $E \subset \partial F$, such that each edge $E$ is shared by exactly one other face of the element. The end-points of each edge are called nodes, denoted $V$, and may be shared by multiple edges.
+	Consider the structure of an arbitrary polyhedral element $\Omega \subset \mathbb{R}^3$, as depicted in Figure \ref{fig:polyhedral_element}. At this juncture, we make no mention of a partition of the element into cells. The element's boundary $\partial \Omega$ may be subdivided into polygonal faces $F \subset \partial \Omega$, such that each face $F$ is shared entirely with a single adjacent element of the mesh, or with the mesh boundary. In turn, the boundary of each face $F$ may be subdivided into linear edges $E \subset \partial F$, such that each edge $E$ is shared by exactly one other face of the element. The end-points of each edge are called nodes, denoted $V$, and are shared by multiple edges.
 	
 \begin{figure} [!ht]
 	\centering
@@ -56,7 +56,7 @@ In the following sections, an abstract framework for the PEM is established, des
 	% PEM function spaces are broken $H^1 (\Omega)$ spaces
 	% functions are defined independently on the open interior $\Omega$
 	% functions defined independently on shared element interfaces
-	The function spaces to which the element's shape functions belong are effectively broken Sobolev spaces, where a given shape function $\varphi \in \mathcal{W}_k (\overline{\Omega})$ is defined independently on the open interior of each polyhedral element $\Omega \subset \mathbb{R}^3$, and on its boundary $\partial \Omega$, such that
+	The function spaces to which the element's shape functions are assumed to belong are broken Sobolev spaces, with a given shape function $\varphi \in \mathcal{W}_k (\overline{\Omega})$ defined independently on the open interior of each polyhedral element $\Omega \subset \mathbb{R}^3$, and on its boundary $\partial \Omega$, such that
 	\begin{equation}
 		\mathcal{W}_k (\overline{\Omega}) = \left\{ \varphi|_{\Omega} \in H^k (\Omega) : \mathcal{L}_{\Omega} \varphi = f_{\Omega} \, \text{in} \, \Omega, \, \varphi|_{F} \in \mathcal{W}_k (\overline{F}) \, \, \forall F \in \partial \Omega \right\},
 	\end{equation}
@@ -127,8 +127,10 @@ In the following sections, an abstract framework for the PEM is established, des
 	Harmonic shape functions are not a new concept; Gordon and Wixom were among the first authors to propose the idea in \cite{Gordon:74}, and Martin et al. later considered their application to polyhedral finite elements in \cite{Martin:08}. However, obtaining exact solutions to (\ref{eq:pem_laplace}) is generally infeasible for arbitrary polyhedra. In practice, approximate solutions must be considered.
 	
 	In particular, Bishop has proposed a method for constructing FE approximations to harmonic shape functions in \cite{Bishop:14}. Additionally, the VETFEM (\cite{Rashid:00}, \cite{Rashid:06}) and the original PEM presented in \cite{Rashid:12}, may be viewed as techniques for obtaining discrete approximations to harmonic shape functions. Likewise, many virtual element methods (\cite{Chi:17}, \cite{Veiga:13}, \cite{Veiga:15}) suppose that the element shape functions are harmonic over individual element domains, though they are never explicitly constructed or represented as such.
+
+	Harmonic shape functions are desirable because they are uniquely defined, and therefore guarantee ellipticity of the resulting PEM systems of equations (discussed momentarily). However, polytopal finite element methods which employ harmonic shape functions may succumb to excessive interpolation errors for certain element shapes \cite{Gillette:16}. In particular, elements with non-convex features may severely degrade the convergence properties of such methods. An exploration of other forms for the elements' shape functions (possibly arising from a different choice of elliptic operator $\mathcal{L}$) is warranted. Nonetheless, in what follows, partitioned element methods based upon harmonic shape functions are deemed representative of a broader class of methods, which are likewise amenable to the developments considered herein.
 	
-	It herein becomes of interest to determine suitable approximations to harmonic shape functions on arbitrary polyhedra. A number of methods to achieve this end are subsequently discussed.
+	It therefore becomes of interest to determine suitable approximations to harmonic shape functions on arbitrary polyhedra. A number of methods to achieve this end are subsequently discussed.
 	
 \section{Shape Function Approximation Methods} \label{sec:approximations}
 	
@@ -203,7 +205,7 @@ In the following sections, an abstract framework for the PEM is established, des
 	\begin{equation}
 	\mathcal{L}(\varphi,\lambda) \equiv \frac{1}{2} \int_{\Omega} \nabla \varphi \cdot \nabla \varphi \, dV - \int_{\Omega} f_{\Omega} \, \varphi \, dV + \int_{\partial \Omega} \left[ \varphi - \bar{\varphi} \right] \lambda \, dA,
 \end{equation}
-	involving the specification of a Lagrange multiplier field $\lambda \in \Lambda (\partial \Omega) = \left\{ \lambda \in L^2 (\partial \Omega) \right\}$, and its corresponding discrete approximation $\lambda^h \in \Lambda^h (\partial \Omega) \subset \Lambda (\partial \Omega)$. Differentiation of the Lagrangian yields two sets of equations in terms of the approximations $\varphi^h \in \mathcal{U}^h (\Omega)$ and $\lambda^h \in \Lambda^h (\partial \Omega)$:
+	involving the specification of a Lagrange multiplier field $\lambda \in \Lambda (\partial \Omega) = \left\{ \lambda \in L^2 (\partial \Omega) \right\}$, and its corresponding discrete approximation $\lambda^h \in \Lambda^h (\partial \Omega) \subset \Lambda (\partial \Omega)$. Taking the first variation of the Lagrangian yields two sets of equations in terms of the approximations $\varphi^h \in \mathcal{U}^h (\Omega)$ and $\lambda^h \in \Lambda^h (\partial \Omega)$:
 	\begin{equation}
 		\int_{\Omega} \nabla \varphi^h \cdot \nabla \eta^h \, dV - \int_\Omega f_\Omega \eta^h \, dV + \int_{\partial \Omega} \lambda^h \eta^h \, dA = 0 \quad \forall \eta^h \in \mathcal{U}^h (\Omega),
 	\end{equation}

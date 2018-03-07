@@ -58,6 +58,11 @@ F.~Bassi, L.~Botti, A.~Colombo, D.A.~Di Pietro, and P.~Tesini.
   discontinuous galerkin discretizations.
 \newblock {\em Journal of Computational Physics}, 231(1):45 -- 65, 2012.
 
+\bibitem{Bathe:06}
+K.J. Bathe.
+\newblock {\em Finite Element Procedures}.
+\newblock Prentice Hall, 2006.
+
 \bibitem{Irons:65}
 G.P. Bazeley, Y.K. Cheung, B.M. Irons, and O.C. Zienkiewicz.
 \newblock Triangular elements in bending. conforming and non-conforming
@@ -257,6 +262,11 @@ W.~W. Gerberich, H.~E. Martens, and R.~A. Boundy.
 \newblock Tensile properties of five low-alloy and stainless steels under
   high-heating-rate and constant-temperature conditions.
 \newblock {\em Jet Propulsion Laboratory}, Technical Report No. 32-222, 1962.
+
+\bibitem{Gillette:16}
+{Gillette, Andrew} and {Rand, Alexander}.
+\newblock Interpolation error estimates for harmonic coordinates on polytopes.
+\newblock {\em ESAIM: M2AN}, 50(3):651--676, 2016.
 
 \bibitem{Gordon:74}
 William~J. Gordon and James~A. Wixom.

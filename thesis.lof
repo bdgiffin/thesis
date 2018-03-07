@@ -4,8 +4,8 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces A representative polyhedral element $\Omega \subset \mathbb {R}^3$, a polygonal face $F \subset \partial \Omega $, a linear edge $E \subset \partial F$, and a node $V$.\relax }}{36}
 \contentsline {figure}{\numberline {3.2}{\ignorespaces The harmonic shape function corresponding to the indicated node $V$, defined hierarchically on each edge, face, and the element.\relax }}{37}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces A representative polyhedral element $\Omega \subset \mathbb {R}^3$, and its hierarchical partition into cells, facets, segments, and vertices.\relax }}{44}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Polygonal element partitioning schemes: (top-left) edge-based partition, (top-right) node-based partition, (bottom-left) random Delaunay partition, (bottom-right) random Voronoi partition.\relax }}{45}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces A representative polyhedral element $\Omega \subset \mathbb {R}^3$, and its hierarchical partition into cells, facets, segments, and vertices.\relax }}{45}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Polygonal element partitioning schemes: (top-left) edge-based partition, (top-right) node-based partition, (bottom-left) random Delaunay partition, (bottom-right) random Voronoi partition.\relax }}{46}
 \contentsline {figure}{\numberline {3.5}{\ignorespaces The CG-PEM approximation to a given harmonic shape function, defined hierarchically on the element's faces and edges.\relax }}{47}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Canonical node numbering schemes for a linear tetrahedral element (left) and a linear hexahedral element (right). Each of these standard orderings induce corresponding nodal orderings for each triangular or quadrilateral face of the element, as well.\relax }}{59}

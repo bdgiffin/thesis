@@ -2,6 +2,8 @@
 %
 This chapter addresses some of the essential aspects of numerical approximation methods for modeling solid continua. The discussion herein will focus on the mathematical foundations of solid mechanics, beginning with the kinematics of motion and some common forms of constitutive relationships, followed by the expressions for conservation of momentum in both strong and weak form, and concluding with an analysis of the standard numerical methods utilized to solve these equations in an approximate sense. In the course of our discussion, we will make explicit the ensuing requirements placed upon any prospective approximation scheme. This will aid our analysis in subsequent chapters, and hopefully justify particular choices made in the construction of partitioned element methods.
 
+The reader already familiar with nonlinear solid mechanics and traditional finite element methods is encouraged to proceed onward to chapter \ref{ch:pem_formulation}.
+
 \newpage
 
 \section{The Lagrangian Description of Motion}
@@ -363,26 +365,33 @@ For an approximation method to achieve convergence, several conditions must be s
 
 	\subsection*{Approximability}
 	
-	To achieve $p^{\text{th}}$-order convergence, the approximation space $\mathcal{S}^h$ must contain $[ P^{k} (\mathcal{B}_0) ]^d$ (the space of vector-valued polynomial functions of maximal degree $k = p-1$) as a subset $\mathcal{S}^h \supset [ P^{k} (\mathcal{B}_0) ]^d$. For second-order elliptic boundary value problems (e.g. solid mechanics), convergence requires that $k \geq 1$, and therefore $p \geq 2$.
+	To achieve $p^{\text{th}}$-order convergence, the approximation space $\mathcal{S}^h (\mathcal{B}_0)$ must contain $[ P^{k} (\Omega) ]^d$ (the space of vector-valued polynomial functions of maximal degree $k = p-1$ defined locally over each element domain $\Omega \subset \mathcal{B}_0$) as a subset \cite{Hughes:00}. For second-order elliptic boundary value problems (e.g. solid mechanics), convergence requires that $k \geq 1$, and therefore $p \geq 2$.
 	
-	This property is sometimes referred to as \textit{approximability}, reflecting a given method's ability to well-approximate the solution locally as a low-order polynomial. Alternatively, this condition is known as polynomial \textit{reproducibility}, or \textit{completeness}. This condition can be rationalized by the Weierstrass approximation theorem, which asserts that any smooth function can be approximated by polynomials to arbitrary precision.
+	This property is known as \textit{approximability}, reflecting a given method's ability to well-approximate the solution locally as a low-order polynomial. Alternatively, this condition is sometimes referred to as polynomial \textit{reproducibility}, or polynomial \textit{completeness}.
+
+% This condition can be rationalized by the Weierstrass approximation theorem, which asserts that any smooth function can be approximated by polynomials to arbitrary precision.
 	
 	\subsection*{Compatibility}
 
 	 Compatibility, in an abstract sense, imposes requirements upon the continuity of trial solutions $\mathbf{u}^h \in \mathcal{S}^h$. For conforming finite element methods, this condition is automatically satisfied, as the trial solution space consists of continuous functions, such that $\mathcal{S}^h \subset C^0$.
 
-By comparison, non-conforming finite element methods admit more general functions $\mathbf{u}^h \in \mathcal{S}^h \not\subset C^0$. Such spaces of functions must satisfy additional weak compatibility requirements. Namely, Stummel has proposed in \cite{Stummel:79} the necessary and sufficient conditions for convergence of a non-conforming finite element method, necessitating passage of the \textit{generalized patch test}:
+By comparison, non-conforming finite element methods admit more general functions $\mathbf{u}^h \in \mathcal{S}^h \not\subset C^0$. Such spaces of functions must satisfy additional weak compatibility requirements. Namely, Stummel has proposed the necessary and sufficient conditions for convergence of a non-conforming finite element method, necessitating approximability, and passage of the \textit{generalized patch test} \cite{Stummel:79}:
 
-\textit{For a given patch $\mathcal{P} \subset \overline{\mathcal{B}}_0$ and an approximating sequence of functions $u^h \in H^k (\mathcal{B}_0)$: for every $\mathbf{X} \in \mathcal{P}$ there exists an open neighborhood $O$ in $\mathbb{R}^d$ such that}
+\textit{For a given patch $\mathcal{P} \subset \overline{\mathcal{B}}_0$ and an approximating sequence of functions $u^h \in H^m (\mathcal{B}_0)$: for every $\mathbf{X} \in \mathcal{P}$ there exists an open neighborhood $O$ in $\mathbb{R}^d$ such that}
 \begin{equation}
   \lim_{h \rightarrow 0} \sum_{\forall \Omega_e} \int_{\partial \Omega_e} v \, D^\alpha u^h|_{\Omega_e} \mathbf{n} \, da = \mathbf{0}
 \end{equation}
-\textit{for all test functions $v \in C^{\infty}_0 (O)$, and $| \alpha | \leq k-1$.}
+\textit{for all test functions $v \in C^{\infty}_0 (O)$, and $| \alpha | \leq m-1$.}
 
-	Shi later proposed the F-E-M test in \cite{Shi:87} as an alternative, sufficient condition for convergence, with a corresponding interface requirement (the F-test):
+	Based on Stummel's generalized patch test, Shi later proposed the F-E-M test \cite{Shi:87} as an alternative, sufficient condition for convergence. The corresponding interface condition (the F-test) requires:
 	\begin{equation}
 		\bigg| \int_{\Omega_a \cap \Omega_b} [\![ u^h ]\!] \, da \bigg| \leq O(h^{d/2}) ||u^h||_{\Omega_a \cup \Omega_b} \quad \forall \Omega_a \cap \Omega_b \neq \emptyset.
 	\end{equation}
+	The F-test is satisfied in a ``strong'' sense if
+	\begin{equation}
+		\int_{\Omega_a \cap \Omega_b} [\![ u^h ]\!] \, da = 0 \quad \forall \Omega_a \cap \Omega_b \neq \emptyset,
+	\end{equation}
+	i.e. if the mean jump in $u^h$ across all inter-element interfaces is zero.
 	
 %	Alternative presentation of compatibility
 	
@@ -408,7 +417,7 @@ By comparison, non-conforming finite element methods admit more general function
 	\end{equation}
 	
 %	Heuristically, these conditions require that the elements utilize sufficiently accuate quadrature rules to integrate the weak form.
-	Heuristically, these conditions require that individual element stiffness matrices be of full rank, excluding rigid body modes of deformation. This necessitates both: the specification of a stable discretization, and sufficiently accurate evaluation (numerical integration) of the weak form.
+	Heuristically, these conditions require that the resulting finite element stiffness matrix must be of full rank (excluding rigid body modes of deformation) \cite{Bathe:06}. For displacement-based finite elements, this necessitates both: the specification of ``well-balanced'' spaces $\mathcal{S}^h$ and $\mathcal{V}^h$, and sufficiently accurate evaluation (numerical integration) of the weak form.
 	
 %	Show that the inf-sup conditions can be converted into local criteria for the rank sufficiency of element-level stiffness matricies.
 

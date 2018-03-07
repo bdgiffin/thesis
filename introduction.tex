@@ -276,7 +276,7 @@ where $V(K,k) \subset \left[ P^k (\Omega) \right]^d$ is a subspace of the vector
 		% Joe Bishop's version of FE-based approximants w/ Laplace shape functions
 			% similar in concept: discretize element domain
 			% use FE basis functions on a local tet mesh, solve Laplace equation
-		Subsequently, Bishop has proposed a very similar partitioned element scheme in \cite{Bishop:14}, wherein the elements and their faces are subdivided into simplices, resembling a local FE discretization of the element domain. The shape functions are obtained as the solution to Laplace's equation on this subdivision. Because this approach utilizes an FE-like discretization, the resulting shape functions are piecewise linear and $C^0$ continuous, thereby avoiding the need for a penalty term to enforce continuity. However, the method still requires the use of a gradient correction scheme to account for quadrature error and recover consistency with the weak form.
+		Subsequently, Bishop has proposed a very similar partitioned element scheme in \cite{Bishop:14}, wherein the elements and their faces are subdivided into simplices, resembling a local FE discretization of the element domain. The shape functions are obtained as the solution to Laplace's equation on this subdivision. Because this approach utilizes an FE-like discretization, the resulting shape functions are piecewise linear and $C^0$ continuous, thereby avoiding the need for a penalty term to enforce continuity. However, the method still requires the use of a gradient correction scheme to account for quadrature error and thereby recover consistency with the weak form.
 
 	% Lead into the present work, following last category: ``partitioned element methods''
 		% select the PEM approach as the one of particular interest for this thesis
@@ -290,13 +290,7 @@ where $V(K,k) \subset \left[ P^k (\Omega) \right]^d$ is a subspace of the vector
 		% A local BVP is solved to obtain shape functions on the partition
 		% Solution method depends on choice of local approximation method; many choices
 		% Quadrature rules on the element are informed by the partition
-	In this work, we define a general framework for \textit{partitioned element methods} (PEM) -- a family of approaches for constructing approximate representations of element shape functions on arbitrary polytopes. These methods are characterized by several distinguishing features:
-	\begin{itemize}
-		\item[(1)] Elements are discretized (partitioned) into non-overlapping polytopal cells. These cells inform the quadrature rule of the element.
-		\item[(2)] The elements' shape functions are defined to be piecewise polynomial in each cell.
-		\item[(3)] Nodal shape functions are determined as the solutions to a series of boundary value problems, defined hierarchically on each element and its bounding faces, edges.
-	\end{itemize}
-	Numerous approaches are possible within this framework; a few of these are explored within the scope of this thesis.
+	In this work, a general framework for \textit{partitioned element methods} (PEM) is established, constituting a family of approaches for constructing piecewise polynomial approximations to harmonic shape functions on arbitrary polytopes. Numerous approaches may be developed within this framework, though only a few are explored in detail within the scope of this dissertation.
 	
 	% Assert that nonlinearities (material & kinematic) are accomodated in this framework
 	% Describe how this framework can accomodate standard anti% locking formulations

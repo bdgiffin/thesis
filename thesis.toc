@@ -16,10 +16,10 @@
 \contentsline {chapter}{\numberline {3}Partitioned Element Methods}{34}
 \contentsline {section}{\numberline {3.1}Overview}{34}
 \contentsline {section}{\numberline {3.2}Definition of Polytopal Element Shape Functions}{35}
-\contentsline {section}{\numberline {3.3}Shape Function Approximation Methods}{38}
+\contentsline {section}{\numberline {3.3}Shape Function Approximation Methods}{39}
 \contentsline {section}{\numberline {3.4}Non-conforming Galerkin Approximations to \\ (Generalized) Harmonic Shape Functions}{41}
 \contentsline {section}{\numberline {3.5}Piecewise Polynomial Approximations to \\ (Generalized) Harmonic Shape Functions}{44}
-\contentsline {section}{\numberline {3.6}Partition-Based Quadrature Rules}{53}
+\contentsline {section}{\numberline {3.6}Partition-Based Quadrature Rules}{54}
 \contentsline {chapter}{\numberline {4}An Implementational Framework \\ for the DG-PEM}{58}
 \contentsline {section}{\numberline {4.1}Arbitrary Polytopal Meshes}{58}
 \contentsline {section}{\numberline {4.2}Element Partitioning Schemes}{63}
