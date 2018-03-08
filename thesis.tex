@@ -21,6 +21,13 @@
 \usepackage[]{algorithm2e}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    bookmarks=true,
+}
 %
 % Different fonts to try (uncomment only fontenc and one font at a time)
 % (you may need to install these first)
@@ -93,11 +100,15 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\abstract{A high-level discussion of the fundamental problems accompanying finite element discretizations in the form of locking, addressing the scope of the work under consideration.}
+\abstract{This thesis presents a novel polytopal finite-element framework in an effort to address the collective issues of discretization sensitivity and mesh generation for computational solid mechanics problems. The use of arbitrary polygonal and polyhedral shapes in place of canonical isoparametric elements seeks to address issues pertaining to meshing and mesh quality (particularly for irregularly shaped elements), while maintaining many of the desirable features of traditional finite element methods.
+	
+	A general class of \textit{partitioned element methods} (PEM) is established and analyzed, constituting a family of approaches for constructing piecewise polynomial approximations to harmonic shape functions on arbitrary polytopes, thereby necessitating a geometric partition of the elements. A handful of such approaches are explored in detail, including a novel approach herein referred to as the \textit{discontinuous Galerkin partitioned-element method} (DG-PEM). An implementational framework for the DG-PEM is presented, along with a discussion of the potential numerical challenges of the method.
+	
+	The efficacy of several partitioned element methods are assessed with regard to their ability to accommodate large deformations and nonlinear material behavior. The accuracy and distortion robustness of each method is explored, and their performance in the face of locking phenomena is also examined.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\acknowledgments{Many thanks to the following: Professor Amit Kanvinde who inspired much of my initial motivation for applying to graduate school; Professor N. Sukumar for exposing me to the realm of computational solid mechanics; Dr. Joseph Bishop at Sandia for being involved in my early (and continuing) development in the field of solid mechanics; Professor Mark Rashid who turned my spark of interest in the subject into a roaring fire of passion; Dr. Steven Wopschall and Mr. Omar Hafez for being my mentoring older brothers throughout my journey in graduate school; Mr. Subhajit Banerjee and Mr. Eric Chin whose fruitful discussions assisted greatly in developing a personal sense of calm and confidence prior to my qualifying examination; Professor Yannis Dafalias, Professor John Bolander, and Professor Elbridge Puckett, whose enthusiasm as lecturers and courtesy as QE examiners were indespensible; Dr. Joseph Jung, Dr. Kendall Pearson, Dr. Nathan Crane, Mr. Mark Merewether, Dr. Michael Tupek, and the whole of the Sierra Solid Mechanics Team at Sandia who introduced me to the fascinations of code development; Ms. Carly Arthur, Mr. Sam Mish, and Ms. Aim\'{e}e Sylvia whose conversations as fellow class-mates and advisees were incredibly helpful and insightful; and foremost to Ms. Maha Kenawy, who has served as my primary role-model and source of inspiration for completing this thesis -- I love you.}
+\acknowledgments{Many thanks to the following individuals: Professor Amit Kanvinde, who inspired much of my initial motivation for applying to graduate school; Professor Sukumar, for first exposing me to the realm of computational solid mechanics; Dr. Joseph Bishop, for being actively involved in my early (and continuing) professional development; Professor Mark Rashid, who turned a spark of interest into a roaring fire of passion; Drs. Steven Wopschall and Omar Hafez, for being my mentors and co-navigators throughout my journey in graduate school; Messrs. Subhajit Banerjee and Eric Chin, whose fruitful discussions assisted greatly in developing a personal sense of calm and confidence prior to my qualifying examination; Professors Yannis Dafalias, John Bolander, and Elbridge Puckett, whose enthusiasm as lecturers and courtesy as QE examiners were indispensable; Drs. Joseph Jung, Kendall Pearson, Nathan Crane, Michael Tupek, Mr. Mark Merewether, and the whole of the Sierra Solid Mechanics Team at Sandia, who introduced me to the fascinations of code development; Mses. Carly Arthur, Aim\'{e}e Sylvia, and Mr. Sam Mish, whose conversations as fellow class-mates and advisees were incredibly helpful and insightful; and foremost to Ms. Maha Kenawy, who has served as my primary role-model and source of inspiration for completing this dissertation.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -131,12 +142,10 @@
 \bibliography{bibliography}
 
 % The UMI abstract uses square brackets!
-\UMIabstract[The abstract that is submitted to UMI must be formatted as shown in the example here. The body of the abstract cannot exceed 350 words. It should be in typewritten form, double-spaced, and on bond paper. It is important to write an abstract that gives a clear description of the content and major divisions of the dissertation, since UMI will publish the abstract exactly as submitted. Students completing their requirements under Plan A should provide extra copies of the typed summary for use by the dissertation committee during the examination.
-
-The abstract that is submitted to UMI must be formatted as shown in the example here. The body of the abstract cannot exceed 350 words. It should be in typewritten form, double-spaced, and on bond paper. It is important to write an abstract that gives a clear description of the content and major divisions of the dissertation, since UMI will publish the abstract exactly as submitted. Students completing their requirements under Plan A should provide extra copies of the typed summary for use by the dissertation committee during the examination.
-
-The abstract that is submitted to UMI must be formatted as shown in the example here. The body of the abstract cannot exceed 350 words. It should be in typewritten form, double-spaced, and on bond paper. It is important to write an abstract that gives a clear description of the content and major divisions of the dissertation, since UMI will publish the abstract exactly as submitted. Students completing their requirements under Plan A should provide extra copies of the typed summary for use by the dissertation committee during the examination.
-
-The abstract that is submitted to UMI must be formatted as shown in the example here. The body of the abstract cannot exceed 350 words. It should be in typewritten form, double-spaced, and on bond paper. It is important to write an abstract that gives a clear description of the content and major divisions of the dissertation, since UMI will publish the abstract exactly as submitted. Students completing their requirements under Plan A should provide extra copies of the typed summary for use by the dissertation committee during the examination.]
+\UMIabstract[This thesis presents a novel polytopal finite-element framework in an effort to address the collective issues of discretization sensitivity and mesh generation for computational solid mechanics problems. The use of arbitrary polygonal and polyhedral shapes in place of canonical isoparametric elements seeks to address issues pertaining to meshing and mesh quality (particularly for irregularly shaped elements), while maintaining many of the desirable features of traditional finite element methods.
+	
+	A general class of \textit{partitioned element methods} (PEM) is established and analyzed, constituting a family of approaches for constructing piecewise polynomial approximations to harmonic shape functions on arbitrary polytopes, thereby necessitating a geometric partition of the elements. A handful of such approaches are explored in detail, including a novel approach herein referred to as the \textit{discontinuous Galerkin partitioned-element method} (DG-PEM). An implementational framework for the DG-PEM is presented, along with a discussion of the potential numerical challenges of the method.
+	
+	The efficacy of several partitioned element methods are assessed with regard to their ability to accommodate large deformations and nonlinear material behavior. The accuracy and distortion robustness of each method is explored, and their performance in the face of locking phenomena is also examined.]
 
 \end{document} 

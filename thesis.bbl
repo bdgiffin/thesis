@@ -175,6 +175,12 @@ L.~Beir{\~{a}}o da~Veiga, C.~Lovadina, and D.~Mora.
 \newblock {\em Computer Methods in Applied Mechanics and Engineering},
   295:327--346, 2015.
 
+\bibitem{Davis:04}
+Timothy~A. Davis.
+\newblock Algorithm 832: Umfpack v4.3---an unsymmetric-pattern multifrontal
+  method.
+\newblock {\em ACM Trans. Math. Softw.}, 30(2):196--199, June 2004.
+
 \bibitem{Souza:96}
 E.~A. de~Souza~Neto, D.~Peri{\'{c}}, M.~Dukto, and D.~R.~J. Owen.
 \newblock Design of simple low order finite elements for large strain analysis

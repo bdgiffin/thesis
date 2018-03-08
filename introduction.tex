@@ -290,7 +290,7 @@ where $V(K,k) \subset \left[ P^k (\Omega) \right]^d$ is a subspace of the vector
 		% A local BVP is solved to obtain shape functions on the partition
 		% Solution method depends on choice of local approximation method; many choices
 		% Quadrature rules on the element are informed by the partition
-	In this work, a general framework for \textit{partitioned element methods} (PEM) is established, constituting a family of approaches for constructing piecewise polynomial approximations to harmonic shape functions on arbitrary polytopes. Numerous approaches may be developed within this framework, though only a few are explored in detail within the scope of this dissertation.
+	In this work, a general framework for \textit{partitioned element methods} (PEM) is established, constituting a family of approaches for constructing piecewise polynomial approximations to harmonic shape functions on arbitrary polytopes. Numerous approaches may be developed within this framework, though only a handful are explored in detail within the scope of this dissertation.
 	
 	% Assert that nonlinearities (material & kinematic) are accomodated in this framework
 	% Describe how this framework can accomodate standard anti% locking formulations
@@ -298,12 +298,27 @@ where $V(K,k) \subset \left[ P^k (\Omega) \right]^d$ is a subspace of the vector
 	 The partitioned element methods developed herein are intended for applications in nonlinear solid mechanics. The efficacy of these methods will be assessed with regard to their ability to accommodate large deformations and nonlinear material behavior. The robustness of each method with respect to element shape, and its performance in the face of locking phenomena will be examined.
 	 
 	 % Additionally, several methodologies which leverage the partitioned element framework to combat certain forms of locking will be discussed.
+	 
+\subsection*{Original Contributions}
 
-	% Overview of contents each chapter
+	While the ideas which underpin partitioned element methods have already appeared in the literature (\cite{Rashid:12}, \cite{Bishop:14}), this work presents a unification of such concepts within a common framework. An original analysis of these approaches with regard to their ability to recover integration consistency is presented in chapter \ref{ch:pem}.
+	
+	The \textit{discontinuous Galerkin partitioned-element method} (DG-PEM) constitutes the most substantial contribution presented herein. It's mathematical formulation, analysis, implementation, and numerical investigation represent the sole work of the author.
+	
+	The numerical investigations considered in chapter \ref{ch:results} were performed using the Fortran-based solid mechanics code entitled ``Machina.'' This program was written and tested exclusively by the author (with the exception of the linear solver package \cite{Davis:04}).
+	
+	A novel, and highly accurate incremental kinematics algorithm for rate-based constitutive models was utilized for all problems in chapter \ref{ch:results} which involved finite deformations. A brief, contextual allusion to this algorithm is given in chapter \ref{ch:solid_mechanics}, with a more detailed explanation intended in a forthcoming publication \cite{kinematics_paper}.
+	
+	A novel analytical solution for the incompressible twisting annulus verification problem considered in chapter \ref{ch:results} is derived in the Appendix.
+
+\subsection*{Organization}	
+
+% Overview of contents each chapter
 		% Chapter 2 establishes the computational solid mechanics BVP
 		% Chapter 3 presents an accurate incremental kinematic update procedure (optional)
 		% Chapter 4 presents a general class of partitioned element methods
 		% Chapter 5 details an implementational framework for the PEM
 		% Chapter 6 provides a number of numerical investigations into the PEM
 		% Chapter 7 discusses opportunities for further research & development
+		
 	The remainder of this dissertation is organized as follows: chapter \ref{ch:solid_mechanics} establishes the context of nonlinear computational solid mechanics, chapter \ref{ch:pem} presents the overarching framework for partitioned element methods, chapter \ref{ch:implementation} details a particular implementational framework for a DG-based variant of the PEM, chapter \ref{ch:results} provides a number of numerical investigations of the PEM, and chapter \ref{ch:future_work} concludes with a discussion of opportunities for further research and development.
