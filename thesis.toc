@@ -10,26 +10,26 @@
 \contentsline {section}{\numberline {2.3}Constitutive Relations}{22}{section.2.3}
 \contentsline {section}{\numberline {2.4}Model Boundary Value Problem}{24}{section.2.4}
 \contentsline {section}{\numberline {2.5}Galerkin Approximations to the Weak Form}{27}{section.2.5}
-\contentsline {section}{\numberline {2.6}Requirements for Convergence of an \\ Approximation Method}{30}{section.2.6}
+\contentsline {section}{\numberline {2.6}Requirements for Convergence of an Approximation Method}{30}{section.2.6}
 \contentsline {chapter}{\numberline {3}Partitioned Element Methods}{35}{chapter.3}
 \contentsline {section}{\numberline {3.1}Overview}{35}{section.3.1}
 \contentsline {section}{\numberline {3.2}Definition of Polytopal Element Shape Functions}{36}{section.3.2}
 \contentsline {section}{\numberline {3.3}Shape Function Approximation Methods}{40}{section.3.3}
-\contentsline {section}{\numberline {3.4}Non-conforming Galerkin Approximations to \\ (Generalized) Harmonic Shape Functions}{42}{section.3.4}
-\contentsline {section}{\numberline {3.5}Piecewise Polynomial Approximations to \\ (Generalized) Harmonic Shape Functions}{45}{section.3.5}
+\contentsline {section}{\numberline {3.4}Non-conforming Galerkin Approximations to (Generalized) Harmonic Shape Functions}{42}{section.3.4}
+\contentsline {section}{\numberline {3.5}Piecewise Polynomial Approximations to (Generalized) Harmonic Shape Functions}{45}{section.3.5}
 \contentsline {section}{\numberline {3.6}Partition-Based Quadrature Rules}{55}{section.3.6}
-\contentsline {chapter}{\numberline {4}An Implementational Framework \\ for the DG-PEM}{59}{chapter.4}
-\contentsline {section}{\numberline {4.1}Arbitrary Polytopal Meshes}{59}{section.4.1}
+\contentsline {chapter}{\numberline {4}An Implementational Framework for the DG-PEM}{59}{chapter.4}
+\contentsline {section}{\numberline {4.1}Arbitrary Polytopal Meshes}{60}{section.4.1}
 \contentsline {section}{\numberline {4.2}Element Partitioning Schemes}{64}{section.4.2}
-\contentsline {section}{\numberline {4.3}Abstract Geometric Data Structures}{66}{section.4.3}
-\contentsline {section}{\numberline {4.4}Partition-Based Approximation Spaces}{69}{section.4.4}
-\contentsline {section}{\numberline {4.5}Linearization and Assembly of the \\ DG-PEM Systems of Equations}{71}{section.4.5}
-\contentsline {section}{\numberline {4.6}Numerical Conditioning of the \\ DG-PEM Systems of Equations}{75}{section.4.6}
-\contentsline {chapter}{\numberline {5}A Numerical Evaluation of the PEM}{78}{chapter.5}
-\contentsline {section}{\numberline {5.1}Tests for Polynomial Reproducibility}{78}{section.5.1}
-\contentsline {section}{\numberline {5.2}Finite Element Patch Tests}{84}{section.5.2}
-\contentsline {section}{\numberline {5.3}Tests for Element Quality}{94}{section.5.3}
-\contentsline {section}{\numberline {5.4}Convergence Studies}{105}{section.5.4}
-\contentsline {section}{\numberline {5.5}Large Deformation Problems with Elasto-plastic Material Behavior}{115}{section.5.5}
-\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{124}{chapter.6}
-\contentsline {chapter}{\numberline {A}An Exact Solution for the Incompressible Twisting Annulus Problem}{128}{appendix.A}
+\contentsline {section}{\numberline {4.3}Abstract Geometric Data Structures}{67}{section.4.3}
+\contentsline {section}{\numberline {4.4}Partition-Based Approximation Spaces}{70}{section.4.4}
+\contentsline {section}{\numberline {4.5}Linearization and Assembly of the DG-PEM Systems of Equations}{71}{section.4.5}
+\contentsline {section}{\numberline {4.6}Numerical Conditioning of the DG-PEM Systems of Equations}{75}{section.4.6}
+\contentsline {chapter}{\numberline {5}A Numerical Evaluation of the PEM}{79}{chapter.5}
+\contentsline {section}{\numberline {5.1}Tests for Polynomial Reproducibility}{79}{section.5.1}
+\contentsline {section}{\numberline {5.2}Finite Element Patch Tests}{85}{section.5.2}
+\contentsline {section}{\numberline {5.3}Tests for Element Quality}{95}{section.5.3}
+\contentsline {section}{\numberline {5.4}Convergence Studies}{106}{section.5.4}
+\contentsline {section}{\numberline {5.5}Large Deformation Problems with Elasto-plastic Material Behavior}{116}{section.5.5}
+\contentsline {chapter}{\numberline {6}Conclusions and Future Work}{125}{chapter.6}
+\contentsline {chapter}{\numberline {A}An Exact Solution for the Incompressible Twisting Annulus Problem}{129}{appendix.A}

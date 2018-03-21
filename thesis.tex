@@ -15,6 +15,7 @@
 %\usepackage[square,comma,numbers,sort&compress]{natbib}
 %\usepackage{hypernat}
 % Other useful packages to try
+\usepackage{bm}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{accents}
@@ -28,6 +29,8 @@
     citecolor=black,
     bookmarks=true,
 }
+\usepackage[raggedright]{titlesec}
+\usepackage{gensymb}
 %
 % Different fonts to try (uncomment only fontenc and one font at a time)
 % (you may need to install these first)
@@ -102,7 +105,7 @@
 
 \abstract{This thesis presents a novel polytopal finite-element framework in an effort to address the collective issues of discretization sensitivity and mesh generation for computational solid mechanics problems. The use of arbitrary polygonal and polyhedral shapes in place of canonical isoparametric elements seeks to address issues pertaining to meshing and mesh quality (particularly for irregularly shaped elements), while maintaining many of the desirable features of traditional finite element methods.
 	
-	A general class of \textit{partitioned element methods} (PEM) is established and analyzed, constituting a family of approaches for constructing piecewise polynomial approximations to harmonic shape functions on arbitrary polytopes, thereby necessitating a geometric partition of the elements. A handful of such approaches are explored in detail, including a novel approach herein referred to as the \textit{discontinuous Galerkin partitioned-element method} (DG-PEM). An implementational framework for the DG-PEM is presented, along with a discussion of the potential numerical challenges of the method.
+	A general class of \textit{partitioned element methods} (PEM) is established and analyzed, constituting a family of approaches for constructing piecewise polynomial approximations to harmonic shape functions on arbitrary polytopes, thereby necessitating a geometric partition of each element. A handful of such approaches are explored in detail, including a novel approach herein referred to as the \textit{discontinuous Galerkin partitioned-element method} (DG-PEM). An implementational framework for the DG-PEM is presented, along with a discussion of its associated numerical challenges.
 	
 	The efficacy of several partitioned element methods are assessed with regard to their ability to accommodate large deformations and nonlinear material behavior. The accuracy and distortion robustness of each method is explored, and their performance in the face of locking phenomena is also examined.}
 
@@ -144,7 +147,7 @@
 % The UMI abstract uses square brackets!
 \UMIabstract[This thesis presents a novel polytopal finite-element framework in an effort to address the collective issues of discretization sensitivity and mesh generation for computational solid mechanics problems. The use of arbitrary polygonal and polyhedral shapes in place of canonical isoparametric elements seeks to address issues pertaining to meshing and mesh quality (particularly for irregularly shaped elements), while maintaining many of the desirable features of traditional finite element methods.
 	
-	A general class of \textit{partitioned element methods} (PEM) is established and analyzed, constituting a family of approaches for constructing piecewise polynomial approximations to harmonic shape functions on arbitrary polytopes, thereby necessitating a geometric partition of the elements. A handful of such approaches are explored in detail, including a novel approach herein referred to as the \textit{discontinuous Galerkin partitioned-element method} (DG-PEM). An implementational framework for the DG-PEM is presented, along with a discussion of the potential numerical challenges of the method.
+	A general class of \textit{partitioned element methods} (PEM) is established and analyzed, constituting a family of approaches for constructing piecewise polynomial approximations to harmonic shape functions on arbitrary polytopes, thereby necessitating a geometric partition of each element. A handful of such approaches are explored in detail, including a novel approach herein referred to as the \textit{discontinuous Galerkin partitioned-element method} (DG-PEM). An implementational framework for the DG-PEM is presented, along with a discussion of its associated numerical challenges.
 	
 	The efficacy of several partitioned element methods are assessed with regard to their ability to accommodate large deformations and nonlinear material behavior. The accuracy and distortion robustness of each method is explored, and their performance in the face of locking phenomena is also examined.]
 

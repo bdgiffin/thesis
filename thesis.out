@@ -10,21 +10,21 @@
 \BOOKMARK [1][-]{section.2.3}{Constitutive Relations}{chapter.2}% 10
 \BOOKMARK [1][-]{section.2.4}{Model Boundary Value Problem}{chapter.2}% 11
 \BOOKMARK [1][-]{section.2.5}{Galerkin Approximations to the Weak Form}{chapter.2}% 12
-\BOOKMARK [1][-]{section.2.6}{Requirements for Convergence of an \040Approximation Method}{chapter.2}% 13
+\BOOKMARK [1][-]{section.2.6}{Requirements for Convergence of an Approximation Method}{chapter.2}% 13
 \BOOKMARK [0][-]{chapter.3}{Partitioned Element Methods}{}% 14
 \BOOKMARK [1][-]{section.3.1}{Overview}{chapter.3}% 15
 \BOOKMARK [1][-]{section.3.2}{Definition of Polytopal Element Shape Functions}{chapter.3}% 16
 \BOOKMARK [1][-]{section.3.3}{Shape Function Approximation Methods}{chapter.3}% 17
-\BOOKMARK [1][-]{section.3.4}{Non-conforming Galerkin Approximations to \040\(Generalized\) Harmonic Shape Functions}{chapter.3}% 18
-\BOOKMARK [1][-]{section.3.5}{Piecewise Polynomial Approximations to \040\(Generalized\) Harmonic Shape Functions}{chapter.3}% 19
+\BOOKMARK [1][-]{section.3.4}{Non-conforming Galerkin Approximations to \(Generalized\) Harmonic Shape Functions}{chapter.3}% 18
+\BOOKMARK [1][-]{section.3.5}{Piecewise Polynomial Approximations to \(Generalized\) Harmonic Shape Functions}{chapter.3}% 19
 \BOOKMARK [1][-]{section.3.6}{Partition-Based Quadrature Rules}{chapter.3}% 20
-\BOOKMARK [0][-]{chapter.4}{An Implementational Framework \040for the DG-PEM}{}% 21
+\BOOKMARK [0][-]{chapter.4}{An Implementational Framework for the DG-PEM}{}% 21
 \BOOKMARK [1][-]{section.4.1}{Arbitrary Polytopal Meshes}{chapter.4}% 22
 \BOOKMARK [1][-]{section.4.2}{Element Partitioning Schemes}{chapter.4}% 23
 \BOOKMARK [1][-]{section.4.3}{Abstract Geometric Data Structures}{chapter.4}% 24
 \BOOKMARK [1][-]{section.4.4}{Partition-Based Approximation Spaces}{chapter.4}% 25
-\BOOKMARK [1][-]{section.4.5}{Linearization and Assembly of the \040DG-PEM Systems of Equations}{chapter.4}% 26
-\BOOKMARK [1][-]{section.4.6}{Numerical Conditioning of the \040DG-PEM Systems of Equations}{chapter.4}% 27
+\BOOKMARK [1][-]{section.4.5}{Linearization and Assembly of the DG-PEM Systems of Equations}{chapter.4}% 26
+\BOOKMARK [1][-]{section.4.6}{Numerical Conditioning of the DG-PEM Systems of Equations}{chapter.4}% 27
 \BOOKMARK [0][-]{chapter.5}{A Numerical Evaluation of the PEM}{}% 28
 \BOOKMARK [1][-]{section.5.1}{Tests for Polynomial Reproducibility}{chapter.5}% 29
 \BOOKMARK [1][-]{section.5.2}{Finite Element Patch Tests}{chapter.5}% 30

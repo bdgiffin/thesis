@@ -4,15 +4,15 @@ An exact solution for the twisting annulus problem described in chapter \ref{ch:
 \begin{equation}
   \nabla \cdot \boldsymbol{\sigma} = \left\{ \begin{array}{c} \frac{\partial \sigma_{rr}}{\partial r} + \frac{\sigma_{rr}}{r} + \frac{1}{r} \frac{\partial \sigma_{\theta r}}{\partial \theta} + \frac{\partial \sigma_{z r}}{\partial z} - \frac{\sigma_{\theta \theta}}{r} \\
     \frac{1}{r} \frac{\partial \sigma_{\theta \theta}}{\partial \theta} + \frac{\partial \sigma_{r\theta}}{\partial r} + \frac{\sigma_{r\theta}}{r} + \frac{\sigma_{\theta r}}{r} + \frac{\partial \sigma_{z \theta}}{\partial z} \\
-    \frac{\partial \sigma_{z z}}{\partial z} + \frac{\partial \sigma_{r z}}{\partial r} + \frac{\sigma_{r z}}{r} + \frac{1}{r} \frac{\partial \sigma_{\theta z}}{\partial \theta} \end{array} \right\} = \mathbf{0}.
+    \frac{\partial \sigma_{z z}}{\partial z} + \frac{\partial \sigma_{r z}}{\partial r} + \frac{\sigma_{r z}}{r} + \frac{1}{r} \frac{\partial \sigma_{\theta z}}{\partial \theta} \end{array} \right\} = \bm{0}.
 \end{equation}
 By the assumptions of plane strain and axisymmetry, it is rationalized that $\boldsymbol{\sigma} (r)$ must be a function of $r$, alone. Therefore:
 \begin{equation}
   \nabla \cdot \boldsymbol{\sigma} = \left\{ \begin{array}{c} \frac{\partial \sigma_{rr}}{\partial r} + \frac{\sigma_{rr} - \sigma_{\theta \theta}}{r} \\
     \frac{\partial \sigma_{r\theta}}{\partial r} + \frac{2 \sigma_{r\theta}}{r} \\
-    \frac{\partial \sigma_{r z}}{\partial r} + \frac{\sigma_{r z}}{r} \end{array} \right\} = \mathbf{0}.
+    \frac{\partial \sigma_{r z}}{\partial r} + \frac{\sigma_{r z}}{r} \end{array} \right\} = \bm{0}.
 \end{equation}
-Furthermore, by the assumptions of plane strain, it is observed that $\sigma_{rz} = 0$ and $\sigma_{\theta z} = 0$. Additionally, imposing the incompressibility condition $\nabla \cdot \mathbf{v} = \text{tr} (\mathbf{D}) = 0$:
+Furthermore, by the assumptions of plane strain, it is observed that $\sigma_{rz} = 0$ and $\sigma_{\theta z} = 0$. Additionally, imposing the incompressibility condition $\nabla \cdot \bm{v} = \text{tr} (\bm{D}) = 0$:
 \begin{equation}
   \text{tr} (\dot{\boldsymbol{\sigma}}) = 0 \, \Rightarrow \, \text{tr} (\boldsymbol{\sigma}) = 0 \, \forall t.
 \end{equation}
@@ -31,7 +31,7 @@ where $\sigma(t)$ and $\tau(t)$ are independent functions of time. Consequently,
 
 Under the assumption of incompressibility, the velocity field is $v_r = 0$, $v_z = 0$, and $v_\theta (r) = r \dot{\phi}(r)$, for some $\phi(r,t)$. The velocity gradient (in cylindrical polar coordinates) is written:
 \begin{equation}
-  \mathbf{L} = \nabla \mathbf{v} = \left[ \begin{array}{ccc} v_{r,r} & v_{r,\theta}/r-v_\theta /r & v_{r,z} \\
+  \bm{L} = \nabla \bm{v} = \left[ \begin{array}{ccc} v_{r,r} & v_{r,\theta}/r-v_\theta /r & v_{r,z} \\
       v_{\theta,r} & v_{\theta,\theta}/r + v_r /r & v_{\theta,z} \\
       v_{z,r} & v_{z,\theta} /r & v_{z,z} \end{array} \right] = 
   \left[ \begin{array}{ccc} 0 & -\dot{\phi} & 0 \\
@@ -40,14 +40,14 @@ Under the assumption of incompressibility, the velocity field is $v_r = 0$, $v_z
 \end{equation}
 The corresponding rate of deformation and spin tensors are:
 \begin{equation}
-  \mathbf{D} = \frac{r \dot{\phi}_{,r}}{2} \left[ \begin{array}{ccc} 0 & +1 & 0 \\
+  \bm{D} = \frac{r \dot{\phi}_{,r}}{2} \left[ \begin{array}{ccc} 0 & +1 & 0 \\
       +1 & 0 & 0 \\
-      0 & 0 & 0 \end{array} \right], \quad \mathbf{W} = 
+      0 & 0 & 0 \end{array} \right], \quad \bm{W} = 
   \frac{2 \dot{\phi} + r \dot{\phi}_{,r}}{2} \left[ \begin{array}{ccc} 0 & - 1 & 0 \\
       +1 & 0 & 0 \\
       0 & 0 & 0 \end{array} \right].
 \end{equation}
-The stress rate equations resulting from $\dot{\boldsymbol{\sigma}} = \mathbb{C} : \mathbf{D} + \mathbf{W} \boldsymbol{\sigma} - \boldsymbol{\sigma} \mathbf{W}$ are
+The stress rate equations resulting from $\dot{\boldsymbol{\sigma}} = \mathbb{C} : \bm{D} + \bm{W} \boldsymbol{\sigma} - \boldsymbol{\sigma} \bm{W}$ are
 \begin{equation}
   \left\{ \begin{array}{c} \dot{\sigma}_{rr} \\ \dot{\sigma}_{\theta \theta} \\ \dot{\sigma}_{r \theta} \end{array} \right\} = \left\{ \begin{array}{c} 0 \\ 0 \\ \mu r \dot{\phi}_{,r} \end{array} \right\} + 
   (2 \dot{\phi} + r \dot{\phi}_{,r}) \left\{ \begin{array}{c} - \sigma_{r \theta} \\ \sigma_{r \theta} \\ \sigma_{rr} \end{array} \right\},
@@ -75,15 +75,15 @@ Imposing the initial conditions $\sigma(0) = \tau(0) = 0$ results in:
 \begin{equation}
   \sigma(t) = \frac{\mu B}{2 A} \left[ \cos (2 A t) - 1 \right], \quad \tau(t) = \frac{\mu B}{2 A} \sin (2 A t).
 \end{equation}
-Imposing the boundary conditions $\phi(R_i,t) = 0 \, \, \forall t$, $\phi(R_o,t) = \Phi \, t \, \, \forall t$ yields:
+Imposing the boundary conditions $\phi(R_{\mathrm i},t) = 0 \, \, \forall t$, $\phi(R_{\mathrm o},t) = \Phi \, t \, \, \forall t$ yields:
 \begin{equation}
-  A = \frac{R_o^{2}}{R_o^{2} - R_i^{2}} \Phi, \quad B = 2 \frac{R_o^{2} R_i^{2}}{R_o^{2} - R_i^{2}} \Phi.
+  A = \frac{R_{\mathrm o}^{2}}{R_{\mathrm o}^{2} - R_{\mathrm i}^{2}} \Phi, \quad B = 2 \frac{R_{\mathrm o}^{2} R_{\mathrm i}^{2}}{R_{\mathrm o}^{2} - R_{\mathrm i}^{2}} \Phi.
 \end{equation}
 The final analytical solutions for the displacement and stress fields are:
 \begin{equation}
-  u_r = u_z = 0, \quad u_\theta = \frac{R_o^2}{r} \frac{r^2 - R_i^2}{R_o^{2} - R_i^{2}} \Phi t,
+  u_r = u_z = 0, \quad u_\theta = \frac{R_{\mathrm o}^2}{r} \frac{r^2 - R_{\mathrm i}^2}{R_{\mathrm o}^{2} - R_{\mathrm i}^{2}} \Phi t,
 \end{equation}
 \begin{equation}
-  \sigma_{rr} = - \sigma_{\theta \theta} = \mu \frac{R_i^{2}}{r^{2}} \left[ \cos \left( 2 \frac{R_o^{2}}{R_o^{2} - R_i^{2}} \Phi t \right) - 1 \right], \quad \sigma_{r \theta} = \mu \frac{R_i^{2}}{r^{2}} \sin \left( 2 \frac{R_o^{2}}{R_o^{2} - R_i^{2}} \Phi t \right).
+  \sigma_{rr} = - \sigma_{\theta \theta} = \mu \frac{R_{\mathrm i}^{2}}{r^{2}} \left[ \cos \left( 2 \frac{R_{\mathrm o}^{2}}{R_{\mathrm o}^{2} - R_{\mathrm i}^{2}} \Phi t \right) - 1 \right], \quad \sigma_{r \theta} = \mu \frac{R_{\mathrm i}^{2}}{r^{2}} \sin \left( 2 \frac{R_{\mathrm o}^{2}}{R_o^{2} - R_{\mathrm i}^{2}} \Phi t \right).
 \end{equation}
 According to \cite{Brannon:11}, the above solution for $\sigma_{r \theta}$ is also valid for compressible elastic materials.

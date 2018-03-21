@@ -1,4 +1,4 @@
-\chapter{An Implementational Framework \\ for the DG-PEM} \label{ch:implementation}
+\chapter{An Implementational Framework for the DG-PEM} \label{ch:implementation}
 %
 The implementation of any partitioned element method must address two primary challenges: the subdivision of an element into cells, and the solution of shape function-specific boundary value problems by way of the chosen PEM formulation. The first of these two tasks may be accomplished by various means. However, careful attention must be paid to the stability requirements of the PEM, such that the resulting quadrature cell partition yields stable approximations to harmonic shape functions, and an equally stable integration rule for the element. Specifying such a discretization is not trivial for arbitrary shapes. For this reason, we will confine our attention to strictly star-convex elements, for which we propose a relatively simple (edge-based) element partitioning algorithm.
 
@@ -22,9 +22,9 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 	
 	The geometric data used to describe a typical finite element mesh consists of the following:
 	\begin{itemize}
-		\item A list of the spatial coordinates $\left\{ \mathbf{X}_a \right\}_{a=1}^{N^{\mathcal{B}_0}_V}$ for all nodes in the mesh. The sub-index $a \in 1, \ldots, N^{\mathcal{B}_0}_V$ induces a \textit{global node ID} ascribed to each node.
+		\item A list of the spatial coordinates $\left\{ \bm{X}_a \right\}_{a=1}^{N^{\mathcal{B}_0}_V}$ for all nodes in the mesh. The sub-index $a \in 1, \ldots, N^{\mathcal{B}_0}_V$ induces a \textit{global node ID} ascribed to each node.
 		\item A list of all elements $\left\{ \Omega_{e} \right\}_{e = 1}^{N^{\mathcal{B}_0}_\Omega}$ where $\Omega_{e} \subset \mathcal{B}_0$. The sub-index $e \in 1, \ldots, N^{\mathcal{B}_0}_\Omega$ induces an associated \textit{element ID}.
-		\item A list of all faces $\left\{ F_{b} \right\}_{b = 1}^{N^{\Gamma^N_0}_F}$ where $F_{b} \subset \Gamma^N_0$ to which traction boundary conditions are assigned. Likewise, the sub-index $b \in 1, \ldots, N^{\Gamma^N_0}_F$ induces a \textit{boundary face ID}.
+		\item A list of all faces $\left\{ F_{b} \right\}_{b = 1}^{N^{\Gamma^{\mathrm N}_0}_F}$ where $F_{b} \subset \Gamma^{\mathrm N}_0$ to which traction boundary conditions are assigned. Likewise, the sub-index $b \in 1, \ldots, N^{\Gamma^{\mathrm N}_0}_F$ induces a \textit{boundary face ID}.
 	\end{itemize}
 	
 	In a finite element mesh consisting of arbitrary polyhedral elements, it is suggested that each element $\Omega_e$ be represented by the following data:
@@ -40,7 +40,7 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 		\label{fig:polyhedron_data}
 	\end{figure}
 	
-	A given polygonal face $F_b \subset \Gamma^N_0$ will similarly be represented by:
+	A given polygonal face $F_b \subset \Gamma^{\mathrm N}_0$ will similarly be represented by:
 	\begin{itemize}
 		\item A list of the global node IDs $\left\{ a_i \right\}_{i=1}^{N^{F_b}_V}$ which belong to $F_b$.
 		\item A list of the linear edges $\left\{ E_{c} \right\}_{c=1}^{N^{F_b}_E}$ which belong to $\partial F_b$; each linear edge $E_c$ is in turn represented as an ordered list of local node IDs $\left\{ n_i \right\}_{i=1}^{N^{E_c}_V}$.
@@ -58,20 +58,20 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 
 	Traditional Lagrangian finite element methods require each element $\Omega_e \subset \mathcal{B}_0$ to carry the following data (at a minimum) for the purposes of evaluating weak form integrals:
 	\begin{itemize}
-		\item A list of quadrature weights and corresponding locations $\left\{ w_q, \, \mathbf{X}_q \right\}_{q=1}^{N^{\Omega_e}_{qp}}$ associated with the quadrature points of the element. The sub-index $q$ induces a local \textit{quadrature point ID}.
-		\item Evaluations of the element's nodal shape functions $\left\{ \varphi_a (\mathbf{X}_q) \right\}_{q=1}^{N^{\Omega_e}_{qp}} \, \, \forall a = 1, \ldots, N^{\Omega_e}_V$ at each quadrature point location $\mathbf{X}_q$.
-		\item Gradients (with respect to the element's reference coordinates $\mathbf{X}$ at time $t = 0$) of the element's nodal shape functions $\left\{ \nabla_X \varphi_a (\mathbf{X}_q) \right\}_{q=1}^{N^{\Omega_e}_{qp}} \, \, \forall a = 1, \ldots, N^{\Omega_e}_V$.
-		\item (Optionally) if the element relies upon some form of gradient correction scheme (or more generally, if a Petrov-Galerkin method is employed): evaluations and/or gradients of the element's test functions $\left\{ \phi_a (\mathbf{X}_q), \, \nabla_X \phi_a (\mathbf{X}_q) \right\}_{q=1}^{N^{\Omega_e}_{qp}} \, \, \forall a = 1, \ldots, N^{\Omega_e}_V$ must be stored, as well.
+		\item A list of quadrature weights and corresponding locations $\left\{ w_q, \, \bm{X}_q \right\}_{q=1}^{N^{\Omega_e}_{\mathrm q\mathrm p}}$ associated with the quadrature points of the element. The sub-index $q$ induces a local \textit{quadrature point ID}.
+		\item Evaluations of the element's nodal shape functions $\left\{ \varphi_a (\bm{X}_q) \right\}_{q=1}^{N^{\Omega_e}_{\mathrm q\mathrm p}} \, \, \forall a = 1, \ldots, N^{\Omega_e}_V$ at each quadrature point location $\bm{X}_q$.
+		\item Gradients (with respect to the element's reference coordinates $\bm{X}$ at time $t = 0$) of the element's nodal shape functions $\left\{ \nabla_X \varphi_a (\bm{X}_q) \right\}_{q=1}^{N^{\Omega_e}_{\mathrm q\mathrm p}} \, \, \forall a = 1, \ldots, N^{\Omega_e}_V$.
+		\item (Optionally) if the element relies upon some form of gradient correction scheme (or more generally, if a Petrov-Galerkin method is employed): evaluations and/or gradients of the element's test functions $\left\{ \phi_a (\bm{X}_q), \, \nabla_X \phi_a (\bm{X}_q) \right\}_{q=1}^{N^{\Omega_e}_{\mathrm q\mathrm p}} \, \, \forall a = 1, \ldots, N^{\Omega_e}_V$ must be stored, as well.
 	\end{itemize}
 	For solid mechanics applications, material state data (e.g. material properties, internal variables, Cauchy stress) would also need to be stored at each quadrature point location.
 	
-	Similarly, each boundary face $F_b \subset \Gamma^N_0$ must carry:
+	Similarly, each boundary face $F_b \subset \Gamma^{\mathrm N}_0$ must carry:
 	\begin{itemize}
-		\item A list of quadrature weights $\left\{ w_q \right\}_{q=1}^{N^{F_b}_{qp}}$ for each quadrature point of the face.
-		\item Evaluations of the face's nodal shape functions $\left\{ \varphi_a (\mathbf{X}_q) \right\}_{q=1}^{N^{F_b}_{qp}} \, \, \forall a = 1, \ldots, N^{F_b}_V$ at each quadrature point location $\mathbf{X}_q$.
-		\item Gradients (with respect to the face's in-plane reference coordinates $\mathbf{X}$ at $t = 0$) of the face's nodal shape functions $\left\{ \nabla_X \varphi_a (\mathbf{X}_q) \right\}_{q=1}^{N^{F_b}_{qp}} \, \, \forall a = 1, \ldots, N^{F_b}_V$.
-		\item If a Petrov-Galerkin method is employed: evaluations of the face's test functions $\left\{ \phi_a (\mathbf{X}_q) \right\}_{q=1}^{N^{F_b}_{qp}} \, \, \forall a = 1, \ldots, N^{F_b}_V$.
-		\item Outward unit normals $\left\{ \mathbf{N}_q \right\}_{q=1}^{N^{F_b}_{qp}}$ to the face $F_b$ at each quadrature point.
+		\item A list of quadrature weights $\left\{ w_q \right\}_{q=1}^{N^{F_b}_{\mathrm q\mathrm p}}$ for each quadrature point of the face.
+		\item Evaluations of the face's nodal shape functions $\left\{ \varphi_a (\bm{X}_q) \right\}_{q=1}^{N^{F_b}_{\mathrm q\mathrm p}} \, \, \forall a = 1, \ldots, N^{F_b}_V$ at each quadrature point location $\bm{X}_q$.
+		\item Gradients (with respect to the face's in-plane reference coordinates $\bm{X}$ at $t = 0$) of the face's nodal shape functions $\left\{ \nabla_X \varphi_a (\bm{X}_q) \right\}_{q=1}^{N^{F_b}_{\mathrm q\mathrm p}} \, \, \forall a = 1, \ldots, N^{F_b}_V$.
+		\item If a Petrov-Galerkin method is employed: evaluations of the face's test functions $\left\{ \phi_a (\bm{X}_q) \right\}_{q=1}^{N^{F_b}_{\mathrm q\mathrm p}} \, \, \forall a = 1, \ldots, N^{F_b}_V$.
+		\item Outward unit normals $\left\{ \bm{N}_q \right\}_{q=1}^{N^{F_b}_{\mathrm q\mathrm p}}$ to the face $F_b$ at each quadrature point.
 	\end{itemize}
 	
 	The data enumerated above must be determined via a specified \textit{element formulation}: the method by which the element's shape functions and quadrature rule are constructed. Partitioned element methods address precisely this task. Given an abstract representation for the geometry of a given polyhedral element $\Omega$ (as discussed in the previous section), a PEM formulation proceeds in a number of distinct steps:
@@ -96,21 +96,21 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 
 \subsection*{Edge-Based Partitioning for Star-Convex Elements}
 
-	A star-convex shape $\Omega$ is one for which there exists some interior point $\mathbf{X}^{\Omega}_0 \in \Omega$ such that the line segment connecting any point $\mathbf{X} \in \Omega$ to $\mathbf{X}^{\Omega}_0$ is entirely contained within $\Omega$. If $\Omega \subset \mathbb{R}^3$ refers to a polyhedron which is star-convex, this further implies that each polygonal face $F \subset \partial \Omega$ is also star-convex with respect to some point $\mathbf{X}^{F}_0 \in F$. Any linear edge $E \subset \partial F$ is star-convex with respect to any point $\mathbf{X} \in E$.
+	A star-convex shape $\Omega$ is one for which there exists some interior point $\bm{X}^{\Omega}_0 \in \Omega$ such that the line segment connecting any point $\bm{X} \in \Omega$ to $\bm{X}^{\Omega}_0$ is entirely contained within $\Omega$. If $\Omega \subset \mathbb{R}^3$ refers to a polyhedron which is star-convex, this further implies that each polygonal face $F \subset \partial \Omega$ is also star-convex with respect to some point $\bm{X}^{F}_0 \in F$. Any linear edge $E \subset \partial F$ is star-convex with respect to any point $\bm{X} \in E$.
 	
-	A simple and efficient partitioning scheme is described for polyhedral elements $\Omega$ (and their polygonal faces $F_j$) which are star-convex with respect to their vertex-averaged centroids $\bar{\mathbf{X}}^{\Omega}_0$ (or $\bar{\mathbf{X}}^{F_j}_0$), i.e.
+	A simple and efficient partitioning scheme is described for polyhedral elements $\Omega$ (and their polygonal faces $F_j$) which are star-convex with respect to their vertex-averaged centroids $\bar{\bm{X}}^{\Omega}_0$ (or $\bar{\bm{X}}^{F_j}_0$), i.e.
 	\begin{equation}
-		\bar{\mathbf{X}}^{\Omega}_0 = \frac{1}{N^{\Omega}_V} \sum_{i = 1}^{N^{\Omega}_V} \mathbf{X}_{i}, \quad \text{and} \quad \bar{\mathbf{X}}^{F_j}_0 = \frac{1}{N^{F_j}_V} \sum_{i = 1}^{N^{F_j}_V} \mathbf{X}_{i}.
+		\bar{\bm{X}}^{\Omega}_0 = \frac{1}{N^{\Omega}_V} \sum_{i = 1}^{N^{\Omega}_V} \bm{X}_{i}, \quad \text{and} \quad \bar{\bm{X}}^{F_j}_0 = \frac{1}{N^{F_j}_V} \sum_{i = 1}^{N^{F_j}_V} \bm{X}_{i}.
 	\end{equation}
 	
 	For a given polyhedral element $\Omega$, the algorithm proceeds in several steps:
 	\begin{itemize}
 		\item[1.)] Identify all edges of the polyhedron, and subdivide them into linear segments; each segment should join two adjacent nodes of a given edge.
-		\item[2.)] For each face, compute its vertex-averaged centroid $\bar{\mathbf{X}}^{F_j}_0$, and subdivide the face into triangular facets which emanate from $\bar{\mathbf{X}}^{F_j}_0$; each facet should share at most two segments (at least one segment) with $\partial F_j$.
-		\item[3a.)] Compute the element's vertex-averaged centroid $\bar{\mathbf{X}}^{\Omega}_0$, and subdivide the element into tetrahedra which emanate from $\bar{\mathbf{X}}^{\Omega}_0$; each tetrahedron should share a single facet with $\partial \Omega$.
+		\item[2.)] For each face, compute its vertex-averaged centroid $\bar{\bm{X}}^{F_j}_0$, and subdivide the face into triangular facets which emanate from $\bar{\bm{X}}^{F_j}_0$; each facet should share at most two segments (at least one segment) with $\partial F_j$.
+		\item[3a.)] Compute the element's vertex-averaged centroid $\bar{\bm{X}}^{\Omega}_0$, and subdivide the element into tetrahedra which emanate from $\bar{\bm{X}}^{\Omega}_0$; each tetrahedron should share a single facet with $\partial \Omega$.
 		\item[3b.)] Lump into cells any tetrahedra that share a segment belonging to an edge of $\Omega$; each cell should consist of exactly two tetrahedra.
 	\end{itemize}
-	An illustration of this process is depicted in Figure \ref{fig:partitioning_algorithm}. A similar algorithm may be applied to each boundary face $F_b \subset \Gamma^N_0$, entailing only the first two steps described above.
+	An illustration of this process is depicted in Figure \ref{fig:partitioning_algorithm}. A similar algorithm may be applied to each boundary face $F_b \subset \Gamma^{\mathrm N}_0$, entailing only the first two steps described above.
 	\begin{figure} [!ht]
 		\centering
 		\includegraphics[width = 6.0in]{figures/partitioning_algorithm.pdf}
@@ -147,8 +147,8 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 	Henceforth, we denote by $\varepsilon$ any generic $d-$dimensional entity, and by $\zeta$ any $(d-1)$-dimensional child of $\varepsilon$ (such that $\zeta \subset \partial \varepsilon$). The data stored on a given entity $\varepsilon$ consists of:
 	\begin{itemize}
 		\item Information (pointers or entity IDs) referring to the $(d-1)$-dimensional children of $\varepsilon$, and/or information (pointers or entity IDs) referring to the $(d+1)$-dimensional parents of $\varepsilon$.
-		\item An (optional) orientation/unit direction $\mathbf{N}_\varepsilon$.
-		\item A quadrature rule $\left\{ \mathbf{X}_q, w_q \right\}_{q=1}^{N^{\varepsilon}_{qp}}$ defined on $\varepsilon$, or pre-computed monomial integrals $\int_{\varepsilon} \mathbf{X}^\alpha \, d \varepsilon$ for all $|\alpha| \leq k$ (alternatively, the shifted monomial moments $\int_{\varepsilon} (\mathbf{X}-\mathbf{X}_{\varepsilon})^\alpha \, d \varepsilon$ may be computed and stored, instead.)
+		\item An (optional) orientation/unit direction $\bm{N}_\varepsilon$.
+		\item A quadrature rule $\left\{ \bm{X}_q, w_q \right\}_{q=1}^{N^{\varepsilon}_{\mathrm q\mathrm p}}$ defined on $\varepsilon$, or pre-computed monomial integrals $\int_{\varepsilon} \bm{X}^\alpha \, \mathrm d \varepsilon$ for all $|\alpha| \leq k$ (alternatively, the shifted monomials $\int_{\varepsilon} (\bm{X}-\bm{X}_{\varepsilon})^\alpha \, \mathrm d \varepsilon$ may be computed and stored, instead.)
 		\item A list of the DG-PEM basis function IDs which possess compact support over $\varepsilon$.
 	\end{itemize}
 	
@@ -181,85 +181,85 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 
 		As discussed in chapter \ref{ch:pem}, partitioned element methods consider a weak formulation of a given PDE (e.g. Laplace's equation), whose solution is approximated through the specification of a finite dimensional function space $\mathcal{U}^h (\mathcal{E})$ defined on the partition $\mathcal{T}_{\varepsilon} (\mathcal{E})$ of a given sub-element $\mathcal{E}$. The (sub-)element's shape functions are selected as the ``best approximations'' to (harmonic) functions which are contained within the chosen approximation space $\mathcal{U}^h (\mathcal{E})$.
 		
-		Herein, we consider $\mathcal{U}^h (\mathcal{E}) = \mathcal{D}^h_k (\mathcal{E}) = \left\{ \varphi \in L^2 (\mathcal{E}) : \varphi|_{\varepsilon} \in P^k (\varepsilon) \, \forall \varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E}) \right\}$ to be spanned by a set of basis functions $\left\{ \psi_A \right\}_{A=1}^{N^{\mathcal{E}}_{bf}}$, such that each basis function $\psi \in \mathcal{U}^h (\mathcal{E})$ is compactly supported over a given geometric entity $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$ (or patch of entities).
+		Herein, we consider $\mathcal{U}^h (\mathcal{E}) = \mathcal{D}^h_k (\mathcal{E}) = \left\{ \varphi \in L^2 (\mathcal{E}) : \varphi|_{\varepsilon} \in P^k (\varepsilon) \, \forall \varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E}) \right\}$ to be spanned by a set of basis functions $\left\{ \psi_A \right\}_{A=1}^{N^{\mathcal{E}}_{\mathrm b\mathrm f}}$, such that each basis function $\psi \in \mathcal{U}^h (\mathcal{E})$ is compactly supported over a given geometric entity $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$ (or patch of entities).
 		
 		Any function $\varphi^h \in \mathcal{U}^h (\mathcal{E})$ may be written as a linear combination of the basis functions which span $\mathcal{U}^h (\mathcal{E})$, i.e.
 		\begin{equation}
-			\varphi^h (\mathbf{X}) = \sum_{A=1}^{N^{\mathcal{E}}_{bf}} \psi_A (\mathbf{X}) \, \varphi_A \quad \forall \mathbf{X} \in \mathcal{E}.
+			\varphi^h (\bm{X}) = \sum_{A=1}^{N^{\mathcal{E}}_{\mathrm b\mathrm f}} \psi_A (\bm{X}) \, \varphi_A \quad \forall \bm{X} \in \mathcal{E}.
 		\end{equation}
-		The restriction of $\varphi^h$ to a given geometric entity $\varepsilon$ may be written in terms of only those basis functions $\left\{ \psi^\varepsilon_{a} \right\}_{a=1}^{N^\varepsilon_{bf}} \subset \mathcal{U}^h (\Omega)$ which possess compact support over $\varepsilon$, such that
+		The restriction of $\varphi^h$ to a given geometric entity $\varepsilon$ may be written in terms of only those basis functions $\left\{ \psi^\varepsilon_{a} \right\}_{a=1}^{N^\varepsilon_{\mathrm b\mathrm f}} \subset \mathcal{U}^h (\Omega)$ which possess compact support over $\varepsilon$, such that
 		\begin{equation}
-			\varphi^h|_\varepsilon (\mathbf{X}) = \sum_{a=1}^{N^\varepsilon_{bf}} \psi^\varepsilon_{a} (\mathbf{X}) \, \varphi_{a} \quad \forall \mathbf{X} \in \varepsilon.
+			\varphi^h|_\varepsilon (\bm{X}) = \sum_{a=1}^{N^\varepsilon_{\mathrm b\mathrm f}} \psi^\varepsilon_{a} (\bm{X}) \, \varphi_{a} \quad \forall \bm{X} \in \varepsilon.
 		\end{equation}
 		
-		To guarantee $P^k (\mathcal{E}) \subset \mathcal{U}^h (\mathcal{E})$ for some desired degree of polynomial completeness $k$, it is necessary for a given entity's local basis $\left\{ \psi^\varepsilon_{a} \right\}_{a=1}^{N^\varepsilon_{bf}}$ to span $P^k (\varepsilon)$. Arguably the simplest such basis consists of the monomials through order $k$ defined on each entity $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$. However, the use of (unscaled) monomial bases can lead to ill-conditioning of the DG-PEM problem, particularly as the maximal polynomial degree $k$ is increased. This fact has been well-established in the literature pertaining to discontinuous Galerkin methods (see for example \cite{Hesthaven:10}.) For this reason, other (well-scaled) polynomial bases are recommended, such as the Lagrange polynomials defined on each entity (for linear segments and triangular facets), or the orthogonal polynomials obtained via the methodology proposed in \cite{Bassi:12}. An exploration of the condition number for the resulting DG-PEM systems of equations is presented at the end of this chapter.
+		To guarantee $P^k (\mathcal{E}) \subset \mathcal{U}^h (\mathcal{E})$ for some desired degree of polynomial completeness $k$, it is necessary for a given entity's local basis $\left\{ \psi^\varepsilon_{a} \right\}_{a=1}^{N^\varepsilon_{\mathrm b\mathrm f}}$ to span $P^k (\varepsilon)$. Arguably the simplest such basis consists of the monomials through order $k$ defined on each entity $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$. However, the use of (unscaled) monomial bases can lead to ill-conditioning of the DG-PEM problem, particularly as the maximal polynomial degree $k$ is increased. This fact has been well-established in the literature pertaining to discontinuous Galerkin methods (see for example \cite{Hesthaven:10}.) For this reason, other (well-scaled) polynomial bases are recommended, such as the Lagrange polynomials defined on each entity (for linear segments and triangular facets), or the orthogonal polynomials obtained via the methodology proposed in \cite{Bassi:12}. An exploration of the condition number for the resulting DG-PEM systems of equations is presented at the end of this chapter.
 		
-		Irrespective of the chosen basis, each basis function $\psi (\mathbf{X})$ may be expressed as a low-order polynomial (of maximal degree $k$) via a linear combination of (possibly shifted) monomials:
+		Irrespective of the chosen basis, each basis function $\psi (\bm{X})$ may be expressed as a low-order polynomial (of maximal degree $k$) via a linear combination of (possibly shifted) monomials:
 		\begin{equation}
-			\psi (\mathbf{X}) = \sum_{|\alpha| \leq k} c_\alpha (\mathbf{X}-\mathbf{X}_0)^{\alpha},
+			\psi (\bm{X}) = \sum_{|\alpha| \leq k} c_\alpha (\bm{X}-\bm{X}_0)^{\alpha},
 		\end{equation}
-		where $\alpha = \alpha_1, \ldots, \alpha_d$ is a multi-index, such that $|\alpha| = \alpha_1 + \ldots + \alpha_2$ and $\mathbf{X}^\alpha = X_1^{\alpha_1} \cdots X_d^{\alpha_d}$. Consequently, a given basis function is uniquely defined in terms of its shifted coordinate $\mathbf{X}_0$, and its monomial coefficients $c_\alpha$. The gradient of a given basis function $\nabla \psi (\mathbf{X})$ may in turn be computed via
+		where $\alpha = \alpha_1, \ldots, \alpha_d$ is a multi-index, such that $|\alpha| = \alpha_1 + \ldots + \alpha_2$ and $\bm{X}^\alpha = X_1^{\alpha_1} \cdots X_d^{\alpha_d}$. Consequently, a given basis function is uniquely defined in terms of its shifted coordinate $\bm{X}_0$, and its monomial coefficients $c_\alpha$. The gradient of a given basis function $\nabla \psi (\bm{X})$ may in turn be computed via
 		\begin{equation}
-			\frac{\partial \psi (\mathbf{X})}{\partial X_i} = \sum_{|\alpha| \leq k} \alpha_i c_\alpha (\mathbf{X}-\mathbf{X}_0)^{\alpha_1, \ldots, (\alpha_i - 1), \ldots, \alpha_d}.
+			\frac{\partial \psi (\bm{X})}{\partial X_i} = \sum_{|\alpha| \leq k} \alpha_i c_\alpha (\bm{X}-\bm{X}_0)^{\alpha_1, \ldots, (\alpha_i - 1), \ldots, \alpha_d}.
 		\end{equation}
 		
-\section{Linearization and Assembly of the \\ DG-PEM Systems of Equations}
+\section{Linearization and Assembly of the DG-PEM Systems of Equations}
 
-	The DG-PEM problem of (\ref{eq:dg_poisson}) may be written in terms of the chosen basis $\left\{ \psi_A \right\}_{A=1}^{N^\mathcal{E}_{bf}}$ for $\mathcal{D}^h_k (\mathcal{E})$, such that the basis function coefficients $\varphi_A \, \, \forall A = 1, \ldots, N^\mathcal{E}_{bf}$ representing a given shape function $\varphi^h (\mathbf{X}) = \sum_{A=1}^{N^\mathcal{E}_{bf}} \psi_A (\mathbf{X}) \, \varphi_A$ may be determined as the solution to a linear system of equations:
+	The DG-PEM problem of (\ref{eq:dg_poisson}) may be written in terms of the chosen basis $\left\{ \psi_A \right\}_{A=1}^{N^\mathcal{E}_{\mathrm b\mathrm f}}$ for $\mathcal{D}^h_k (\mathcal{E})$, such that the basis function coefficients $\varphi_A \, \, \forall A = 1, \ldots, N^\mathcal{E}_{\mathrm b\mathrm f}$ representing a given shape function $\varphi^h (\bm{X}) = \sum_{A=1}^{N^\mathcal{E}_{\mathrm b\mathrm f}} \psi_A (\bm{X}) \, \varphi_A$ may be determined as the solution to a linear system of equations:
 	\begin{equation}
-		\sum_{A=1}^{N^\mathcal{E}_{bf}} J_{AB} \, \varphi_A = F_B \quad \forall B = 1, \ldots, N^\mathcal{E}_{bf},
+		\sum_{A=1}^{N^\mathcal{E}_{\mathrm b\mathrm f}} J_{AB} \, \varphi_A = F_B \quad \forall B = 1, \ldots, N^\mathcal{E}_{\mathrm b\mathrm f},
 		\label{eq:linearization_dgpem}
 	\end{equation}
 	where $J_{AB}$ and $F_B$ are computed via an entity-wise assembly process following to the methodology described in \cite{Riviere:08}. In addition to assembling local contributions $J^\varepsilon_{ab}$ and $F^\varepsilon_b$ to $J_{AB}$ and $F_B$ from all $d$-dimensional entities $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$, it is also necessary to assemble appropriate contributions from all $(d-1)$-dimensional interfaces $\zeta \in \Gamma_\varepsilon \cup \partial \mathcal{E}$, as well.
 
 	Specifically, each $d$-dimensional entity $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$ contributes the following local arrays:
 	\begin{equation}
-			J^{\varepsilon}_{ab} = \int_{\varepsilon} \nabla \psi^{\varepsilon}_{a} \, \cdot \nabla \psi^{\varepsilon}_{b} \, d \varepsilon, \quad \forall a, \, b = 1, \ldots, N^{\varepsilon}_{bf},
+			J^{\varepsilon}_{ab} = \int_{\varepsilon} \nabla \psi^{\varepsilon}_{a} \, \cdot \nabla \psi^{\varepsilon}_{b} \, \mathrm d \varepsilon, \quad \forall a, \, b = 1, \ldots, N^{\varepsilon}_{\mathrm b\mathrm f},
 	\end{equation}
 	\begin{equation}
-			F^{\varepsilon}_b = \int_{\varepsilon} f_{\mathcal{E}} \, \psi_b^{\varepsilon} \, d \varepsilon \quad \forall b = 1, \ldots, N^{\varepsilon}_{bf}.
+			F^{\varepsilon}_b = \int_{\varepsilon} f_{\mathcal{E}} \, \psi_b^{\varepsilon} \, \mathrm d \varepsilon \quad \forall b = 1, \ldots, N^{\varepsilon}_{\mathrm b\mathrm f}.
 	\end{equation}
 	Each $\zeta \in \partial \mathcal{E}$ (which borders a single $d$-dimensional entity $\varepsilon$) contributes:
 	\begin{equation}
-			J^{\varepsilon}_{ab} = \int_{\zeta} \bigg( \epsilon \, (\mathbf{N}_{\zeta} \cdot \nabla \psi^{\varepsilon}_b) \, \psi^{\varepsilon}_a - \psi^{\varepsilon}_b \, (\mathbf{N}_{\zeta} \cdot \nabla \psi^{\varepsilon}_a) \bigg) \, d \zeta + \frac{\alpha_{\zeta0}}{|\zeta|^{\beta_0}} \int_{\zeta} \psi_a^{\varepsilon} \, \psi_b^{\varepsilon} \, d \zeta \quad \forall a, \, b = 1, \ldots, N^{\varepsilon}_{bf},
+			J^{\varepsilon}_{ab} = \int_{\zeta} \bigg( \epsilon \, (\bm{N}_{\zeta} \cdot \nabla \psi^{\varepsilon}_b) \, \psi^{\varepsilon}_a - \psi^{\varepsilon}_b \, (\bm{N}_{\zeta} \cdot \nabla \psi^{\varepsilon}_a) \bigg) \, \mathrm d \zeta + \frac{\alpha_{\zeta0}}{|\zeta|^{\beta_0}} \int_{\zeta} \psi_a^{\varepsilon} \, \psi_b^{\varepsilon} \, \mathrm d \zeta \quad \forall a, \, b = 1, \ldots, N^{\varepsilon}_{\mathrm b\mathrm f},
 	\end{equation}
 	\begin{equation}
-		F^{\varepsilon}_b = \int_{\zeta} \epsilon \, (\mathbf{N}_{\zeta} \cdot \nabla \psi_b^{\varepsilon}) \, \bar{\varphi} \, d \zeta + \frac{\alpha_{\zeta0}}{|\zeta|^{\beta_0}} \int_{\zeta} \bar{\varphi} \, \psi_b^{\varepsilon} \, d \zeta \quad \forall b = 1, \ldots, N^{\varepsilon}_{bf},
+		F^{\varepsilon}_b = \int_{\zeta} \epsilon \, (\bm{N}_{\zeta} \cdot \nabla \psi_b^{\varepsilon}) \, \bar{\varphi} \, \mathrm d \zeta + \frac{\alpha_{\zeta0}}{|\zeta|^{\beta_0}} \int_{\zeta} \bar{\varphi} \, \psi_b^{\varepsilon} \, \mathrm d \zeta \quad \forall b = 1, \ldots, N^{\varepsilon}_{\mathrm b\mathrm f},
 		\label{eq:boundary_term}
 	\end{equation}
 	and each $\zeta \in \Gamma_\varepsilon$ (which borders two $d$-dimensional entities, $\varepsilon_1$ and $\varepsilon_2$) contributes:
 	\begin{align}
-			J^{\varepsilon_i \varepsilon_j}_{ab} & = - \frac{1}{2} \int_{\zeta} \bigg( (-1)^{i} \, \epsilon \, (\mathbf{N}_{\zeta} \cdot \nabla \psi_b^{\varepsilon_j}) \, \psi_a^{\varepsilon_i} - (-1)^{j} \, \psi_b^{\varepsilon_j} (\mathbf{N}_{\zeta} \cdot \nabla \psi_a^{\varepsilon_i}) \bigg) \, d \zeta \\
-			& + (-1)^{(i+j)} \frac{\alpha_{\zeta0}}{|\zeta|^{\beta_0}} \int_{\zeta} \psi_a^{\varepsilon_i} \, \psi_b^{\varepsilon_j} \, d \zeta \\
-			& + (-1)^{(i+j)} \frac{\alpha_{\zeta1}}{|\zeta|^{\beta_1}} \int_{\zeta} \nabla \psi_a^{\varepsilon_i} \cdot (\mathbf{N}_\zeta \otimes \mathbf{N}_\zeta) \cdot \nabla \psi_b^{\varepsilon_j} \, d \zeta
+			J^{\varepsilon_i \varepsilon_j}_{ab} & = - \frac{1}{2} \int_{\zeta} \bigg( (-1)^{i} \, \epsilon \, (\bm{N}_{\zeta} \cdot \nabla \psi_b^{\varepsilon_j}) \, \psi_a^{\varepsilon_i} - (-1)^{j} \, \psi_b^{\varepsilon_j} (\bm{N}_{\zeta} \cdot \nabla \psi_a^{\varepsilon_i}) \bigg) \, \mathrm d \zeta \\
+			& + (-1)^{(i+j)} \frac{\alpha_{\zeta0}}{|\zeta|^{\beta_0}} \int_{\zeta} \psi_a^{\varepsilon_i} \, \psi_b^{\varepsilon_j} \, \mathrm d \zeta \\
+			& + (-1)^{(i+j)} \frac{\alpha_{\zeta1}}{|\zeta|^{\beta_1}} \int_{\zeta} \nabla \psi_a^{\varepsilon_i} \cdot (\bm{N}_\zeta \otimes \bm{N}_\zeta) \cdot \nabla \psi_b^{\varepsilon_j} \, \mathrm d \zeta
 	\end{align}
-	for all $i, \, j = 1, \, 2$, and $a = 1, \ldots, N^{\varepsilon_i}_{bf}$, $b = 1, \ldots, N^{\varepsilon_j}_{bf}$. For the remainder of our discussions, we will consider only the case where $f_\mathcal{E} \equiv 0$ for all sub-elements $\mathcal{E} \subset \Omega$.
+	for all $i, \, j = 1, \, 2$, and $a = 1, \ldots, N^{\varepsilon_i}_{\mathrm b\mathrm f}$, $b = 1, \ldots, N^{\varepsilon_j}_{\mathrm b\mathrm f}$. For the remainder of our discussions, we will consider only the case where $f_\mathcal{E} \equiv 0$ for all sub-elements $\mathcal{E} \subset \Omega$.
 	
 	For a given $d$-dimensional sub-element $\mathcal{E}$, the assembly of the above terms entails an entity-wise integration of products between basis functions (and their gradients) over $d$-dimensional entities $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$ and their $(d-1)$-dimensional children $\zeta \in \Gamma_\varepsilon \cup \partial \mathcal{E}$. This may be effected through the use of appropriately defined quadrature rules on each entity, or by pre-computing the monomial integrals over each entity up to some sufficiently high degree (nominally $2k$).
 	
-	Additionally, it is remarked that the boundary condition $\bar{\varphi}$ is defined independently on every $(d-1)$-dimensional sub-element $e \subset \partial \mathcal{E}$, such that its restriction $\bar{\varphi}|_\zeta$ may be written in terms of the local basis functions $\left\{ \psi^{\zeta}_c \right\}_{c=1}^{N^\zeta_{bf}}$ belonging to a given boundary entity $\zeta \in \mathcal{T}_{\zeta} (e)$, i.e.
+	Additionally, it is remarked that the boundary condition $\bar{\varphi}$ is defined independently on every $(d-1)$-dimensional sub-element $e \subset \partial \mathcal{E}$, such that its restriction $\bar{\varphi}|_\zeta$ may be written in terms of the local basis functions $\left\{ \psi^{\zeta}_c \right\}_{c=1}^{N^\zeta_{\mathrm b\mathrm f}}$ belonging to a given boundary entity $\zeta \in \mathcal{T}_{\zeta} (e)$, i.e.
 	\begin{equation}
-			\bar{\varphi}|_\zeta (\mathbf{X}) = \sum_{c=1}^{N^\zeta_{bf}} \psi^\zeta_c (\mathbf{X}) \, \bar{\varphi}_c.
+			\bar{\varphi}|_\zeta (\bm{X}) = \sum_{c=1}^{N^\zeta_{\mathrm b\mathrm f}} \psi^\zeta_c (\bm{X}) \, \bar{\varphi}_c.
 	\end{equation}
 	For a given $\zeta \in \partial \mathcal{E}$, this yields:
 	\begin{equation}
-		F^{\varepsilon}_b = \sum_{c=1}^{N^\zeta_{bf}} \bar{J}^{\varepsilon}_{bc} \, \bar{\varphi}_c \quad \forall b = 1, \ldots, N^{\varepsilon}_{bf},
+		F^{\varepsilon}_b = \sum_{c=1}^{N^\zeta_{\mathrm b\mathrm f}} \bar{J}^{\varepsilon}_{bc} \, \bar{\varphi}_c \quad \forall b = 1, \ldots, N^{\varepsilon}_{\mathrm b\mathrm f},
 	\end{equation}
 	which may be used in lieu of (\ref{eq:boundary_term}), where
 	\begin{equation}
-		\bar{J}^{\varepsilon}_{bc} = \int_{\zeta} \epsilon \, (\mathbf{N}_{\zeta} \cdot \nabla \psi_b^{\varepsilon}) \, \psi^\zeta_c  \, d \zeta + \frac{\alpha_{\zeta0}}{|\zeta|^{\beta_0}} \int_{\zeta} \psi^\zeta_c \, \psi_b^{\varepsilon} \, d \zeta \quad \forall b = 1, \ldots, N^{\varepsilon}_{bf}, \, c = 1, \ldots, N^\zeta_{bf}.
+		\bar{J}^{\varepsilon}_{bc} = \int_{\zeta} \epsilon \, (\bm{N}_{\zeta} \cdot \nabla \psi_b^{\varepsilon}) \, \psi^\zeta_c  \, \mathrm d \zeta + \frac{\alpha_{\zeta0}}{|\zeta|^{\beta_0}} \int_{\zeta} \psi^\zeta_c \, \psi_b^{\varepsilon} \, \mathrm d \zeta \quad \forall b = 1, \ldots, N^{\varepsilon}_{\mathrm b\mathrm f}, \, c = 1, \ldots, N^\zeta_{\mathrm b\mathrm f}.
 	\end{equation}
-	Consequently, we may re-write the right-hand side of (\ref{eq:linearization_dgpem}) as a linear mapping from the basis coefficients $\bar{\varphi}_C$ which determine the boundary function $\bar{\varphi} (\mathbf{X}) = \sum_{C=1}^{N^{\partial \mathcal{E}}_{bf}} \psi_C (\mathbf{X}) \, \bar{\varphi}_C$:
+	Consequently, we may re-write the right-hand side of (\ref{eq:linearization_dgpem}) as a linear mapping from the basis coefficients $\bar{\varphi}_C$ which determine the boundary function $\bar{\varphi} (\bm{X}) = \sum_{C=1}^{N^{\partial \mathcal{E}}_{\mathrm b\mathrm f}} \psi_C (\bm{X}) \, \bar{\varphi}_C$:
 	\begin{equation}
-		\sum_{A=1}^{N^{\mathcal{E}}_{bf}} J_{AB} \, \varphi_A = \sum_{C=1}^{N^{\partial \mathcal{E}}_{bf}} \bar{J}_{BC} \, \bar{\varphi}_C \quad \forall B = 1, \ldots, N^{\mathcal{E}}_{bf}.
+		\sum_{A=1}^{N^{\mathcal{E}}_{\mathrm b\mathrm f}} J_{AB} \, \varphi_A = \sum_{C=1}^{N^{\partial \mathcal{E}}_{\mathrm b\mathrm f}} \bar{J}_{BC} \, \bar{\varphi}_C \quad \forall B = 1, \ldots, N^{\mathcal{E}}_{\mathrm b\mathrm f}.
 	\end{equation}
 	Alternatively, in matrix-vector format:
 	\begin{equation}
-		\mathbf{J} \, \boldsymbol{\varphi} = \bar{\mathbf{J}} \, \bar{\boldsymbol{\varphi}}.
+		\bm{J} \, \boldsymbol{\varphi} = \bar{\bm{J}} \, \bar{\boldsymbol{\varphi}}.
 		\label{eq:dgpem_linear_system}
 	\end{equation}
 	
-	The above system of equations can be solved to obtain a linear mapping from $\bar{\boldsymbol{\varphi}}$ to $\boldsymbol{\varphi}$, denoted $\mathbf{M}^{\partial \mathcal{E} \mapsto \mathcal{E}} = \mathbf{J}^{-1} \bar{\mathbf{J}} : \mathbb{R}^{N^{\partial \mathcal{E}}_{bf}} \mapsto \mathbb{R}^{N^{\mathcal{E}}_{bf}}$. This mapping may be utilized to define the shape functions in a recursive fashion (over the children of each sub-element, in succession), ultimately yielding a representation for the shape functions on $\mathcal{E}$ in terms of only nodal evaluations $\varphi|_{V}$. This process is discussed in greater detail in the following section.
+	The above system of equations can be solved to obtain a linear mapping from $\bar{\boldsymbol{\varphi}}$ to $\boldsymbol{\varphi}$, denoted $\bm{M}^{\partial \mathcal{E} \mapsto \mathcal{E}} = \bm{J}^{-1} \bar{\bm{J}} : \mathbb{R}^{N^{\partial \mathcal{E}}_{\mathrm b\mathrm f}} \mapsto \mathbb{R}^{N^{\mathcal{E}}_{\mathrm b\mathrm f}}$. This mapping may be utilized to define the shape functions in a recursive fashion (over the children of each sub-element, in succession), ultimately yielding a representation for the shape functions on $\mathcal{E}$ in terms of only nodal evaluations $\varphi|_{V}$. This process is discussed in greater detail in the following section.
 	
 \subsection*{Hierarchical Construction of Shape Functions}
 
@@ -270,24 +270,24 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 	
 	Additionally, for the sake of simplicity (and computational efficiency), it is suggested that the shape functions along each linear edge $E$ be constructed from the standard Lagrange polynomials which interpolate the nodal values of that edge.
 
-	For each polygonal face $F$, linear mappings $\mathbf{M}^{\partial F \mapsto F} : \mathbb{R}^{N^{F}_{V}} \mapsto \mathbb{R}^{N^{F}_{bf}}$ may be constructed according to the process described in the previous section, yielding 
+	For each polygonal face $F$, linear mappings $\bm{M}^{\partial F \mapsto F} : \mathbb{R}^{N^{F}_{V}} \mapsto \mathbb{R}^{N^{F}_{\mathrm b\mathrm f}}$ may be constructed according to the process described in the previous section, yielding 
 	\begin{equation}
-		\varphi_A |_{F} (\mathbf{X}) = \sum_{b = 1}^{N^F_{bf}} \sum_{c = 1}^{N^F_{V}} \psi_b (\mathbf{X}) \, M^{\partial F \mapsto F}_{bc} \varphi_A |_{V_c}.
+		\varphi_A |_{F} (\bm{X}) = \sum_{b = 1}^{N^F_{\mathrm b\mathrm f}} \sum_{c = 1}^{N^F_{V}} \psi_b (\bm{X}) \, M^{\partial F \mapsto F}_{bc} \varphi_A |_{V_c}.
 	\end{equation}
 
-	Subsequently, a mapping $\mathbf{M}^{\partial \Omega \mapsto \Omega} : \mathbb{R}^{N^{\partial \Omega}_{bf}} \mapsto \mathbb{R}^{N^{\Omega}_{bf}}$ is constructed to determine the representation for the shape functions on the interior of the element, which may be composed with the mappings $\mathbf{M}^{\partial F \mapsto F}$ for each face to determine a final mapping $\mathbf{M}^{V \mapsto \Omega} : \mathbb{R}^{N^{\Omega}_{V}} \mapsto \mathbb{R}^{N^{\Omega}_{bf}}$ which yields
+	Subsequently, a mapping $\bm{M}^{\partial \Omega \mapsto \Omega} : \mathbb{R}^{N^{\partial \Omega}_{\mathrm b\mathrm f}} \mapsto \mathbb{R}^{N^{\Omega}_{\mathrm b\mathrm f}}$ is constructed to determine the representation for the shape functions on the interior of the element, which may be composed with the mappings $\bm{M}^{\partial F \mapsto F}$ for each face to determine a final mapping $\bm{M}^{V \mapsto \Omega} : \mathbb{R}^{N^{\Omega}_{V}} \mapsto \mathbb{R}^{N^{\Omega}_{\mathrm b\mathrm f}}$ which yields
 	\begin{equation}
-		\varphi_A |_{\Omega} (\mathbf{X}) = \sum_{b = 1}^{N^\Omega_{bf}} \sum_{c = 1}^{N^\Omega_{V}} \psi_b (\mathbf{X}) \, M^{V \mapsto \Omega}_{bc} \varphi_A |_{V_c}.
+		\varphi_A |_{\Omega} (\bm{X}) = \sum_{b = 1}^{N^\Omega_{\mathrm b\mathrm f}} \sum_{c = 1}^{N^\Omega_{V}} \psi_b (\bm{X}) \, M^{V \mapsto \Omega}_{bc} \varphi_A |_{V_c}.
 		\label{eq:mapped_shape_functions}
 	\end{equation}
 
-	Once the above representations for the element's shape function have been obtained, the discrete data required of the element (evaluations of the shape functions and their gradients at a discrete number of quadrature points $\left\{ \mathbf{X}_q \right\}_{q=1}^{N_{qp}}$) can be obtained through direct evaluation of (\ref{eq:mapped_shape_functions}), i.e.
+	Once the above representations for the element's shape function have been obtained, the discrete data required of the element (evaluations of the shape functions and their gradients at a discrete number of quadrature points $\left\{ \bm{X}_q \right\}_{q=1}^{N_{\mathrm q\mathrm p}}$) can be obtained through direct evaluation of (\ref{eq:mapped_shape_functions}), i.e.
 	\begin{equation}
-		\varphi_A |_{\Omega} (\mathbf{X}_q) = \sum_{b = 1}^{N^\Omega_{bf}} \sum_{c = 1}^{N^\Omega_{V}} \psi_b (\mathbf{X}_q) \, M^{V \mapsto \Omega}_{bc} \varphi_A |_{V_c},
+		\varphi_A |_{\Omega} (\bm{X}_q) = \sum_{b = 1}^{N^\Omega_{\mathrm b\mathrm f}} \sum_{c = 1}^{N^\Omega_{V}} \psi_b (\bm{X}_q) \, M^{V \mapsto \Omega}_{bc} \varphi_A |_{V_c},
 	\end{equation}
 	and
 	\begin{equation}
-		\nabla \varphi_A |_{\Omega} (\mathbf{X}_q) = \sum_{b = 1}^{N^\Omega_{bf}} \sum_{c = 1}^{N^\Omega_{V}} \nabla \psi_b (\mathbf{X}_q) \, M^{V \mapsto \Omega}_{bc} \varphi_A |_{V_c}.
+		\nabla \varphi_A |_{\Omega} (\bm{X}_q) = \sum_{b = 1}^{N^\Omega_{\mathrm b\mathrm f}} \sum_{c = 1}^{N^\Omega_{V}} \nabla \psi_b (\bm{X}_q) \, M^{V \mapsto \Omega}_{bc} \varphi_A |_{V_c}.
 	\end{equation}
 	Once the discrete quadrature point evaluations for the shape functions have been obtained, there is no need to retain any information regarding the DG-PEM basis functions, or the transitional mappings; these artifacts and their corresponding data structures may therefore be discarded.
 
@@ -295,89 +295,89 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 
 \subsection*{Construction of Quadrature Rules}
 
-	The quadrature rule for an element $\left\{ \mathbf{X}_q, \, w_q \right\}_{q=1}^{N_{qp}}$ nominally consists of quadrature points $\mathbf{X}_q$ located at the centroids of each cell $\omega \in \mathcal{T}_\omega (\Omega)$, whose corresponding quadrature weights $w_q$ are equal to the volumes of each respective cell $|\omega|$. This results in the composite mid-point rule discussed in chapter \ref{ch:pem}.
+	The quadrature rule for an element $\left\{ \bm{X}_q, \, w_q \right\}_{q=1}^{N_{\mathrm q\mathrm p}}$ nominally consists of quadrature points $\bm{X}_q$ located at the centroids of each cell $\omega \in \mathcal{T}_\omega (\Omega)$, whose corresponding quadrature weights $w_q$ are equal to the volumes of each respective cell $|\omega|$. This results in the composite mid-point rule discussed in chapter \ref{ch:pem}.
 
-	As previously discussed, the volumes $|\omega|$ and centroids $\bar{\mathbf{X}}_\omega$ of each cell may be obtained via the exact integration formulas provided by Chin et al. in \cite{Chin:15}. Alternatively, we may exploit the geometric simplicity of the chosen edge-based partitioning scheme to compute these quantities more easily, by considering the fact that each edge-centered cell $\omega$ consists of two tetrahedral sub-domains (i.e. $T_1 \cup T_2 = \omega$). Volumes and centroids for each tetrahedron can be easily computed using standard formulas, and the resulting quantities of interest may be expressed as
+	As previously discussed, the volumes $|\omega|$ and centroids $\bar{\bm{X}}_\omega$ of each cell may be obtained via the exact integration formulas provided by Chin et al. in \cite{Chin:15}. Alternatively, we may exploit the geometric simplicity of the chosen edge-based partitioning scheme to compute these quantities more easily, by considering the fact that each edge-centered cell $\omega$ consists of two tetrahedral sub-domains (i.e. $T_1 \cup T_2 = \omega$). Volumes and centroids for each tetrahedron can be easily computed using standard formulas, and the resulting quantities of interest may be expressed as
 	\begin{equation}
-		|\omega| = |T_1| + |T_2|, \quad \bar{\mathbf{X}}_\omega = \frac{|T_1| \bar{\mathbf{X}}_{T_1} + |T_2| \bar{\mathbf{X}}_{T_2}}{|\omega|}.
+		|\omega| = |T_1| + |T_2|, \quad \bar{\bm{X}}_\omega = \frac{|T_1| \bar{\bm{X}}_{T_1} + |T_2| \bar{\bm{X}}_{T_2}}{|\omega|}.
 	\end{equation}
 
-	Straightforward integration rules $\left\{ \mathbf{X}_q, \, w_q \right\}_{q=1}^{N^F_{qp}}$ for each face $F \subset \partial \Omega$ are more more easily obtained by considering the corresponding areas $|\sigma|$ and centroids $\bar{\mathbf{X}}_\sigma$ of each (strictly triangular) facet $\sigma \in \mathcal{T}_{\sigma} (F)$. Outward unit normals $\mathbf{N}_\sigma$ to each facet may also be readily computed and stored, as needed.
+	Straightforward integration rules $\left\{ \bm{X}_q, \, w_q \right\}_{q=1}^{N^F_{\mathrm q\mathrm p}}$ for each face $F \subset \partial \Omega$ are more more easily obtained by considering the corresponding areas $|\sigma|$ and centroids $\bar{\bm{X}}_\sigma$ of each (strictly triangular) facet $\sigma \in \mathcal{T}_{\sigma} (F)$. Outward unit normals $\bm{N}_\sigma$ to each facet may also be readily computed and stored, as needed.
 
-	With these quantities in hand, the element's shape functions (and their gradients) may be evaluated at the quadrature points of the element, as described in the previous section. Subsequently, a consistent integration scheme (as discussed in \ref{ch:pem}) may be constructed from the discrete data stored at the element's quadrature points. If a gradient correction scheme is adopted, the corrected test function gradients $\nabla \phi_A (\mathbf{X}_q)$ at all quadrature points may be computed and stored, as needed.
+	With these quantities in hand, the element's shape functions (and their gradients) may be evaluated at the quadrature points of the element, as described in the previous section. Subsequently, a consistent integration scheme (as discussed in \ref{ch:pem}) may be constructed from the discrete data stored at the element's quadrature points. If a gradient correction scheme is adopted, the corrected test function gradients $\nabla \phi_A (\bm{X}_q)$ at all quadrature points may be computed and stored, as needed.
 
-\section{Numerical Conditioning of the \\ DG-PEM Systems of Equations}
+\section{Numerical Conditioning of the DG-PEM Systems of Equations}
 
 As a representative example, consider a given sub-element $\mathcal{E} \subset \mathbb{R}^d$ and its corresponding partition into $d-$dimensional entities $\varepsilon \subset \mathcal{T}_\varepsilon (\mathcal{E})$. Recall that the representation of a given shape function $\varphi \in \mathcal{D}^h_k (\mathcal{E})$ is piecewise polynomial in each entity, i.e. $\varphi|_{\varepsilon} \in P^k (\varepsilon)$.
 
-A reasonable estimate for the condition number $\kappa (\mathbf{J})$ of the SPD matrix $\mathbf{J}$ appearing in (\ref{eq:dgpem_linear_system}) may be obtained via
+A reasonable estimate for the condition number $\kappa (\bm{J})$ of the SPD matrix $\bm{J}$ appearing in (\ref{eq:dgpem_linear_system}) may be obtained via
 \begin{equation}
-	 \frac{\max_a |J^{\varepsilon}_{aa}|}{\min_a |J^{\varepsilon}_{aa}|} \leq \kappa (\mathbf{J}),
+	 \frac{\max_a |J^{\varepsilon}_{aa}|}{\min_a |J^{\varepsilon}_{aa}|} \leq \kappa (\bm{J}),
 \end{equation}
 where
 \begin{align}
-	J^{\varepsilon}_{aa} = & \int_{\varepsilon} \nabla \psi^{\varepsilon}_{a} \, \cdot \nabla \psi^{\varepsilon}_{a} \, d \varepsilon + (\epsilon-1) \sum_{\zeta \in \partial \varepsilon \cap \partial \mathcal{E}} \int_{\zeta} \left( \psi^{\varepsilon}_a \right) \left( \mathbf{N}_{\zeta} \cdot \nabla \psi^{\varepsilon}_a \right) \, d \zeta \nonumber \\ 
-	+ & \frac{1}{2} (\epsilon-1) \sum_{\zeta \in \partial \varepsilon \cap \Gamma_\varepsilon} \int_{\zeta} \left( \psi^{\varepsilon}_a \right) \left( \mathbf{N}_{\zeta} \cdot \nabla \psi^{\varepsilon}_a \right) \, d \zeta \nonumber \\
-	+ & \sum_{\zeta \in \partial \varepsilon} \frac{\alpha_{\zeta0}}{|\zeta|^{\beta_0}} \int_{\zeta} \left( \psi_a^{\varepsilon} \right)^2 \, d \zeta + \sum_{\zeta \in \partial \varepsilon \cap \Gamma_\varepsilon} \frac{\alpha_{\zeta1}}{|\zeta|^{\beta_1}} \int_{\zeta} \left( \mathbf{N}_{\zeta} \cdot \nabla \psi^{\varepsilon}_a \right)^2 \, d \zeta.
+	J^{\varepsilon}_{aa} = & \int_{\varepsilon} \nabla \psi^{\varepsilon}_{a} \, \cdot \nabla \psi^{\varepsilon}_{a} \, \mathrm d \varepsilon + (\epsilon-1) \sum_{\zeta \in \partial \varepsilon \cap \partial \mathcal{E}} \int_{\zeta} \left( \psi^{\varepsilon}_a \right) \left( \bm{N}_{\zeta} \cdot \nabla \psi^{\varepsilon}_a \right) \, \mathrm d \zeta \nonumber \\ 
+	+ & \frac{1}{2} (\epsilon-1) \sum_{\zeta \in \partial \varepsilon \cap \Gamma_\varepsilon} \int_{\zeta} \left( \psi^{\varepsilon}_a \right) \left( \bm{N}_{\zeta} \cdot \nabla \psi^{\varepsilon}_a \right) \, \mathrm d \zeta \nonumber \\
+	+ & \sum_{\zeta \in \partial \varepsilon} \frac{\alpha_{\zeta0}}{|\zeta|^{\beta_0}} \int_{\zeta} \left( \psi_a^{\varepsilon} \right)^2 \, \mathrm d \zeta + \sum_{\zeta \in \partial \varepsilon \cap \Gamma_\varepsilon} \frac{\alpha_{\zeta1}}{|\zeta|^{\beta_1}} \int_{\zeta} \left( \bm{N}_{\zeta} \cdot \nabla \psi^{\varepsilon}_a \right)^2 \, \mathrm d \zeta.
 \end{align}
-A brief remark should be made regarding the positivity of $J^\varepsilon_{aa}$, and its relation to the particular choice of DG method (i.e. whether the SIPG, NIPG, or IIPG is chosen). As discussed in \cite{Riviere:08}, the NIPG method with $\epsilon = +1$ will yield strictly positive diagonal entries provided $\alpha_{\zeta0} > 0$, resulting in the coercivity of $\mathbf{J}$. If the SIPG ($\epsilon = -1$) or IIPG ($\epsilon = 0$) methods are employed, then the penalty parameters must be made sufficiently large enough to guarantee coercivity and stability.
+A brief remark should be made regarding the positivity of $J^\varepsilon_{aa}$, and its relation to the particular choice of DG method (i.e. whether the SIPG, NIPG, or IIPG is chosen). As discussed in \cite{Riviere:08}, the NIPG method with $\epsilon = +1$ will yield strictly positive diagonal entries provided $\alpha_{\zeta0} > 0$, resulting in the coercivity of $\bm{J}$. If the SIPG ($\epsilon = -1$) or IIPG ($\epsilon = 0$) methods are employed, then the penalty parameters must be made sufficiently large enough to guarantee coercivity and stability.
 
 The subsequent discussion examines the case where $\epsilon = +1$, yielding strictly positive diagonal entries:
 \begin{equation}
-	J^{\varepsilon}_{aa} = \int_{\varepsilon} \nabla \psi^{\varepsilon}_{a} \, \cdot \nabla \psi^{\varepsilon}_{a} \, d \varepsilon + \sum_{\zeta \in \partial \varepsilon} \frac{\alpha_{\zeta0}}{|\zeta|^{\beta_0}} \int_{\zeta} \left( \psi_a^{\varepsilon} \right)^2 \, d \zeta + \sum_{\zeta \in \partial \varepsilon \cap \Gamma_\varepsilon} \frac{\alpha_{\zeta1}}{|\zeta|^{\beta_1}} \int_{\zeta} \left( \mathbf{N}_{\zeta} \cdot \nabla \psi^{\varepsilon}_a \right)^2 \, d \zeta.
+	J^{\varepsilon}_{aa} = \int_{\varepsilon} \nabla \psi^{\varepsilon}_{a} \, \cdot \nabla \psi^{\varepsilon}_{a} \, \mathrm d \varepsilon + \sum_{\zeta \in \partial \varepsilon} \frac{\alpha_{\zeta0}}{|\zeta|^{\beta_0}} \int_{\zeta} \left( \psi_a^{\varepsilon} \right)^2 \, \mathrm d \zeta + \sum_{\zeta \in \partial \varepsilon \cap \Gamma_\varepsilon} \frac{\alpha_{\zeta1}}{|\zeta|^{\beta_1}} \int_{\zeta} \left( \bm{N}_{\zeta} \cdot \nabla \psi^{\varepsilon}_a \right)^2 \, \mathrm d \zeta.
 \end{equation}
 Let $h_{\varepsilon}$ denote the diameter of $\varepsilon$, such that
 \begin{equation}
-	h_{\varepsilon} = \sup_{\mathbf{X}_1, \mathbf{X}_2 \in \varepsilon} ||\mathbf{X}_1 - \mathbf{X}_2||_2.
+	h_{\varepsilon} = \sup_{\bm{X}_1, \bm{X}_2 \in \varepsilon} ||\bm{X}_1 - \bm{X}_2||_2.
 \end{equation}
 Using the following trace inequalities:
 \begin{equation}
-	\int_{\zeta} \left( \psi_a^{\varepsilon} \right)^2 \, d \zeta \leq C h_\varepsilon^{-1/2} \int_{\varepsilon} \left( \psi_a^{\varepsilon} \right)^2 \, d \varepsilon \quad \forall \zeta \subset \partial \varepsilon,
+	\int_{\zeta} \left( \psi_a^{\varepsilon} \right)^2 \, \mathrm d \zeta \leq C h_\varepsilon^{-1/2} \int_{\varepsilon} \left( \psi_a^{\varepsilon} \right)^2 \, \mathrm d \varepsilon \quad \forall \zeta \subset \partial \varepsilon,
 \end{equation}
 \begin{equation}
-	\int_{\zeta} \left( \mathbf{N}_{\zeta} \cdot \nabla \psi^{\varepsilon}_a \right)^2 \, d \zeta \leq C h_\varepsilon^{-1/2} \int_{\varepsilon} \nabla \psi^{\varepsilon}_{a} \, \cdot \nabla \psi^{\varepsilon}_{a} \, d \varepsilon \quad \forall \zeta \subset \partial \varepsilon,
+	\int_{\zeta} \left( \bm{N}_{\zeta} \cdot \nabla \psi^{\varepsilon}_a \right)^2 \, \mathrm d \zeta \leq C h_\varepsilon^{-1/2} \int_{\varepsilon} \nabla \psi^{\varepsilon}_{a} \, \cdot \nabla \psi^{\varepsilon}_{a} \, \mathrm d \varepsilon \quad \forall \zeta \subset \partial \varepsilon,
 \end{equation}
 and observing that $|\zeta|^{\beta_0} \leq h_\varepsilon$, $|\zeta|^{\beta_1} \geq h_\varepsilon^{-1}$ if $\beta_0 = (d-1)^{-1}$, $\beta_1 = -(d-1)^{-1}$ (assuming $h_\varepsilon \geq 1$, without loss of generality), then
 \begin{equation}
-	J^{\varepsilon}_{aa} \leq (1 + C_1 h_\varepsilon^{1/2}) \int_{\varepsilon} \nabla \psi^{\varepsilon}_{a} \, \cdot \nabla \psi^{\varepsilon}_{a} \, d \varepsilon + C_2 h_\varepsilon^{-3/2} \int_{\varepsilon} \left( \psi_a^{\varepsilon} \right)^2 \, d \varepsilon,
+	J^{\varepsilon}_{aa} \leq (1 + C_1 h_\varepsilon^{1/2}) \int_{\varepsilon} \nabla \psi^{\varepsilon}_{a} \, \cdot \nabla \psi^{\varepsilon}_{a} \, \mathrm d \varepsilon + C_2 h_\varepsilon^{-3/2} \int_{\varepsilon} \left( \psi_a^{\varepsilon} \right)^2 \, \mathrm d \varepsilon,
 \end{equation}
 for some $C_1, \, C_2 \in \mathbb{R}$.
 
-If $\varphi|_{\varepsilon}$ is represented in terms of the (unshifted and unscaled) monomial basis (i.e. $\left\{ \varphi_a^\varepsilon \right\}_{a=1}^{N^\varepsilon_{bf}} = \left\{ \mathbf{X}^\alpha \right\}_{|\alpha| \leq k}$), then by application of the max-min inequality:
+If $\varphi|_{\varepsilon}$ is represented in terms of the (unshifted and unscaled) monomial basis (i.e. $\left\{ \varphi_a^\varepsilon \right\}_{a=1}^{N^\varepsilon_{\mathrm b\mathrm f}} = \left\{ \bm{X}^\alpha \right\}_{|\alpha| \leq k}$), then by application of the max-min inequality:
 \begin{equation}
-	\int_{\varepsilon} \mathbf{X}^{2\alpha} \, d \varepsilon \leq h_{\varepsilon}^d \max_{\mathbf{X} \in \varepsilon} \left\{ \mathbf{X}^{2\alpha} \right\} \leq h_{\varepsilon}^d R_{\varepsilon}^{2|\alpha|},
+	\int_{\varepsilon} \bm{X}^{2\alpha} \, \mathrm d \varepsilon \leq h_{\varepsilon}^d \max_{\bm{X} \in \varepsilon} \left\{ \bm{X}^{2\alpha} \right\} \leq h_{\varepsilon}^d R_{\varepsilon}^{2|\alpha|},
 \end{equation}
 \begin{equation}
-	\int_{\varepsilon} \nabla \mathbf{X}^{\alpha} \cdot \nabla \mathbf{X}^{\alpha} \, d \varepsilon \leq h_{\varepsilon}^d \max_{\mathbf{X} \in \varepsilon} \left\{ \nabla \mathbf{X}^{\alpha} \cdot \nabla \mathbf{X}^{\alpha} \right\} \leq h_{\varepsilon}^d R_{\varepsilon}^{2\langle|\alpha|-1\rangle},
+	\int_{\varepsilon} \nabla \bm{X}^{\alpha} \cdot \nabla \bm{X}^{\alpha} \, \mathrm d \varepsilon \leq h_{\varepsilon}^d \max_{\bm{X} \in \varepsilon} \left\{ \nabla \bm{X}^{\alpha} \cdot \nabla \bm{X}^{\alpha} \right\} \leq h_{\varepsilon}^d R_{\varepsilon}^{2\langle|\alpha|-1\rangle},
 \end{equation}
 where it is assumed that
 \begin{equation}
-	R_\varepsilon = \max_{\mathbf{X} \in \varepsilon} || \mathbf{X} ||_2,
+	R_\varepsilon = \max_{\bm{X} \in \varepsilon} || \bm{X} ||_2,
 \end{equation}
 and $R_\varepsilon \geq 1$, without loss of generality. Under these conditions, it suffices to assert that $\exists \, C > 0$ which may be used to establish a uniform lower bound on $J^{\varepsilon}_{aa}$, such that
 \begin{equation}
 	C \left[ (h_\varepsilon^{d} + C_1 h_\varepsilon^{d+1/2}) + C_2 h_\varepsilon^{d-3/2} \right] \leq J^{\varepsilon}_{aa} \leq (h_\varepsilon^{d} + C_1 h_\varepsilon^{d+1/2}) R_{\varepsilon}^{2\langle k-1 \rangle} + C_2 h_\varepsilon^{d-3/2} R_{\varepsilon}^{2k}.
 \end{equation}
-If the penalty parameter $\alpha_{\gamma0}$ is sufficiently small, we obtain the estimate $\kappa (\mathbf{J}) \approx O(R_{\max}^{2\langle k-1 \rangle})$, where $R_{\max} = \max \left\{ \max_{\varepsilon \in \mathcal{E}} R_\varepsilon, \, \max_{\varepsilon \in \mathcal{E}} R_\varepsilon^{-1} \right\}$. Otherwise, if $\alpha_{\gamma0}$ is sufficiently large, then $\kappa (\mathbf{J}) \approx O(R_{\max}^{2k})$; a similar estimate may be obtained for the SIPG and IIPG methods. The latter estimate is also applicable to the pure penalty DG-PEM, provided sufficient stability is supplied by the inclusion of additional penalty terms (\ref{eq:flux_penalty}).
+If the penalty parameter $\alpha_{\gamma0}$ is sufficiently small, we obtain the estimate $\kappa (\bm{J}) \approx O(R_{\max}^{2\langle k-1 \rangle})$, where $R_{\max} = \max \left\{ \max_{\varepsilon \in \mathcal{E}} R_\varepsilon, \, \max_{\varepsilon \in \mathcal{E}} R_\varepsilon^{-1} \right\}$. Otherwise, if $\alpha_{\gamma0}$ is sufficiently large, then $\kappa (\bm{J}) \approx O(R_{\max}^{2k})$; a similar estimate may be obtained for the SIPG and IIPG methods. The latter estimate is also applicable to the pure penalty DG-PEM, provided sufficient stability is supplied by the inclusion of additional penalty terms (\ref{eq:flux_penalty}).
 
-Clearly, the condition number of $\mathbf{J}$ under these circumstances may become unacceptably large for increasing values of $k$ and $R_{\max}$, leading to numerical inaccuracies in the resulting shape functions. This can ultimately degrade the degree of precision achieved in finite element patch tests.
+Clearly, the condition number of $\bm{J}$ under these circumstances may become unacceptably large for increasing values of $k$ and $R_{\max}$, leading to numerical inaccuracies in the resulting shape functions. This can ultimately degrade the degree of precision achieved in finite element patch tests.
 
-To mitigate this issue, the (sub-)element's shape functions may be computed with respect to a shifted and scaled coordinate system, e.g. $\mathbf{X}' = h_\mathcal{E}^{-1} (\mathbf{X} - \bar{\mathbf{X}}^{\mathcal{E}}_0)$, where
+To mitigate this issue, the (sub-)element's shape functions may be computed with respect to a shifted and scaled coordinate system, e.g. $\bm{X}' = h_\mathcal{E}^{-1} (\bm{X} - \bar{\bm{X}}^{\mathcal{E}}_0)$, where
 \begin{equation}
-	h_{\mathcal{E}} = \sup_{\mathbf{X}_1, \mathbf{X}_2 \in \mathcal{E}} ||\mathbf{X}_1 - \mathbf{X}_2||_2.
+	h_{\mathcal{E}} = \sup_{\bm{X}_1, \bm{X}_2 \in \mathcal{E}} ||\bm{X}_1 - \bm{X}_2||_2.
 \end{equation}
-This assists in limiting the worst-case value of $R_{\max}$ appearing in the previous estimate, yielding a somewhat improved bound on the condition number: $\kappa (\mathbf{J}) \approx O(\rho^{2k})$. We define $\rho = h_{\mathcal{E}} / h_{\min}$, and
+This assists in limiting the worst-case value of $R_{\max}$ appearing in the previous estimate, yielding a somewhat improved bound on the condition number: $\kappa (\bm{J}) \approx O(\rho^{2k})$. We define $\rho = h_{\mathcal{E}} / h_{\min}$, and
 \begin{equation}
-	\quad h_{\min} = \inf_{\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})} \sup_{B_r (\mathbf{X}_B) \subset \varepsilon} |2r|
+	\quad h_{\min} = \inf_{\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})} \sup_{B_r (\bm{X}_B) \subset \varepsilon} |2r|
 \end{equation}
-denotes the smallest diameter of the largest ball $B_r (\mathbf{X}_B) = \left\{ \mathbf{X} \in \mathbb{R}^d : ||\mathbf{X} - \mathbf{X}_B||_2 \leq r \right\}$ fully contained within any single entity $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$. Nonetheless, the condition number of $\mathbf{J}$ can become large if: a relatively refined partition of the element is utilized; if the aspect ratio of the element becomes large; or if the element's partition contains ``sliver cells'' (i.e. if an edge-based partition is employed on an element with nearly degenerate geometric features.) Some improvements in the conditioning of $\mathbf{J}$ may be obtained by considering the DG basis described in \cite{Bassi:12}. The Lagrange polynomials (for triangles and tetrahedra) can also be used to obtain well-scaled bases for each entity.
+denotes the smallest diameter of the largest ball $B_r (\bm{X}_B) = \left\{ \bm{X} \in \mathbb{R}^d : ||\bm{X} - \bm{X}_B||_2 \leq r \right\}$ fully contained within any single entity $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$. Nonetheless, the condition number of $\bm{J}$ can become large if: a relatively refined partition of the element is utilized; if the aspect ratio of the element becomes large; or if the element's partition contains ``sliver cells'' (i.e. if an edge-based partition is employed on an element with nearly degenerate geometric features.) Some improvements in the conditioning of $\bm{J}$ may be obtained by considering the DG basis described in \cite{Bassi:12}. The Lagrange polynomials (for triangles and tetrahedra) can also be used to obtain well-scaled bases for each entity.
 
 %Following a number of numerical experiments, it was determined that the aforementioned estimates are quite accurate, illuminating a number of key points:
 %\begin{itemize}
 %	\item[(I.)] The condition number depends upon the dimensions of the element, and more specifically, upon the dimensions of its partition.
 %	\begin{itemize}
 %		\item[a.] Isotropically scaling an element will change the condition number of the resulting DG-PEM linear systems if the unscaled monomials are used as the entities' basis functions. This would seem to justify the idea of rescaling PEM elements into a corresponding ``parent'' domain -- ideally one which minimizes $\rho$. Shape functions and gradients would be computed in the parent configuration, and subsequently mapped back into the element's physical configuration through an affine transformation.
-%		\item[b.] Choosing the element's reference coordinate $\bar{\mathbf{X}}^{\mathcal{E}}_0$ poorly can severely impact the conditioning of the DG-PEM linear systems. This further justifies the idea that the element's local coordinate system should be shifted to the element's centroid.
+%		\item[b.] Choosing the element's reference coordinate $\bar{\bm{X}}^{\mathcal{E}}_0$ poorly can severely impact the conditioning of the DG-PEM linear systems. This further justifies the idea that the element's local coordinate system should be shifted to the element's centroid.
 %		\item[c.] Elements with unequal dimensions (i.e. thin elements) will unavoidably suffer from issues of poor conditioning due to a larger relative value of $\rho$ (regardless of isotropic scaling). The natural temptation would be to scale the element anisotropically in an effort to achieve better conditioning. However, this would need to be done with care. Each sub-element would need to be scaled independently, according to its dimensions, alone. This is necessary to guarantee inter-face compatibility between elements, as two anisotropically scaled elements would not, in general, produce identical shape functions on their shared face.
 %	\end{itemize}
 %	\item[(II.)] The condition number becomes drastically worse when higher order monomial bases are used.
@@ -388,6 +388,6 @@ denotes the smallest diameter of the largest ball $B_r (\mathbf{X}_B) = \left\{ 
 %	\item[(III.)] Perhaps most importantly: the strong dependence of the condition number upon $\rho$ and $k$ is largely a consequence of our specific choice of polynomial basis (i.e. the monomial basis).
 %	\begin{itemize}
 %		\item[a.] Because the solution unknowns that we seek are monomial coefficients, it is to be expected that the constant, gradient (and curvature) coefficients may differ by orders of magnitude, depending on the relative scale of the element in physical space.
-%		\item[b.] A more robust solution to the aforementioned issues of conditioning might be obtained through the selection of a different polynomial basis for $P_k (\Omega)$ (other than the monomial basis). In particular, the use of an orthonormal polynomial basis (with respect to an appropriately defined norm on an arbitrary element domain) could entirely circumvent the problem of poor conditioning. To prove this, we would need to illustrate that the resulting condition number of $\mathbf{J}$ using an orthonormal polynomial basis is less sensitive to both $h$ and $k$.
+%		\item[b.] A more robust solution to the aforementioned issues of conditioning might be obtained through the selection of a different polynomial basis for $P_k (\Omega)$ (other than the monomial basis). In particular, the use of an orthonormal polynomial basis (with respect to an appropriately defined norm on an arbitrary element domain) could entirely circumvent the problem of poor conditioning. To prove this, we would need to illustrate that the resulting condition number of $\bm{J}$ using an orthonormal polynomial basis is less sensitive to both $h$ and $k$.
 %	\end{itemize}
 %\end{itemize}

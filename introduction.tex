@@ -180,9 +180,9 @@
 			% may result in a large number of unknowns, less efficient
 			% current formulations place limits on element geometry			
 		
-		The more recent \textit{weak Galerkin} (WG) finite element method first introduced by Wang and Ye for elliptic problems in \cite{Wang:13}, and for parabolic equations by Li and Wang in \cite{Li:13}, pursues the discretization of a (2D) problem domain into polygonal elements and element edges. The method considers a space of ``weak functions'' defined independently on element interiors and their boundaries, such that for any function $v = \left\{ v|_\Omega, \, v|_{\partial \Omega} \right\}$, its (discrete) ``weak gradient'' $\nabla_{w,k} v \in V(\Omega,k)$ is defined on the interior of a given element $\Omega \subset \mathbb{R}^d$ through its action on a vector field $\mathbf{q} \in V(\Omega,k)$:
+		The more recent \textit{weak Galerkin} (WG) finite element method first introduced by Wang and Ye for elliptic problems in \cite{Wang:13}, and for parabolic equations by Li and Wang in \cite{Li:13}, pursues the discretization of a (2D) problem domain into polygonal elements and element edges. The method considers a space of ``weak functions'' defined independently on element interiors and their boundaries, such that for any function $v = \left\{ v|_\Omega, \, v|_{\partial \Omega} \right\}$, its (discrete) ``weak gradient'' $\nabla_{\mathrm w,k} \, v \in V(\Omega,k)$ is defined on the interior of a given element $\Omega \subset \mathbb{R}^d$ through its action on a vector field $\bm{q} \in V(\Omega,k)$:
 \begin{equation}
-	\int_\Omega \mathbf{q} \cdot \nabla_{w,k} v \, dA = - \int_\Omega v|_\Omega \nabla \cdot \mathbf{q} \, dA + \int_{\partial \Omega} v|_{\partial \Omega} \, \mathbf{q} \cdot \mathbf{n} \, dS, \quad \forall \mathbf{q} \in V(\Omega,k),
+	\int_\Omega \bm{q} \cdot \nabla_{\mathrm w,k} \, v \, \mathrm dA = - \int_\Omega v|_\Omega \nabla \cdot \bm{q} \, \mathrm dA + \int_{\partial \Omega} v|_{\partial \Omega} \, \bm{q} \cdot \bm{n} \, \mathrm dS, \quad \forall \bm{q} \in V(\Omega,k),
 \end{equation}
 where $V(K,k) \subset \left[ P^k (\Omega) \right]^d$ is a subspace of the vector-valued polynomials of maximal degree $k$ defined on $\Omega$. A weak Galerkin approximation method uses the discrete weak gradient operator in place of the classical gradient.
 

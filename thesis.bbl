@@ -1,13 +1,10 @@
 \begin{thebibliography}{100}
 
-\bibitem{LSDYNA}
-{\em LS-DYNA Keyword User's Manual, Volume II: Material Models}.
-
 \bibitem{Acosta:00}
-Gabriel Acosta and Ricardo~G. Dur{\'a}n.
-\newblock Error estimates for cq1 isoparametric elements satisfying a weak
-  angle condition.
-\newblock {\em SIAM J. Numerical Analysis}, 38:1073--1088, 2000.
+G.~Acosta and R.~G. Dur{\'a}n.
+\newblock Error estimates for $\mathcal{Q}_1$ isoparametric elements satisfying
+  a weak angle condition.
+\newblock {\em SIAM Journal on Numerical Analysis}, 38:1073--1088, 2000.
 
 \bibitem{Arnold:02}
 D.~N. Arnold, D.~Boffi, and R.~S. Falk.
@@ -21,41 +18,42 @@ D.~N. Arnold, D.~Boffi, R.~S. Falk, and L.~Gastaldi.
   17(11):805--812, 2001.
 
 \bibitem{Askes:15}
-Harm Askes, Antonio Rodríguez-Ferran, and Jack Hetherington.
+H.~Askes, A.~Rodr{\'{i}}guez-Ferran, and J.~Hetherington.
 \newblock The effects of element shape on the critical time step in explicit
   time integrators for elasto-dynamics.
 \newblock {\em International Journal for Numerical Methods in Engineering},
   101(11):809--824, 2015.
 
 \bibitem{ParaView}
-Utkarsh Ayachit.
+U.~Ayachit.
 \newblock {\em The ParaView Guide: A Parallel Visualization Application}.
+\newblock Kitware, 2015.
 
 \bibitem{Babuska:71}
-Ivo Babu{\u{s}}ka.
+I.~Babu{\u{s}}ka.
 \newblock Error-bounds for finite element method.
 \newblock {\em Numerische Mathematik}, 16:322--333, 1971.
 
 \bibitem{Babuska&Suri:92:2}
-Ivo Babu{\u{s}}ka and Manil Suri.
+I.~Babu{\u{s}}ka and M.~Suri.
 \newblock Locking effects in the finite element approximation of elasticity
   problems.
 \newblock {\em Numerische Mathematik}, 62:439--463, 1992.
 
 \bibitem{Babuska&Suri:92:1}
-Ivo Babu{\u{s}}ka and Manil Suri.
+I.~Babu{\u{s}}ka and M.~Suri.
 \newblock On locking and robustness in the finite element method.
 \newblock {\em SIAM Journal on Numerical Analysis}, 29(5):1261--1293, 1992.
 
 \bibitem{Banerjee:05}
-Biswajit Banerjee.
+B.~Banerjee.
 \newblock Taylor impact tests: Detailed report.
 \newblock {\em C-SAFE Internal Report}, Report No. C-SAFE-CD-IR-05-001, 2005.
 
 \bibitem{Bassi:12}
-F.~Bassi, L.~Botti, A.~Colombo, D.A.~Di Pietro, and P.~Tesini.
+F.~Bassi, L.~Botti, A.~Colombo, D.~A. Di~Pietro, and P.~Tesini.
 \newblock On the flexibility of agglomeration based physical space
-  discontinuous galerkin discretizations.
+  discontinuous {G}alerkin discretizations.
 \newblock {\em Journal of Computational Physics}, 231(1):45 -- 65, 2012.
 
 \bibitem{Bathe:06}
@@ -64,20 +62,35 @@ K.J. Bathe.
 \newblock Prentice Hall, 2006.
 
 \bibitem{Irons:65}
-G.P. Bazeley, Y.K. Cheung, B.M. Irons, and O.C. Zienkiewicz.
-\newblock Triangular elements in bending. conforming and non-conforming
+G.~P. Bazeley, Y.~K. Cheung, B.~M. Irons, and O.~C. Zienkiewicz.
+\newblock Triangular elements in bending: Conforming and non-conforming
   solutions.
-\newblock {\em Proc. Conf. Matrix Methods in Structural Mechanics}, 1965.
+\newblock {\em Proceedings of the Conference on Matrix Methods in Structural
+  Mechanics}, 1965.
+
+\bibitem{Veiga:13}
+L.~Beir{\~{a}}o~da Veiga, F.~Brezzi, A.~Cangiani, G.~Manzini, L.~D. Marini, and
+  A.~Russo.
+\newblock Basic principles of virtual element methods.
+\newblock {\em Computer Methods in Applied Mechanics and Engineering},
+  23:199--214, 2013.
+
+\bibitem{Veiga:15}
+L.~Beir{\~{a}}o~da Veiga, C.~Lovadina, and D.~Mora.
+\newblock A virtual element method for elastic and inelastic problems on
+  polytope meshes.
+\newblock {\em Computer Methods in Applied Mechanics and Engineering},
+  295:327--346, 2015.
 
 \bibitem{Beissel:96}
-Stephen Beissel and Ted Belytschko.
-\newblock Nodal integration of the element-free galerkin method.
+S.~Beissel and Belytschko. T.
+\newblock Nodal integration of the element-free {G}alerkin method.
 \newblock {\em Computer Methods in Applied Mechanics and Engineering},
   139(1):49 -- 74, 1996.
 
 \bibitem{Belytschko:94}
 T.~Belytschko, Y.~Y. Lu, and L.~Gu.
-\newblock Element-free galerkin methods.
+\newblock Element-free {G}alerkin methods.
 \newblock {\em International Journal for Numerical Methods in Engineering},
   37(2):229--256, 1994.
 
@@ -89,97 +102,83 @@ J.~E. Bishop.
   97:1--31, 2014.
 
 \bibitem{Blacker:00}
-Ted Blacker.
+T.~Blacker.
 \newblock Meeting the challenge for automated conformal hexahedral meshing.
-\newblock 11 2000.
+\newblock {\em Proceedings of the 9th International Meshing Roundtable},
+  November 2000.
 
 \bibitem{Brannon:11}
-Rebecca Brannon.
+R.~Brannon.
 \newblock Annulus twist as a verification test.
+\newblock https://csmbrannon.net/2011/09/01/annulus-twist/.
+\newblock Accessed: 2011-09-01.
 
 \bibitem{Brezzi:74}
-Franco Brezzi.
+F.~Brezzi.
 \newblock On the existence, uniqueness and approximation of saddle-point
-  problems arising from lagrangian multipliers.
+  problems arising from {L}agrangian multipliers.
 \newblock {\em ESAIM: Mathematical Modelling and Numerical Analysis -
-  Modélisation Mathématique et Analyse Numérique}, 8:129--151, 1974.
+  Mod{\'{e}}lisation Math{\'{e}}matique et Analyse Num{\'{e}}rique},
+  8:129--151, 1974.
 
 \bibitem{Burman:12}
-Erik Burman.
-\newblock A penalty-free nonsymmetric nitsche-type method for the weak
+E.~Burman.
+\newblock A penalty-free nonsymmetric {N}itsche-type method for the weak
   imposition of boundary conditions.
 \newblock {\em SIAM Journal on Numerical Analysis}, 50(4):1959--1981, 2012.
 
 \bibitem{Chen:13}
-Jiun-Shyan Chen, Michael Hillman, and Marcus R\"{u}ter.
-\newblock An arbitrary order variationally consistent integration for galerkin
-  meshfree methods.
+J.S. Chen, M.~Hillman, and M.~R\"{u}ter.
+\newblock An arbitrary order variationally consistent integration for
+  {G}alerkin meshfree methods.
 \newblock {\em International Journal for Numerical Methods in Engineering},
   95:387--418, 2013.
 
+\bibitem{Chen:07}
+J.S. Chen, W.~Hu, M.~A. Puso, Y.~Wu, and X.~Zhang.
+\newblock {\em Strain Smoothing for Stabilization and Regularization of
+  {G}alerkin Meshfree Methods}, pages 57--75.
+\newblock Springer Berlin Heidelberg, Berlin, Heidelberg, 2007.
+
 \bibitem{Chen:01}
-Jiun-Shyan Chen, Cheng-Tang Wu, Sangpil Yoon, and Yang You.
-\newblock A stabilized conforming nodal integration for galerkin mesh-free
+J.S. Chen, C.T. Wu, S.~Yoon, and Y.~You.
+\newblock A stabilized conforming nodal integration for {G}alerkin mesh-free
   methods.
 \newblock {\em International Journal for Numerical Methods in Engineering},
   50(2):435--466, 2001.
 
-\bibitem{Chen:07}
-J.S. Chen, W.~Hu, M.A. Puso, Y.~Wu, and X.~Zhang.
-\newblock {\em Strain Smoothing for Stabilization and Regularization of
-  Galerkin Meshfree Methods}, pages 57--75.
-\newblock Springer Berlin Heidelberg, Berlin, Heidelberg, 2007.
-
 \bibitem{Chi:17}
-H.~Chi, L.~Beir{\~{a}}o da~Veiga, and G.~H. Paulino.
-\newblock Some basic formulations of the virtual element method (vem) for
+H.~Chi, L.~Beir{\~{a}}o~da Veiga, and G.~H. Paulino.
+\newblock Some basic formulations of the virtual element method ({VEM}) for
   finite deformations.
 \newblock {\em Computer Methods in Applied Mechanics and Engineering},
   318:148--192, 2017.
 
 \bibitem{Chi:16}
-Heng Chi, Cameron Talischi, Oscar Lopez-Pamies, and Glaucio~H. Paulino.
+H.~Chi, C.~Talischi, O.~Lopez-Pamies, and G.~H. Paulino.
 \newblock A paradigm for higher-order polygonal elements in finite elasticity
   using a gradient correction scheme.
 \newblock {\em Computer Methods in Applied Mechanics and Engineering},
   306:216--251, 2016.
 
 \bibitem{Chin:15}
-Eric~B. Chin, Jean~B. Lasserre, and N.~Sukumar.
+E.~B. Chin, J.~B. Lasserre, and N.~Sukumar.
 \newblock Numerical integration of homogeneous functions on convex and
   nonconvex polygons and polyhedra.
 \newblock {\em Computational Mechanics}, 56:967--981, 2015.
 
-\bibitem{Shi:87}
-Zhong ci~Shi.
-\newblock The f-e-m-test for convergence of nonconforming finite elements.
-\newblock {\em Mathematics of Computation}, 49(180):391--405, 1987.
-
 \bibitem{Cicuttin:17}
-M.~Cicuttin, D.A.~Di Pietro, and A.~Ern.
+M.~Cicuttin, D.~A. Di~Pietro, and A.~Ern.
 \newblock Implementation of discontinuous skeletal methods on
   arbitrary-dimensional, polytopal meshes using generic programming.
 \newblock {\em Journal of Computational and Applied Mathematics}, 2017.
 
-\bibitem{Veiga:13}
-L.~Beir{\~{a}}o da~Veiga, F.~Brezzi, A.~Cangiani, G.~Manzini, L.~D. Marini, and
-  A.~Russo.
-\newblock Basic principles of virtual element methods.
-\newblock {\em Computer Methods in Applied Mechanics and Engineering},
-  23:199--214, 2013.
-
-\bibitem{Veiga:15}
-L.~Beir{\~{a}}o da~Veiga, C.~Lovadina, and D.~Mora.
-\newblock A virtual element method for elastic and inelastic problems on
-  polytope meshes.
-\newblock {\em Computer Methods in Applied Mechanics and Engineering},
-  295:327--346, 2015.
-
 \bibitem{Davis:04}
-Timothy~A. Davis.
-\newblock Algorithm 832: Umfpack v4.3---an unsymmetric-pattern multifrontal
+T.~A. Davis.
+\newblock Algorithm 832: {UMFPACK} v4.3---an unsymmetric-pattern multifrontal
   method.
-\newblock {\em ACM Trans. Math. Softw.}, 30(2):196--199, June 2004.
+\newblock {\em ACM Transactions on Mathematical Software}, 30(2):196--199, June
+  2004.
 
 \bibitem{Souza:96}
 E.~A. de~Souza~Neto, D.~Peri{\'{c}}, M.~Dukto, and D.~R.~J. Owen.
@@ -197,7 +196,7 @@ C.~R. Dohrmann and M.~M. Rashid.
 
 \bibitem{Dunavant:85}
 D.~A. Dunavant.
-\newblock High degree efficient symmetrical gaussian quadrature rules for the
+\newblock High degree efficient symmetrical {G}aussian quadrature rules for the
   triangle.
 \newblock {\em International Journal for Numerical Methods in Engineering},
   21(6):1129--1148, 1985.
@@ -207,27 +206,31 @@ Standard test methods for tension testing of metallic materials.
 \newblock Standard, ASTM International, 100 Barr Harbor Drive, PO Box C700,
   West Conshohocken, PA 19428-2959, United States, 2008.
 
+\bibitem{Ebeida:17}
+M.~S. Ebeida.
+\newblock Voro{C}rust v. 1.0, version 00, July 2017.
+
 \bibitem{Ebeida:11}
-Mohamed~S. Ebeida and Scott~A. Mitchell.
-\newblock Uniform random voronoi meshes.
+M.~S. Ebeida and S.~A. Mitchell.
+\newblock Uniform random {V}oronoi meshes.
 \newblock {\em Proceedings of the 20th International Meshing Roundtable}, pages
   273--290, 2011.
 
-\bibitem{Ebeida:17}
-Mohamed~Salah Ebeida.
-\newblock Vorocrust v. 1.0, Jul 2017.
-
 \bibitem{Erhart:11}
-Tobias Erhart.
-\newblock Review of solid element formulations in ls-dyna, 2011.
+T.~Erhart.
+\newblock Review of solid element formulations in {LS-DYNA}.
+\newblock
+  http://www.dynamore.ch/en/downloads/papers/forum11/entwicklerforum-2011?set\_language=en,
+  2011.
+\newblock Accessed: 2011-10-12.
 
 \bibitem{Felippa:04}
-Carlos~A. Felippa.
+C.~A. Felippa.
 \newblock {\em Introduction to Finite Element Methods}.
 \newblock University of Colorado, Boulder, 2004.
 
 \bibitem{Mendez:04}
-Sonia Fernández-Méndez and Antonio Huerta.
+S.~Fernández-Méndez and A.~Huerta.
 \newblock Imposing essential boundary conditions in mesh-free methods.
 \newblock {\em Computer Methods in Applied Mechanics and Engineering},
   193(12):1257 -- 1275, 2004.
@@ -241,47 +244,48 @@ D.~P. Flanagan and T.~Belytschko.
   17:679--706, 1981.
 
 \bibitem{Floater:03}
-Michael~S. Floater.
+M.~S. Floater.
 \newblock Mean value coordinates.
 \newblock {\em Computer Aided Geometric Design}, 20:19--27, 2003.
 
 \bibitem{Freund:95}
-Jouni Freund and Rolf Stenberg.
+J.~Freund and R.~Stenberg.
 \newblock On weakly imposed boundary conditions for second order problems.
 \newblock pages 327--336, 01 1995.
 
 \bibitem{Gain:13}
-Arun Gain, Cameron Talischi, and Glaucio~H. Paulino.
+A.~Gain, C.~Talischi, and G.~H. Paulino.
 \newblock On the virtual element method for three-dimensional elasticity
   problems on arbitrary polyhedral meshes.
 \newblock {\em Computer Methods in Applied Mechanics and Engineering}, 282, 11
   2013.
 
 \bibitem{Xifeng:17}
-Xifeng Gao, Wenzel Jakob, Marco Tarini, and Daniele Panozzo.
+X.~Gao, W.~Jakob, M.~Tarini, and D.~Panozzo.
 \newblock Robust hex-dominant mesh generation using field-guided polyhedral
   agglomeration.
 \newblock {\em ACM Transactions on Graphics}, 36, 2017.
 
 \bibitem{Gerberich:62}
-W.~W. Gerberich, H.~E. Martens, and R.~A. Boundy.
+W.~W. Gerberich, Martens.~H. E., and R.~A. Boundy.
 \newblock Tensile properties of five low-alloy and stainless steels under
   high-heating-rate and constant-temperature conditions.
 \newblock {\em Jet Propulsion Laboratory}, Technical Report No. 32-222, 1962.
 
 \bibitem{Gillette:16}
-{Gillette, Andrew} and {Rand, Alexander}.
+A.~Gillette and A.~Rand.
 \newblock Interpolation error estimates for harmonic coordinates on polytopes.
-\newblock {\em ESAIM: M2AN}, 50(3):651--676, 2016.
+\newblock {\em ESAIM: Mathematical Modelling and Numerical Analysis},
+  50(3):651--676, 2016.
 
 \bibitem{Gordon:74}
-William~J. Gordon and James~A. Wixom.
+W.~J. Gordon and J.~A. Wixom.
 \newblock Pseudo-harmonic interpolation on convex domains.
 \newblock {\em SIAM Journal on Numerical Analysis}, 11(5):909--933, 1974.
 
 \bibitem{Grundmann:78}
-Axel Grundmann and H.~M. M{\"{o}}ller.
-\newblock Invariant integration formulas for the n-simplex by combinatorial
+A.~Grundmann and H.~M. M{\"{o}}ller.
+\newblock Invariant integration formulas for the $n$-simplex by combinatorial
   methods.
 \newblock {\em SIAM Journal on Numerical Analysis}, 15(2):282--290, 1978.
 
@@ -291,24 +295,24 @@ W.~H. Gust.
 \newblock {\em Journal of Applied Physics}, 53(5):3566--3575, 1982.
 
 \bibitem{kinematics_paper}
-Omar Hafez, Brian Giffin, Sam Mish, and Mark~M. Rashid.
+O.~Hafez, B.~Giffin, Mish. S., and M.~M. Rashid.
 \newblock An incremental kinematics implementation for finite element
   applications in finite deformation continuum mechanics.
-\newblock {\em (In progress)}.
+\newblock Unpublished manuscript.
 
 \bibitem{Hattangady:99}
 N.~V. Hattangady, M.~S. Shephard, and A.~B. Chaudhary.
 \newblock Towards realistic automated 3d modelling of metal forming problems.
-\newblock {\em Engineering with Computers}, 15(4):356--374, Dec 1999.
+\newblock {\em Engineering with Computers}, 15(4):356--374, December 1999.
 
 \bibitem{Hesthaven:10}
-Jan~S. Hesthaven and Tim Warburton.
-\newblock {\em Nodal Discontinuous Galerkin Methods: Algorithms, Analysis, and
-  Applications}.
+J.~S. Hesthaven and T.~Warburton.
+\newblock {\em Nodal Discontinuous {G}alerkin Methods: Algorithms, Analysis,
+  and Applications}.
 \newblock Springer Publishing Company, Incorporated, 1st edition, 2010.
 
 \bibitem{Hilber&Hughes&Taylor:77}
-Hans~M. Hilber, Thomas J.~R. Hughes, and Robert~L. Taylor.
+H.~M. Hilber, T.~J.~R. Hughes, and R.~L. Taylor.
 \newblock Improved numerical dissipation for time integration algorithms in
   structural dynamics.
 \newblock {\em Earthquake Engineering \& Structural Dynamics}, 5(3):283--292,
@@ -321,155 +325,162 @@ K.~Hormann and N.~Sukumar, editors.
 \newblock CRC Press, Boca Raton, FL, 2017.
 
 \bibitem{Hughes:00}
-Thomas J.~R. Hughes.
+T.~J.~R. Hughes.
 \newblock {\em The Finite Element Method--Linear Static and Dynamic Finite
   Element Analysis}.
 \newblock Dover Publications, 2000.
 
 \bibitem{ASM:18}
 Aerospace Specification~Metals Inc.
-\newblock Aisi 4130 steel, normalized at 870°c (1600°f), 2018.
+\newblock {AISI} 4130 steel, normalized at 870\degree{C} (1600\degree{F}).
+\newblock http://asm.matweb.com/search/SpecificMaterial.asp?bassnum=m4130r,
+  2018.
+\newblock Accessed: 2018-02-23.
 
 \bibitem{Johnson&Cook:83}
-G.R. Johnson and W.H. Cook.
+G.~R. Johnson and W.~H. Cook.
 \newblock A constitutive model and data for metals subjected to large strains,
   high strain rates, and high temperatures.
 \newblock {\em Proceedings 7th International Symposium on Ballistics, The
   Hague}, 19-21:541--547, April 1983.
 
 \bibitem{Joshi:07}
-Pushkar Joshi, Mark Meyer, Tony DeRose, Brian Green, and Tom Sanocki.
+P.~Joshi, M.~Meyer, T.~DeRose, B.~Green, and T.~Sanocki.
 \newblock Harmonic coordinates for character articulation.
 \newblock {\em ACM Transactions on Graphics}, 26, 2007.
 
 \bibitem{Juntunen&Stenberg:09}
-Mika Juntunen and Rolf Stenberg.
-\newblock Nitsche's method for general boundary conditions.
+M.~Juntunen and R.~Stenberg.
+\newblock {N}itsche's method for general boundary conditions.
 \newblock {\em Mechanics of Computation}, 78(267):1353--1374, 2009.
 
 \bibitem{Kim:05}
-Hyoung~Seop Kim, Sung~Ho Kim, and Woo-Seog Ryu.
+H.~S. Kim, S.~H. Kim, and W.S. Ryu.
 \newblock Finite element analysis of the onset of necking and the post-necking
   behaviour during uniaxial tensile testing.
-\newblock {\em MATERIALS TRANSACTIONS}, 46(10):2159--2163, 2005.
+\newblock {\em Materials Transactions}, 46(10):2159--2163, 2005.
 
 \bibitem{Kremer:14}
-Michael Kremer, David Bommes, Isaak Lim, and Leif Kobbelt.
+M.~Kremer, D.~Bommes, I.~Lim, and L.~Kobbelt.
 \newblock Advanced automatic hexahedral mesh generation from surface quad
   meshes.
-\newblock In Josep Sarrate and Matthew Staten, editors, {\em Proceedings of the
-  22nd International Meshing Roundtable}, pages 147--164, Cham, 2014. Springer
-  International Publishing.
+\newblock In {\em Proceedings of the 22nd International Meshing Roundtable},
+  pages 147--164, Cham, 2014. Springer International Publishing.
 
 \bibitem{Lee&Bathe:93}
-Nam-Sua Lee and Klaus-J{\"{u}}rgen Bathe.
+N.S. Lee and K.J. Bathe.
 \newblock Effects of element distortions on the performance of isoparametric
   elements.
 \newblock {\em International Journal for Numerical Methods in Engineering},
   36:3553--3576, 1993.
 
 \bibitem{Li:13}
-Qiaoluan~H. Li and Junping Wang.
-\newblock Weak galerkin finite element methods for parabolic equations.
+Q.~H. Li and J.~Wang.
+\newblock Weak {G}alerkin finite element methods for parabolic equations.
 \newblock {\em Numerical Methods for Partial Differential Equations},
   29:2004--2024, 2013.
 
 \bibitem{Libersky:91}
-L.~D. {Libersky} and A.~G. {Petschek}.
+L.~D. Libersky and A.~G. Petschek.
 \newblock {Smooth particle hydrodynamics with strength of materials}.
-\newblock In H.~E. {Trease}, M.~F. {Fritts}, and W.~P. {Crowley}, editors, {\em
-  Advances in the Free-Lagrange Method Including Contributions on Adaptive
-  Gridding and the Smooth Particle Hydrodynamics Method}, volume 395 of {\em
-  Lecture Notes in Physics, Berlin Springer Verlag}, pages 248--257, 1991.
+\newblock In {\em Advances in the Free-Lagrange Method Including Contributions
+  on Adaptive Gridding and the Smooth Particle Hydrodynamics Method}, volume
+  395 of {\em Lecture Notes in Physics, Berlin Springer Verlag}, pages
+  248--257, 1991.
 
 \bibitem{Lin:15}
-Guang Lin, Jiangguo Liu, and Farrah Sadre-Marandi.
-\newblock A comparative study on the weak galerkin, discontinuous galerkin, and
-  mixed finite element methods.
+G.~Lin, J.~Liu, and F.~Sadre-Marandi.
+\newblock A comparative study on the weak {G}alerkin, discontinuous {G}alerkin,
+  and mixed finite element methods.
 \newblock {\em Journal of Computational and Applied Mathematics}, 273:346--362,
   2015.
 
 \bibitem{Liu:09}
-G.R. Liu, T.~Nguyen-Thoi, and K.Y. Lam.
-\newblock An edge-based smoothed finite element method (es-fem) for static,
+G.~R. Liu, T.~Nguyen-Thoi, and K.~Y. Lam.
+\newblock An edge-based smoothed finite element method ({ES-FEM}) for static,
   free and forced vibration analyses of solids.
 \newblock {\em Journal of Sound and Vibration}, 320(4):1100 -- 1130, 2009.
 
 \bibitem{Liu:95}
-Wing~Kam Liu, Sukky Jun, and Yi~Fei Zhang.
+W.~K. Liu, S.~Jun, and Y.~F. Zhang.
 \newblock Reproducing kernel particle methods.
 \newblock {\em International Journal for Numerical Methods in Fluids},
   20(8-9):1081--1106, 1995.
 
+\bibitem{LSDYNA}
+LSTC.
+\newblock {\em LS-DYNA Keyword User's Manual, Volume II: Material Models},
+  October 2017.
+
 \bibitem{MacNeal:87}
-Richard~H. MacNeal.
+R.~H. MacNeal.
 \newblock A theorem regarding the locking of tapered four-noded membrane
   elements.
 \newblock {\em International Journal for Numerical Methods in Engineering},
   24:1793--1799, 1987.
 
 \bibitem{Malkus&Hughes:78}
-David~S. Malkus and Thomas~J.R. Hughes.
-\newblock Mixed finite element methods — reduced and selective integration
+D.~S. Malkus and T.~J.~R. Hughes.
+\newblock Mixed finite element methods -- reduced and selective integration
   techniques: A unification of concepts.
 \newblock {\em Computer Methods in Applied Mechanics and Engineering}, 15(1):63
   -- 81, 1978.
 
 \bibitem{Martin:08}
-Sebastian Martin, Peter Kaufmann, Mario Botsch, Martin Wicke, and Markus Gross.
+S.~Martin, P.~Kaufmann, M.~Botsch, M.~Wicke, and M.~Gross.
 \newblock Polyhedral finite elements using harmonic basis functions.
 \newblock {\em Eurographics Symposium on Geometry Processing 2008}, 27(5),
   2008.
 
 \bibitem{Mu:13}
 L.~Mu, J.~Wang, and Y.~Wang.
-\newblock A computational study of the weak galerkin method for second-order
+\newblock A computational study of the weak {G}alerkin method for second-order
   elliptic equations.
 \newblock {\em Numerical Algorithms}, 63:753, 2013.
 
-\bibitem{Mu:15:2}
-L.~Mu, J.~Wang, and X.~Ye.
-\newblock Weak galerkin finite element method for second-order elliptic
-  problems on polytopal meshes.
-\newblock {\em International Journal of Numerical Analysis and Modeling},
-  12:31--53, 2015.
-
 \bibitem{Mu:14}
-Lin Mu, Junping Wang, Yanqiu Wang, and Xiu Ye.
-\newblock Interior penalty discontinuous galerkin method on very general
+L.~Mu, J.~Wang, Y.~Wang, and X.~Ye.
+\newblock Interior penalty discontinuous {G}alerkin method on very general
   polygonal and polyhedral meshes.
 \newblock {\em Journal of Computational and Applied Mathematics}, 255:432 --
   440, 2014.
 
+\bibitem{Mu:15:2}
+L.~Mu, J.~Wang, and X.~Ye.
+\newblock Weak {G}alerkin finite element method for second-order elliptic
+  problems on polytopal meshes.
+\newblock {\em International Journal of Numerical Analysis and Modeling},
+  12:31--53, 2015.
+
 \bibitem{Mu:15:1}
-Lin Mu, Junping Wang, and Xiu Ye.
-\newblock A weak galerkin finite element method with polynomial reduction.
+L.~Mu, J.~Wang, and X.~Ye.
+\newblock A weak {G}alerkin finite element method with polynomial reduction.
 \newblock {\em Journal of Computational and Applied Mathematics}, 285:45--58,
   2015.
 
 \bibitem{Oden:98}
-J.Tinsley Oden, Ivo Babu\^{s}ka, and Carlos~Erik Baumann.
-\newblock A discontinuous hp-finite element method for diffusion problems.
-\newblock {\em J. Comput. Phys.}, 146(2):491--519, October 1998.
+J.~T. Oden, I.~Babu\^{s}ka, and C.~E. Baumann.
+\newblock A discontinuous $hp$-finite element method for diffusion problems.
+\newblock {\em Journal of Computational Physics}, 146(2):491--519, October
+  1998.
 
 \bibitem{Owen:14}
-Steven~J. Owen and Tim~R. Shelton.
+S.~J. Owen and T.~R. Shelton.
 \newblock Validation of grid-based hex meshes with computational solid
   mechanics.
-\newblock In Josep Sarrate and Matthew Staten, editors, {\em Proceedings of the
-  22nd International Meshing Roundtable}, pages 39--56, Cham, 2014. Springer
-  International Publishing.
+\newblock In {\em Proceedings of the 22nd International Meshing Roundtable},
+  pages 39--56, Cham, 2014. Springer International Publishing.
 
 \bibitem{Bathe&Pantuso:97}
-Daniel Pantuso and Klaus-J{\"{u}}rgen Bathe.
+D.~Pantuso and K.J. Bathe.
 \newblock On the stability of mixed finite elements in large strain analysis of
   incompressible solids.
 \newblock {\em Finite Elements in Analysis and Design}, 28:83--104, 1997.
 
 \bibitem{Qian:12}
-Jin Qian and Yongjie Zhang.
+J.~Qian and Y.~Zhang.
 \newblock Automatic unstructured all-hexahedral mesh generation from b-reps for
-  non-manifold cad assemblies.
+  non-manifold {CAD} assemblies.
 \newblock {\em Engineering with Computers}, 28(4):345--359, Oct 2012.
 
 \bibitem{Rashid:93}
@@ -498,36 +509,41 @@ M.~M. Rashid and M.~Selimoti{\'{c}}.
   67:226--252, 2006.
 
 \bibitem{Remacle:12}
-J.-F. Remacle, J.~Lambrechts, B.~Seny, E.~Marchandise, A.~Johnen, and
+J.F. Remacle, J.~Lambrechts, B.~Seny, E.~Marchandise, A.~Johnen, and
   C.~Geuzainet.
-\newblock Blossom-quad: a non-uniform quadrilateral mesh generator using a
+\newblock Blossom-{Q}uad: a non-uniform quadrilateral mesh generator using a
   minimum cost perfect matching algorithm.
 \newblock {\em International Journal for Numerical Methods in Engineering},
   89:1102--1119, 2012.
 
 \bibitem{Riviere:08}
-B\'{e}atrice Rivi\`{e}re.
-\newblock {\em Discontinuous Galerkin Methods for Solving Elliptic and
+B.~Rivi\`{e}re.
+\newblock {\em Discontinuous {G}alerkin Methods for Solving Elliptic and
   Parabolic Equations: Theory and Implementation}.
 \newblock Society for Industrial and Applied Mathematics, 3600 Market Street,
   6th Floor, Philadelphia, PA 19104-2688 USA, 2008.
 
 \bibitem{Riviere:01}
-B\'{e}atrice Rivi\`{e}re, Mary~F. Wheeler, and Vivette Girault.
+B.~Rivi\`{e}re, M.~F. Wheeler, and V.~Girault.
 \newblock A priori error estimates for finite element methods based on
   discontinuous approximation spaces for elliptic problems.
 \newblock {\em SIAM Journal on Numerical Analysis}, 39(3):902--931, 2001.
 
 \bibitem{Heinstein:05}
-A.~C. Robinson, Martin~W. Heinstein, and Guglielmo Scovazzi.
-\newblock Lagrangian modeling at sandia national laboratories: Current status
-  and future directions.
+A.~C. Robinson, M.~W. Heinstein, and G.~Scovazzi.
+\newblock Lagrangian modeling at {S}andia {N}ational {L}aboratories: Current
+  status and future directions.
 \newblock {\em Proceedings of 5LC}, 19-21:541--547, 2005.
 
 \bibitem{Selimotic:08}
-Mili Selimoti{\'{c}}.
+M.~Selimoti{\'{c}}.
 \newblock {\em Polyhedral Finite-Element Approximants in 3D Solid Mechanics}.
 \newblock PhD thesis, University of California, Davis, 2008.
+
+\bibitem{Shi:87}
+Z.C. Shi.
+\newblock The {F-E-M}-test for convergence of nonconforming finite elements.
+\newblock {\em Mathematics of Computation}, 49(180):391--405, 1987.
 
 \bibitem{Simo&Armero:92}
 J.~C. Simo and F.~Armero.
@@ -551,18 +567,18 @@ J.~C. Simo and M.~S. Rifai.
   29:1595--1638, 1990.
 
 \bibitem{Staten:07}
-Matthew~L Staten, Michael Borden, Jason~F Shepherd, and Steven~J Owen.
+M.~L. Staten, M.~Borden, J.~F. Shepherd, and S.~J. Owen.
 \newblock New strategies for unstructured all-hexahedral mesh generation.
 \newblock Technical report, Sandia National Laboratories (SNL-NM), Albuquerque,
-  NM (United States); Sandia National Laboratories.,, 2007.
+  NM (United States); Sandia National Laboratories, 2007.
 
 \bibitem{Stummel:79}
-Friedrich Stummel.
+F.~Stummel.
 \newblock The generalized patch test.
 \newblock {\em SIAM Journal on Numerical Analysis}, 16(3):449--471, 1979.
 
 \bibitem{Stummel:80}
-Friedrich Stummel.
+F.~Stummel.
 \newblock The limitations of the patch test.
 \newblock {\em International Journal for Numerical Methods in Engineering},
   16:177--188, 1980.
@@ -580,81 +596,85 @@ N.~Sukumar, B.~Moran, and T.~Belytschko.
   43(5):839--887, 1998.
 
 \bibitem{Suri:91}
-Manil Suri.
+M.~Suri.
 \newblock On the robustness of the $h$- and $p$-versions of the finite-element
   method.
 \newblock {\em Journal of Computational and Applied Mathematics}, 35:303--310,
   1991.
 
 \bibitem{Bathe&Sussman:14}
-Theodore Sussman and Klaus-J{\"{u}}rgen Bathe.
+T.~Sussman and K.J. Bathe.
 \newblock Spurious modes in geometrically nonlinear small displacement finite
   elements with incompatible modes.
 \newblock {\em Computers \& Structures}, 140:14--22, 2014.
 
 \bibitem{Talischi:14}
-Cameron Talischi and Glaucio~H. Paulino.
+C.~Talischi and G.~H. Paulino.
 \newblock Addressing integration error for polygonal finite elements through
   polynomial projections: A patch test connection.
 \newblock {\em Mathematical Models and Methods in Applied Sciences},
   24:1701--1727, 2014.
 
 \bibitem{Talischi:12}
-Cameron Talischi, Glaucio~H. Paulino, Anderson Pereira, and Ivan F.~M. Menezes.
+C.~Talischi, G.~H. Paulino, A.~Pereira, and I.~F.~M. Menezes.
 \newblock Polymesher: a general-purpose mesh generator for polygonal elements
-  written in matlab.
+  written in {M}atlab.
 \newblock {\em Structural and Multidisciplinary Optimization}, 45(3):309--328,
-  Mar 2012.
+  March 2012.
 
 \bibitem{Talischi:15}
-Cameron Talischi, Anderson Pereira, Ivan F.~M. Menezes, and Glaucio~H. Paulino.
+C.~Talischi, A.~Pereira, I.~F.~M. Menezes, and G.~H. Paulino.
 \newblock Gradient correction for polygonal and polyhedral finite elements.
 \newblock {\em International Journal for Numerical Methods in Engineering},
   102:728--747, 2015.
 
 \bibitem{Simo&Taylor:86}
 R.~L. Taylor, J.~C. Simo, O.~C. Zienkiewicz, and A.~C.~H. Chan.
-\newblock The patch test—a condition for assessing fem convergence.
+\newblock The patch test -- a condition for assessing {FEM} convergence.
 \newblock {\em International Journal for Numerical Methods in Engineering},
   22(1):39--62, 1986.
 
 \bibitem{Wachspress:75}
-Eugene~L. Wachspress.
+E.~L. Wachspress.
 \newblock {\em A Rational Finite Element Basis}.
 \newblock Academic Press, 1975.
 
 \bibitem{Wang:13}
 J.~Wang and X.~Ye.
-\newblock A weak galerkin finite element method for second-order elliptic
+\newblock A weak {G}alerkin finite element method for second-order elliptic
   problems.
 \newblock {\em Journal of Computational and Applied Mathematics}, 241:103--115,
   2013.
 
 \bibitem{Wang:14}
-X.~Wang, N.S. Malluwawadu, F.~Gao, and T.C. McMillan.
-\newblock A modified weak galerkin finite element method.
+X.~Wang, N.~S. Malluwawadu, F.~Gao, and T.~C. McMillan.
+\newblock A modified weak {G}alerkin finite element method.
 \newblock {\em Journal of Computational and Applied Mathematics}, 271:319--329,
   2014.
 
 \bibitem{Wikiversity:17}
 Wikiversity.
-\newblock Introduction to elasticity/plate with hole in tension, 2017.
+\newblock Introduction to elasticity/plate with hole in tension.
+\newblock
+  en.wikiversity.org/wiki/Introduction\_to\_Elasticity/Plate\_with\_hole\_in\_tension,
+  2017.
+\newblock Accessed: 2017-07-26.
 
 \bibitem{Wilson:73}
-E.L. Wilson, R.~Taylor, W.P. Doherty, and Jamshid Ghaboussi.
+E.~L. Wilson, R.~Taylor, W.~P. Doherty, and J.~Ghaboussi.
 \newblock {\em Incompatible Displacement Models}.
-\newblock 12 1973.
+\newblock December 1973.
 
 \bibitem{Winkler:10}
-Robert Winkler.
+R.~Winkler.
 \newblock Comments on membrane locking.
 \newblock {\em Proceedings in Applied Mathematics and Mechanics}, 10:229--230,
   2010.
 
 \bibitem{Wopschall:17}
-Steven~R. Wopschall.
+S.~R. Wopschall.
 \newblock {\em A Novel Face-on-Face Contact Method for Nonlinear Solid
   Mechanics}.
-\newblock PhD thesis, 2017.
+\newblock PhD thesis, UC Davis, 2017.
 
 \end{thebibliography}
