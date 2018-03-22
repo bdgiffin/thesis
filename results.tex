@@ -129,13 +129,13 @@ $\alpha_{\gamma1} = 10^{6}$ & $1.13 \times 10^{-9}$ & $3.13 \times 10^{-10}$ & $
 \\
 \begin{subtable}{1.0\textwidth}
 \centering
-\begin{tabular}{| c || c | c | c | c |}
+\begin{tabular}{| c || l | l | l | l |}
     \hline
 $\kappa(\bm{J})$ & $\alpha_{\gamma0} = 10^{-3}$	&	$\alpha_{\gamma0} = 10^{0}$	&	$\alpha_{\gamma0} = 10^{3}$	&	$\alpha_{\gamma0} = 10^{6}$ \\ \hline \hline
-$\alpha_{\gamma1} = 0.0$	&	$5.44 \times 10^{2}$ & $4.07 \times 10^0$ & $5.94 \times 10^{3}$ & $5.96 \times 10^{6}$ \\ \hline
-$\alpha_{\gamma1} = 10^{0}$	&	$4.96 \times 10^{3}$ & $2.01 \times 10^{1}$ & $9.33 \times 10^{2}$ & $9.29 \times 10^{5}$ \\ \hline
-$\alpha_{\gamma1} = 10^{3}$	&	$1.58 \times 10^{7}$ & $2.50 \times 10^{4}$ & $6.96 \times 10^{1}$ & $1.11 \times 10^{3}$ \\ \hline
-$\alpha_{\gamma1} = 10^{6}$	&	$2.37 \times 10^{10}$ & $2.50 \times 10^{7}$ & $6.86 \times 10^{4}$ & $6.98 \times 10^{1}$ \\
+$\alpha_{\gamma1} = 0.0$	&	$544$ & $4.07$ & $5.94 \times 10^{3}$ & $5.96 \times 10^{6}$ \\ \hline
+$\alpha_{\gamma1} = 10^{0}$	&	$4.96 \times 10^{3}$ & $20.1$ & $933$ & $9.29 \times 10^{5}$ \\ \hline
+$\alpha_{\gamma1} = 10^{3}$	&	$1.58 \times 10^{7}$ & $2.50 \times 10^{4}$ & $69.6$ & $1.11 \times 10^{3}$ \\ \hline
+$\alpha_{\gamma1} = 10^{6}$	&	$2.37 \times 10^{10}$ & $2.50 \times 10^{7}$ & $6.86 \times 10^{4}$ & $69.8$ \\
     \hline
     \end{tabular}
     \caption{DG-PEM linear system conditioning: $\kappa(\bm{J})$}
@@ -169,10 +169,10 @@ $\alpha_{\gamma1} = 10^{6}$ & $1.52 \times 10^{-7}$ & $4.97 \times 10^{-8}$ & $1
 \\
 \begin{subtable}{1.0\textwidth}
 \centering
-\begin{tabular}{| c || c | c | c | c |}
+\begin{tabular}{| c || l | l | l | l |}
     \hline
 $\kappa(\bm{J})$ & $\alpha_{\gamma0} = 10^{-3}$	&	$\alpha_{\gamma0} = 10^{0}$	&	$\alpha_{\gamma0} = 10^{3}$	&	$\alpha_{\gamma0} = 10^{6}$ \\ \hline \hline
-$\alpha_{\gamma1} = 0.0$	& $9.07 \times 10^{3}$ & $1.39 \times 10^{2}$ & $1.14 \times 10^{5}$ & $1.33 \times 10^{8}$ \\ \hline
+$\alpha_{\gamma1} = 0.0$	& $9.07 \times 10^{3}$ & $139$ & $1.14 \times 10^{5}$ & $1.33 \times 10^{8}$ \\ \hline
 $\alpha_{\gamma1} = 10^{0}$	& $3.52 \times 10^{5}$ & $1.75 \times 10^{3}$ & $1.97 \times 10^{4}$ & $3.67 \times 10^{5}$ \\ \hline
 $\alpha_{\gamma1} = 10^{3}$	& $1.17 \times 10^{9}$ & $2.46 \times 10^{6}$ & $2.61 \times 10^{5}$ & $2.32 \times 10^{4}$ \\ \hline
 $\alpha_{\gamma1} = 10^{6}$	& $1.77 \times 10^{12}$ & $2.45 \times 10^{9}$ & $2.52 \times 10^{8}$ & $3.07 \times 10^{5}$ \\
@@ -188,7 +188,7 @@ $\alpha_{\gamma1} = 10^{6}$	& $1.77 \times 10^{12}$ & $2.45 \times 10^{9}$ & $2.
 
 The results in table \ref{tab:thin_interpolation_error_and_condJ_k1} indicate that the interpolation error becomes more sensitive to the choice of $\alpha_{\gamma0}$ and $\alpha_{\gamma1}$ for elements with large aspect ratios. A careful selection of the DG-PEM penalty parameters is therefore warranted for the sake of minimizing the resulting interpolation error. For general applications in which an edge-based partitioning scheme is employed, it is suggested that the parameter values be chosen such that $\alpha_{\gamma0} = 10.0$ and $\alpha_{\gamma1} = 0.0$. Nonetheless, a more thorough parameter sensitivity analysis is recommended.
 
-One option for overcoming the aforementioned sensitivity issues for thin elements would be to consider a scaled ``parent element'' domain. This would entail anisotropically scaling each element to have unit aspect ratio prior to constructing its shape functions. The resulting shape functions would then be transformed via an inverse scaling operation into the element's physical coordinates. This rescaling operation would need to be performed with care, however, so as to maintain consistency in the representation of the elements' shape functions on shared faces (in order to maintain (\ref{eq:face_constraint})).
+One option for overcoming the aforementioned sensitivity issues for thin elements would be to consider a scaled ``parent element'' domain. This would entail anisotropically scaling each element to have unit aspect ratio prior to constructing its shape functions. The resulting shape functions would then be transformed via an inverse scaling operation into the element's physical coordinates. This rescaling operation would need to be performed with care, however, so as to maintain consistency in the representation of the elements' shape functions on shared faces, i.e. (\ref{eq:face_constraint}).
 
 \section{Finite Element Patch Tests}
 
@@ -241,12 +241,12 @@ Linear patch test errors for the FEM, CG-PEM, and DG-PEM are explored. The resul
   \begin{center}
     \begin{tabular}{| l || c | c |}
     \hline
-           & $||\bm{u}^h - \bm{u}|| / ||\bm{u}||$ & $||\boldsymbol{\sigma}^h - \boldsymbol{\sigma}|| / ||\boldsymbol{\sigma}||$ \\ \hline \hline
-    FEM (4-node quadrilaterals) & $5.1568 \times 10^{-15}$ & $7.7395 \times 10^{-16}$ \\ \hline
-    CG-PEM (no gradient correction) & $5.9125 \times 10^{-12}$ & $5.1637 \times 10^{-12}$ \\ \hline
-    DG-PEM (no gradient correction) & $2.7721 \times 10^{-5}$ & $3.0904 \times 10^{-4}$ \\ \hline
-    DG-PEM (symmetric correction) & $6.2750 \times 10^{-12}$ & $5.3521 \times 10^{-12}$ \\ \hline
-    DG-PEM (nonsymmetric correction) & $6.2673 \times 10^{-12}$ & $5.3494 \times 10^{-12}$ \\
+           & $\frac{||\bm{u}^h - \bm{u}||}{||\bm{u}||}$ & $\frac{||\boldsymbol{\sigma}^h - \boldsymbol{\sigma}||}{||\boldsymbol{\sigma}||}$ \\ \hline \hline
+    FEM (4-node quadrilaterals) & $5.15 \times 10^{-15}$ & $7.73 \times 10^{-16}$ \\ \hline
+    CG-PEM (no gradient correction) & $5.91 \times 10^{-12}$ & $5.16 \times 10^{-12}$ \\ \hline
+    DG-PEM (no gradient correction) & $2.77 \times 10^{-5}$ & $3.09 \times 10^{-4}$ \\ \hline
+    DG-PEM (symmetric correction) & $6.27 \times 10^{-12}$ & $5.35 \times 10^{-12}$ \\ \hline
+    DG-PEM (nonsymmetric correction) & $6.26 \times 10^{-12}$ & $5.34 \times 10^{-12}$ \\
     \hline
     \end{tabular}
     \caption{Linear patch test results comparison for FEM, CG-PEM, and DG-PEM.}
@@ -265,11 +265,11 @@ These observations help to illuminate an important point regarding integration c
     \begin{tabular}{| l || c | c | c | c | c |}
     \hline
     DG-PEM & $\alpha_{\gamma0} = 10^{-6}$ & $\alpha_{\gamma0} = 10^{-3}$ & $\alpha_{\gamma0} = 10^{0}$ & $\alpha_{\gamma0} = 10^{3}$ & $\alpha_{\gamma0} = 10^{6}$ \\ \hline \hline
-    	$\alpha_{\gamma1} = 0.0$ & $2.8433 \times 10^{-9}$ & $2.8152 \times 10^{-6}$ & $3.3114 \times 10^{-4}$ & $4.8035 \times 10^{-6}$ & $4.8278 \times 10^{-9}$ \\ \hline
-    $\alpha_{\gamma1} = 10^{-3}$ & $2.8505 \times 10^{-9}$ & $2.8224 \times 10^{-6}$ & $3.2288 \times 10^{-4}$ & $4.9805 \times 10^{-6}$ & $5.0082 \times 10^{-9}$ \\ \hline
-    $\alpha_{\gamma1} = 10^{0}$ & $3.4853 \times 10^{-9}$ & $3.4604 \times 10^{-6}$ & $2.4827 \times 10^{-3}$ & $7.4284 \times 10^{-4}$ & $8.6376 \times 10^{-7}$ \\ \hline
-    $\alpha_{\gamma1} = 10^{3}$ & $3.5460 \times 10^{-9}$ & $3.5450 \times 10^{-6}$ & $3.0047 \times 10^{-3}$ & $1.3898 \times 10^{-2}$ & $7.4705 \times 10^{-4}$ \\ \hline
-    $\alpha_{\gamma1} = 10^{6}$ & $3.5457 \times 10^{-9}$ & $3.5456 \times 10^{-6}$ & $3.0054 \times 10^{-3}$ & $1.4604 \times 10^{-2}$ & $1.3953 \times 10^{-2}$ \\
+    	$\alpha_{\gamma1} = 0.0$ & $2.84 \times 10^{-9}$ & $2.81 \times 10^{-6}$ & $3.31 \times 10^{-4}$ & $4.80 \times 10^{-6}$ & $4.82 \times 10^{-9}$ \\ \hline
+    $\alpha_{\gamma1} = 10^{-3}$ & $2.85 \times 10^{-9}$ & $2.82 \times 10^{-6}$ & $3.22 \times 10^{-4}$ & $4.98 \times 10^{-6}$ & $5.00 \times 10^{-9}$ \\ \hline
+    $\alpha_{\gamma1} = 10^{0}$ & $3.48 \times 10^{-9}$ & $3.46 \times 10^{-6}$ & $2.48 \times 10^{-3}$ & $7.42 \times 10^{-4}$ & $8.63 \times 10^{-7}$ \\ \hline
+    $\alpha_{\gamma1} = 10^{3}$ & $3.54 \times 10^{-9}$ & $3.54 \times 10^{-6}$ & $3.00 \times 10^{-3}$ & $1.38 \times 10^{-2}$ & $7.47 \times 10^{-4}$ \\ \hline
+    $\alpha_{\gamma1} = 10^{6}$ & $3.54 \times 10^{-9}$ & $3.54 \times 10^{-6}$ & $3.00 \times 10^{-3}$ & $1.46 \times 10^{-2}$ & $1.39 \times 10^{-2}$ \\
     \hline
     \end{tabular}
     \caption{Computed values of $||\boldsymbol{\sigma}^h - \boldsymbol{\sigma}|| / ||\boldsymbol{\sigma}||$ for the DG-PEM using various penalty parameter settings. No gradient correction scheme was utilized. Identical trends were observed for $||\bm{u}^h - \bm{u}|| / ||\bm{u}||$.}
@@ -283,14 +283,14 @@ Additionally, it is noted that the DG-PEM recovers integration consistency in th
 
 \begin{table}[!ht]
   \begin{center}
-    \begin{tabular}{| l || c | c | c | c |}
+    \begin{tabular}{| l || l | l | l | l |}
     \hline
-    DG-PEM & $\kappa(\bm{J})$ &  $E_1 (\Omega)$ & $||\bm{u}^h - \bm{u}|| / ||\bm{u}||$ & $||\boldsymbol{\sigma}^h - \boldsymbol{\sigma}|| / ||\boldsymbol{\sigma}||$ \\ \hline \hline
-    $\alpha_{\gamma0} = 10^{0}$ & $4.3653 \times 10^0$ & $3.7339 \times 10^{-15}$ & $3.9872 \times 10^{-5}$ & $3.3113 \times 10^{-4}$ \\ \hline
-    $\alpha_{\gamma0} = 10^{3}$ & $6.1670 \times 10^{3}$ & $2.5645 \times 10^{-12}$ & $3.5373 \times 10^{-7}$ & $4.8035 \times 10^{-6}$ \\ \hline
-    $\alpha_{\gamma0} = 10^{6}$ & $6.1816 \times 10^{6}$ & $2.2129 \times 10^{-9}$ & $3.5767 \times 10^{-10}$ & $4.8276 \times 10^{-9}$ \\ \hline
-    $\alpha_{\gamma0} = 10^{9}$ & $6.1817 \times 10^{9}$ & $1.6471 \times 10^{-6}$ & $1.4331 \times 10^{-9}$ & $2.4472 \times 10^{-8}$ \\ \hline
-    $\alpha_{\gamma0} = 10^{12}$ & $6.1821 \times 10^{12}$ & $1.7678 \times 10^{-3}$ & $2.1612 \times 10^{-6}$ & $3.0495 \times 10^{-5}$ \\
+    \multicolumn{1}{|c||}{DG-PEM} & \multicolumn{1}{|c|}{$\kappa(\bm{J})$} &  \multicolumn{1}{c}{$E_1 (\Omega)$} & \multicolumn{1}{|c|}{$\frac{||\bm{u}^h - \bm{u}||}{||\bm{u}||}$} & \multicolumn{1}{|c|}{$\frac{||\boldsymbol{\sigma}^h - \boldsymbol{\sigma}||}{||\boldsymbol{\sigma}||}$} \\ \hline \hline
+    $\alpha_{\gamma0} = 10^{0}$ & $4.36$ & $3.73 \times 10^{-15}$ & $3.98 \times 10^{-5}$ & $3.31 \times 10^{-4}$ \\ \hline
+    $\alpha_{\gamma0} = 10^{3}$ & $6.16 \times 10^{3}$ & $2.56 \times 10^{-12}$ & $3.53 \times 10^{-7}$ & $4.80 \times 10^{-6}$ \\ \hline
+    $\alpha_{\gamma0} = 10^{6}$ & $6.18 \times 10^{6}$ & $2.21 \times 10^{-9}$ & $3.57 \times 10^{-10}$ & $4.82 \times 10^{-9}$ \\ \hline
+    $\alpha_{\gamma0} = 10^{9}$ & $6.18 \times 10^{9}$ & $1.64 \times 10^{-6}$ & $1.43 \times 10^{-9}$ & $2.44 \times 10^{-8}$ \\ \hline
+    $\alpha_{\gamma0} = 10^{12}$ & $6.18 \times 10^{12}$ & $1.76 \times 10^{-3}$ & $2.16 \times 10^{-6}$ & $3.04 \times 10^{-5}$ \\
     \hline
     \end{tabular}
     \caption{The effects of interpolation error on patch test errors in the DG-PEM. No gradient correction scheme was utilized.}
@@ -336,14 +336,14 @@ The two hexahedral meshes depicted in Figure \ref{fig:hexahedral_patch_meshes} w
 
 \begin{table}[!ht]
   \begin{center}
-    \begin{tabular}{| l || c | c | c |}
+    \begin{tabular}{| l || l | l | l |}
     \hline
-           & $E_1 (\Omega)$ & $||\bm{u}^h - \bm{u}|| / ||\bm{u}||$ & $||\boldsymbol{\sigma}^h - \boldsymbol{\sigma}|| / ||\boldsymbol{\sigma}||$ \\ \hline \hline
-    FEM (regular hexahedra) & $2.4441 \times 10^{-16}$ & $1.5371 \times 10^{-15}$ & $8.1102 \times 10^{-16}$ \\ \hline
-    FEM (distorted hexahedra) & $3.4394 \times 10^{-16}$ & $7.5402 \times 10^{-11}$ & $1.6047 \times 10^{-10}$ \\ \hline
-    DG-PEM (no gradient correction) & $2.0369 \times 10^{-8}$ & $2.7189 \times 10^{-1}$ & $4.4846 \times 10^{-1}$ \\ \hline
-    DG-PEM (symmetric correction) & $4.1522 \times 10^{-8}$ & $1.2598 \times 10^{-8}$ & $4.1608 \times 10^{-8}$ \\ \hline
-    DG-PEM (nonsymmetric correction) & $2.0369 \times 10^{-8}$ & $1.0193 \times 10^{-8}$ & $2.9253 \times 10^{-8}$ \\
+           & \multicolumn{1}{|c|}{$E_1 (\Omega)$} & \multicolumn{1}{|c|}{$\frac{||\bm{u}^h - \bm{u}||}{||\bm{u}||}$} & \multicolumn{1}{|c|}{$\frac{||\boldsymbol{\sigma}^h - \boldsymbol{\sigma}||}{||\boldsymbol{\sigma}||}$} \\ \hline \hline
+    FEM (regular hexahedra) & $2.44 \times 10^{-16}$ & $1.53 \times 10^{-15}$ & $8.11 \times 10^{-16}$ \\ \hline
+    FEM (distorted hexahedra) & $3.43 \times 10^{-16}$ & $7.54 \times 10^{-11}$ & $1.60 \times 10^{-10}$ \\ \hline
+    DG-PEM (no gradient correction) & $2.03 \times 10^{-8}$ & $0.271$ & $0.448$ \\ \hline
+    DG-PEM (symmetric correction) & $4.15 \times 10^{-8}$ & $1.25 \times 10^{-8}$ & $4.16 \times 10^{-8}$ \\ \hline
+    DG-PEM (nonsymmetric correction) & $2.03 \times 10^{-8}$ & $1.01 \times 10^{-8}$ & $2.92 \times 10^{-8}$ \\
     \hline
     \end{tabular}
     \caption{3D linear patch test results comparison for FEM and DG-PEM.}
@@ -417,16 +417,16 @@ Quadratic patch test errors for the FEM and DG-PEM were explored. The DG-PEM bas
 
 \begin{table}[!ht]
   \begin{center}
-    \begin{tabular}{| l || c | c | c |}
+    \begin{tabular}{| l || l | l | l |}
     \hline
-           & $E_2 (\Omega)$ & $||\bm{u}^h - \bm{u}|| / ||\bm{u}||$ & $||\boldsymbol{\sigma}^h - \boldsymbol{\sigma}|| / ||\boldsymbol{\sigma}||$ \\ \hline \hline
-    FEM (regular 8-node quadrilaterals) & $9.0812 \times 10^{-16}$ & $1.7437 \times 10^{-9}$ & $1.3950 \times 10^{-8}$ \\ \hline
-    FEM (distorted 8-node quadrilaterals) & $4.7831 \times 10^{-3}$ & $9.9714 \times 10^{-5}$ & $2.0795 \times 10^{-3}$ \\ \hline
-    FEM (regular 9-node quadrilaterals) & $8.6713 \times 10^{-16}$ & $1.7437 \times 10^{-9}$ & $1.3950 \times 10^{-8}$ \\ \hline
-    FEM (distorted 9-node quadrilaterals) & $1.2818 \times 10^{-15}$ & $2.0841 \times 10^{-9}$ & $1.5752 \times 10^{-8}$ \\ \hline
-    DG-PEM (no gradient correction) & $3.3857 \times 10^{-8}$ & $9.8535 \times 10^{-2}$ & $2.8876 \times 10^{-1}$ \\ \hline
-    DG-PEM (symmetric correction) & $3.6486 \times 10^{-7}$ & $3.5935 \times 10^{-8}$ & $1.4642 \times 10^{-7}$ \\ \hline
-    DG-PEM (nonsymmetric correction) & $3.3857 \times 10^{-8}$ & $4.5498 \times 10^{-9}$ & $5.5341 \times 10^{-9}$ \\
+           & \multicolumn{1}{|c|}{$E_2 (\Omega)$} & \multicolumn{1}{|c|}{$\frac{||\bm{u}^h - \bm{u}||}{||\bm{u}||}$} & \multicolumn{1}{|c|}{$\frac{||\boldsymbol{\sigma}^h - \boldsymbol{\sigma}||}{||\boldsymbol{\sigma}||}$} \\ \hline \hline
+    FEM (regular 8-node quadrilaterals) & $9.08 \times 10^{-16}$ & $1.74 \times 10^{-9}$ & $1.39 \times 10^{-8}$ \\ \hline
+    FEM (distorted 8-node quadrilaterals) & $4.78 \times 10^{-3}$ & $9.97 \times 10^{-5}$ & $2.07 \times 10^{-3}$ \\ \hline
+    FEM (regular 9-node quadrilaterals) & $8.67 \times 10^{-16}$ & $1.74 \times 10^{-9}$ & $1.39 \times 10^{-8}$ \\ \hline
+    FEM (distorted 9-node quadrilaterals) & $1.28 \times 10^{-15}$ & $2.08 \times 10^{-9}$ & $1.57 \times 10^{-8}$ \\ \hline
+    DG-PEM (no gradient correction) & $3.38 \times 10^{-8}$ & $9.85 \times 10^{-2}$ & $0.288$ \\ \hline
+    DG-PEM (symmetric correction) & $3.64 \times 10^{-7}$ & $3.59 \times 10^{-8}$ & $1.46 \times 10^{-7}$ \\ \hline
+    DG-PEM (nonsymmetric correction) & $3.38 \times 10^{-8}$ & $4.54 \times 10^{-9}$ & $5.53 \times 10^{-9}$ \\
     \hline
     \end{tabular}
     \caption{Quadratic patch test results comparison for FEM and DG-PEM.}
@@ -453,14 +453,14 @@ The quadratic patch test described in the previous example may be extended direc
 
 \begin{table}[!ht]
   \begin{center}
-    \begin{tabular}{| l || c | c | c |}
+    \begin{tabular}{| l || l | l | l |}
     \hline
-           & $E_2 (\Omega)$ & $||\bm{u}^h - \bm{u}|| / ||\bm{u}||$ & $||\boldsymbol{\sigma}^h - \boldsymbol{\sigma}|| / ||\boldsymbol{\sigma}||$ \\ \hline \hline
-    FEM (regular hexahedra) & $6.1677 \times 10^{-16}$ & $6.9751 \times 10^{-9}$ & $2.7900 \times 10^{-8}$ \\ \hline
-    FEM (distorted hexahedra) & $5.6085 \times 10^{-3}$ & $1.4755 \times 10^{-4}$ & $1.4958 \times 10^{-3}$ \\ \hline
-    DG-PEM (no gradient correction) & $3.2351 \times 10^{-8}$ & $1.3054 \times 10^{-1}$ & $2.9833 \times 10^{-1}$ \\ \hline
-    DG-PEM (symmetric correction) & $9.7520 \times 10^{-2}$ & $2.4536 \times 10^{-2}$ & $3.1112 \times 10^{-2}$ \\ \hline
-    DG-PEM (nonsymmetric correction) & $3.2351 \times 10^{-8}$ & $2.6577 \times 10^{-8}$ & $1.1622 \times 10^{-8}$ \\
+           & \multicolumn{1}{|c|}{$E_2 (\Omega)$} & \multicolumn{1}{|c|}{$\frac{||\bm{u}^h - \bm{u}||}{||\bm{u}||}$} & \multicolumn{1}{|c|}{$\frac{||\boldsymbol{\sigma}^h - \boldsymbol{\sigma}||}{||\boldsymbol{\sigma}||}$} \\ \hline \hline
+    FEM (regular hexahedra) & $6.16 \times 10^{-16}$ & $6.97 \times 10^{-9}$ & $2.79 \times 10^{-8}$ \\ \hline
+    FEM (distorted hexahedra) & $5.60 \times 10^{-3}$ & $1.47 \times 10^{-4}$ & $1.49 \times 10^{-3}$ \\ \hline
+    DG-PEM (no gradient correction) & $3.23 \times 10^{-8}$ & $0.130$ & $0.298$ \\ \hline
+    DG-PEM (symmetric correction) & $9.75 \times 10^{-2}$ & $2.45 \times 10^{-2}$ & $3.11 \times 10^{-2}$ \\ \hline
+    DG-PEM (nonsymmetric correction) & $3.23 \times 10^{-8}$ & $2.65 \times 10^{-8}$ & $1.16 \times 10^{-8}$ \\
     \hline
     \end{tabular}
     \caption{3D quadratic patch test results comparison for FEM and DG-PEM.}
@@ -544,10 +544,10 @@ Using the aforementioned approximations in place of the harmonic shape functions
 \begin{tabular}{| c || c | c | c |}
     \hline
 		Element  & A      & B      & C \\ \hline \hline
-		Harmonic	 & 0.9635 & 1.2151 & 7.1166 \\ \hline
-		VETFEM	 & 0.9950 & 4.4864 & 6.0305 \\ \hline
-		CG-PEM	 & 1.0723 & 1.2760 & 8.7108 \\ \hline
-		DG-PEM	 & 0.9668 & 1.1997 & 6.2766 \\
+		Harmonic	 & 0.96 & 1.21 & 7.11 \\ \hline
+		VETFEM	 & 0.99 & 4.48 & 6.03 \\ \hline
+		CG-PEM	 & 1.07 & 1.27 & 8.71 \\ \hline
+		DG-PEM	 & 0.96 & 1.19 & 6.27 \\
     \hline
     \end{tabular}
     \caption{Largest eigenvalue: $\lambda_{\max}$}
@@ -558,10 +558,10 @@ Using the aforementioned approximations in place of the harmonic shape functions
 \begin{tabular}{| c || c | c | c |}
     \hline
 		Element  & A      & B      & C \\ \hline \hline
-		Harmonic	 & 0.5226 & 0.3449 & 0.00562 \\ \hline
-		VETFEM   & 0.5335 & 0.3491 & 0.09189 \\ \hline
-		CG-PEM   & 0.6175 & 0.3935 & 0.00694 \\ \hline
-		DG-PEM   & 0.5345 & 0.3425 & 0.00527 \\
+		Harmonic	 & 0.52 & 0.34 & 0.0056 \\ \hline
+		VETFEM   & 0.53 & 0.34 & 0.0918 \\ \hline
+		CG-PEM   & 0.61 & 0.39 & 0.0069 \\ \hline
+		DG-PEM   & 0.53 & 0.34 & 0.0052 \\
     \hline
     \end{tabular}
     \caption{Smallest (non-zero) eigenvalue: $\lambda_{\min}$}
@@ -581,10 +581,10 @@ Irrespective of the chosen approximation method, the condition number for a give
 \begin{tabular}{| l || c | c | c | c |}
     \hline
 DG-PEM & $\alpha_{\gamma0} = 10^{-3}$ & $\alpha_{\gamma0} = 10^{0}$ & $\alpha_{\gamma0} = 10^{3}$ & $\alpha_{\gamma0} = 10^{6}$ \\ \hline \hline
-$\alpha_{\gamma1} = 0.0$	& 5.9210 & 5.4949 & 8.6484 & 8.7108 \\ \hline
-$\alpha_{\gamma1} = 10^{0}$ & 5.9210 & 5.2235 & 7.7525 & 8.7106 \\ \hline
-$\alpha_{\gamma1} = 10^{3}$ & 5.9210 & 5.0938 & 3.9671 & 7.7874 \\ \hline
-$\alpha_{\gamma1} = 10^{6}$ & 5.9210 & 5.0935 & 3.8699 & 3.9640 \\
+$\alpha_{\gamma1} = 0.0$	& 5.92 & 5.49 & 8.64 & 8.71 \\ \hline
+$\alpha_{\gamma1} = 10^{0}$ & 5.92 & 5.22 & 7.75 & 8.71 \\ \hline
+$\alpha_{\gamma1} = 10^{3}$ & 5.92 & 5.09 & 3.96 & 7.78 \\ \hline
+$\alpha_{\gamma1} = 10^{6}$ & 5.92 & 5.09 & 3.86 & 3.96 \\
     \hline
     \end{tabular}
     \caption{Largest eigenvalue: $\lambda_{\max}$}
@@ -596,10 +596,10 @@ $\alpha_{\gamma1} = 10^{6}$ & 5.9210 & 5.0935 & 3.8699 & 3.9640 \\
 \begin{tabular}{| l || c | c | c | c |}
     \hline
 DG-PEM & $\alpha_{\gamma0} = 10^{-3}$	&	$\alpha_{\gamma0} = 10^{0}$	&	$\alpha_{\gamma0} = 10^{3}$	&	$\alpha_{\gamma0} = 10^{6}$ \\ \hline \hline
-$\alpha_{\gamma1} = 0.0$	&	0.004747	&	0.003554	&	0.006920	&	0.006943 \\ \hline
-$\alpha_{\gamma1} = 10^{0}$	&	0.004748	&	0.003675	&	0.006489	&	0.006941 \\ \hline
-$\alpha_{\gamma1} = 10^{3}$	&	0.004748	&	0.004210	&	0.002898	&	0.006508 \\ \hline
-$\alpha_{\gamma1} = 10^{6}$	&	0.004748	&	0.004211	&	0.003660	&	0.002896 \\
+$\alpha_{\gamma1} = 0.0$	&	0.0047	&	0.0035	&	0.0069	&	0.0069 \\ \hline
+$\alpha_{\gamma1} = 10^{0}$	&	0.0047	&	0.0036	&	0.0064	&	0.0069 \\ \hline
+$\alpha_{\gamma1} = 10^{3}$	&	0.0047	&	0.0042	&	0.0028	&	0.0065 \\ \hline
+$\alpha_{\gamma1} = 10^{6}$	&	0.0047 &	0.0042	&	0.0036	&	0.0028 \\
     \hline
     \end{tabular}
     \caption{Smallest (non-zero) eigenvalue: $\lambda_{\min}$}
@@ -641,10 +641,10 @@ As in the previous example, the aforementioned approximations were used in place
 \begin{tabular}{| c || c | c |}
     \hline
              & $l=1.0$ & $l=0.01$ \\ \hline \hline
-    Harmonic & 0.9510 & 5.0899 \\ \hline
-    VETFEM   & 0.9510 & 1.6818 \\ \hline
-    CG-PEM   & 1.1326 & 64.098 \\ \hline
-    DG-PEM   & 0.9510 & 1.3085 \\
+    Harmonic & 0.95 & 5.08 \\ \hline
+    VETFEM   & 0.95 & 1.68 \\ \hline
+    CG-PEM   & 1.13 & 64.0 \\ \hline
+    DG-PEM   & 0.95 & 1.30 \\
     \hline
     \end{tabular}
     \caption{Largest eigenvalue: $\lambda_{\max}$}
@@ -655,10 +655,10 @@ As in the previous example, the aforementioned approximations were used in place
 \begin{tabular}{| c || c | c |}
     \hline
              & $l=1.0$ & $l=0.01$ \\ \hline \hline
-    Harmonic & 0.4925 & 0.3951 \\ \hline
-    VETFEM   & 0.4906 & 0.3746 \\ \hline
-    CG-PEM   & 0.8387 & 0.5516 \\ \hline
-    DG-PEM   & 0.4739 & 0.2592 \\
+    Harmonic & 0.49 & 0.39 \\ \hline
+    VETFEM   & 0.49 & 0.37 \\ \hline
+    CG-PEM   & 0.83 & 0.55 \\ \hline
+    DG-PEM   & 0.47 & 0.25 \\
     \hline
     \end{tabular}
     \caption{Smallest (non-zero) eigenvalue: $\lambda_{\min}$}
@@ -1113,7 +1113,7 @@ In contrast, the distorted hexahedral meshes of Figure \ref{fig:hexp_annulus_mes
 
 The arbitrary polyhedral meshes of Figure \ref{fig:poly_annulus_meshes} are less sensitive to the effects of volumetric locking. Optimal rates of convergence are fully restored when the kinematic enhancement is utilized.
 
-If the DG-PEM is utilized on either of the two series of hexahedral meshes shown in Figures \ref{fig:hex_annulus_meshes} and \ref{fig:hexp_annulus_meshes}, the resulting convergence rates match those of the FEM. This illustrates an important point: the particular choice of \textit{discretization} (the shape of the elements) controls mesh sensitivity to volumetric locking, more so than the underlying element formulation. Consider the extreme case of a mesh consisting entirely of linear tetrahedra. Such a mesh will produce identical results for the FEM, and all variants of the PEM. In the aforementioned scenario, volumetric locking will persist, regardless of which element formulation is utilized. The same rationale is true for the distorted hexahedral meshes. As such, the PEM should not be viewed as a direct remedy to volumetric locking. Rather, the PEM simply enables the use of more general discretizations, which may themselves be less suceptible to locking.
+If the DG-PEM is utilized on either of the two series of hexahedral meshes shown in Figures \ref{fig:hex_annulus_meshes} and \ref{fig:hexp_annulus_meshes}, the resulting convergence rates match those of the FEM. This illustrates an important point: the particular choice of \textit{discretization} (the shape of the elements) controls mesh sensitivity to volumetric locking, more so than the underlying element formulation. Consider the extreme case of a mesh consisting entirely of linear tetrahedra. Such a mesh will produce identical results for the FEM, and all variants of the PEM. In the aforementioned scenario, volumetric locking will persist, regardless of which element formulation is utilized. The same rationale is true for the distorted hexahedral meshes. As such, the PEM should not be viewed as a direct remedy to volumetric locking. Rather, the PEM simply enables the use of more general discretizations, which may themselves be less susceptible to locking.
 
 These observations lead to a related line of inquiry: can a given discretization be designed in such a fashion as to obviate locking altogether? Do random Voronoi meshes produce ``better'' results (in some statistical sense) over hexahedral meshes, and can such improvements be adequately quantified? With the geometric flexibility of the PEM in hand, the answers to these questions are within reach. The continued pursuit of such questions remains the subject of ongoing work.
 

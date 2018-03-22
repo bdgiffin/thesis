@@ -148,7 +148,7 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 	\begin{itemize}
 		\item Information (pointers or entity IDs) referring to the $(d-1)$-dimensional children of $\varepsilon$, and/or information (pointers or entity IDs) referring to the $(d+1)$-dimensional parents of $\varepsilon$.
 		\item An (optional) orientation/unit direction $\bm{N}_\varepsilon$.
-		\item A quadrature rule $\left\{ \bm{X}_q, w_q \right\}_{q=1}^{N^{\varepsilon}_{\mathrm q\mathrm p}}$ defined on $\varepsilon$, or pre-computed monomial integrals $\int_{\varepsilon} \bm{X}^\alpha \, \mathrm d \varepsilon$ for all $|\alpha| \leq k$ (alternatively, the shifted monomials $\int_{\varepsilon} (\bm{X}-\bm{X}_{\varepsilon})^\alpha \, \mathrm d \varepsilon$ may be computed and stored, instead.)
+		\item A quadrature rule $\left\{ \bm{X}_q, w_q \right\}_{q=1}^{N^{\varepsilon}_{\mathrm q\mathrm p}}$ defined on $\varepsilon$, or precomputed monomial integrals $\int_{\varepsilon} \bm{X}^\alpha \, \mathrm d \varepsilon$ for all $|\alpha| \leq k$ (alternatively, the shifted monomials $\int_{\varepsilon} (\bm{X}-\bm{X}_{\varepsilon})^\alpha \, \mathrm d \varepsilon$ may be computed and stored, instead.)
 		\item A list of the DG-PEM basis function IDs which possess compact support over $\varepsilon$.
 	\end{itemize}
 	
@@ -235,7 +235,7 @@ The present implementational framework is directed at obtaining DG-PEM approxima
 	\end{align}
 	for all $i, \, j = 1, \, 2$, and $a = 1, \ldots, N^{\varepsilon_i}_{\mathrm b\mathrm f}$, $b = 1, \ldots, N^{\varepsilon_j}_{\mathrm b\mathrm f}$. For the remainder of our discussions, we will consider only the case where $f_\mathcal{E} \equiv 0$ for all sub-elements $\mathcal{E} \subset \Omega$.
 	
-	For a given $d$-dimensional sub-element $\mathcal{E}$, the assembly of the above terms entails an entity-wise integration of products between basis functions (and their gradients) over $d$-dimensional entities $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$ and their $(d-1)$-dimensional children $\zeta \in \Gamma_\varepsilon \cup \partial \mathcal{E}$. This may be effected through the use of appropriately defined quadrature rules on each entity, or by pre-computing the monomial integrals over each entity up to some sufficiently high degree (nominally $2k$).
+	For a given $d$-dimensional sub-element $\mathcal{E}$, the assembly of the above terms entails an entity-wise integration of products between basis functions (and their gradients) over $d$-dimensional entities $\varepsilon \in \mathcal{T}_\varepsilon (\mathcal{E})$ and their $(d-1)$-dimensional children $\zeta \in \Gamma_\varepsilon \cup \partial \mathcal{E}$. This may be effected through the use of appropriately defined quadrature rules on each entity, or by precomputing the monomial integrals over each entity up to some sufficiently high degree (nominally $2k$).
 	
 	Additionally, it is remarked that the boundary condition $\bar{\varphi}$ is defined independently on every $(d-1)$-dimensional sub-element $e \subset \partial \mathcal{E}$, such that its restriction $\bar{\varphi}|_\zeta$ may be written in terms of the local basis functions $\left\{ \psi^{\zeta}_c \right\}_{c=1}^{N^\zeta_{\mathrm b\mathrm f}}$ belonging to a given boundary entity $\zeta \in \mathcal{T}_{\zeta} (e)$, i.e.
 	\begin{equation}

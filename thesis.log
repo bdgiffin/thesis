@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.8.23)  21 MAR 2018 02:34
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.8.23)  21 MAR 2018 15:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -786,10 +786,6 @@ Package pdftex.def Info: figures/patch_test_meshes.pdf used on input line 233.
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [86 <./figures/linear_patch_test.pdf>] [87 <./figures/patch_test_meshes.pdf>]
-Overfull \hbox (26.77068pt too wide) in paragraph at lines 265--275
- [] 
- []
-
 [88] <figures/hexahedral_patch_meshes.pdf, id=2060, 569.79243pt x 253.81409pt>
 File: figures/hexahedral_patch_meshes.pdf Graphic file (type pdf)
 
@@ -811,11 +807,6 @@ Package pdftex.def Info: figures/polyhedral_patch_mesh.pdf used on input line 3
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Overfull \hbox (14.0691pt too wide) in paragraph at lines 339--349
- [] 
- []
 
 [89] <figures/quadratic_patch_test.pdf, id=2072, 411.68028pt x 398.12056pt>
 File: figures/quadratic_patch_test.pdf Graphic file (type pdf)
@@ -845,13 +836,8 @@ File: figures/quadratic_polygonal_patch_mesh.pdf Graphic file (type pdf)
 Package pdftex.def Info: figures/quadratic_polygonal_patch_mesh.pdf used on inp
 ut line 411.
 (pdftex.def)             Requested size: 289.07999pt x 143.07843pt.
-
-Overfull \hbox (22.70511pt too wide) in paragraph at lines 420--432
- [] 
- []
-
-[92 <./figures/quadrilateral_patch_meshes.pdf> <./figures/quadratic_polygonal_p
-atch_mesh.pdf
+ [92 <./figures/quadrilateral_patch_meshes.pdf> <./figures/quadratic_polygonal_
+patch_mesh.pdf
 
 pdfTeX warning: pdflatex (file ./figures/quadratic_polygonal_patch_mesh.pdf): P
 DF inclusion: multiple pdfs with page group included in a single page
@@ -865,11 +851,6 @@ put line 449.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Overfull \hbox (14.0691pt too wide) in paragraph at lines 456--466
- [] 
- []
 
 [93] [94 <./figures/quadratic_polyhedral_patch_mesh.pdf>] [95]
 <figures/concave_element_shapes.pdf, id=2143, 442.67032pt x 165.13112pt>
@@ -1493,17 +1474,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 656--662
 h[]hole[]in[]tension,
  []
 
-) [140]pdfTeX warning (ext4): destination with the same identifier (name{page.1
-}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.152 ...e of locking phenomena is also examined.]
-                                                   [1]
+)
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 154.
+ [140]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 154.
- (./thesis.aux
-(./introduction.aux) (./solid_mechanics.aux) (./pem_formulation.aux)
-(./implementation.aux) (./results.aux) (./future_work.aux) (./appendix.aux))
+ (./thesis.aux (./introduction.aux) (./solid_mechanics.aux)
+(./pem_formulation.aux) (./implementation.aux) (./results.aux)
+(./future_work.aux) (./appendix.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 154.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 154.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
@@ -1520,11 +1497,11 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Here is how much of TeX's memory you used:
  11310 strings out of 494985
  172061 string characters out of 6180356
- 299187 words of memory out of 5000000
+ 300660 words of memory out of 5000000
  13654 multiletter control sequences out of 15000+600000
  16043 words of font info for 58 fonts, out of 8000000 for 9000
  40 hyphenation exceptions out of 8191
- 37i,14n,55p,1402b,546s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 37i,15n,55p,1621b,546s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/tex
@@ -1545,10 +1522,10 @@ f-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/p
 ublic/tex-gyre/qcsr.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qhvr.pfb>
 
-Output written on thesis.pdf (148 pages, 14265528 bytes).
+Output written on thesis.pdf (147 pages, 14264162 bytes).
 PDF statistics:
- 4482 PDF objects out of 5155 (max. 8388607)
- 3302 compressed objects within 34 object streams
+ 4478 PDF objects out of 5155 (max. 8388607)
+ 3300 compressed objects within 33 object streams
  601 named destinations out of 1000 (max. 500000)
  616 words of extra memory for PDF output out of 10000 (max. 10000000)
 

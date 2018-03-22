@@ -29,7 +29,7 @@ Warning--empty year in kinematics_paper
 Warning--empty publisher in Wilson:73
 You've used 109 entries,
             2118 wiz_defined-function locations,
-            1217 strings with 22107 characters,
+            1215 strings with 22102 characters,
 and the built_in function-call counts, 35359 in all, are:
 = -- 3565
 > -- 1578

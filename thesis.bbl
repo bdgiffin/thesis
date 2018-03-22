@@ -251,14 +251,14 @@ M.~S. Floater.
 \bibitem{Freund:95}
 J.~Freund and R.~Stenberg.
 \newblock On weakly imposed boundary conditions for second order problems.
-\newblock pages 327--336, 01 1995.
+\newblock pages 327--336, January 1995.
 
 \bibitem{Gain:13}
 A.~Gain, C.~Talischi, and G.~H. Paulino.
 \newblock On the virtual element method for three-dimensional elasticity
   problems on arbitrary polyhedral meshes.
-\newblock {\em Computer Methods in Applied Mechanics and Engineering}, 282, 11
-  2013.
+\newblock {\em Computer Methods in Applied Mechanics and Engineering}, 282,
+  November 2013.
 
 \bibitem{Xifeng:17}
 X.~Gao, W.~Jakob, M.~Tarini, and D.~Panozzo.
@@ -481,7 +481,7 @@ D.~Pantuso and K.J. Bathe.
 J.~Qian and Y.~Zhang.
 \newblock Automatic unstructured all-hexahedral mesh generation from b-reps for
   non-manifold {CAD} assemblies.
-\newblock {\em Engineering with Computers}, 28(4):345--359, Oct 2012.
+\newblock {\em Engineering with Computers}, 28(4):345--359, October 2012.
 
 \bibitem{Rashid:93}
 M.~M. Rashid.

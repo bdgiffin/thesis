@@ -294,7 +294,7 @@ A few preliminary definitions regarding the element's partition are given, follo
 		\item \textbf{Edge-based}: For star-convex shapes -- the vertex-averaged centroid is used to subdivide the element into triangles (in 2D) or tetrahedra (in 3D) associated with each linear edge of the element.
 		\item \textbf{Node-based}: For arbitrary shapes -- the element is sub-divided into quadrature cells corresponding to tributary regions surrounding each node.
 		\item \textbf{Random Delaunay}: For arbitrary shapes -- the element is sub-divided into a Delaunay triangulation (in 2D) or tetrahedralization (in 3D), whose corresponding vertices are generated via a random point sampling process.
-		\item \textbf{Random Voronoi}: For arbitrary shapes -- the element is sub-divided into Voronoi cells, whose corresponding voronoi sites are generated via a constrained maximal Poisson-disk sampling process, as described in \cite{Ebeida:11}.
+		\item \textbf{Random Voronoi}: For arbitrary shapes -- the element is sub-divided into Voronoi cells, whose corresponding Voronoi sites are generated via a constrained maximal Poisson-disk sampling process, as described in \cite{Ebeida:11}.
 	\end{itemize}
 	
 	We denote the volume of a given cell as $|\omega|$, the area of a facet as $|\sigma|$, and the length of a segment as $|\gamma|$. Each facet likewise possesses an associated normal direction $\bm{N}_\sigma$, whose orientation is outward from $\Omega$ for all $\sigma \in \partial \Omega$. For all $\sigma \in \Gamma_\omega$ shared by two cells ($\omega_1$ and $\omega_2$), the orientation of $\bm{N}_\sigma$ is outward with respect to $\omega_1$.
